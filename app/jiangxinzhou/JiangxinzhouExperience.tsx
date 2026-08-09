@@ -1,10 +1,7 @@
 "use client";
 
-import { Html, OrbitControls, useGLTF } from "@react-three/drei";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
-import * as THREE from "three";
-import { LineMaterial, LineSegments2, LineSegmentsGeometry, type OrbitControls as OrbitControlsImpl } from "three-stdlib";
+import dynamic from "next/dynamic";
+import { Component, useCallback, useEffect, useMemo, useState, type ErrorInfo, type ReactNode } from "react";
 import { landmarks as defaultLandmarks, routes, type Landmark } from "./landmarks";
 import {
   categoryLabels,
@@ -15,215 +12,33 @@ import {
   routeCopy,
   type Language,
 } from "./locales";
-import {
-  anchorPosition,
-  evidenceSources,
-  findAnchor,
-  landscapeShapes,
-  mapBounds,
-  mapManifest,
-  mapRoads,
-  projectPolyline,
-  roadColor,
-  roadsByName,
-  type Point3,
-  type RoadClass,
-} from "./mapGeometry";
+import { anchorPosition, evidenceSources, findAnchor, mapBounds, mapManifest } from "./mapGeometry";
+import type { JiangxinzhouSceneProps, LayerKey, LayerVisibility, SceneQuality, ViewMode } from "./sceneTypes";
 
-type ViewMode = "overview" | "route" | "landmark";
-type LayerKey = "roads" | "buildings" | "landscape" | "landmarks";
-type LayerVisibility = Record<LayerKey, boolean>;
+const JiangxinzhouScene = dynamic<JiangxinzhouSceneProps>(() => import("./JiangxinzhouScene"), {
+  ssr: false,
+  loading: () => <div className="scene-module-loading" aria-hidden="true"><span /><b>THREE.JS</b></div>,
+});
 
-const modelUrls = {
-  terrain: "/models/jiangxinzhou-v2/terrain.glb",
-  south: "/models/jiangxinzhou-v2/buildings-south.glb",
-  center: "/models/jiangxinzhou-v2/buildings-center.glb",
-  north: "/models/jiangxinzhou-v2/buildings-north.glb",
-  vegetation: "/models/jiangxinzhou-v2/vegetation.glb",
-  landmarks: "/models/jiangxinzhou-v2/landmarks.glb",
-} as const;
+type QualityMode = "auto" | SceneQuality;
 
-Object.values(modelUrls).forEach((url) => useGLTF.preload(url));
+class SceneErrorBoundary extends Component<{
+  children: ReactNode;
+  fallback: ReactNode;
+}, { failed: boolean }> {
+  state = { failed: false };
 
-function Asset({ url }: { url: string }) {
-  const gltf = useGLTF(url);
-  const scene = useMemo(() => gltf.scene.clone(true), [gltf.scene]);
-  return <primitive object={scene} dispose={null} />;
-}
-
-function Water() {
-  const span = Math.max(mapBounds.width, mapBounds.depth) * 1.8;
-  return (
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[mapBounds.center[0], -3.4, mapBounds.center[2]]} receiveShadow>
-      <planeGeometry args={[span, span]} />
-      <meshStandardMaterial color="#4f9eaa" roughness={0.38} metalness={0.08} />
-    </mesh>
-  );
-}
-
-function LandscapeZones({ visible }: { visible: boolean }) {
-  const shapes = useMemo(() => landscapeShapes().map((zone) => {
-    const shape = new THREE.Shape();
-    zone.points.forEach(([x, y], index) => index === 0 ? shape.moveTo(x, y) : shape.lineTo(x, y));
-    shape.closePath();
-    return { ...zone, shape };
-  }), []);
-  if (!visible) return null;
-  return <group>{shapes.map((zone) => (
-    <mesh key={zone.id} rotation={[-Math.PI / 2, 0, 0]} position={[0, 4.5, 0]}>
-      <shapeGeometry args={[zone.shape]} />
-      <meshStandardMaterial color={zone.color} transparent opacity={Math.min(zone.opacity, 0.065)} depthWrite={false} roughness={1} />
-    </mesh>
-  ))}</group>;
-}
-
-const roadPixelWidth: Record<RoadClass, number> = { major: 3.5, arterial: 2.8, collector: 2.1, local: 1.15, greenway: 2.4 };
-
-function WideRoadGroup({ roadClass, positions, opacity }: { roadClass: RoadClass; positions: Float32Array; opacity: number }) {
-  const { size } = useThree();
-  const line = useMemo(() => {
-    const geometry = new LineSegmentsGeometry();
-    geometry.setPositions(positions);
-    const material = new LineMaterial({ color: new THREE.Color(roadColor(roadClass)).getHex(), linewidth: roadPixelWidth[roadClass], transparent: true, opacity });
-    return new LineSegments2(geometry, material);
-  }, [opacity, positions, roadClass]);
-  useEffect(() => () => { line.geometry.dispose(); line.material.dispose(); }, [line]);
-  useFrame(() => line.material.resolution.set(size.width, size.height));
-  return <primitive object={line} />;
-}
-
-function SegmentLayer({ groups, opacity = 1 }: { groups: Partial<Record<RoadClass, Float32Array>>; opacity?: number }) {
-  return <group>{(Object.entries(groups) as [RoadClass, Float32Array][]).map(([roadClass, positions]) => (
-    <WideRoadGroup key={roadClass} roadClass={roadClass} positions={positions} opacity={opacity * (roadClass === "local" ? 0.68 : 0.96)} />
-  ))}</group>;
-}
-
-function roadSegments(features = mapRoads, height = 7.5) {
-  const groups: Partial<Record<RoadClass, number[]>> = {};
-  for (const road of features) {
-    const points = projectPolyline(road.geometry.coordinates, height);
-    const values = groups[road.properties.class] ?? [];
-    for (let index = 0; index < points.length - 1; index += 1) values.push(...points[index], ...points[index + 1]);
-    groups[road.properties.class] = values;
+  static getDerivedStateFromError() {
+    return { failed: true };
   }
-  return Object.fromEntries(Object.entries(groups).map(([key, values]) => [key, new Float32Array(values)])) as Partial<Record<RoadClass, Float32Array>>;
-}
 
-function RoadNetwork({ visible }: { visible: boolean }) {
-  const groups = useMemo(() => roadSegments(), []);
-  return visible ? <SegmentLayer groups={groups} /> : null;
-}
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error("Jiangxinzhou WebGL scene failed", error, info.componentStack);
+  }
 
-function RouteNetwork({ routeId, visible }: { routeId: string; visible: boolean }) {
-  const route = routes.find((item) => item.id === routeId) ?? routes[0];
-  const groups = useMemo(() => roadSegments(roadsByName([...route.roadNames]), 9.5), [route]);
-  if (!visible) return null;
-  return <group><SegmentLayer groups={groups} /><pointLight position={[mapBounds.center[0], 120, mapBounds.center[2]]} color={route.color} intensity={0.25} distance={5000} /></group>;
-}
-
-function CameraRig({ target, view, controls, lowPower }: { target: Point3; view: ViewMode; controls: React.RefObject<OrbitControlsImpl | null>; lowPower: boolean }) {
-  const { camera } = useThree();
-  const cameraGoal = useRef(new THREE.Vector3());
-  const targetGoal = useRef(new THREE.Vector3());
-
-  useEffect(() => {
-    const span = Math.max(mapBounds.width, mapBounds.depth);
-    if (view === "overview") cameraGoal.current.set(mapBounds.center[0] + span * (lowPower ? 0 : 0.06), span * (lowPower ? 2.65 : 1.75), mapBounds.center[2] + span * (lowPower ? 0.08 : 0.22));
-    else if (view === "route") cameraGoal.current.set(mapBounds.center[0] + span * 0.12, span * (lowPower ? 1.42 : 1.12), mapBounds.center[2] + span * 0.3);
-    else cameraGoal.current.set(target[0] + 620, Math.max(430, target[1] + 520), target[2] + 660);
-    targetGoal.current.set(...target);
-  }, [lowPower, target, view]);
-
-  useFrame(() => {
-    camera.position.lerp(cameraGoal.current, 0.055);
-    if (controls.current) {
-      controls.current.target.lerp(targetGoal.current, 0.075);
-      controls.current.update();
-    }
-  });
-  return null;
-}
-
-function MarkerLabels({ items, selectedId, onSelect, language }: { items: Landmark[]; selectedId: number; onSelect: (id: number) => void; language: Language }) {
-  const { camera, size } = useThree();
-  const [visibleIds, setVisibleIds] = useState<Set<number>>(() => new Set([selectedId]));
-  const tick = useRef(0);
-
-  useFrame(() => {
-    tick.current += 1;
-    if (tick.current % 12 !== 0) return;
-    const candidates = items.map((item) => {
-      const point = new THREE.Vector3(...anchorPosition(item.anchorId, 48));
-      const projected = point.clone().project(camera);
-      return { item, x: (projected.x * 0.5 + 0.5) * size.width, y: (-projected.y * 0.5 + 0.5) * size.height, visible: projected.z < 1 };
-    }).filter((candidate) => candidate.visible).sort((a, b) => Number(b.item.id === selectedId) - Number(a.item.id === selectedId) || a.item.priority - b.item.priority);
-    const boxes: { x1: number; y1: number; x2: number; y2: number }[] = [];
-    const next = new Set<number>();
-    const overviewLimit = camera.position.y > 7_500 ? 7 : items.length;
-    for (const candidate of candidates) {
-      if (next.size >= overviewLimit && candidate.item.id !== selectedId) continue;
-      const width = language === "en" ? 164 : 112;
-      const box = { x1: candidate.x - width / 2, y1: candidate.y - 18, x2: candidate.x + width / 2, y2: candidate.y + 18 };
-      const collides = boxes.some((current) => !(box.x2 < current.x1 || box.x1 > current.x2 || box.y2 < current.y1 || box.y1 > current.y2));
-      if (!collides || candidate.item.id === selectedId) {
-        next.add(candidate.item.id);
-        boxes.push(box);
-      }
-    }
-    const current = [...visibleIds].sort().join(",");
-    const upcoming = [...next].sort().join(",");
-    if (current !== upcoming) setVisibleIds(next);
-  });
-
-  return <>{items.map((item) => {
-    const selected = item.id === selectedId;
-    const position = anchorPosition(item.anchorId, 26);
-    return (
-      <group key={item.id} position={position} onClick={(event) => { event.stopPropagation(); onSelect(item.id); }}>
-        <mesh scale={selected ? 1.22 : 1}>
-          <sphereGeometry args={[selected ? 22 : 15, 16, 12]} />
-          <meshStandardMaterial color={item.accent} emissive={item.accent} emissiveIntensity={selected ? 0.5 : 0.14} />
-        </mesh>
-        <mesh position={[0, -15, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[selected ? 27 : 19, selected ? 34 : 24, 24]} />
-          <meshBasicMaterial color={item.accent} transparent opacity={0.66} side={THREE.DoubleSide} />
-        </mesh>
-        {visibleIds.has(item.id) && <Html position={[0, 42, 0]} center style={{ pointerEvents: "none" }}>
-          <div className={`map-label ${selected ? "is-selected" : ""}`} style={{ "--label-accent": item.accent } as React.CSSProperties}>
-            <span>{String(item.id).padStart(2, "0")}</span><strong>{localize(landmarkCopy[item.id].name, language)}</strong>
-          </div>
-        </Html>}
-      </group>
-    );
-  })}</>;
-}
-
-function MapScene({ items, selectedId, onSelect, routeId, view, target, layers, language, lowPower }: {
-  items: Landmark[]; selectedId: number; onSelect: (id: number) => void; routeId: string; view: ViewMode; target: Point3;
-  layers: LayerVisibility; language: Language; lowPower: boolean;
-}) {
-  const controls = useRef<OrbitControlsImpl>(null);
-  return (
-    <Canvas dpr={lowPower ? 1 : [1, 1.5]} camera={{ fov: 38, position: [6_000, 11_000, 7_000], near: 20, far: 30_000 }} gl={{ antialias: !lowPower, powerPreference: "high-performance" }}>
-      <color attach="background" args={["#73b8c1"]} />
-      <fog attach="fog" args={["#73b8c1", 12_000, 27_000]} />
-      <hemisphereLight intensity={1.65} color="#f2f6e9" groundColor="#39747b" />
-      <directionalLight position={[-4_000, 8_000, 3_000]} intensity={2.4} color="#fff2d0" />
-      <Water />
-      <Suspense fallback={null}>
-        <Asset url={modelUrls.terrain} />
-        {layers.buildings && <><Asset url={modelUrls.south} /><Asset url={modelUrls.center} /><Asset url={modelUrls.north} /></>}
-        {layers.landscape && !lowPower && <Asset url={modelUrls.vegetation} />}
-        {layers.landmarks && <Asset url={modelUrls.landmarks} />}
-      </Suspense>
-      <LandscapeZones visible={layers.landscape} />
-      <RoadNetwork visible={layers.roads} />
-      <RouteNetwork routeId={routeId} visible={view === "route"} />
-      {layers.landmarks && <MarkerLabels items={items} selectedId={selectedId} onSelect={onSelect} language={language} />}
-      <CameraRig target={target} view={view} controls={controls} lowPower={lowPower} />
-      <OrbitControls ref={controls} enableDamping dampingFactor={0.08} minDistance={150} maxDistance={22_000} maxPolarAngle={Math.PI / 2.02} target={mapBounds.center} />
-    </Canvas>
-  );
+  render() {
+    return this.state.failed ? this.props.fallback : this.props.children;
+  }
 }
 
 function LanguageToggle({ language, onChange }: { language: Language; onChange: (value: Language) => void }) {
@@ -239,26 +54,64 @@ function LayerToggles({ layers, language, onToggle }: { layers: LayerVisibility;
   ))}</div>;
 }
 
+function detectSceneQuality(): SceneQuality {
+  const mobile = window.matchMedia("(max-width: 700px)").matches;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 8;
+  const cores = navigator.hardwareConcurrency ?? 8;
+  if (mobile || reducedMotion || memory <= 4 || cores <= 4) return "efficiency";
+  if (memory <= 8 || cores <= 8) return "balanced";
+  return "high";
+}
+
+function supportsWebGL() {
+  try {
+    const canvas = document.createElement("canvas");
+    return Boolean(window.WebGL2RenderingContext && canvas.getContext("webgl2", { failIfMajorPerformanceCaveat: true }));
+  } catch {
+    return false;
+  }
+}
+
 export default function JiangxinzhouExperience({ landmarks: items = defaultLandmarks, language, onLanguageChange }: { landmarks: Landmark[]; language: Language; onLanguageChange: (language: Language) => void }) {
   const [selectedId, setSelectedId] = useState(items[0]?.id ?? 1);
   const [view, setView] = useState<ViewMode>("overview");
   const [routeId, setRouteId] = useState<(typeof routes)[number]["id"]>(routes[0].id);
   const [layers, setLayers] = useState<LayerVisibility>({ roads: true, buildings: true, landscape: true, landmarks: true });
   const [evidenceOpen, setEvidenceOpen] = useState(false);
-  const [lowPower, setLowPower] = useState(false);
+  const [qualityMode, setQualityMode] = useState<QualityMode>("auto");
+  const [autoQuality, setAutoQuality] = useState<SceneQuality>("balanced");
+  const [webglSupported, setWebglSupported] = useState<boolean | null>(null);
+  const [sceneReady, setSceneReady] = useState(false);
+  const [sceneKey, setSceneKey] = useState(0);
 
   useEffect(() => {
-    const mobile = window.matchMedia("(max-width: 700px)").matches;
-    const limited = (navigator.hardwareConcurrency ?? 8) <= 4;
-    const frame = window.requestAnimationFrame(() => setLowPower(mobile || limited));
+    const frame = window.requestAnimationFrame(() => {
+      setAutoQuality(detectSceneQuality());
+      setWebglSupported(supportsWebGL());
+    });
     return () => window.cancelAnimationFrame(frame);
   }, []);
 
+  const quality = qualityMode === "auto" ? autoQuality : qualityMode;
+  const qualityModes: QualityMode[] = ["auto", "high", "balanced", "efficiency"];
+  const qualityCopy = {
+    auto: experienceCopy.qualityAuto,
+    high: experienceCopy.qualityHigh,
+    balanced: experienceCopy.qualityBalanced,
+    efficiency: experienceCopy.qualityEfficiency,
+  } satisfies Record<QualityMode, typeof experienceCopy.qualityAuto>;
   const selected = items.find((item) => item.id === selectedId) ?? items[0];
   const selectedAnchor = selected ? findAnchor(selected.anchorId) : undefined;
-  const target = view === "landmark" && selected ? anchorPosition(selected.anchorId, 18) : mapBounds.center;
-  const chooseLandmark = (id: number) => { setSelectedId(id); setView("landmark"); };
-  const reset = () => setView("overview");
+  const target = useMemo(() => view === "landmark" && selected ? anchorPosition(selected.anchorId, 18) : mapBounds.center, [selected, view]);
+  const chooseLandmark = useCallback((id: number) => {
+    setSelectedId(id);
+    setView("landmark");
+  }, []);
+  const reset = useCallback(() => setView("overview"), []);
+  const sceneFallback = <div className="map-fallback" role="alert">
+    <div><b>{localize(experienceCopy.webglUnavailable, language)}</b><span>{localize(experienceCopy.webglFallback, language)}</span><button onClick={() => { setSceneReady(false); setWebglSupported(supportsWebGL()); setSceneKey((value) => value + 1); }}>{localize(experienceCopy.retryScene, language)}</button></div>
+  </div>;
 
   return (
     <section className="jiangxinzhou-experience" aria-label={localize(experienceCopy.ariaLabel, language)}>
@@ -280,11 +133,30 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
 
       <div className="map-layout">
         <div className="map-stage">
-          <MapScene items={items} selectedId={selectedId} onSelect={chooseLandmark} routeId={routeId} view={view} target={target} layers={layers} language={language} lowPower={lowPower} />
+          {webglSupported !== false ? <SceneErrorBoundary key={sceneKey} fallback={sceneFallback}>
+            <JiangxinzhouScene
+              items={items}
+              selectedId={selectedId}
+              onSelect={chooseLandmark}
+              onReady={() => setSceneReady(true)}
+              routeId={routeId}
+              view={view}
+              target={target}
+              layers={layers}
+              language={language}
+              quality={quality}
+            />
+          </SceneErrorBoundary> : sceneFallback}
+          {!sceneReady && webglSupported !== false && <div className="scene-loading-overlay" role="status" aria-live="polite"><span className="loading-orbit" /><b>{localize(experienceCopy.loadingScene, language)}</b><small>{localize(experienceCopy.loadingSceneDetail, language)}</small></div>}
           <div className="map-scale"><span>0</span><i /><span>1 km</span></div>
           <div className="north-marker" aria-label={localize(experienceCopy.north, language)}><span>N</span><b>↑</b></div>
-          <div className="stage-note"><span className="stage-pulse" />{localize(experienceCopy.stageNote, language)}{lowPower ? ` · ${localize(experienceCopy.performanceMode, language)}` : ""}</div>
-          <button className="reset-view" onClick={reset}>{localize(experienceCopy.resetView, language)}</button>
+          <div className="stage-note"><span className="stage-pulse" />{localize(experienceCopy.stageNote, language)} · {localize(experienceCopy.renderOnDemand, language)}</div>
+          <div className="stage-controls">
+            <button className="reset-view" onClick={reset}>{localize(experienceCopy.resetView, language)}</button>
+            <button className="quality-control" aria-label={localize(experienceCopy.qualityControl, language)} onClick={() => setQualityMode((current) => qualityModes[(qualityModes.indexOf(current) + 1) % qualityModes.length])}>
+              <span>{localize(experienceCopy.quality, language)}</span><b>{localize(qualityCopy[qualityMode], language)}{qualityMode === "auto" ? ` · ${localize(qualityCopy[quality], language)}` : ""}</b>
+            </button>
+          </div>
         </div>
 
         <aside className="map-sidebar">
@@ -300,6 +172,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
 
           {selected && <div className="sidebar-section selected-landmark" style={{ "--selected-color": selected.accent } as React.CSSProperties}>
             <span className="sidebar-index">02 / {localize(experienceCopy.selectedLandmark, language)}</span>
+            <label className="landmark-select"><span>{localize(experienceCopy.landmarkIndex, language)}</span><select value={selectedId} onChange={(event) => chooseLandmark(Number(event.target.value))}>{items.map((item) => <option key={item.id} value={item.id}>{String(item.id).padStart(2, "0")} · {localize(landmarkCopy[item.id].name, language)}</option>)}</select></label>
             <div className="selected-title"><span className="selected-symbol">{String(selected.id).padStart(2, "0")}</span><div><h3>{localize(landmarkCopy[selected.id].name, language)}</h3><span>{categoryLabels[language][selected.category]}</span></div></div>
             <p>{localize(landmarkCopy[selected.id].description, language)}</p>
             <div className="detail-chips">

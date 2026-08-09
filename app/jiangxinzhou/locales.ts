@@ -98,6 +98,54 @@ export const experienceCopy = {
     zh: "节能模式",
     en: "Efficiency mode",
   },
+  quality: {
+    zh: "画质",
+    en: "Quality",
+  },
+  qualityControl: {
+    zh: "切换 3D 渲染画质",
+    en: "Change 3D rendering quality",
+  },
+  qualityAuto: {
+    zh: "自动",
+    en: "Auto",
+  },
+  qualityHigh: {
+    zh: "精细",
+    en: "High",
+  },
+  qualityBalanced: {
+    zh: "均衡",
+    en: "Balanced",
+  },
+  qualityEfficiency: {
+    zh: "节能",
+    en: "Efficiency",
+  },
+  renderOnDemand: {
+    zh: "按需渲染",
+    en: "Render on demand",
+  },
+  loadingScene: {
+    zh: "正在建立全岛三维场景",
+    en: "Building the full-island 3D scene",
+  },
+  loadingSceneDetail: {
+    zh: "先显示核心地形，植被将在设备空闲时载入",
+    en: "Core terrain first; vegetation loads while the device is idle",
+  },
+  webglUnavailable: {
+    zh: "此设备暂时无法运行 WebGL 2",
+    en: "WebGL 2 is unavailable on this device",
+  },
+  webglFallback: {
+    zh: "已显示 Blender 全岛预览图；可更新浏览器或关闭图形节能设置后重试。",
+    en: "A Blender overview is shown instead. Update the browser or disable graphics power saving, then retry.",
+  },
+  retryScene: {
+    zh: "重试 3D 场景",
+    en: "Retry 3D scene",
+  },
   resetView: {
     zh: "复位全岛",
     en: "Reset island",

@@ -21,6 +21,15 @@ npm run dev
 
 数据校验：`npm run map:validate`。重新生成 Blender 资产：`npm run model:build`。
 
+## Three.js 运行时
+
+- 3D 场景独立动态加载，核心地形与地标优先，植被在浏览器空闲时再载入。
+- 静止时按需渲染；相机、标签与道路只在视图变化时更新。
+- 自动识别桌面与移动设备性能，同时允许手动切换精细、均衡和节能画质。
+- WebGL 2 不可用时自动显示 Blender 全岛预览图，不让页面空白。
+
+实现与回归记录见 [`THREEJS_OPTIMIZATION.md`](./THREEJS_OPTIMIZATION.md)。
+
 ## 主要来源
 
 - [高德地图江心洲](https://ditu.amap.com/search?query=%E6%B1%9F%E5%BF%83%E6%B4%B2&city=320100)
