@@ -35,7 +35,7 @@ for (const feature of buildings.features) {
   for (const coordinate of feature.geometry.coordinates[0]) validateCoordinate(coordinate, feature.id);
 }
 for (const feature of roads.features) {
-  assert.ok(feature.properties.widthM > 0 && feature.properties.widthM <= 80, `${feature.id}: abnormal road width`);
+  assert.ok(feature.properties.widthM >= 3 && feature.properties.widthM <= 30, `${feature.id}: abnormal metre-scale road width`);
   for (const coordinate of feature.geometry.coordinates) validateCoordinate(coordinate, feature.id);
 }
 for (const feature of landmarks.features) {

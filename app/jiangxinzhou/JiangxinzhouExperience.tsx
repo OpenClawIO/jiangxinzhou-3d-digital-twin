@@ -14,8 +14,9 @@ import {
   localize,
   type Language,
 } from "./locales";
-import { anchorPosition, evidenceSources, findAnchor, mapBounds, mapManifest } from "./mapGeometry";
+import { anchorPosition, evidenceSources, findAnchor, mapBounds, mapManifest, projectPoint, transportEvidenceSources, transportLines, transportStops } from "./mapGeometry";
 import type { JiangxinzhouSceneProps, LayerKey, LayerVisibility, SceneQuality, ViewMode } from "./sceneTypes";
+import { TransportPanel } from "./TransportPanel";
 import { useExplorationProgress } from "./useExplorationProgress";
 
 const JiangxinzhouScene = dynamic<JiangxinzhouSceneProps>(() => import("./JiangxinzhouScene"), {
@@ -39,7 +40,7 @@ function LanguageToggle({ language, onChange }: { language: Language; onChange: 
 }
 
 function LayerToggles({ layers, language, onToggle }: { layers: LayerVisibility; language: Language; onToggle: (key: LayerKey) => void }) {
-  const labels: Record<LayerKey, typeof experienceCopy.roads> = { roads: experienceCopy.roads, buildings: experienceCopy.buildings, landscape: experienceCopy.landscape, landmarks: experienceCopy.landmarkLayer };
+  const labels: Record<LayerKey, typeof experienceCopy.roads> = { roads: experienceCopy.roads, buildings: experienceCopy.buildings, landscape: experienceCopy.landscape, landmarks: experienceCopy.landmarkLayer, transport: experienceCopy.transportLayer };
   return <div className="layer-toggles" aria-label={localize(experienceCopy.layers, language)}>{(Object.keys(labels) as LayerKey[]).map((key) => (
     <button key={key} className={layers[key] ? "active" : ""} aria-pressed={layers[key]} onClick={() => onToggle(key)}>{localize(labels[key], language)}</button>
   ))}</div>;
@@ -66,8 +67,10 @@ function supportsWebGL() {
 
 export default function JiangxinzhouExperience({ landmarks: items = defaultLandmarks, language, onLanguageChange }: { landmarks: Landmark[]; language: Language; onLanguageChange: (language: Language) => void }) {
   const [selectedId, setSelectedId] = useState(items[0]?.id ?? 1);
+  const [selectedTransportLineId, setSelectedTransportLineId] = useState(transportLines.find((line) => line.id === "bus-486")?.id ?? transportLines[0]?.id ?? "");
+  const [selectedTransportStopId, setSelectedTransportStopId] = useState<string>();
   const [view, setView] = useState<ViewMode>("overview");
-  const [layers, setLayers] = useState<LayerVisibility>({ roads: true, buildings: true, landscape: true, landmarks: true });
+  const [layers, setLayers] = useState<LayerVisibility>({ roads: true, buildings: true, landscape: true, landmarks: true, transport: true });
   const [evidenceOpen, setEvidenceOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -103,7 +106,12 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   } satisfies Record<QualityMode, typeof experienceCopy.qualityAuto>;
   const selected = items.find((item) => item.id === selectedId) ?? items[0];
   const selectedAnchor = selected ? findAnchor(selected.anchorId) : undefined;
-  const target = useMemo(() => view === "landmark" && selected ? anchorPosition(selected.anchorId, 18) : mapBounds.center, [selected, view]);
+  const selectedTransportStop = transportStops.find((stop) => stop.id === selectedTransportStopId);
+  const target = useMemo(() => {
+    if (view === "landmark" && selected) return anchorPosition(selected.anchorId, 18);
+    if (view === "route" && selectedTransportStop) return projectPoint(selectedTransportStop.geometry.coordinates, 14);
+    return mapBounds.center;
+  }, [selected, selectedTransportStop, view]);
   const routeId = exploration.activeExpedition.routeId ?? routes[0].id;
   const selectedDiscovered = exploration.state.discoveredLandmarkIds.includes(selectedId);
   const missionComplete = exploration.activeProgress.completed === exploration.activeProgress.total;
@@ -114,6 +122,17 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
     setView("landmark");
   }, []);
   const resetView = useCallback(() => setView("overview"), []);
+  const chooseTransportLine = useCallback((id: string) => {
+    setSelectedTransportLineId(id);
+    setSelectedTransportStopId(undefined);
+    setLayers((current) => ({ ...current, transport: true }));
+    setView("route");
+  }, []);
+  const chooseTransportStop = useCallback((id: string) => {
+    setSelectedTransportStopId(id);
+    setLayers((current) => ({ ...current, transport: true }));
+    setView("route");
+  }, []);
   const focusObjective = useCallback(() => {
     if (exploration.nextObjectiveId) chooseLandmark(exploration.nextObjectiveId);
   }, [chooseLandmark, exploration.nextObjectiveId]);
@@ -187,6 +206,9 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
               objectiveId={exploration.nextObjectiveId}
               expeditionLandmarkIds={exploration.activeExpedition.landmarkIds}
               discoveredLandmarkIds={exploration.state.discoveredLandmarkIds}
+              selectedTransportLineId={selectedTransportLineId}
+              selectedTransportStopId={selectedTransportStopId}
+              onSelectTransportStop={chooseTransportStop}
             />
           </SceneErrorBoundary> : sceneFallback}
           {!sceneReady && webglSupported !== false && <div className="scene-loading-overlay" role="status" aria-live="polite"><span className="loading-orbit" /><b>{localize(experienceCopy.loadingScene, language)}</b><small>{localize(experienceCopy.loadingSceneDetail, language)}</small></div>}
@@ -214,8 +236,14 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
             <div className="world-progress"><span>{localize(experienceCopy.worldProgress, language)}</span><strong>{exploration.state.discoveredLandmarkIds.length}/{allLandmarkIds.length}</strong><i><b style={{ width: `${worldPercent}%` }} /></i></div>
           </div>
 
+          <div className="sidebar-section transport-section">
+            <span className="sidebar-index">02 / {localize(experienceCopy.transportNetwork, language)}</span>
+            <p className="transport-intro">{localize(experienceCopy.transportSummary, language)}</p>
+            <TransportPanel language={language} selectedLineId={selectedTransportLineId} selectedStopId={selectedTransportStopId} onSelectLine={chooseTransportLine} onSelectStop={chooseTransportStop} />
+          </div>
+
           {selected && <div className="sidebar-section selected-landmark" style={{ "--selected-color": selected.accent } as React.CSSProperties}>
-            <span className="sidebar-index">02 / {localize(experienceCopy.selectedLandmark, language)}</span>
+            <span className="sidebar-index">03 / {localize(experienceCopy.selectedLandmark, language)}</span>
             <label className="landmark-select"><span>{localize(experienceCopy.landmarkIndex, language)}</span><select value={selectedId} onChange={(event) => chooseLandmark(Number(event.target.value))}>{items.map((item) => <option key={item.id} value={item.id}>{exploration.state.discoveredLandmarkIds.includes(item.id) ? "✓" : "◇"} {String(item.id).padStart(2, "0")} · {localize(landmarkCopy[item.id].name, language)}</option>)}</select></label>
             <div className="selected-title"><span className={`selected-symbol ${selectedDiscovered ? "discovered" : ""}`}>{selectedDiscovered ? "✓" : String(selected.id).padStart(2, "0")}</span><div><h3>{localize(landmarkCopy[selected.id].name, language)}</h3><span>{categoryLabels[language][selected.category]} · {localize(selectedDiscovered ? experienceCopy.discovered : experienceCopy.undiscovered, language)}</span></div></div>
             <p>{localize(landmarkCopy[selected.id].description, language)}</p>
@@ -228,13 +256,13 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
           </div>}
 
           <div className="sidebar-section expedition-section">
-            <span className="sidebar-index">03 / {localize(experienceCopy.chooseMission, language)}</span>
+            <span className="sidebar-index">04 / {localize(experienceCopy.chooseMission, language)}</span>
             <ExpeditionDeck activeId={exploration.state.activeExpeditionId} completedIds={exploration.state.completedExpeditionIds} discoveredIds={exploration.state.discoveredLandmarkIds} language={language} onStart={startMission} onReset={resetProgress} />
           </div>
 
           <div className="sidebar-section evidence-section">
-            <button className="evidence-toggle" onClick={() => setEvidenceOpen((value) => !value)} aria-expanded={evidenceOpen}><span><b>04 / {localize(experienceCopy.evidence, language)}</b><small>{evidenceSources.length} {localize(experienceCopy.sources, language)} · WGS84</small></span><span>{evidenceOpen ? "−" : "+"}</span></button>
-            {evidenceOpen && <div className="evidence-list">{evidenceSources.map((source) => <a key={source.id} href={source.url} target="_blank" rel="noreferrer"><strong>{source.title}</strong><span>{source.type} · {source.date ?? source.imageryDate ?? "—"}</span></a>)}</div>}
+            <button className="evidence-toggle" onClick={() => setEvidenceOpen((value) => !value)} aria-expanded={evidenceOpen}><span><b>05 / {localize(experienceCopy.evidence, language)}</b><small>{evidenceSources.length + transportEvidenceSources.length} {localize(experienceCopy.sources, language)} · WGS84</small></span><span>{evidenceOpen ? "−" : "+"}</span></button>
+            {evidenceOpen && <div className="evidence-list">{[...evidenceSources, ...transportEvidenceSources].map((source) => <a key={source.id} href={source.url} target="_blank" rel="noreferrer"><strong>{source.title}</strong><span>{source.type} · {source.date ?? source.imageryDate ?? "—"}</span></a>)}</div>}
           </div>
         </aside>
       </div>

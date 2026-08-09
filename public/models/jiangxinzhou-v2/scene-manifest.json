@@ -43,5 +43,42 @@
       "bytes": 467028,
       "lod": 2
     }
+  ],
+  "transportVehicles": [
+    {
+      "id": "city-bus",
+      "url": "/models/jiangxinzhou-v2/transport-city-bus.glb",
+      "bytes": 160920,
+      "units": "metres",
+      "forward": "+X"
+    },
+    {
+      "id": "autonomous-shuttle",
+      "url": "/models/jiangxinzhou-v2/transport-autonomous-shuttle.glb",
+      "bytes": 127748,
+      "units": "metres",
+      "forward": "+X"
+    },
+    {
+      "id": "shuttle-bus",
+      "url": "/models/jiangxinzhou-v2/transport-shuttle-bus.glb",
+      "bytes": 127752,
+      "units": "metres",
+      "forward": "+X"
+    },
+    {
+      "id": "metro-line10",
+      "url": "/models/jiangxinzhou-v2/transport-metro-line10.glb",
+      "bytes": 257952,
+      "units": "metres",
+      "forward": "+X"
+    },
+    {
+      "id": "passenger-ferry",
+      "url": "/models/jiangxinzhou-v2/transport-passenger-ferry.glb",
+      "bytes": 128580,
+      "units": "metres",
+      "forward": "+X"
+    }
   ]
 }

@@ -6,17 +6,22 @@ import { startTransition, Suspense, useCallback, useEffect, useMemo, useRef, use
 import * as THREE from "three";
 import { LineMaterial, LineSegments2, LineSegmentsGeometry, type OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { routes, type Landmark } from "./landmarks";
-import { landmarkCopy, localize, type Language } from "./locales";
+import { experienceCopy, landmarkCopy, localize, transportModeLabels, type Language } from "./locales";
 import {
   anchorPosition,
   landscapeShapes,
+  localizeFeatureName,
   mapBounds,
   mapRoads,
+  projectPoint,
   projectPolyline,
   roadColor,
   roadsByName,
+  stopsForTransportLine,
+  transportLines,
   type Point3,
   type RoadClass,
+  type TransitMode,
 } from "./mapGeometry";
 import type { JiangxinzhouSceneProps, LayerVisibility, SceneQuality, ViewMode } from "./sceneTypes";
 
@@ -27,6 +32,11 @@ const modelUrls = {
   north: "/models/jiangxinzhou-v2/buildings-north.glb",
   vegetation: "/models/jiangxinzhou-v2/vegetation.glb",
   landmarks: "/models/jiangxinzhou-v2/landmarks.glb",
+  "city-bus": "/models/jiangxinzhou-v2/transport-city-bus.glb",
+  "autonomous-shuttle": "/models/jiangxinzhou-v2/transport-autonomous-shuttle.glb",
+  "shuttle-bus": "/models/jiangxinzhou-v2/transport-shuttle-bus.glb",
+  "metro-line10": "/models/jiangxinzhou-v2/transport-metro-line10.glb",
+  "passenger-ferry": "/models/jiangxinzhou-v2/transport-passenger-ferry.glb",
 } as const;
 
 // Start only the two critical visual assets when this dynamically loaded module arrives.
@@ -102,6 +112,25 @@ function WideRoadGroup({ roadClass, positions, opacity }: { roadClass: RoadClass
   return <primitive object={line} />;
 }
 
+function WideColorLine({ positions, color, width, opacity }: { positions: Float32Array; color: string; width: number; opacity: number }) {
+  const { size } = useThree();
+  const line = useMemo(() => {
+    const geometry = new LineSegmentsGeometry();
+    geometry.setPositions(positions);
+    const material = new LineMaterial({ color: new THREE.Color(color).getHex(), linewidth: width, transparent: true, opacity, depthTest: true });
+    return new LineSegments2(geometry, material);
+  }, [color, opacity, positions, width]);
+  useEffect(() => { line.material.resolution.set(size.width, size.height); }, [line, size.height, size.width]);
+  useEffect(() => () => { line.geometry.dispose(); line.material.dispose(); }, [line]);
+  return <primitive object={line} />;
+}
+
+function lineSegments(points: Point3[]) {
+  const positions: number[] = [];
+  for (let index = 0; index < points.length - 1; index += 1) positions.push(...points[index], ...points[index + 1]);
+  return new Float32Array(positions);
+}
+
 function SegmentLayer({ groups, opacity = 1 }: { groups: Partial<Record<RoadClass, Float32Array>>; opacity?: number }) {
   return <group>{(Object.entries(groups) as [RoadClass, Float32Array][]).map(([roadClass, positions]) => (
     <WideRoadGroup key={roadClass} roadClass={roadClass} positions={positions} opacity={opacity * (roadClass === "local" ? 0.68 : 0.96)} />
@@ -124,11 +153,116 @@ function RoadNetwork({ visible }: { visible: boolean }) {
   return visible ? <SegmentLayer groups={groups} /> : null;
 }
 
+function RoadNameLabels({ visible, language }: { visible: boolean; language: Language }) {
+  const { camera, invalidate } = useThree();
+  const [detailTier, setDetailTier] = useState(0);
+  const lastTier = useRef(-1);
+  const labels = useMemo(() => {
+    const byName = new Map<string, (typeof mapRoads)[number]>();
+    for (const road of mapRoads) {
+      const name = localizeFeatureName(road, language);
+      if (name === "—") continue;
+      const current = byName.get(name);
+      if (!current || road.geometry.coordinates.length > current.geometry.coordinates.length) byName.set(name, road);
+    }
+    return [...byName.entries()].map(([name, road]) => {
+      const midpoint = road.geometry.coordinates[Math.floor(road.geometry.coordinates.length / 2)];
+      return { name, roadClass: road.properties.class, position: projectPoint(midpoint, 11) };
+    });
+  }, [language]);
+  useFrame(() => {
+    const tier = camera.position.y < 3_800 ? 2 : camera.position.y < 7_500 ? 1 : 0;
+    if (tier !== lastTier.current) {
+      lastTier.current = tier;
+      startTransition(() => setDetailTier(tier));
+      invalidate();
+    }
+  });
+  if (!visible) return null;
+  return <>{labels.filter((label) => detailTier === 2 || (detailTier === 1 && label.roadClass !== "local") || (detailTier === 0 && ["major", "arterial"].includes(label.roadClass))).map((label) => (
+    <Html key={`${label.name}-${label.position[0]}`} position={label.position} center zIndexRange={[1, 0]} style={{ pointerEvents: "none" }}>
+      <span className={`road-name-label ${label.roadClass}`}>{label.name}</span>
+    </Html>
+  ))}</>;
+}
+
 function RouteNetwork({ routeId, visible }: { routeId: string; visible: boolean }) {
   const route = routes.find((item) => item.id === routeId) ?? routes[0];
   const groups = useMemo(() => roadSegments(roadsByName([...route.roadNames]), 9.5), [route]);
   if (!visible) return null;
   return <group><SegmentLayer groups={groups} /><pointLight position={[mapBounds.center[0], 120, mapBounds.center[2]]} color={route.color} intensity={0.25} distance={5000} /></group>;
+}
+
+const vehicleUrls: Record<string, string> = {
+  "city-bus": modelUrls["city-bus"],
+  "autonomous-shuttle": modelUrls["autonomous-shuttle"],
+  "shuttle-bus": modelUrls["shuttle-bus"],
+  "metro-line10": modelUrls["metro-line10"],
+  "passenger-ferry": modelUrls["passenger-ferry"],
+};
+
+const modeHeight: Record<TransitMode, number> = { bus: 15, metro: 18, shuttle: 15, tourism: 15, ferry: 4, cycle: 13 };
+
+function MovingTransportVehicle({ modelKey, points, color, label, quality }: { modelKey: string; points: Point3[]; color: string; label: string; quality: SceneQuality }) {
+  const url = vehicleUrls[modelKey];
+  const gltf = useGLTF(url);
+  const { invalidate } = useThree();
+  const ref = useRef<THREE.Group>(null);
+  const curve = useMemo(() => new THREE.CatmullRomCurve3(points.map((point) => new THREE.Vector3(...point)), false, "centripetal"), [points]);
+  const scene = useMemo(() => {
+    const clone = gltf.scene.clone(true);
+    clone.traverse((object) => { if (object instanceof THREE.Mesh) { object.castShadow = false; object.receiveShadow = false; } });
+    return clone;
+  }, [gltf.scene]);
+  const start = useMemo(() => curve.getPointAt(0.23), [curve]);
+  useFrame((state) => {
+    if (!ref.current || quality === "efficiency") return;
+    const progress = (state.clock.elapsedTime * 0.018 + 0.23) % 1;
+    const position = curve.getPointAt(progress);
+    const tangent = curve.getTangentAt(progress);
+    ref.current.position.copy(position);
+    ref.current.rotation.y = -Math.atan2(tangent.z, tangent.x);
+    invalidate();
+  });
+  return <group ref={ref} position={start} scale={modelKey === "metro-line10" ? 3 : 4}>
+    <primitive object={scene} dispose={null} />
+    <Html position={[0, 7, 0]} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}><span className="transport-vehicle-label" style={{ "--vehicle-color": color } as React.CSSProperties}>{label}</span></Html>
+  </group>;
+}
+
+function TransportNetwork({ visible, lineId, stopId, onSelectStop, language, quality }: {
+  visible: boolean;
+  lineId: string;
+  stopId?: string;
+  onSelectStop: (id: string) => void;
+  language: Language;
+  quality: SceneQuality;
+}) {
+  const selectedLine = transportLines.find((line) => line.id === lineId) ?? transportLines[0];
+  const stops = stopsForTransportLine(selectedLine.id);
+  const lines = useMemo(() => transportLines.map((line) => {
+    const points = projectPolyline(line.geometry.coordinates, modeHeight[line.properties.mode]);
+    return { line, points, positions: lineSegments(points) };
+  }), []);
+  const selectedGeometry = lines.find(({ line }) => line.id === selectedLine.id);
+  if (!visible) return null;
+  return <group>
+    {lines.filter(({ line }) => line.id !== selectedLine.id).map(({ line, positions }) => <WideColorLine key={line.id} positions={positions} color={line.properties.color} width={1.35} opacity={0.22} />)}
+    {selectedGeometry && <WideColorLine positions={selectedGeometry.positions} color={selectedLine.properties.color} width={5.2} opacity={0.96} />}
+    {stops.map((stop, index) => {
+      const selected = stop.id === stopId;
+      const important = selected || ["metro", "ferry", "terminal", "interchange", "portal"].includes(stop.properties.kind) || index === 0 || index === stops.length - 1;
+      return <group key={stop.id} position={projectPoint(stop.geometry.coordinates, modeHeight[selectedLine.properties.mode] + 2)} onClick={(event) => { event.stopPropagation(); onSelectStop(stop.id); }}>
+        <mesh scale={selected ? 1.5 : 1}><sphereGeometry args={[selected ? 10 : 7, 16, 12]} /><meshStandardMaterial color={selected ? "#fff4b5" : "#f8fbef"} emissive={selectedLine.properties.color} emissiveIntensity={selected ? 0.85 : 0.35} /></mesh>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.5, 0]}><ringGeometry args={[selected ? 16 : 11, selected ? 20 : 14, 24]} /><meshBasicMaterial color={selectedLine.properties.color} transparent opacity={0.72} side={THREE.DoubleSide} /></mesh>
+        {important && <Html position={[0, 28, 0]} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}><div className={`transport-stop-label ${selected ? "active" : ""}`} style={{ "--stop-color": selectedLine.properties.color } as React.CSSProperties}><span>{String(index + 1).padStart(2, "0")}</span><strong>{localizeFeatureName(stop, language)}</strong></div></Html>}
+      </group>;
+    })}
+    {selectedGeometry && selectedLine.properties.modelKey && <Suspense fallback={null}><MovingTransportVehicle modelKey={selectedLine.properties.modelKey} points={selectedGeometry.points} color={selectedLine.properties.color} label={`${transportModeLabels[language][selectedLine.properties.mode]} · ${selectedLine.properties.ref}`} quality={quality} /></Suspense>}
+    <Html position={selectedGeometry?.points[Math.floor((selectedGeometry?.points.length ?? 1) / 2)] ?? mapBounds.center} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}>
+      <div className="transport-line-label" style={{ "--line-color": selectedLine.properties.color } as React.CSSProperties}><b>{selectedLine.properties.ref}</b><span>{localizeFeatureName(selectedLine, language)}</span><small>{localize(experienceCopy.transportVehicleScale, language)}</small></div>
+    </Html>
+  </group>;
 }
 
 function ObjectiveBeacon({ objectiveId, items }: { objectiveId?: number; items: Landmark[] }) {
@@ -159,6 +293,7 @@ function CameraRig({ target, view, controls, quality }: { target: Point3; view: 
   useEffect(() => {
     const span = Math.max(mapBounds.width, mapBounds.depth);
     if (view === "overview") cameraGoal.current.set(mapBounds.center[0] + span * 0.06, span * (quality === "efficiency" ? 2.65 : 1.75), mapBounds.center[2] + span * 0.22);
+    else if (view === "route" && Math.hypot(target[0] - mapBounds.center[0], target[2] - mapBounds.center[2]) > 20) cameraGoal.current.set(target[0] + 240, Math.max(220, target[1] + 210), target[2] + 290);
     else if (view === "route") cameraGoal.current.set(mapBounds.center[0] + span * 0.12, span * (quality === "efficiency" ? 1.42 : 1.12), mapBounds.center[2] + span * 0.3);
     else cameraGoal.current.set(target[0] + 180, Math.max(165, target[1] + 160), target[2] + 220);
     targetGoal.current.set(...target);
@@ -302,7 +437,7 @@ function DeferredAssets({ layers, quality, onCoreReady }: { layers: LayerVisibil
   </Suspense>;
 }
 
-function SceneContent({ items, selectedId, onSelect, onReady, routeId, view, target, layers, language, quality, objectiveId, expeditionLandmarkIds, discoveredLandmarkIds }: JiangxinzhouSceneProps) {
+function SceneContent({ items, selectedId, onSelect, onReady, routeId, view, target, layers, language, quality, objectiveId, expeditionLandmarkIds, discoveredLandmarkIds, selectedTransportLineId, selectedTransportStopId, onSelectTransportStop }: JiangxinzhouSceneProps) {
   const controls = useRef<OrbitControlsImpl>(null);
   const reportedReady = useRef(false);
   const reportReady = useCallback(() => {
@@ -320,7 +455,9 @@ function SceneContent({ items, selectedId, onSelect, onReady, routeId, view, tar
     <DeferredAssets layers={layers} quality={quality} onCoreReady={reportReady} />
     <LandscapeZones visible={layers.landscape} />
     <RoadNetwork visible={layers.roads} />
-    <RouteNetwork routeId={routeId} visible={view === "route"} />
+    <RoadNameLabels visible={layers.roads} language={language} />
+    <RouteNetwork routeId={routeId} visible={view === "route" && !layers.transport} />
+    <TransportNetwork visible={layers.transport} lineId={selectedTransportLineId} stopId={selectedTransportStopId} onSelectStop={onSelectTransportStop} language={language} quality={quality} />
     {layers.landmarks && <ObjectiveBeacon objectiveId={objectiveId} items={items} />}
     {layers.landmarks && <MarkerLabels items={items} selectedId={selectedId} onSelect={onSelect} language={language} view={view} objectiveId={objectiveId} discoveredIds={discoveredLandmarkIds} expeditionIds={expeditionLandmarkIds} />}
     <CameraRig target={target} view={view} controls={controls} quality={quality} />

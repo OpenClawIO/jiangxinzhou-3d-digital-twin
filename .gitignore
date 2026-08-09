@@ -2,6 +2,7 @@ node_modules/
 .next/
 .vercel/
 output/
+.playwright-cli/
 .DS_Store
 *.log
 *.blend1

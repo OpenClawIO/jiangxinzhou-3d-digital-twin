@@ -16,7 +16,9 @@
   "counts": {
     "buildings": 286,
     "roads": 263,
-    "landmarks": 13
+    "landmarks": 13,
+    "transitLines": 12,
+    "transitStops": 43
   },
   "layers": {
     "island": "island.geojson",
@@ -24,6 +26,10 @@
     "buildings": "buildings.geojson",
     "landmarks": "landmarks.geojson",
     "landscapes": "landscapes.geojson",
-    "evidence": "evidence.json"
+    "evidence": "evidence.json",
+    "transitLines": "transit-lines.geojson",
+    "transitStops": "transit-stops.geojson",
+    "transportHubs": "transport-hubs.geojson",
+    "transportEvidence": "transport-evidence.json"
   }
 }

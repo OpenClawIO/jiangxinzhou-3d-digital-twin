@@ -3,7 +3,7 @@ import type { Language } from "./locales";
 import type { Point3 } from "./mapGeometry";
 
 export type ViewMode = "overview" | "route" | "landmark";
-export type LayerKey = "roads" | "buildings" | "landscape" | "landmarks";
+export type LayerKey = "roads" | "buildings" | "landscape" | "landmarks" | "transport";
 export type LayerVisibility = Record<LayerKey, boolean>;
 export type SceneQuality = "high" | "balanced" | "efficiency";
 
@@ -21,4 +21,7 @@ export type JiangxinzhouSceneProps = {
   objectiveId?: number;
   expeditionLandmarkIds: readonly number[];
   discoveredLandmarkIds: readonly number[];
+  selectedTransportLineId: string;
+  selectedTransportStopId?: string;
+  onSelectTransportStop: (id: string) => void;
 };

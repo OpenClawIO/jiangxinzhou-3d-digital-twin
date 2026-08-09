@@ -1,0 +1,1234 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "park-tanyuan",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7061,
+          32.0508
+        ]
+      },
+      "properties": {
+        "id": "park-tanyuan",
+        "name": {
+          "zh": "公园道·檀园",
+          "en": "Park Avenue · Tan Garden"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-486",
+          "bus-552-short",
+          "tour-north"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "park-huayuan",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7044,
+          32.0488
+        ]
+      },
+      "properties": {
+        "id": "park-huayuan",
+        "name": {
+          "zh": "公园道·桦园",
+          "en": "Park Avenue · Birch Garden"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-552-short"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "jinji-huizhi",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7026,
+          32.0477
+        ]
+      },
+      "properties": {
+        "id": "jinji-huizhi",
+        "name": {
+          "zh": "金基汇智园",
+          "en": "Jinji Huizhi Park"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-552-short",
+          "shuttle-new-energy",
+          "tour-north"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "changdao-north",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7031,
+          32.0446
+        ]
+      },
+      "properties": {
+        "id": "changdao-north",
+        "name": {
+          "zh": "长岛观澜沁园北",
+          "en": "Changdao Guanlan Qinyuan North"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-552-short"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "changdao-east",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7027916,
+          32.0439188
+        ]
+      },
+      "properties": {
+        "id": "changdao-east",
+        "name": {
+          "zh": "长岛观澜沁园东",
+          "en": "Changdao Guanlan Qinyuan East"
+        },
+        "kind": "bus",
+        "confidence": "triangulated",
+        "status": "existing",
+        "sourceCrs": "GCJ-02",
+        "source": "Amap/OSM cross-check",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-486",
+          "bus-552-short",
+          "shuttle-new-energy"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "zijing-north",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7049,
+          32.0411
+        ]
+      },
+      "properties": {
+        "id": "zijing-north",
+        "name": {
+          "zh": "紫荆公馆北",
+          "en": "Zijing Residence North"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-486",
+          "bus-552-short",
+          "shuttle-new-energy"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "zijing-south",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7012,
+          32.0388
+        ]
+      },
+      "properties": {
+        "id": "zijing-south",
+        "name": {
+          "zh": "紫荆公馆南",
+          "en": "Zijing Residence South"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-486",
+          "bus-552-short"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "weather-bureau",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6991,
+          32.0364
+        ]
+      },
+      "properties": {
+        "id": "weather-bureau",
+        "name": {
+          "zh": "市气象局",
+          "en": "Municipal Meteorological Bureau"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-486",
+          "bus-552",
+          "bus-552-short",
+          "bus-553-outer",
+          "bus-553-inner",
+          "shuttle-new-energy"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "jiangxinzhou-metro-bus",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6982245,
+          32.0338283
+        ]
+      },
+      "properties": {
+        "id": "jiangxinzhou-metro-bus",
+        "name": {
+          "zh": "江心洲地铁站",
+          "en": "Jiangxinzhou Metro Bus Stop"
+        },
+        "kind": "interchange",
+        "confidence": "triangulated",
+        "status": "existing",
+        "sourceCrs": "GCJ-02",
+        "source": "Amap/OSM cross-check",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-486",
+          "bus-552",
+          "bus-552-short",
+          "bus-553-outer",
+          "bus-553-inner",
+          "shuttle-new-energy",
+          "shuttle-island-city",
+          "tour-north",
+          "tour-south"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "jiangxinzhou-metro",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6981586,
+          32.0337024
+        ]
+      },
+      "properties": {
+        "id": "jiangxinzhou-metro",
+        "name": {
+          "zh": "江心洲站",
+          "en": "Jiangxinzhou Station"
+        },
+        "kind": "metro",
+        "confidence": "triangulated",
+        "status": "existing",
+        "sourceCrs": "GCJ-02",
+        "source": "Amap/OSM cross-check",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "metro-10"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "jiangxinzhou-terminal",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6962,
+          32.0319
+        ]
+      },
+      "properties": {
+        "id": "jiangxinzhou-terminal",
+        "name": {
+          "zh": "江心洲总站",
+          "en": "Jiangxinzhou Bus Terminal"
+        },
+        "kind": "terminal",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-552"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lanjiang-zhongxin",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6944,
+          32.0302
+        ]
+      },
+      "properties": {
+        "id": "lanjiang-zhongxin",
+        "name": {
+          "zh": "揽江街·中新大道",
+          "en": "Lanjiang Street · Zhongxin Avenue"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-486"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "green-island-west",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6917,
+          32.0291
+        ]
+      },
+      "properties": {
+        "id": "green-island-west",
+        "name": {
+          "zh": "绿洲新岛西",
+          "en": "Green Island West"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-552"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "green-island-qingshan",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6921,
+          32.0283
+        ]
+      },
+      "properties": {
+        "id": "green-island-qingshan",
+        "name": {
+          "zh": "揽江街·绿洲新岛青杉园",
+          "en": "Lanjiang Street · Qingshan Garden"
+        },
+        "kind": "shuttle",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-553-outer",
+          "bus-553-inner",
+          "shuttle-island-city",
+          "tour-south"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "redstar-green-home",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6927,
+          32.0268
+        ]
+      },
+      "properties": {
+        "id": "redstar-green-home",
+        "name": {
+          "zh": "红星街·洲岛家园绿洲苑",
+          "en": "Red Star Street · Green Home"
+        },
+        "kind": "shuttle",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-553-outer",
+          "bus-553-inner",
+          "shuttle-new-energy",
+          "shuttle-island-city"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "primary-school",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6915,
+          32.0252
+        ]
+      },
+      "properties": {
+        "id": "primary-school",
+        "name": {
+          "zh": "生态科技岛小学",
+          "en": "Eco-Tech Island Primary School"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-486",
+          "bus-552",
+          "bus-552-short",
+          "shuttle-new-energy",
+          "tour-south"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "fanghua-north",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6911,
+          32.0224
+        ]
+      },
+      "properties": {
+        "id": "fanghua-north",
+        "name": {
+          "zh": "芳华苑北",
+          "en": "Fanghua Garden North"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-486",
+          "bus-552"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "zhongxin-minan",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6871,
+          32.0141
+        ]
+      },
+      "properties": {
+        "id": "zhongxin-minan",
+        "name": {
+          "zh": "中新大道·民安路",
+          "en": "Zhongxin Avenue · Min'an Road"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-486",
+          "shuttle-island-city",
+          "tour-south"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wentai-east",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6928,
+          32.0103
+        ]
+      },
+      "properties": {
+        "id": "wentai-east",
+        "name": {
+          "zh": "文泰街东",
+          "en": "Wentai Street East"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-486",
+          "shuttle-island-city"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "huandao-wentai",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6954,
+          32.0089
+        ]
+      },
+      "properties": {
+        "id": "huandao-wentai",
+        "name": {
+          "zh": "环岛东路·文泰街",
+          "en": "Island East Road · Wentai Street"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-486"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "qingao-north",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6935,
+          32.0061
+        ]
+      },
+      "properties": {
+        "id": "qingao-north",
+        "name": {
+          "zh": "青奥森林公园北",
+          "en": "Qing'ao Forest Park North"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-486",
+          "bus-552-short",
+          "shuttle-new-energy",
+          "tour-south",
+          "cycle-loop"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "longen-xiyi",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6882,
+          32.0048
+        ]
+      },
+      "properties": {
+        "id": "longen-xiyi",
+        "name": {
+          "zh": "龙恩街·熙怡路",
+          "en": "Long'en Street · Xiyi Road"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-486"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "longen-middle",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.684,
+          32.0062
+        ]
+      },
+      "properties": {
+        "id": "longen-middle",
+        "name": {
+          "zh": "龙恩街中",
+          "en": "Long'en Street Middle"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-486"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "heping-garden",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6799494,
+          32.0097482
+        ]
+      },
+      "properties": {
+        "id": "heping-garden",
+        "name": {
+          "zh": "洲岛和园·和平苑",
+          "en": "Zhoudao Heyuan · Heping Garden"
+        },
+        "kind": "bus",
+        "confidence": "triangulated",
+        "status": "existing",
+        "sourceCrs": "GCJ-02",
+        "source": "Amap/OSM cross-check",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-486",
+          "bus-552-short",
+          "shuttle-new-energy",
+          "tour-south"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "huandao-fenglin",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6777,
+          32.0032
+        ]
+      },
+      "properties": {
+        "id": "huandao-fenglin",
+        "name": {
+          "zh": "环岛西路·风林街",
+          "en": "Island West Road · Fenglin Street"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-486",
+          "bus-553-outer",
+          "bus-553-inner",
+          "tour-south"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "jiangxin-impression",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6773,
+          32.0017
+        ]
+      },
+      "properties": {
+        "id": "jiangxin-impression",
+        "name": {
+          "zh": "江心印园西",
+          "en": "Jiangxin Impression West"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-553-outer",
+          "bus-553-inner"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "xingyuan-west",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6768,
+          31.9999
+        ]
+      },
+      "properties": {
+        "id": "xingyuan-west",
+        "name": {
+          "zh": "洲岛兴园·兴锦苑西",
+          "en": "Zhoudao Xingyuan · Xingjin West"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-553-outer",
+          "bus-553-inner"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "huijin-east",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6796,
+          31.9978
+        ]
+      },
+      "properties": {
+        "id": "huijin-east",
+        "name": {
+          "zh": "汇锦国际东",
+          "en": "Huijin International East"
+        },
+        "kind": "bus",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-553-outer",
+          "bus-553-inner"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "bridge-east",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6742,
+          31.9987
+        ]
+      },
+      "properties": {
+        "id": "bridge-east",
+        "name": {
+          "zh": "江心洲大桥东",
+          "en": "Jiangxinzhou Bridge East"
+        },
+        "kind": "terminal",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-486",
+          "bus-553-outer",
+          "bus-553-inner",
+          "tour-south"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "jiangxinzhou-south",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6718,
+          31.9953
+        ]
+      },
+      "properties": {
+        "id": "jiangxinzhou-south",
+        "name": {
+          "zh": "江心洲南",
+          "en": "Jiangxinzhou South"
+        },
+        "kind": "terminal",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-486",
+          "bus-553-outer",
+          "bus-553-inner",
+          "tour-south",
+          "cycle-loop"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "qigan-pier",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6975913,
+          32.009866
+        ]
+      },
+      "properties": {
+        "id": "qigan-pier",
+        "name": {
+          "zh": "旗杆渡口",
+          "en": "Qigan Ferry Pier"
+        },
+        "kind": "ferry",
+        "confidence": "triangulated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Amap/OSM cross-check",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-552-short",
+          "tour-south",
+          "ferry-qigan",
+          "cycle-loop"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "mianhuadi-pier",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6999968,
+          32.0087366
+        ]
+      },
+      "properties": {
+        "id": "mianhuadi-pier",
+        "name": {
+          "zh": "棉花堤渡口",
+          "en": "Mianhuadi Ferry Pier"
+        },
+        "kind": "ferry",
+        "confidence": "triangulated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Amap/OSM cross-check",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "ferry-qigan"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "porpoise-center-stop",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7101,
+          32.0584
+        ]
+      },
+      "properties": {
+        "id": "porpoise-center-stop",
+        "name": {
+          "zh": "江豚科教中心",
+          "en": "Finless Porpoise Center"
+        },
+        "kind": "tourism",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "tour-north",
+          "cycle-loop"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "xiaokenting-stop",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7075,
+          32.0524
+        ]
+      },
+      "properties": {
+        "id": "xiaokenting-stop",
+        "name": {
+          "zh": "小垦丁灯塔",
+          "en": "Xiaokenting Lighthouse"
+        },
+        "kind": "tourism",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "tour-north",
+          "cycle-loop"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "rocho-stop",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7025,
+          32.0462
+        ]
+      },
+      "properties": {
+        "id": "rocho-stop",
+        "name": {
+          "zh": "ROCHO灯塔咖啡",
+          "en": "ROCHO Lighthouse Café"
+        },
+        "kind": "tourism",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "tour-north",
+          "cycle-loop"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "imo-stop",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6992,
+          32.0399
+        ]
+      },
+      "properties": {
+        "id": "imo-stop",
+        "name": {
+          "zh": "iMO江岛新天地",
+          "en": "iMO Jiangdao New World"
+        },
+        "kind": "shuttle",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "shuttle-new-energy",
+          "shuttle-island-city",
+          "tour-north"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e3-park-stop",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6951,
+          32.0214
+        ]
+      },
+      "properties": {
+        "id": "e3-park-stop",
+        "name": {
+          "zh": "E³ PARK体育公园",
+          "en": "E³ PARK Sports Park"
+        },
+        "kind": "tourism",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "tour-south"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "church-stop",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6872599,
+          32.0247363
+        ]
+      },
+      "properties": {
+        "id": "church-stop",
+        "name": {
+          "zh": "基督教江心洲堂",
+          "en": "Jiangxinzhou Christian Church"
+        },
+        "kind": "tourism",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "tour-south"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "pink-field-stop",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6788,
+          32.0119
+        ]
+      },
+      "properties": {
+        "id": "pink-field-stop",
+        "name": {
+          "zh": "粉黛花海",
+          "en": "Pink Muhly Field"
+        },
+        "kind": "tourism",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "tour-south",
+          "cycle-loop"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "cypress-stop",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6812,
+          32.0191
+        ]
+      },
+      "properties": {
+        "id": "cypress-stop",
+        "name": {
+          "zh": "池杉林四季花海",
+          "en": "Pond Cypress Garden"
+        },
+        "kind": "tourism",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "tour-south"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "city-portal",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7118,
+          32.0334
+        ]
+      },
+      "properties": {
+        "id": "city-portal",
+        "name": {
+          "zh": "夹江大桥·河西方向",
+          "en": "Jiajiang Bridge · Hexi"
+        },
+        "kind": "portal",
+        "confidence": "estimated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Official stop order snapped to verified road corridor",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "bus-552",
+          "bus-553-outer",
+          "bus-553-inner",
+          "shuttle-island-city"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "metro-greenexpo",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7102574,
+          32.0268513
+        ]
+      },
+      "properties": {
+        "id": "metro-greenexpo",
+        "name": {
+          "zh": "绿博园站",
+          "en": "Lüboyuan Station"
+        },
+        "kind": "metro",
+        "confidence": "triangulated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Amap/OSM cross-check",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "metro-10"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "metro-linjiang",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.660314,
+          32.059584
+        ]
+      },
+      "properties": {
+        "id": "metro-linjiang",
+        "name": {
+          "zh": "临江·青奥体育公园站",
+          "en": "Linjiang · Youth Olympic Sports Park"
+        },
+        "kind": "metro",
+        "confidence": "triangulated",
+        "status": "existing",
+        "sourceCrs": "EPSG:4326",
+        "source": "Amap/OSM cross-check",
+        "snapshot": "2026-08-09",
+        "lineIds": [
+          "metro-10"
+        ]
+      }
+    }
+  ]
+}

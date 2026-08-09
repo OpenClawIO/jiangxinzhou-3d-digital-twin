@@ -1,0 +1,88 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "hub-metro",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6981586,
+          32.0337024
+        ]
+      },
+      "properties": {
+        "id": "hub-metro",
+        "name": {
+          "zh": "江心洲综合换乘节点",
+          "en": "Jiangxinzhou Interchange"
+        },
+        "stopIds": [
+          "jiangxinzhou-metro",
+          "jiangxinzhou-metro-bus"
+        ],
+        "modes": [
+          "metro",
+          "bus",
+          "shuttle"
+        ],
+        "status": "existing"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "hub-qigan",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6975913,
+          32.009866
+        ]
+      },
+      "properties": {
+        "id": "hub-qigan",
+        "name": {
+          "zh": "旗杆渡口换乘节点",
+          "en": "Qigan Ferry Interchange"
+        },
+        "stopIds": [
+          "qigan-pier",
+          "qingao-north"
+        ],
+        "modes": [
+          "ferry",
+          "bus",
+          "cycle"
+        ],
+        "status": "existing"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "hub-south",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6718,
+          31.9953
+        ]
+      },
+      "properties": {
+        "id": "hub-south",
+        "name": {
+          "zh": "江心洲南公交节点",
+          "en": "Jiangxinzhou South Bus Hub"
+        },
+        "stopIds": [
+          "jiangxinzhou-south",
+          "bridge-east"
+        ],
+        "modes": [
+          "bus",
+          "shuttle"
+        ],
+        "status": "existing"
+      }
+    }
+  ]
+}

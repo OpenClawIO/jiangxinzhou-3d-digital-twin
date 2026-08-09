@@ -125,7 +125,9 @@ const roadFeatures = legacy.roads.flatMap((road) => road.segments.map((segment, 
   {
     name: { zh: road.name, en: null },
     class: road.class,
-    widthM: road.width,
+    // The legacy value was a visual scale token (0.035—0.22), not metres.
+    widthM: ({ major: 22, arterial: 16, collector: 10.5, local: 6, greenway: 3.5 })[road.class],
+    renderWidthPx: ({ major: 3.5, arterial: 2.8, collector: 2.1, local: 1.15, greenway: 2.4 })[road.class],
     source: road.source,
     sourceCrs: "EPSG:4326",
     confidence: "triangulated",

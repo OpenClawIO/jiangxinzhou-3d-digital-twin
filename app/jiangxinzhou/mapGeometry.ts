@@ -4,6 +4,7 @@ export type GeoPoint = [number, number];
 export type Point3 = [number, number, number];
 export type RoadClass = "major" | "arterial" | "collector" | "local" | "greenway";
 export type Confidence = "triangulated" | "estimated" | "planned";
+export type TransitMode = "bus" | "metro" | "shuttle" | "tourism" | "ferry" | "cycle";
 
 export type LocalizedName = { zh: string | null; en: string | null };
 export type PointGeometry = { type: "Point"; coordinates: GeoPoint };
@@ -45,12 +46,40 @@ export type RoadProperties = {
   name: LocalizedName;
   class: RoadClass;
   widthM: number;
+  renderWidthPx: number;
   source: string;
   sourceCrs: string;
   confidence: Confidence;
   status: string;
 };
 export type MapRoadFeature = SpatialFeature<LineStringGeometry, RoadProperties>;
+export type TransitLineProperties = {
+  id: string;
+  name: LocalizedName;
+  ref: string;
+  mode: TransitMode;
+  color: string;
+  status: "existing" | "temporary" | "planned";
+  service: LocalizedName;
+  stopIds: string[];
+  source: string;
+  confidence: Confidence;
+  snapshot: string;
+  modelKey: string | null;
+};
+export type TransitStopProperties = {
+  id: string;
+  name: LocalizedName;
+  kind: "bus" | "metro" | "shuttle" | "tourism" | "ferry" | "terminal" | "interchange" | "portal";
+  confidence: Exclude<Confidence, "planned">;
+  status: "existing";
+  sourceCrs: string;
+  source: string;
+  snapshot: string;
+  lineIds: string[];
+};
+export type MapTransitLineFeature = SpatialFeature<LineStringGeometry, TransitLineProperties>;
+export type MapTransitStopFeature = SpatialFeature<PointGeometry, TransitStopProperties>;
 
 type RuntimeData = {
   manifest: {
@@ -61,7 +90,7 @@ type RuntimeData = {
     units: string;
     officialAreaKm2: number;
     officialEmbankmentKm: number;
-    counts: { buildings: number; roads: number; landmarks: number };
+    counts: { buildings: number; roads: number; landmarks: number; transitLines?: number; transitStops?: number };
   };
   island: { type: "FeatureCollection"; features: SpatialFeature<PolygonGeometry>[] };
   roads: { type: "FeatureCollection"; features: SpatialFeature<LineStringGeometry, RoadProperties>[] };
@@ -78,6 +107,12 @@ type RuntimeData = {
     policy: { precision: string; redistribution: string; confidence: Record<Confidence, string> };
     sources: FeatureEvidence[];
   };
+  transit: {
+    lines: { type: "FeatureCollection"; features: SpatialFeature<LineStringGeometry, TransitLineProperties>[] };
+    stops: { type: "FeatureCollection"; features: SpatialFeature<PointGeometry, TransitStopProperties>[] };
+    hubs: { type: "FeatureCollection"; features: SpatialFeature<PointGeometry>[] };
+    evidence: { sources: FeatureEvidence[] };
+  };
 };
 
 export const mapData = runtimeJson as unknown as RuntimeData;
@@ -85,6 +120,9 @@ export const mapManifest = mapData.manifest;
 export const evidenceSources = mapData.evidence.sources;
 export const mapRoads = mapData.roads.features as unknown as MapRoadFeature[];
 export const mapLandmarks = mapData.landmarks.features as unknown as MapLandmarkFeature[];
+export const transportLines = mapData.transit.lines.features as unknown as MapTransitLineFeature[];
+export const transportStops = mapData.transit.stops.features as unknown as MapTransitStopFeature[];
+export const transportEvidenceSources = mapData.transit.evidence.sources;
 
 const [originLng, originLat] = mapManifest.origin;
 const longitudeScale = 111_320 * Math.cos((originLat * Math.PI) / 180);
@@ -141,6 +179,16 @@ export function roadColor(roadClass: RoadClass): string {
 
 export function roadsByName(names: string[]): MapRoadFeature[] {
   return mapRoads.filter((road) => names.includes(road.properties.name.zh ?? ""));
+}
+
+export function findTransportLine(lineId: string): MapTransitLineFeature | undefined {
+  return transportLines.find((line) => line.id === lineId);
+}
+
+export function stopsForTransportLine(lineId: string): MapTransitStopFeature[] {
+  const line = findTransportLine(lineId);
+  if (!line) return [];
+  return line.properties.stopIds.map((id) => transportStops.find((stop) => stop.id === id)).filter((stop): stop is MapTransitStopFeature => Boolean(stop));
 }
 
 export function landscapeShapes() {

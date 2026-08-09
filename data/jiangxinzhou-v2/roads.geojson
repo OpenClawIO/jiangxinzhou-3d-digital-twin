@@ -37,14 +37,15 @@
         "id": "road-1-0",
         "name": {
           "zh": "民安路",
-          "en": null
+          "en": "Min'an Road"
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -67,14 +68,15 @@
         "id": "road-1-1",
         "name": {
           "zh": "民安路",
-          "en": null
+          "en": "Min'an Road"
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -97,14 +99,15 @@
         "id": "road-1-2",
         "name": {
           "zh": "民安路",
-          "en": null
+          "en": "Min'an Road"
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -127,14 +130,15 @@
         "id": "road-1-3",
         "name": {
           "zh": "民安路",
-          "en": null
+          "en": "Min'an Road"
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -157,14 +161,15 @@
         "id": "road-1-4",
         "name": {
           "zh": "民安路",
-          "en": null
+          "en": "Min'an Road"
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -271,14 +276,15 @@
         "id": "road-2-0",
         "name": {
           "zh": "江堤路",
-          "en": null
+          "en": "Embankment Road"
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -369,14 +375,15 @@
         "id": "road-2-1",
         "name": {
           "zh": "江堤路",
-          "en": null
+          "en": "Embankment Road"
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -439,14 +446,15 @@
         "id": "road-2-2",
         "name": {
           "zh": "江堤路",
-          "en": null
+          "en": "Embankment Road"
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -505,14 +513,15 @@
         "id": "road-2-3",
         "name": {
           "zh": "江堤路",
-          "en": null
+          "en": "Embankment Road"
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -619,14 +628,15 @@
         "id": "road-2-4",
         "name": {
           "zh": "江堤路",
-          "en": null
+          "en": "Embankment Road"
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -649,14 +659,15 @@
         "id": "road-3-0",
         "name": {
           "zh": "夹江大桥",
-          "en": null
+          "en": "Jiajiang Bridge"
         },
         "class": "major",
-        "widthM": 0.22,
+        "widthM": 22,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 3.5
       }
     },
     {
@@ -679,14 +690,15 @@
         "id": "road-3-1",
         "name": {
           "zh": "夹江大桥",
-          "en": null
+          "en": "Jiajiang Bridge"
         },
         "class": "major",
-        "widthM": 0.22,
+        "widthM": 22,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 3.5
       }
     },
     {
@@ -709,14 +721,15 @@
         "id": "road-4-0",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -739,14 +752,15 @@
         "id": "road-4-1",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -769,14 +783,15 @@
         "id": "road-4-2",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -811,14 +826,15 @@
         "id": "road-4-3",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -841,14 +857,15 @@
         "id": "road-4-4",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -871,14 +888,15 @@
         "id": "road-4-5",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -901,14 +919,15 @@
         "id": "road-4-6",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -935,14 +954,15 @@
         "id": "road-4-7",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -969,14 +989,15 @@
         "id": "road-4-8",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1011,14 +1032,15 @@
         "id": "road-4-9",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1041,14 +1063,15 @@
         "id": "road-4-10",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1071,14 +1094,15 @@
         "id": "road-4-11",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1109,14 +1133,15 @@
         "id": "road-4-12",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1139,14 +1164,15 @@
         "id": "road-4-13",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1169,14 +1195,15 @@
         "id": "road-4-14",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1199,14 +1226,15 @@
         "id": "road-4-15",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1229,14 +1257,15 @@
         "id": "road-4-16",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1259,14 +1288,15 @@
         "id": "road-4-17",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1289,14 +1319,15 @@
         "id": "road-4-18",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1319,14 +1350,15 @@
         "id": "road-4-19",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1357,14 +1389,15 @@
         "id": "road-4-20",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1387,14 +1420,15 @@
         "id": "road-4-21",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1425,14 +1459,15 @@
         "id": "road-4-22",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1467,14 +1502,15 @@
         "id": "road-4-23",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1505,14 +1541,15 @@
         "id": "road-4-24",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1547,14 +1584,15 @@
         "id": "road-4-25",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1577,14 +1615,15 @@
         "id": "road-4-26",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1607,14 +1646,15 @@
         "id": "road-4-27",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1637,14 +1677,15 @@
         "id": "road-4-28",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1667,14 +1708,15 @@
         "id": "road-4-29",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1697,14 +1739,15 @@
         "id": "road-4-30",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1727,14 +1770,15 @@
         "id": "road-4-31",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1757,14 +1801,15 @@
         "id": "road-4-32",
         "name": {
           "zh": "中新大道",
-          "en": null
+          "en": "Zhongxin Avenue"
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -1787,14 +1832,15 @@
         "id": "road-5-0",
         "name": {
           "zh": "思泽路",
-          "en": null
+          "en": "Size Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -1817,14 +1863,15 @@
         "id": "road-5-1",
         "name": {
           "zh": "思泽路",
-          "en": null
+          "en": "Size Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -1847,14 +1894,15 @@
         "id": "road-5-2",
         "name": {
           "zh": "思泽路",
-          "en": null
+          "en": "Size Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -1877,14 +1925,15 @@
         "id": "road-5-3",
         "name": {
           "zh": "思泽路",
-          "en": null
+          "en": "Size Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -1907,14 +1956,15 @@
         "id": "road-5-4",
         "name": {
           "zh": "思泽路",
-          "en": null
+          "en": "Size Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -1937,14 +1987,15 @@
         "id": "road-5-5",
         "name": {
           "zh": "思泽路",
-          "en": null
+          "en": "Size Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -1967,14 +2018,15 @@
         "id": "road-5-6",
         "name": {
           "zh": "思泽路",
-          "en": null
+          "en": "Size Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -1997,14 +2049,15 @@
         "id": "road-5-7",
         "name": {
           "zh": "思泽路",
-          "en": null
+          "en": "Size Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2027,14 +2080,15 @@
         "id": "road-5-8",
         "name": {
           "zh": "思泽路",
-          "en": null
+          "en": "Size Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2057,14 +2111,15 @@
         "id": "road-5-9",
         "name": {
           "zh": "思泽路",
-          "en": null
+          "en": "Size Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2087,14 +2142,15 @@
         "id": "road-5-10",
         "name": {
           "zh": "思泽路",
-          "en": null
+          "en": "Size Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2117,14 +2173,15 @@
         "id": "road-6-0",
         "name": {
           "zh": "红星街",
-          "en": null
+          "en": "Hongxing Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2155,14 +2212,15 @@
         "id": "road-6-1",
         "name": {
           "zh": "红星街",
-          "en": null
+          "en": "Hongxing Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2189,14 +2247,15 @@
         "id": "road-6-2",
         "name": {
           "zh": "红星街",
-          "en": null
+          "en": "Hongxing Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2219,14 +2278,15 @@
         "id": "road-6-3",
         "name": {
           "zh": "红星街",
-          "en": null
+          "en": "Hongxing Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2249,14 +2309,15 @@
         "id": "road-6-4",
         "name": {
           "zh": "红星街",
-          "en": null
+          "en": "Hongxing Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2279,14 +2340,15 @@
         "id": "road-6-5",
         "name": {
           "zh": "红星街",
-          "en": null
+          "en": "Hongxing Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2313,14 +2375,15 @@
         "id": "road-6-6",
         "name": {
           "zh": "红星街",
-          "en": null
+          "en": "Hongxing Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2355,14 +2418,15 @@
         "id": "road-6-7",
         "name": {
           "zh": "红星街",
-          "en": null
+          "en": "Hongxing Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2385,14 +2449,15 @@
         "id": "road-6-8",
         "name": {
           "zh": "红星街",
-          "en": null
+          "en": "Hongxing Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2415,14 +2480,15 @@
         "id": "road-7-0",
         "name": {
           "zh": "揽江街",
-          "en": null
+          "en": "Lanjiang Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2445,14 +2511,15 @@
         "id": "road-7-1",
         "name": {
           "zh": "揽江街",
-          "en": null
+          "en": "Lanjiang Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2475,14 +2542,15 @@
         "id": "road-7-2",
         "name": {
           "zh": "揽江街",
-          "en": null
+          "en": "Lanjiang Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2505,14 +2573,15 @@
         "id": "road-7-3",
         "name": {
           "zh": "揽江街",
-          "en": null
+          "en": "Lanjiang Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2535,14 +2604,15 @@
         "id": "road-7-4",
         "name": {
           "zh": "揽江街",
-          "en": null
+          "en": "Lanjiang Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2565,14 +2635,15 @@
         "id": "road-7-5",
         "name": {
           "zh": "揽江街",
-          "en": null
+          "en": "Lanjiang Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2595,14 +2666,15 @@
         "id": "road-7-6",
         "name": {
           "zh": "揽江街",
-          "en": null
+          "en": "Lanjiang Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2625,14 +2697,15 @@
         "id": "road-8-0",
         "name": {
           "zh": "亚鹏路",
-          "en": null
+          "en": "Yapeng Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2655,14 +2728,15 @@
         "id": "road-8-1",
         "name": {
           "zh": "亚鹏路",
-          "en": null
+          "en": "Yapeng Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2685,14 +2759,15 @@
         "id": "road-8-2",
         "name": {
           "zh": "亚鹏路",
-          "en": null
+          "en": "Yapeng Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2715,14 +2790,15 @@
         "id": "road-8-3",
         "name": {
           "zh": "亚鹏路",
-          "en": null
+          "en": "Yapeng Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2745,14 +2821,15 @@
         "id": "road-8-4",
         "name": {
           "zh": "亚鹏路",
-          "en": null
+          "en": "Yapeng Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2775,14 +2852,15 @@
         "id": "road-8-5",
         "name": {
           "zh": "亚鹏路",
-          "en": null
+          "en": "Yapeng Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2805,14 +2883,15 @@
         "id": "road-8-6",
         "name": {
           "zh": "亚鹏路",
-          "en": null
+          "en": "Yapeng Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2835,14 +2914,15 @@
         "id": "road-9-0",
         "name": {
           "zh": "星影街",
-          "en": null
+          "en": "Xingying Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2865,14 +2945,15 @@
         "id": "road-9-1",
         "name": {
           "zh": "星影街",
-          "en": null
+          "en": "Xingying Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2895,14 +2976,15 @@
         "id": "road-9-2",
         "name": {
           "zh": "星影街",
-          "en": null
+          "en": "Xingying Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2925,14 +3007,15 @@
         "id": "road-10-0",
         "name": {
           "zh": "宏俊街",
-          "en": null
+          "en": "Hongjun Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2955,14 +3038,15 @@
         "id": "road-10-1",
         "name": {
           "zh": "宏俊街",
-          "en": null
+          "en": "Hongjun Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -2985,14 +3069,15 @@
         "id": "road-10-2",
         "name": {
           "zh": "宏俊街",
-          "en": null
+          "en": "Hongjun Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3019,14 +3104,15 @@
         "id": "road-10-3",
         "name": {
           "zh": "宏俊街",
-          "en": null
+          "en": "Hongjun Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3073,14 +3159,15 @@
         "id": "road-11-0",
         "name": {
           "zh": "南京眼步行桥",
-          "en": null
+          "en": "Nanjing Eye Pedestrian Bridge"
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -3103,14 +3190,15 @@
         "id": "road-11-1",
         "name": {
           "zh": "南京眼步行桥",
-          "en": null
+          "en": "Nanjing Eye Pedestrian Bridge"
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -3133,14 +3221,15 @@
         "id": "road-11-2",
         "name": {
           "zh": "南京眼步行桥",
-          "en": null
+          "en": "Nanjing Eye Pedestrian Bridge"
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -3163,14 +3252,15 @@
         "id": "road-12-0",
         "name": {
           "zh": "志坚街",
-          "en": null
+          "en": "Zhijian Street"
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -3193,14 +3283,15 @@
         "id": "road-12-1",
         "name": {
           "zh": "志坚街",
-          "en": null
+          "en": "Zhijian Street"
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -3223,14 +3314,15 @@
         "id": "road-12-2",
         "name": {
           "zh": "志坚街",
-          "en": null
+          "en": "Zhijian Street"
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -3253,14 +3345,15 @@
         "id": "road-12-3",
         "name": {
           "zh": "志坚街",
-          "en": null
+          "en": "Zhijian Street"
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -3283,14 +3376,15 @@
         "id": "road-13-0",
         "name": {
           "zh": "绿水街",
-          "en": null
+          "en": "Lüshui Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3313,14 +3407,15 @@
         "id": "road-13-1",
         "name": {
           "zh": "绿水街",
-          "en": null
+          "en": "Lüshui Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3343,14 +3438,15 @@
         "id": "road-13-2",
         "name": {
           "zh": "绿水街",
-          "en": null
+          "en": "Lüshui Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3373,14 +3469,15 @@
         "id": "road-13-3",
         "name": {
           "zh": "绿水街",
-          "en": null
+          "en": "Lüshui Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3403,14 +3500,15 @@
         "id": "road-13-4",
         "name": {
           "zh": "绿水街",
-          "en": null
+          "en": "Lüshui Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3433,14 +3531,15 @@
         "id": "road-13-5",
         "name": {
           "zh": "绿水街",
-          "en": null
+          "en": "Lüshui Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3463,14 +3562,15 @@
         "id": "road-13-6",
         "name": {
           "zh": "绿水街",
-          "en": null
+          "en": "Lüshui Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3493,14 +3593,15 @@
         "id": "road-13-7",
         "name": {
           "zh": "绿水街",
-          "en": null
+          "en": "Lüshui Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3523,14 +3624,15 @@
         "id": "road-13-8",
         "name": {
           "zh": "绿水街",
-          "en": null
+          "en": "Lüshui Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3553,14 +3655,15 @@
         "id": "road-13-9",
         "name": {
           "zh": "绿水街",
-          "en": null
+          "en": "Lüshui Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3583,14 +3686,15 @@
         "id": "road-13-10",
         "name": {
           "zh": "绿水街",
-          "en": null
+          "en": "Lüshui Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3613,14 +3717,15 @@
         "id": "road-13-11",
         "name": {
           "zh": "绿水街",
-          "en": null
+          "en": "Lüshui Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3643,14 +3748,15 @@
         "id": "road-13-12",
         "name": {
           "zh": "绿水街",
-          "en": null
+          "en": "Lüshui Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3673,14 +3779,15 @@
         "id": "road-13-13",
         "name": {
           "zh": "绿水街",
-          "en": null
+          "en": "Lüshui Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3703,14 +3810,15 @@
         "id": "road-13-14",
         "name": {
           "zh": "绿水街",
-          "en": null
+          "en": "Lüshui Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3745,14 +3853,15 @@
         "id": "road-14-0",
         "name": {
           "zh": "科技路",
-          "en": null
+          "en": "Keji Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3775,14 +3884,15 @@
         "id": "road-14-1",
         "name": {
           "zh": "科技路",
-          "en": null
+          "en": "Keji Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3805,14 +3915,15 @@
         "id": "road-15-0",
         "name": {
           "zh": "永定街",
-          "en": null
+          "en": "Yongding Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3835,14 +3946,15 @@
         "id": "road-15-1",
         "name": {
           "zh": "永定街",
-          "en": null
+          "en": "Yongding Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3869,14 +3981,15 @@
         "id": "road-15-2",
         "name": {
           "zh": "永定街",
-          "en": null
+          "en": "Yongding Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -3923,14 +4036,15 @@
         "id": "road-16-0",
         "name": {
           "zh": "南京江心洲长江大桥",
-          "en": null
+          "en": "Nanjing Jiangxinzhou Yangtze River Bridge"
         },
         "class": "major",
-        "widthM": 0.22,
+        "widthM": 22,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 3.5
       }
     },
     {
@@ -3977,14 +4091,15 @@
         "id": "road-16-1",
         "name": {
           "zh": "南京江心洲长江大桥",
-          "en": null
+          "en": "Nanjing Jiangxinzhou Yangtze River Bridge"
         },
         "class": "major",
-        "widthM": 0.22,
+        "widthM": 22,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 3.5
       }
     },
     {
@@ -4007,14 +4122,15 @@
         "id": "road-17-0",
         "name": {
           "zh": "梅子洲路",
-          "en": null
+          "en": "Meizizhou Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4049,14 +4165,15 @@
         "id": "road-17-1",
         "name": {
           "zh": "梅子洲路",
-          "en": null
+          "en": "Meizizhou Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4079,14 +4196,15 @@
         "id": "road-17-2",
         "name": {
           "zh": "梅子洲路",
-          "en": null
+          "en": "Meizizhou Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4109,14 +4227,15 @@
         "id": "road-17-3",
         "name": {
           "zh": "梅子洲路",
-          "en": null
+          "en": "Meizizhou Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4147,14 +4266,15 @@
         "id": "road-17-4",
         "name": {
           "zh": "梅子洲路",
-          "en": null
+          "en": "Meizizhou Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4181,14 +4301,15 @@
         "id": "road-17-5",
         "name": {
           "zh": "梅子洲路",
-          "en": null
+          "en": "Meizizhou Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4211,14 +4332,15 @@
         "id": "road-17-6",
         "name": {
           "zh": "梅子洲路",
-          "en": null
+          "en": "Meizizhou Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4241,14 +4363,15 @@
         "id": "road-17-7",
         "name": {
           "zh": "梅子洲路",
-          "en": null
+          "en": "Meizizhou Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4275,14 +4398,15 @@
         "id": "road-18-0",
         "name": {
           "zh": "龙恩街",
-          "en": null
+          "en": "Long'en Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4305,14 +4429,15 @@
         "id": "road-18-1",
         "name": {
           "zh": "龙恩街",
-          "en": null
+          "en": "Long'en Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4335,14 +4460,15 @@
         "id": "road-18-2",
         "name": {
           "zh": "龙恩街",
-          "en": null
+          "en": "Long'en Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4365,14 +4491,15 @@
         "id": "road-18-3",
         "name": {
           "zh": "龙恩街",
-          "en": null
+          "en": "Long'en Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4395,14 +4522,15 @@
         "id": "road-18-4",
         "name": {
           "zh": "龙恩街",
-          "en": null
+          "en": "Long'en Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4425,14 +4553,15 @@
         "id": "road-18-5",
         "name": {
           "zh": "龙恩街",
-          "en": null
+          "en": "Long'en Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4455,14 +4584,15 @@
         "id": "road-18-6",
         "name": {
           "zh": "龙恩街",
-          "en": null
+          "en": "Long'en Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4485,14 +4615,15 @@
         "id": "road-18-7",
         "name": {
           "zh": "龙恩街",
-          "en": null
+          "en": "Long'en Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4515,14 +4646,15 @@
         "id": "road-18-8",
         "name": {
           "zh": "龙恩街",
-          "en": null
+          "en": "Long'en Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4545,14 +4677,15 @@
         "id": "road-18-9",
         "name": {
           "zh": "龙恩街",
-          "en": null
+          "en": "Long'en Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4575,14 +4708,15 @@
         "id": "road-19-0",
         "name": {
           "zh": "文泰街",
-          "en": null
+          "en": "Wentai Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4605,14 +4739,15 @@
         "id": "road-19-1",
         "name": {
           "zh": "文泰街",
-          "en": null
+          "en": "Wentai Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4635,14 +4770,15 @@
         "id": "road-19-2",
         "name": {
           "zh": "文泰街",
-          "en": null
+          "en": "Wentai Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4665,14 +4801,15 @@
         "id": "road-19-3",
         "name": {
           "zh": "文泰街",
-          "en": null
+          "en": "Wentai Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4695,14 +4832,15 @@
         "id": "road-19-4",
         "name": {
           "zh": "文泰街",
-          "en": null
+          "en": "Wentai Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4725,14 +4863,15 @@
         "id": "road-19-5",
         "name": {
           "zh": "文泰街",
-          "en": null
+          "en": "Wentai Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4767,14 +4906,15 @@
         "id": "road-20-0",
         "name": {
           "zh": "环岛东路",
-          "en": null
+          "en": "Island East Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4797,14 +4937,15 @@
         "id": "road-20-1",
         "name": {
           "zh": "环岛东路",
-          "en": null
+          "en": "Island East Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4843,14 +4984,15 @@
         "id": "road-20-2",
         "name": {
           "zh": "环岛东路",
-          "en": null
+          "en": "Island East Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4881,14 +5023,15 @@
         "id": "road-20-3",
         "name": {
           "zh": "环岛东路",
-          "en": null
+          "en": "Island East Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4919,14 +5062,15 @@
         "id": "road-20-4",
         "name": {
           "zh": "环岛东路",
-          "en": null
+          "en": "Island East Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -4949,14 +5093,15 @@
         "id": "road-20-5",
         "name": {
           "zh": "环岛东路",
-          "en": null
+          "en": "Island East Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5011,14 +5156,15 @@
         "id": "road-20-6",
         "name": {
           "zh": "环岛东路",
-          "en": null
+          "en": "Island East Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5041,14 +5187,15 @@
         "id": "road-20-7",
         "name": {
           "zh": "环岛东路",
-          "en": null
+          "en": "Island East Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5075,14 +5222,15 @@
         "id": "road-20-8",
         "name": {
           "zh": "环岛东路",
-          "en": null
+          "en": "Island East Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5105,14 +5253,15 @@
         "id": "road-20-9",
         "name": {
           "zh": "环岛东路",
-          "en": null
+          "en": "Island East Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5159,14 +5308,15 @@
         "id": "road-20-10",
         "name": {
           "zh": "环岛东路",
-          "en": null
+          "en": "Island East Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5189,14 +5339,15 @@
         "id": "road-20-11",
         "name": {
           "zh": "环岛东路",
-          "en": null
+          "en": "Island East Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5219,14 +5370,15 @@
         "id": "road-20-12",
         "name": {
           "zh": "环岛东路",
-          "en": null
+          "en": "Island East Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5249,14 +5401,15 @@
         "id": "road-21-0",
         "name": {
           "zh": "文武街",
-          "en": null
+          "en": "Wenwu Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5279,14 +5432,15 @@
         "id": "road-22-0",
         "name": {
           "zh": "星月街",
-          "en": null
+          "en": "Xingyue Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5309,14 +5463,15 @@
         "id": "road-23-0",
         "name": {
           "zh": "星洲街",
-          "en": null
+          "en": "Xingzhou Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5339,14 +5494,15 @@
         "id": "road-23-1",
         "name": {
           "zh": "星洲街",
-          "en": null
+          "en": "Xingzhou Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5369,14 +5525,15 @@
         "id": "road-23-2",
         "name": {
           "zh": "星洲街",
-          "en": null
+          "en": "Xingzhou Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5407,14 +5564,15 @@
         "id": "road-24-0",
         "name": {
           "zh": "贤达路",
-          "en": null
+          "en": "Xianda Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5437,14 +5595,15 @@
         "id": "road-25-0",
         "name": {
           "zh": "星岛街",
-          "en": null
+          "en": "Xingdao Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5467,14 +5626,15 @@
         "id": "road-25-1",
         "name": {
           "zh": "星岛街",
-          "en": null
+          "en": "Xingdao Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5497,14 +5657,15 @@
         "id": "road-25-2",
         "name": {
           "zh": "星岛街",
-          "en": null
+          "en": "Xingdao Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5527,14 +5688,15 @@
         "id": "road-25-3",
         "name": {
           "zh": "星岛街",
-          "en": null
+          "en": "Xingdao Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5557,14 +5719,15 @@
         "id": "road-26-0",
         "name": {
           "zh": "和韵路",
-          "en": null
+          "en": "Heyun Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5595,14 +5758,15 @@
         "id": "road-27-0",
         "name": {
           "zh": "贤坤路",
-          "en": null
+          "en": "Xiankun Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5625,14 +5789,15 @@
         "id": "road-27-1",
         "name": {
           "zh": "贤坤路",
-          "en": null
+          "en": "Xiankun Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5655,14 +5820,15 @@
         "id": "road-27-2",
         "name": {
           "zh": "贤坤路",
-          "en": null
+          "en": "Xiankun Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5693,14 +5859,15 @@
         "id": "road-27-3",
         "name": {
           "zh": "贤坤路",
-          "en": null
+          "en": "Xiankun Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5723,14 +5890,15 @@
         "id": "road-27-4",
         "name": {
           "zh": "贤坤路",
-          "en": null
+          "en": "Xiankun Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5753,14 +5921,15 @@
         "id": "road-28-0",
         "name": {
           "zh": "洲宁街",
-          "en": null
+          "en": "Zhouning Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5783,14 +5952,15 @@
         "id": "road-28-1",
         "name": {
           "zh": "洲宁街",
-          "en": null
+          "en": "Zhouning Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5813,14 +5983,15 @@
         "id": "road-28-2",
         "name": {
           "zh": "洲宁街",
-          "en": null
+          "en": "Zhouning Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5843,14 +6014,15 @@
         "id": "road-28-3",
         "name": {
           "zh": "洲宁街",
-          "en": null
+          "en": "Zhouning Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5873,14 +6045,15 @@
         "id": "road-28-4",
         "name": {
           "zh": "洲宁街",
-          "en": null
+          "en": "Zhouning Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -5903,14 +6076,15 @@
         "id": "road-29-0",
         "name": {
           "zh": "葡园路",
-          "en": null
+          "en": "Puyuan Road"
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -5941,14 +6115,15 @@
         "id": "road-29-1",
         "name": {
           "zh": "葡园路",
-          "en": null
+          "en": "Puyuan Road"
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -5971,14 +6146,15 @@
         "id": "road-30-0",
         "name": {
           "zh": "环岛西路",
-          "en": null
+          "en": "Island West Road"
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -6013,14 +6189,15 @@
         "id": "road-30-1",
         "name": {
           "zh": "环岛西路",
-          "en": null
+          "en": "Island West Road"
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -6067,14 +6244,15 @@
         "id": "road-30-2",
         "name": {
           "zh": "环岛西路",
-          "en": null
+          "en": "Island West Road"
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -6109,14 +6287,15 @@
         "id": "road-30-3",
         "name": {
           "zh": "环岛西路",
-          "en": null
+          "en": "Island West Road"
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -6147,14 +6326,15 @@
         "id": "road-30-4",
         "name": {
           "zh": "环岛西路",
-          "en": null
+          "en": "Island West Road"
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -6177,14 +6357,15 @@
         "id": "road-31-0",
         "name": {
           "zh": "宏俊路",
-          "en": null
+          "en": "Hongjun Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -6207,14 +6388,15 @@
         "id": "road-32-0",
         "name": {
           "zh": "文萃街",
-          "en": null
+          "en": "Wencui Street"
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -6245,14 +6427,15 @@
         "id": "road-33-0",
         "name": {
           "zh": "熙怡路",
-          "en": null
+          "en": "Xiyi Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -6275,14 +6458,15 @@
         "id": "road-33-1",
         "name": {
           "zh": "熙怡路",
-          "en": null
+          "en": "Xiyi Road"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -6305,14 +6489,15 @@
         "id": "road-34-0",
         "name": {
           "zh": "林荫路",
-          "en": null
+          "en": "Linyin Road"
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -6335,14 +6520,15 @@
         "id": "road-34-1",
         "name": {
           "zh": "林荫路",
-          "en": null
+          "en": "Linyin Road"
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -6369,14 +6555,15 @@
         "id": "road-35-0",
         "name": {
           "zh": "桃园街",
-          "en": null
+          "en": "Taoyuan Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -6407,14 +6594,15 @@
         "id": "road-35-1",
         "name": {
           "zh": "桃园街",
-          "en": null
+          "en": "Taoyuan Street"
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -6440,11 +6628,12 @@
           "en": null
         },
         "class": "major",
-        "widthM": 0.22,
+        "widthM": 22,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 3.5
       }
     },
     {
@@ -6470,11 +6659,12 @@
           "en": null
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -6500,11 +6690,12 @@
           "en": null
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -6530,11 +6721,12 @@
           "en": null
         },
         "class": "major",
-        "widthM": 0.22,
+        "widthM": 22,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 3.5
       }
     },
     {
@@ -6560,11 +6752,12 @@
           "en": null
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -6590,11 +6783,12 @@
           "en": null
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -6620,11 +6814,12 @@
           "en": null
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -6658,11 +6853,12 @@
           "en": null
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -6688,11 +6884,12 @@
           "en": null
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -6754,11 +6951,12 @@
           "en": null
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -6796,11 +6994,12 @@
           "en": null
         },
         "class": "major",
-        "widthM": 0.22,
+        "widthM": 22,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 3.5
       }
     },
     {
@@ -6826,11 +7025,12 @@
           "en": null
         },
         "class": "major",
-        "widthM": 0.22,
+        "widthM": 22,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 3.5
       }
     },
     {
@@ -6856,11 +7056,12 @@
           "en": null
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -6898,11 +7099,12 @@
           "en": null
         },
         "class": "major",
-        "widthM": 0.22,
+        "widthM": 22,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 3.5
       }
     },
     {
@@ -6936,11 +7138,12 @@
           "en": null
         },
         "class": "major",
-        "widthM": 0.22,
+        "widthM": 22,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 3.5
       }
     },
     {
@@ -6970,11 +7173,12 @@
           "en": null
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -7000,11 +7204,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -7034,11 +7239,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -7076,11 +7282,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -7110,11 +7317,12 @@
           "en": null
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -7144,11 +7352,12 @@
           "en": null
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -7178,11 +7387,12 @@
           "en": null
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -7208,11 +7418,12 @@
           "en": null
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -7242,11 +7453,12 @@
           "en": null
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -7272,11 +7484,12 @@
           "en": null
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -7330,11 +7543,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -7404,11 +7618,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -7458,11 +7673,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -7572,11 +7788,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -7606,11 +7823,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -7664,11 +7882,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -7722,11 +7941,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -7756,11 +7976,12 @@
           "en": null
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -7786,11 +8007,12 @@
           "en": null
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -7816,11 +8038,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -7846,11 +8069,12 @@
           "en": null
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -7880,11 +8104,12 @@
           "en": null
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -7910,11 +8135,12 @@
           "en": null
         },
         "class": "major",
-        "widthM": 0.22,
+        "widthM": 22,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 3.5
       }
     },
     {
@@ -7940,11 +8166,12 @@
           "en": null
         },
         "class": "major",
-        "widthM": 0.22,
+        "widthM": 22,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 3.5
       }
     },
     {
@@ -7970,11 +8197,12 @@
           "en": null
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -8000,11 +8228,12 @@
           "en": null
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -8030,11 +8259,12 @@
           "en": null
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -8060,11 +8290,12 @@
           "en": null
         },
         "class": "major",
-        "widthM": 0.22,
+        "widthM": 22,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 3.5
       }
     },
     {
@@ -8090,11 +8321,12 @@
           "en": null
         },
         "class": "major",
-        "widthM": 0.22,
+        "widthM": 22,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 3.5
       }
     },
     {
@@ -8120,11 +8352,12 @@
           "en": null
         },
         "class": "major",
-        "widthM": 0.22,
+        "widthM": 22,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 3.5
       }
     },
     {
@@ -8150,11 +8383,12 @@
           "en": null
         },
         "class": "major",
-        "widthM": 0.22,
+        "widthM": 22,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 3.5
       }
     },
     {
@@ -8180,11 +8414,12 @@
           "en": null
         },
         "class": "major",
-        "widthM": 0.22,
+        "widthM": 22,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 3.5
       }
     },
     {
@@ -8210,11 +8445,12 @@
           "en": null
         },
         "class": "major",
-        "widthM": 0.22,
+        "widthM": 22,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 3.5
       }
     },
     {
@@ -8244,11 +8480,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -8274,11 +8511,12 @@
           "en": null
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -8304,11 +8542,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -8346,11 +8585,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -8388,11 +8628,12 @@
           "en": null
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -8418,11 +8659,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -8460,11 +8702,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -8502,11 +8745,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -8532,11 +8776,12 @@
           "en": null
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -8562,11 +8807,12 @@
           "en": null
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -8592,11 +8838,12 @@
           "en": null
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -8622,11 +8869,12 @@
           "en": null
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -8652,11 +8900,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -8682,11 +8931,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -8712,11 +8962,12 @@
           "en": null
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -8742,11 +8993,12 @@
           "en": null
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -8772,11 +9024,12 @@
           "en": null
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -8802,11 +9055,12 @@
           "en": null
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -8836,11 +9090,12 @@
           "en": null
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -8866,11 +9121,12 @@
           "en": null
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -8896,11 +9152,12 @@
           "en": null
         },
         "class": "collector",
-        "widthM": 0.105,
+        "widthM": 10.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.1
       }
     },
     {
@@ -8926,11 +9183,12 @@
           "en": null
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -8956,11 +9214,12 @@
           "en": null
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     },
     {
@@ -8998,11 +9257,12 @@
           "en": null
         },
         "class": "greenway",
-        "widthM": 0.035,
+        "widthM": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.4
       }
     },
     {
@@ -9028,11 +9288,12 @@
           "en": null
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -9058,11 +9319,12 @@
           "en": null
         },
         "class": "arterial",
-        "widthM": 0.16,
+        "widthM": 16,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 2.8
       }
     },
     {
@@ -9092,11 +9354,12 @@
           "en": null
         },
         "class": "local",
-        "widthM": 0.06,
+        "widthM": 6,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing"
+        "status": "existing",
+        "renderWidthPx": 1.15
       }
     }
   ]

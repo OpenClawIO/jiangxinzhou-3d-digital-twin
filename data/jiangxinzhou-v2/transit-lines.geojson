@@ -1,0 +1,965 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "metro-10",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.7102574,
+            32.0268513
+          ],
+          [
+            118.6981586,
+            32.0337024
+          ],
+          [
+            118.660314,
+            32.059584
+          ]
+        ]
+      },
+      "properties": {
+        "id": "metro-10",
+        "name": {
+          "zh": "地铁10号线",
+          "en": "Metro Line 10"
+        },
+        "ref": "10",
+        "mode": "metro",
+        "color": "#d6b36a",
+        "status": "existing",
+        "service": {
+          "zh": "05:56—23:58（江心洲站双向范围）",
+          "en": "05:56—23:58 (two-way range at Jiangxinzhou Station)"
+        },
+        "stopIds": [
+          "metro-greenexpo",
+          "jiangxinzhou-metro",
+          "metro-linjiang"
+        ],
+        "source": "Amap + Nanjing Metro/OSM",
+        "confidence": "triangulated",
+        "snapshot": "2026-08-09",
+        "modelKey": "metro-line10"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "bus-486",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.7061,
+            32.0508
+          ],
+          [
+            118.7049,
+            32.0411
+          ],
+          [
+            118.7027916,
+            32.0439188
+          ],
+          [
+            118.7012,
+            32.0388
+          ],
+          [
+            118.6991,
+            32.0364
+          ],
+          [
+            118.6982245,
+            32.0338283
+          ],
+          [
+            118.6944,
+            32.0302
+          ],
+          [
+            118.6915,
+            32.0252
+          ],
+          [
+            118.6911,
+            32.0224
+          ],
+          [
+            118.6871,
+            32.0141
+          ],
+          [
+            118.6928,
+            32.0103
+          ],
+          [
+            118.6954,
+            32.0089
+          ],
+          [
+            118.6935,
+            32.0061
+          ],
+          [
+            118.6882,
+            32.0048
+          ],
+          [
+            118.684,
+            32.0062
+          ],
+          [
+            118.6799494,
+            32.0097482
+          ],
+          [
+            118.6777,
+            32.0032
+          ],
+          [
+            118.6742,
+            31.9987
+          ],
+          [
+            118.6718,
+            31.9953
+          ]
+        ]
+      },
+      "properties": {
+        "id": "bus-486",
+        "name": {
+          "zh": "公交486路",
+          "en": "Bus 486"
+        },
+        "ref": "486",
+        "mode": "bus",
+        "color": "#ef6b4a",
+        "status": "existing",
+        "service": {
+          "zh": "06:00—20:30",
+          "en": "06:00—20:30"
+        },
+        "stopIds": [
+          "park-tanyuan",
+          "zijing-north",
+          "changdao-east",
+          "zijing-south",
+          "weather-bureau",
+          "jiangxinzhou-metro-bus",
+          "lanjiang-zhongxin",
+          "primary-school",
+          "fanghua-north",
+          "zhongxin-minan",
+          "wentai-east",
+          "huandao-wentai",
+          "qingao-north",
+          "longen-xiyi",
+          "longen-middle",
+          "heping-garden",
+          "huandao-fenglin",
+          "bridge-east",
+          "jiangxinzhou-south"
+        ],
+        "source": "2026 route listing cross-checked with Amap",
+        "confidence": "triangulated",
+        "snapshot": "2026-08-09",
+        "modelKey": "city-bus"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "bus-552",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.6962,
+            32.0319
+          ],
+          [
+            118.6915,
+            32.0252
+          ],
+          [
+            118.6911,
+            32.0224
+          ],
+          [
+            118.6917,
+            32.0291
+          ],
+          [
+            118.6982245,
+            32.0338283
+          ],
+          [
+            118.6991,
+            32.0364
+          ],
+          [
+            118.7118,
+            32.0334
+          ]
+        ]
+      },
+      "properties": {
+        "id": "bus-552",
+        "name": {
+          "zh": "公交552路",
+          "en": "Bus 552"
+        },
+        "ref": "552",
+        "mode": "bus",
+        "color": "#e14355",
+        "status": "existing",
+        "service": {
+          "zh": "江心洲总站05:20—21:40",
+          "en": "Jiangxinzhou Terminal 05:20—21:40"
+        },
+        "stopIds": [
+          "jiangxinzhou-terminal",
+          "primary-school",
+          "fanghua-north",
+          "green-island-west",
+          "jiangxinzhou-metro-bus",
+          "weather-bureau",
+          "city-portal"
+        ],
+        "source": "Nanjing government + 2026 route listing",
+        "confidence": "triangulated",
+        "snapshot": "2026-08-09",
+        "modelKey": "city-bus"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "bus-552-short",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.6975913,
+            32.009866
+          ],
+          [
+            118.6935,
+            32.0061
+          ],
+          [
+            118.6799494,
+            32.0097482
+          ],
+          [
+            118.6915,
+            32.0252
+          ],
+          [
+            118.6982245,
+            32.0338283
+          ],
+          [
+            118.6991,
+            32.0364
+          ],
+          [
+            118.7012,
+            32.0388
+          ],
+          [
+            118.7027916,
+            32.0439188
+          ],
+          [
+            118.7049,
+            32.0411
+          ],
+          [
+            118.7061,
+            32.0508
+          ],
+          [
+            118.7044,
+            32.0488
+          ],
+          [
+            118.7031,
+            32.0446
+          ],
+          [
+            118.7026,
+            32.0477
+          ]
+        ]
+      },
+      "properties": {
+        "id": "bus-552-short",
+        "name": {
+          "zh": "公交552路区间",
+          "en": "Bus 552 Short"
+        },
+        "ref": "552区间",
+        "mode": "bus",
+        "color": "#f09a46",
+        "status": "existing",
+        "service": {
+          "zh": "工作日早晚高峰",
+          "en": "Weekday morning and evening peaks"
+        },
+        "stopIds": [
+          "qigan-pier",
+          "qingao-north",
+          "heping-garden",
+          "primary-school",
+          "jiangxinzhou-metro-bus",
+          "weather-bureau",
+          "zijing-south",
+          "changdao-east",
+          "zijing-north",
+          "park-tanyuan",
+          "park-huayuan",
+          "changdao-north",
+          "jinji-huizhi"
+        ],
+        "source": "Nanjing Bus 2026-01-16 notice",
+        "confidence": "triangulated",
+        "snapshot": "2026-08-09",
+        "modelKey": "city-bus"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "bus-553-outer",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.6718,
+            31.9953
+          ],
+          [
+            118.7118,
+            32.0334
+          ],
+          [
+            118.6991,
+            32.0364
+          ],
+          [
+            118.6982245,
+            32.0338283
+          ],
+          [
+            118.6921,
+            32.0283
+          ],
+          [
+            118.6927,
+            32.0268
+          ],
+          [
+            118.6777,
+            32.0032
+          ],
+          [
+            118.6773,
+            32.0017
+          ],
+          [
+            118.6768,
+            31.9999
+          ],
+          [
+            118.6796,
+            31.9978
+          ],
+          [
+            118.6742,
+            31.9987
+          ],
+          [
+            118.6718,
+            31.9953
+          ]
+        ]
+      },
+      "properties": {
+        "id": "bus-553-outer",
+        "name": {
+          "zh": "公交553路外圈",
+          "en": "Bus 553 Outer Loop"
+        },
+        "ref": "553外圈",
+        "mode": "bus",
+        "color": "#7f6de0",
+        "status": "existing",
+        "service": {
+          "zh": "06:30—19:00",
+          "en": "06:30—19:00"
+        },
+        "stopIds": [
+          "jiangxinzhou-south",
+          "city-portal",
+          "weather-bureau",
+          "jiangxinzhou-metro-bus",
+          "green-island-qingshan",
+          "redstar-green-home",
+          "huandao-fenglin",
+          "jiangxin-impression",
+          "xingyuan-west",
+          "huijin-east",
+          "bridge-east",
+          "jiangxinzhou-south"
+        ],
+        "source": "Nanjing Bus 2026-06-03 adjustment + Amap",
+        "confidence": "triangulated",
+        "snapshot": "2026-08-09",
+        "modelKey": "city-bus"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "bus-553-inner",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.6718,
+            31.9953
+          ],
+          [
+            118.6742,
+            31.9987
+          ],
+          [
+            118.6796,
+            31.9978
+          ],
+          [
+            118.6768,
+            31.9999
+          ],
+          [
+            118.6773,
+            32.0017
+          ],
+          [
+            118.6777,
+            32.0032
+          ],
+          [
+            118.6927,
+            32.0268
+          ],
+          [
+            118.6921,
+            32.0283
+          ],
+          [
+            118.6982245,
+            32.0338283
+          ],
+          [
+            118.6991,
+            32.0364
+          ],
+          [
+            118.7118,
+            32.0334
+          ],
+          [
+            118.6718,
+            31.9953
+          ]
+        ]
+      },
+      "properties": {
+        "id": "bus-553-inner",
+        "name": {
+          "zh": "公交553路内圈",
+          "en": "Bus 553 Inner Loop"
+        },
+        "ref": "553内圈",
+        "mode": "bus",
+        "color": "#9a84ee",
+        "status": "existing",
+        "service": {
+          "zh": "06:30—19:00",
+          "en": "06:30—19:00"
+        },
+        "stopIds": [
+          "jiangxinzhou-south",
+          "bridge-east",
+          "huijin-east",
+          "xingyuan-west",
+          "jiangxin-impression",
+          "huandao-fenglin",
+          "redstar-green-home",
+          "green-island-qingshan",
+          "jiangxinzhou-metro-bus",
+          "weather-bureau",
+          "city-portal",
+          "jiangxinzhou-south"
+        ],
+        "source": "Nanjing Bus 2026-06-03 adjustment + Amap",
+        "confidence": "triangulated",
+        "snapshot": "2026-08-09",
+        "modelKey": "city-bus"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "shuttle-new-energy",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.6935,
+            32.0061
+          ],
+          [
+            118.6799494,
+            32.0097482
+          ],
+          [
+            118.6927,
+            32.0268
+          ],
+          [
+            118.6982245,
+            32.0338283
+          ],
+          [
+            118.6991,
+            32.0364
+          ],
+          [
+            118.6915,
+            32.0252
+          ],
+          [
+            118.7026,
+            32.0477
+          ],
+          [
+            118.7049,
+            32.0411
+          ],
+          [
+            118.7027916,
+            32.0439188
+          ],
+          [
+            118.6992,
+            32.0399
+          ],
+          [
+            118.6982245,
+            32.0338283
+          ],
+          [
+            118.6927,
+            32.0268
+          ],
+          [
+            118.6799494,
+            32.0097482
+          ],
+          [
+            118.6935,
+            32.0061
+          ]
+        ]
+      },
+      "properties": {
+        "id": "shuttle-new-energy",
+        "name": {
+          "zh": "园区新能源接驳线",
+          "en": "Park New-Energy Shuttle"
+        },
+        "ref": "接驳1号线",
+        "mode": "shuttle",
+        "color": "#31b7a2",
+        "status": "existing",
+        "service": {
+          "zh": "全年免费 · 约10—20分钟",
+          "en": "Free year-round · about every 10—20 min"
+        },
+        "stopIds": [
+          "qingao-north",
+          "heping-garden",
+          "redstar-green-home",
+          "jiangxinzhou-metro-bus",
+          "weather-bureau",
+          "primary-school",
+          "jinji-huizhi",
+          "zijing-north",
+          "changdao-east",
+          "imo-stop",
+          "jiangxinzhou-metro-bus",
+          "redstar-green-home",
+          "heping-garden",
+          "qingao-north"
+        ],
+        "source": "Eco-Tech Island public service information + Amap",
+        "confidence": "triangulated",
+        "snapshot": "2026-08-09",
+        "modelKey": "autonomous-shuttle"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "shuttle-island-city",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.6928,
+            32.0103
+          ],
+          [
+            118.6871,
+            32.0141
+          ],
+          [
+            118.6927,
+            32.0268
+          ],
+          [
+            118.6982245,
+            32.0338283
+          ],
+          [
+            118.6921,
+            32.0283
+          ],
+          [
+            118.6992,
+            32.0399
+          ],
+          [
+            118.7118,
+            32.0334
+          ]
+        ]
+      },
+      "properties": {
+        "id": "shuttle-island-city",
+        "name": {
+          "zh": "生态科技岛—岛城接驳线",
+          "en": "Island–City Shuttle"
+        },
+        "ref": "岛城接驳",
+        "mode": "shuttle",
+        "color": "#2f8ec9",
+        "status": "existing",
+        "service": {
+          "zh": "工作日07:00—19:00 · 约60分钟",
+          "en": "Weekdays 07:00—19:00 · about every 60 min"
+        },
+        "stopIds": [
+          "wentai-east",
+          "zhongxin-minan",
+          "redstar-green-home",
+          "jiangxinzhou-metro-bus",
+          "green-island-qingshan",
+          "imo-stop",
+          "city-portal"
+        ],
+        "source": "Jianye Government 2026-06-01 adjustment",
+        "confidence": "triangulated",
+        "snapshot": "2026-08-09",
+        "modelKey": "shuttle-bus"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "tour-north",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.6982245,
+            32.0338283
+          ],
+          [
+            118.6992,
+            32.0399
+          ],
+          [
+            118.7025,
+            32.0462
+          ],
+          [
+            118.7075,
+            32.0524
+          ],
+          [
+            118.7101,
+            32.0584
+          ],
+          [
+            118.7061,
+            32.0508
+          ],
+          [
+            118.7026,
+            32.0477
+          ],
+          [
+            118.6982245,
+            32.0338283
+          ]
+        ]
+      },
+      "properties": {
+        "id": "tour-north",
+        "name": {
+          "zh": "假日环岛观光北线",
+          "en": "Holiday Sightseeing North"
+        },
+        "ref": "观光北线",
+        "mode": "tourism",
+        "color": "#40a872",
+        "status": "existing",
+        "service": {
+          "zh": "周末及法定节假日 · 预约制",
+          "en": "Weekends and public holidays · reservation required"
+        },
+        "stopIds": [
+          "jiangxinzhou-metro-bus",
+          "imo-stop",
+          "rocho-stop",
+          "xiaokenting-stop",
+          "porpoise-center-stop",
+          "park-tanyuan",
+          "jinji-huizhi",
+          "jiangxinzhou-metro-bus"
+        ],
+        "source": "Jiangxinzhou public visitor information; stop positions estimated",
+        "confidence": "estimated",
+        "snapshot": "2026-08-09",
+        "modelKey": "autonomous-shuttle"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "tour-south",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.6982245,
+            32.0338283
+          ],
+          [
+            118.6872599,
+            32.0247363
+          ],
+          [
+            118.6951,
+            32.0214
+          ],
+          [
+            118.6812,
+            32.0191
+          ],
+          [
+            118.6788,
+            32.0119
+          ],
+          [
+            118.6975913,
+            32.009866
+          ],
+          [
+            118.6935,
+            32.0061
+          ],
+          [
+            118.6799494,
+            32.0097482
+          ],
+          [
+            118.6777,
+            32.0032
+          ],
+          [
+            118.6742,
+            31.9987
+          ],
+          [
+            118.6718,
+            31.9953
+          ],
+          [
+            118.6871,
+            32.0141
+          ],
+          [
+            118.6915,
+            32.0252
+          ],
+          [
+            118.6921,
+            32.0283
+          ],
+          [
+            118.6982245,
+            32.0338283
+          ]
+        ]
+      },
+      "properties": {
+        "id": "tour-south",
+        "name": {
+          "zh": "假日环岛观光南线",
+          "en": "Holiday Sightseeing South"
+        },
+        "ref": "观光南线",
+        "mode": "tourism",
+        "color": "#76ad43",
+        "status": "existing",
+        "service": {
+          "zh": "周末及法定节假日 · 预约制",
+          "en": "Weekends and public holidays · reservation required"
+        },
+        "stopIds": [
+          "jiangxinzhou-metro-bus",
+          "church-stop",
+          "e3-park-stop",
+          "cypress-stop",
+          "pink-field-stop",
+          "qigan-pier",
+          "qingao-north",
+          "heping-garden",
+          "huandao-fenglin",
+          "bridge-east",
+          "jiangxinzhou-south",
+          "zhongxin-minan",
+          "primary-school",
+          "green-island-qingshan",
+          "jiangxinzhou-metro-bus"
+        ],
+        "source": "Jiangxinzhou public visitor information; stop positions estimated",
+        "confidence": "estimated",
+        "snapshot": "2026-08-09",
+        "modelKey": "autonomous-shuttle"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ferry-qigan",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.6975913,
+            32.009866
+          ],
+          [
+            118.6999968,
+            32.0087366
+          ]
+        ]
+      },
+      "properties": {
+        "id": "ferry-qigan",
+        "name": {
+          "zh": "棉花堤—旗杆渡口",
+          "en": "Mianhuadi–Qigan Ferry"
+        },
+        "ref": "轮渡",
+        "mode": "ferry",
+        "color": "#3f9fc4",
+        "status": "existing",
+        "service": {
+          "zh": "以当日航班公告为准",
+          "en": "Refer to same-day sailing notices"
+        },
+        "stopIds": [
+          "qigan-pier",
+          "mianhuadi-pier"
+        ],
+        "source": "Nanjing government + OSM GPS",
+        "confidence": "triangulated",
+        "snapshot": "2026-08-09",
+        "modelKey": "passenger-ferry"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "cycle-loop",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.7075,
+            32.0524
+          ],
+          [
+            118.7025,
+            32.0462
+          ],
+          [
+            118.6975913,
+            32.009866
+          ],
+          [
+            118.6935,
+            32.0061
+          ],
+          [
+            118.6788,
+            32.0119
+          ],
+          [
+            118.6718,
+            31.9953
+          ],
+          [
+            118.7101,
+            32.0584
+          ],
+          [
+            118.7075,
+            32.0524
+          ]
+        ]
+      },
+      "properties": {
+        "id": "cycle-loop",
+        "name": {
+          "zh": "环岛江堤骑行环线",
+          "en": "22.5 km Island Cycling Loop"
+        },
+        "ref": "22.5 km",
+        "mode": "cycle",
+        "color": "#d6be56",
+        "status": "existing",
+        "service": {
+          "zh": "全天开放（活动管制除外）",
+          "en": "Open all day except during event controls"
+        },
+        "stopIds": [
+          "xiaokenting-stop",
+          "rocho-stop",
+          "qigan-pier",
+          "qingao-north",
+          "pink-field-stop",
+          "jiangxinzhou-south",
+          "porpoise-center-stop",
+          "xiaokenting-stop"
+        ],
+        "source": "Nanjing Government 22.5 km embankment reference",
+        "confidence": "triangulated",
+        "snapshot": "2026-08-09",
+        "modelKey": null
+      }
+    }
+  ]
+}

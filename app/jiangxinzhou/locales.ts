@@ -1,4 +1,5 @@
 import type { LandmarkCategory } from "./landmarks";
+import type { TransitMode } from "./mapGeometry";
 import type { ExpeditionId } from "./exploration";
 
 export type Language = "zh" | "en";
@@ -75,6 +76,10 @@ export const experienceCopy = {
     zh: "地标",
     en: "Landmarks",
   },
+  transportLayer: {
+    zh: "交通",
+    en: "Transport",
+  },
   viewTabs: {
     zh: "地图视角",
     en: "Map view",
@@ -92,8 +97,8 @@ export const experienceCopy = {
     en: "Landmark view",
   },
   stageNote: {
-    zh: "拖拽旋转 · 滚轮缩放 · 点击地标",
-    en: "Drag to rotate · scroll to zoom · click a landmark",
+    zh: "拖拽旋转 · 滚轮缩放 · 点击地标或站点",
+    en: "Drag to rotate · scroll to zoom · click a landmark or stop",
   },
   performanceMode: {
     zh: "节能模式",
@@ -255,6 +260,21 @@ export const experienceCopy = {
     zh: "地标索引",
     en: "LANDMARK INDEX",
   },
+  transportNetwork: { zh: "全岛交通网络", en: "ISLAND TRANSPORT NETWORK" },
+  transportSummary: { zh: "公交、地铁、接驳、观光、轮渡与骑行线路", en: "Bus, metro, shuttle, sightseeing, ferry and cycling lines" },
+  transportLine: { zh: "选择线路", en: "Choose line" },
+  transportStops: { zh: "站点", en: "Stops" },
+  transportService: { zh: "运营信息", en: "Service" },
+  transportCurrent: { zh: "当前运营", en: "Current service" },
+  transportVehicle: { zh: "3D 交通工具", en: "3D vehicle" },
+  transportVehicleScale: { zh: "导览可视比例", en: "Guide-map display scale" },
+  transportCrossChecked: { zh: "多源核验站点", en: "Cross-checked stop" },
+  transportEstimated: { zh: "导览估算站点", en: "Estimated guide stop" },
+  focusTransportStop: { zh: "聚焦站点", en: "Focus stop" },
+  showTransportLine: { zh: "显示整条线路", en: "Show full line" },
+  lineCount: { zh: "条交通线", en: "transport lines" },
+  stopCount: { zh: "个站点", en: "stops" },
+  roadLabels: { zh: "道路名称随缩放显示", en: "Road names appear by zoom level" },
   evidence: { zh: "证据与来源", en: "EVIDENCE & SOURCES" },
   sources: { zh: "项来源", en: "sources" },
   dataLayer: {
@@ -270,6 +290,11 @@ export const experienceCopy = {
     en: "Nanjing · Jiangxinzhou · 2026",
   },
 } satisfies Record<string, LocalizedText>;
+
+export const transportModeLabels: Record<Language, Record<TransitMode, string>> = {
+  zh: { bus: "公交", metro: "地铁", shuttle: "接驳", tourism: "观光", ferry: "轮渡", cycle: "骑行" },
+  en: { bus: "Bus", metro: "Metro", shuttle: "Shuttle", tourism: "Sightseeing", ferry: "Ferry", cycle: "Cycling" },
+};
 
 export const expeditionCopy: Record<ExpeditionId, { name: LocalizedText; description: LocalizedText }> = {
   "island-quest": {
