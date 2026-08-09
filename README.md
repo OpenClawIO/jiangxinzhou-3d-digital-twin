@@ -1,4 +1,4 @@
-# 南京江心洲 3D 孪生数字地图 V2
+# 南京江心洲3D数字物理地图
 
 [English](#english) · 中文
 
@@ -10,7 +10,7 @@
 - Blender 5.2 米制模型拆分为地形、南/中/北建筑、植被和重点地标六个 GLB。
 - 南京眼按公开的 240 米主跨资料建模；灯塔组、ROCHO、江豚中心、胜科水务、江岛智立方和基督教江心洲堂采用分级复原。
 - 高德、Google Earth、政府、新华社和机构照片仅用于位置或形态核对，不在仓库中重新分发。
-- 公众游览级数字孪生，不属于测绘、导航或地籍数据。估算模型会在界面中标记。
+- 公众游览级三维物理地图，不属于测绘、导航或地籍数据。估算模型会在界面中标记。
 
 ## 本地运行
 
@@ -44,4 +44,4 @@ npm run dev
 
 A bilingual, full-island 3D visitor map of Jiangxinzhou, Nanjing. All spatial layers use WGS84 and a shared metre-scale Blender/Three.js scene. The project includes 286 OSM building footprints, 263 road segments, evidence-graded landmarks, responsive rendering and explicit estimated-model labels.
 
-This is a public visitor digital twin, not survey, navigation or cadastral data. OpenStreetMap-derived geometry is provided under ODbL; reference imagery is not redistributed.
+This is a public visitor 3D digital physical map, not survey, navigation or cadastral data. OpenStreetMap-derived geometry is provided under ODbL; reference imagery is not redistributed.

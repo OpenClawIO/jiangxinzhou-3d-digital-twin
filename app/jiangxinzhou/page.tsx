@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: `${pageCopy.title.zh} | ${pageCopy.title.en}`,
     description: `${pageCopy.openGraphDescription.zh} / ${pageCopy.openGraphDescription.en}`,
     type: "website",
-    images: [{ url: "/og-jiangxinzhou-v2.png", width: 1748, height: 910, alt: "Jiangxinzhou 3D Digital Twin V2" }],
+    images: [{ url: "/og-jiangxinzhou-v2.png", width: 1748, height: 910, alt: "南京江心洲3D数字物理地图" }],
   },
   twitter: {
     card: "summary_large_image",

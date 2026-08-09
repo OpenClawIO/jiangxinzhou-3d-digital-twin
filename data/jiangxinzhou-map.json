@@ -1,6 +1,6 @@
 {
   "version": "2026-08-08.1",
-  "title": "南京江心洲 3D 孪生数字地图空间数据",
+  "title": "南京江心洲3D数字物理地图空间数据",
   "coordinateSystem": "WGS84 longitude/latitude input projected to local meters for visualization; relative reference model, not survey-grade cadastral data",
   "reference": {
     "origin": [

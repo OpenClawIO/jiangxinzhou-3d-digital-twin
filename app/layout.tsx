@@ -8,7 +8,7 @@ const notoSansSC = Noto_Sans_SC({ variable: "--font-noto-sc", subsets: ["latin"]
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jiangxinzhou-3d-twin.vercel.app"),
-  title: "南京江心洲 3D 孪生数字地图",
+  title: "南京江心洲3D数字物理地图",
   description: "以 WGS84、开放建筑轮廓与多方公开资料交叉核验的江心洲全岛 3D 数字地图。",
 };
 

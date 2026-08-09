@@ -16,8 +16,8 @@ export const localize = (text: LocalizedText, language: Language): string => tex
 
 export const pageCopy = {
   title: {
-    zh: "南京江心洲 3D 孪生数字地图",
-    en: "Nanjing Jiangxinzhou 3D Digital Twin Map",
+    zh: "南京江心洲3D数字物理地图",
+    en: "Nanjing Jiangxinzhou 3D Digital Physical Map",
   },
   description: {
     zh: "基于 WGS84、开放建筑轮廓、高德地图、Google Earth 与公开建筑资料交叉核验的江心洲全岛 3D 数字地图。",
@@ -231,8 +231,8 @@ export const experienceCopy = {
     en: "DATA / OSM ODbL + AMAP POI CHECK + GOOGLE EARTH FORM REFERENCE · BLENDER 5.2 GLB",
   },
   precisionNote: {
-    zh: "公众游览级数字孪生 · 非测绘或地籍数据",
-    en: "PUBLIC VISITOR DIGITAL TWIN · NOT SURVEY OR CADASTRAL DATA",
+    zh: "公众游览级三维物理地图 · 非测绘或地籍数据",
+    en: "PUBLIC VISITOR 3D PHYSICAL MAP · NOT SURVEY OR CADASTRAL DATA",
   },
   location: {
     zh: "南京 · 江心洲 · 2026",
