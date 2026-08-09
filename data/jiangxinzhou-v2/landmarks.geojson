@@ -1,0 +1,395 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "jiangxinzhou-center",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6982074,
+          32.0354297
+        ]
+      },
+      "properties": {
+        "id": "jiangxinzhou-center",
+        "name": {
+          "zh": "江心洲",
+          "en": "Jiangxinzhou"
+        },
+        "category": "reference",
+        "modelKey": null,
+        "lod": 1,
+        "status": "existing",
+        "confidence": "triangulated",
+        "source": "高德地图",
+        "sourceUrl": "https://ditu.amap.com/place/B00190BXTO",
+        "sourceCoordinate": [
+          118.703384,
+          32.033359
+        ],
+        "sourceCrs": "GCJ-02"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "jiangxinzhou-metro",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6981586,
+          32.0337024
+        ]
+      },
+      "properties": {
+        "id": "jiangxinzhou-metro",
+        "name": {
+          "zh": "江心洲地铁站",
+          "en": "Jiangxinzhou Metro Station"
+        },
+        "category": "transport",
+        "modelKey": null,
+        "lod": 1,
+        "status": "existing",
+        "confidence": "triangulated",
+        "source": "高德地图",
+        "sourceUrl": "https://ditu.amap.com/place/BV10057596",
+        "sourceCoordinate": [
+          118.703335,
+          32.031632
+        ],
+        "sourceCrs": "GCJ-02"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "nanjing-eye",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6979733,
+          31.9971933
+        ]
+      },
+      "properties": {
+        "id": "nanjing-eye",
+        "name": {
+          "zh": "南京眼步行桥",
+          "en": "Nanjing Eye Pedestrian Bridge"
+        },
+        "category": "bridge",
+        "modelKey": "nanjing-eye",
+        "lod": 2,
+        "status": "existing",
+        "confidence": "triangulated",
+        "source": "高德地图",
+        "sourceUrl": "https://ditu.amap.com/place/BY00004EC5",
+        "sourceCoordinate": [
+          118.703146,
+          31.995131
+        ],
+        "sourceCrs": "GCJ-02"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "qingao-forest-park",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7048,
+          31.9968
+        ]
+      },
+      "properties": {
+        "id": "qingao-forest-park",
+        "name": {
+          "zh": "青奥森林公园",
+          "en": "Qing'ao Forest Park"
+        },
+        "category": "landscape",
+        "modelKey": "forest-park",
+        "lod": 1,
+        "status": "existing",
+        "confidence": "estimated",
+        "source": "用户导览图与公开游览资料相对定位",
+        "sourceUrl": null,
+        "sourceCoordinate": [
+          118.7048,
+          31.9968
+        ],
+        "sourceCrs": "EPSG:4326"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "dolphin-center",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7114518,
+          32.0469491
+        ]
+      },
+      "properties": {
+        "id": "dolphin-center",
+        "name": {
+          "zh": "长江江豚科教中心",
+          "en": "Yangtze Finless Porpoise Science & Education Center"
+        },
+        "category": "culture",
+        "modelKey": "dolphin-hall",
+        "lod": 2,
+        "status": "existing",
+        "confidence": "triangulated",
+        "source": "高德地图",
+        "sourceUrl": "https://ditu.amap.com/place/B0G097QNGR",
+        "sourceCoordinate": [
+          118.716651,
+          32.044894
+        ],
+        "sourceCrs": "GCJ-02"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e3-park",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7125401,
+          32.0494233
+        ]
+      },
+      "properties": {
+        "id": "e3-park",
+        "name": {
+          "zh": "江岛科创中心 E3 公园",
+          "en": "Jiangdao Smart Cube · E³ PARK"
+        },
+        "category": "architecture",
+        "modelKey": "innovation-center",
+        "lod": 2,
+        "status": "existing",
+        "confidence": "triangulated",
+        "source": "高德地图",
+        "sourceUrl": "https://ditu.amap.com/place/B0LUR526ZI",
+        "sourceCoordinate": [
+          118.717741,
+          32.047369
+        ],
+        "sourceCrs": "GCJ-02"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "water-center",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7113211,
+          32.0466051
+        ]
+      },
+      "properties": {
+        "id": "water-center",
+        "name": {
+          "zh": "胜科国际水务中心",
+          "en": "Sembcorp International Water Center"
+        },
+        "category": "architecture",
+        "modelKey": "water-center",
+        "lod": 2,
+        "status": "existing",
+        "confidence": "triangulated",
+        "source": "高德地图地址与公开导览资料",
+        "sourceUrl": "https://ditu.amap.com/place/B0G097QNGR",
+        "sourceCoordinate": [
+          118.71652,
+          32.04455
+        ],
+        "sourceCrs": "GCJ-02"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "xiaokenting-lighthouse",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6998,
+          32.0552
+        ]
+      },
+      "properties": {
+        "id": "xiaokenting-lighthouse",
+        "name": {
+          "zh": "小垦丁灯塔",
+          "en": "Xiaokenting Lighthouse Group"
+        },
+        "category": "architecture",
+        "modelKey": "lighthouse",
+        "lod": 2,
+        "status": "existing",
+        "confidence": "estimated",
+        "source": "用户实景图、导览图与江堤路相对定位",
+        "sourceUrl": null,
+        "sourceCoordinate": [
+          118.6998,
+          32.0552
+        ],
+        "sourceCrs": "EPSG:4326"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "rocho-cafe",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7115,
+          32.0525
+        ]
+      },
+      "properties": {
+        "id": "rocho-cafe",
+        "name": {
+          "zh": "ROCHO灯塔咖啡馆",
+          "en": "ROCHO Lighthouse Café"
+        },
+        "category": "recreation",
+        "modelKey": "rocho-cafe",
+        "lod": 2,
+        "status": "existing",
+        "confidence": "estimated",
+        "source": "用户导览图与公开游览资料相对定位",
+        "sourceUrl": null,
+        "sourceCoordinate": [
+          118.7115,
+          32.0525
+        ],
+        "sourceCrs": "EPSG:4326"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "chapel",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6872599,
+          32.0247363
+        ]
+      },
+      "properties": {
+        "id": "chapel",
+        "name": {
+          "zh": "基督教江心洲堂",
+          "en": "Jiangxinzhou Christian Church"
+        },
+        "category": "culture",
+        "modelKey": "chapel",
+        "lod": 2,
+        "status": "existing",
+        "confidence": "triangulated",
+        "source": "OpenStreetMap named building footprint cross-checked with guide map",
+        "sourceUrl": "https://www.openstreetmap.org/way/1092530479",
+        "sourceCoordinate": [
+          118.7084,
+          32.0222
+        ],
+        "sourceCrs": "EPSG:4326"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "riverwalk",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6888,
+          32.0095
+        ]
+      },
+      "properties": {
+        "id": "riverwalk",
+        "name": {
+          "zh": "江堤步道",
+          "en": "Riverside Embankment Walk"
+        },
+        "category": "greenway",
+        "modelKey": "riverwalk",
+        "lod": 1,
+        "status": "existing",
+        "confidence": "estimated",
+        "source": "用户导览图与公开游览资料相对定位",
+        "sourceUrl": null,
+        "sourceCoordinate": [
+          118.6888,
+          32.0095
+        ],
+        "sourceCrs": "EPSG:4326"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "pink-field",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6868,
+          32.0042
+        ]
+      },
+      "properties": {
+        "id": "pink-field",
+        "name": {
+          "zh": "大江侧粉黛花田",
+          "en": "Riverside Pink Muhly Field"
+        },
+        "category": "landscape",
+        "modelKey": "pink-field",
+        "lod": 1,
+        "status": "existing",
+        "confidence": "estimated",
+        "source": "用户导览图相对定位",
+        "sourceUrl": null,
+        "sourceCoordinate": [
+          118.6868,
+          32.0042
+        ],
+        "sourceCrs": "EPSG:4326"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seasonal-garden",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7068,
+          32.0032
+        ]
+      },
+      "properties": {
+        "id": "seasonal-garden",
+        "name": {
+          "zh": "池杉林四季花海",
+          "en": "Pond Cypress Seasonal Garden"
+        },
+        "category": "landscape",
+        "modelKey": "seasonal-garden",
+        "lod": 1,
+        "status": "existing",
+        "confidence": "estimated",
+        "source": "用户导览图相对定位",
+        "sourceUrl": null,
+        "sourceCoordinate": [
+          118.7068,
+          32.0032
+        ],
+        "sourceCrs": "EPSG:4326"
+      }
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+public/models/**/*.blend
+public/models/**/*.blend1
+data/jiangxinzhou-v2/overpass-buildings-cache.json

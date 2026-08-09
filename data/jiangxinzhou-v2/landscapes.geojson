@@ -1,0 +1,164 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "north-green-belt",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              118.691,
+              32.073
+            ],
+            [
+              118.716,
+              32.071
+            ],
+            [
+              118.722,
+              32.057
+            ],
+            [
+              118.712,
+              32.045
+            ],
+            [
+              118.695,
+              32.049
+            ],
+            [
+              118.686,
+              32.061
+            ],
+            [
+              118.691,
+              32.073
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "north-green-belt",
+        "name": {
+          "zh": "北段江豚与科创绿地",
+          "en": "Northern ecological belt"
+        },
+        "category": "forest",
+        "color": "#7dbd91",
+        "opacity": 0.56,
+        "source": "用户导览图与高德核验锚点相对分区",
+        "sourceCrs": "EPSG:4326",
+        "confidence": "estimated",
+        "status": "existing"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "central-innovation-axis",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              118.687,
+              32.048
+            ],
+            [
+              118.712,
+              32.048
+            ],
+            [
+              118.718,
+              32.037
+            ],
+            [
+              118.711,
+              32.021
+            ],
+            [
+              118.692,
+              32.022
+            ],
+            [
+              118.682,
+              32.036
+            ],
+            [
+              118.687,
+              32.048
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "central-innovation-axis",
+        "name": {
+          "zh": "中央科创与城市绿轴",
+          "en": "Central innovation green axis"
+        },
+        "category": "urban",
+        "color": "#8bc8a6",
+        "opacity": 0.42,
+        "source": "用户导览图与道路网相对分区",
+        "sourceCrs": "EPSG:4326",
+        "confidence": "estimated",
+        "status": "existing"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "south-forest-garden",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              118.674,
+              32.021
+            ],
+            [
+              118.701,
+              32.022
+            ],
+            [
+              118.714,
+              32.008
+            ],
+            [
+              118.711,
+              31.989
+            ],
+            [
+              118.687,
+              31.983
+            ],
+            [
+              118.669,
+              31.994
+            ],
+            [
+              118.674,
+              32.021
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "south-forest-garden",
+        "name": {
+          "zh": "南段青奥森林与花海",
+          "en": "Southern forest garden"
+        },
+        "category": "garden",
+        "color": "#96cd75",
+        "opacity": 0.62,
+        "source": "用户导览图与南京眼锚点相对分区",
+        "sourceCrs": "EPSG:4326",
+        "confidence": "estimated",
+        "status": "existing"
+      }
+    }
+  ]
+}

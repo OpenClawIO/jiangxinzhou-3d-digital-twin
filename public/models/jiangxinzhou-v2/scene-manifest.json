@@ -1,0 +1,47 @@
+{
+  "version": "2026-08-09.2",
+  "origin": [
+    118.6982074,
+    32.0354297
+  ],
+  "units": "metres",
+  "north": "+Y",
+  "tiles": [
+    {
+      "id": "Terrain",
+      "url": "/models/jiangxinzhou-v2/terrain.glb",
+      "bytes": 18544,
+      "lod": 1
+    },
+    {
+      "id": "BuildingsSouth",
+      "url": "/models/jiangxinzhou-v2/buildings-south.glb",
+      "bytes": 50744,
+      "lod": 1
+    },
+    {
+      "id": "BuildingsCenter",
+      "url": "/models/jiangxinzhou-v2/buildings-center.glb",
+      "bytes": 150388,
+      "lod": 1
+    },
+    {
+      "id": "BuildingsNorth",
+      "url": "/models/jiangxinzhou-v2/buildings-north.glb",
+      "bytes": 21872,
+      "lod": 1
+    },
+    {
+      "id": "Vegetation",
+      "url": "/models/jiangxinzhou-v2/vegetation.glb",
+      "bytes": 985196,
+      "lod": 1
+    },
+    {
+      "id": "Landmarks",
+      "url": "/models/jiangxinzhou-v2/landmarks.glb",
+      "bytes": 467028,
+      "lod": 2
+    }
+  ]
+}

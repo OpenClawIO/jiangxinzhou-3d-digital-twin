@@ -1,0 +1,7 @@
+node_modules/
+.next/
+.vercel/
+output/
+.DS_Store
+*.log
+*.blend1
