@@ -18,4 +18,7 @@ export type JiangxinzhouSceneProps = {
   layers: LayerVisibility;
   language: Language;
   quality: SceneQuality;
+  objectiveId?: number;
+  expeditionLandmarkIds: readonly number[];
+  discoveredLandmarkIds: readonly number[];
 };

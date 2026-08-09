@@ -30,6 +30,15 @@ npm run dev
 
 实现与回归记录见 [`THREEJS_OPTIMIZATION.md`](./THREEJS_OPTIMIZATION.md)。
 
+## 游戏式探索
+
+- 首次进入可选择环岛地标、自然景观或建筑文化任务，也可直接自由探索。
+- 目标信标、任务 HUD 与一键定位共同引导镜头；只有进入地标视图后才能主动收录发现。
+- 已发现地标会同步更新所有相关任务进度，并保存在当前浏览器；不包含账号、排名、付费或虚构地图机制。
+- 中文、英文和移动端共享同一套任务状态，手机端自动采用更轻量的渲染配置。
+
+探索规则校验：`npm run exploration:validate`。完整回归：`npm test`。
+
 ## 主要来源
 
 - [高德地图江心洲](https://ditu.amap.com/search?query=%E6%B1%9F%E5%BF%83%E6%B4%B2&city=320100)
@@ -43,5 +52,7 @@ npm run dev
 ## English
 
 A bilingual, full-island 3D visitor map of Jiangxinzhou, Nanjing. All spatial layers use WGS84 and a shared metre-scale Blender/Three.js scene. The project includes 286 OSM building footprints, 263 road segments, evidence-graded landmarks, responsive rendering and explicit estimated-model labels.
+
+The game-inspired exploration mode adds four expeditions, guided camera objectives, discovery feedback and browser-local progress. It does not introduce accounts, leaderboards, payments or fictional geography.
 
 This is a public visitor 3D digital physical map, not survey, navigation or cadastral data. OpenStreetMap-derived geometry is provided under ODbL; reference imagery is not redistributed.

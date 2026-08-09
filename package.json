@@ -9,9 +9,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test": "npm run map:validate && npm run build",
+    "test": "npm run map:validate && npm run exploration:validate && npm run build",
     "map:build": "node scripts/build-jiangxinzhou-v2.mjs",
     "map:validate": "node scripts/validate-jiangxinzhou-v2.mjs",
+    "exploration:validate": "node --experimental-strip-types scripts/validate-exploration.mjs",
     "model:build": "blender -b --python scripts/jiangxinzhou_scene_v2.py -- --data-dir data/jiangxinzhou-v2 --output-dir public/models/jiangxinzhou-v2"
   },
   "dependencies": {

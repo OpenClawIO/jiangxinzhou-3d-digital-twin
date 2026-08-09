@@ -131,6 +131,25 @@ function RouteNetwork({ routeId, visible }: { routeId: string; visible: boolean 
   return <group><SegmentLayer groups={groups} /><pointLight position={[mapBounds.center[0], 120, mapBounds.center[2]]} color={route.color} intensity={0.25} distance={5000} /></group>;
 }
 
+function ObjectiveBeacon({ objectiveId, items }: { objectiveId?: number; items: Landmark[] }) {
+  const objective = objectiveId ? items.find((item) => item.id === objectiveId) : undefined;
+  if (!objective) return null;
+  return <group position={anchorPosition(objective.anchorId, 8)}>
+    <mesh rotation={[-Math.PI / 2, 0, 0]}>
+      <ringGeometry args={[34, 45, 40]} />
+      <meshBasicMaterial color="#f5d36f" transparent opacity={0.82} side={THREE.DoubleSide} depthWrite={false} />
+    </mesh>
+    <mesh position={[0, 60, 0]}>
+      <cylinderGeometry args={[3, 14, 120, 20, 1, true]} />
+      <meshBasicMaterial color="#f7d76f" transparent opacity={0.16} side={THREE.DoubleSide} depthWrite={false} />
+    </mesh>
+    <mesh position={[0, 122, 0]} rotation={[Math.PI, 0, 0]}>
+      <coneGeometry args={[13, 24, 20]} />
+      <meshBasicMaterial color="#fff0a8" />
+    </mesh>
+  </group>;
+}
+
 function CameraRig({ target, view, controls, quality }: { target: Point3; view: ViewMode; controls: React.RefObject<OrbitControlsImpl | null>; quality: SceneQuality }) {
   const { camera, invalidate } = useThree();
   const cameraGoal = useRef(camera.position.clone());
@@ -170,15 +189,26 @@ function CameraRig({ target, view, controls, quality }: { target: Point3; view: 
   return null;
 }
 
-function MarkerLabels({ items, selectedId, onSelect, language, view }: { items: Landmark[]; selectedId: number; onSelect: (id: number) => void; language: Language; view: ViewMode }) {
+function MarkerLabels({ items, selectedId, onSelect, language, view, objectiveId, discoveredIds, expeditionIds }: {
+  items: Landmark[];
+  selectedId: number;
+  onSelect: (id: number) => void;
+  language: Language;
+  view: ViewMode;
+  objectiveId?: number;
+  discoveredIds: readonly number[];
+  expeditionIds: readonly number[];
+}) {
   const { camera, size, invalidate } = useThree();
   const [visibleIds, setVisibleIds] = useState<Set<number>>(() => new Set([selectedId]));
   const lastView = useRef("");
+  const discovered = useMemo(() => new Set(discoveredIds), [discoveredIds]);
+  const expedition = useMemo(() => new Set(expeditionIds), [expeditionIds]);
 
-  useEffect(() => invalidate(), [invalidate, language, selectedId, size.height, size.width]);
+  useEffect(() => invalidate(), [discoveredIds, expeditionIds, invalidate, language, objectiveId, selectedId, size.height, size.width]);
 
   useFrame(() => {
-    const signature = `${camera.position.x.toFixed(1)}:${camera.position.y.toFixed(1)}:${camera.position.z.toFixed(1)}:${camera.quaternion.x.toFixed(3)}:${camera.quaternion.y.toFixed(3)}:${size.width}:${size.height}:${selectedId}:${language}`;
+    const signature = `${camera.position.x.toFixed(1)}:${camera.position.y.toFixed(1)}:${camera.position.z.toFixed(1)}:${camera.quaternion.x.toFixed(3)}:${camera.quaternion.y.toFixed(3)}:${size.width}:${size.height}:${selectedId}:${objectiveId ?? 0}:${discoveredIds.join("-")}:${language}`;
     if (signature === lastView.current) return;
     lastView.current = signature;
     const candidates = items.map((item) => {
@@ -189,12 +219,12 @@ function MarkerLabels({ items, selectedId, onSelect, language, view }: { items: 
         y: (-projected.y * 0.5 + 0.5) * size.height,
         visible: projected.z < 1 && projected.x > -1.08 && projected.x < 1.08 && projected.y > -1.08 && projected.y < 1.08,
       };
-    }).filter((candidate) => candidate.visible).sort((a, b) => Number(b.item.id === selectedId) - Number(a.item.id === selectedId) || a.item.priority - b.item.priority);
+    }).filter((candidate) => candidate.visible && (expedition.has(candidate.item.id) || candidate.item.id === selectedId)).sort((a, b) => Number(b.item.id === objectiveId) - Number(a.item.id === objectiveId) || Number(b.item.id === selectedId) - Number(a.item.id === selectedId) || a.item.priority - b.item.priority);
     const boxes: { x1: number; y1: number; x2: number; y2: number }[] = [];
     const next = new Set<number>();
     const overviewLimit = camera.position.y > 7_500 ? (size.width < 720 ? 4 : 7) : items.length;
     for (const candidate of candidates) {
-      if (next.size >= overviewLimit && candidate.item.id !== selectedId) continue;
+      if (next.size >= overviewLimit && candidate.item.id !== selectedId && candidate.item.id !== objectiveId) continue;
       const width = language === "en" ? (size.width < 720 ? 128 : 164) : (size.width < 720 ? 96 : 112);
       const box = { x1: candidate.x - width / 2, y1: candidate.y - 20, x2: candidate.x + width / 2, y2: candidate.y + 20 };
       const collides = boxes.some((current) => !(box.x2 < current.x1 || box.x1 > current.x2 || box.y2 < current.y1 || box.y1 > current.y2));
@@ -211,19 +241,21 @@ function MarkerLabels({ items, selectedId, onSelect, language, view }: { items: 
   return <>{items.map((item) => {
     const selected = item.id === selectedId;
     const focused = view === "landmark" && selected;
-    const radius = selected ? 18 : 13;
+    const objective = item.id === objectiveId;
+    const found = discovered.has(item.id);
+    const radius = objective ? 20 : selected ? 18 : 13;
     return (
       <group key={item.id} position={anchorPosition(item.anchorId, 26)} onClick={(event) => { event.stopPropagation(); onSelect(item.id); }}>
         {!focused && <mesh scale={selected ? 1.22 : 1}>
           <sphereGeometry args={[radius, 16, 12]} />
-          <meshStandardMaterial color={item.accent} emissive={item.accent} emissiveIntensity={selected ? 0.5 : 0.14} />
+          <meshStandardMaterial color={objective ? "#f5d36f" : found ? "#8fd5aa" : item.accent} emissive={objective ? "#f5d36f" : item.accent} emissiveIntensity={objective ? 0.8 : selected ? 0.5 : 0.14} />
         </mesh>}
         <mesh position={[0, -15, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <ringGeometry args={[focused ? 7 : selected ? 23 : 17, focused ? 10 : selected ? 29 : 22, 24]} />
           <meshBasicMaterial color={item.accent} transparent opacity={0.66} side={THREE.DoubleSide} />
         </mesh>
-        {visibleIds.has(item.id) && <Html position={[0, 42, 0]} center style={{ pointerEvents: "none" }}>
-          <div className={`map-label ${selected ? "is-selected" : ""}`} style={{ "--label-accent": item.accent } as React.CSSProperties}>
+        {visibleIds.has(item.id) && <Html position={[0, 42, 0]} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}>
+          <div className={`map-label ${selected ? "is-selected" : ""} ${objective ? "is-objective" : ""} ${found ? "is-discovered" : ""}`} style={{ "--label-accent": objective ? "#d7a923" : found ? "#4e9b6a" : item.accent } as React.CSSProperties}>
             <span>{String(item.id).padStart(2, "0")}</span><strong>{localize(landmarkCopy[item.id].name, language)}</strong>
           </div>
         </Html>}
@@ -270,7 +302,7 @@ function DeferredAssets({ layers, quality, onCoreReady }: { layers: LayerVisibil
   </Suspense>;
 }
 
-function SceneContent({ items, selectedId, onSelect, onReady, routeId, view, target, layers, language, quality }: JiangxinzhouSceneProps) {
+function SceneContent({ items, selectedId, onSelect, onReady, routeId, view, target, layers, language, quality, objectiveId, expeditionLandmarkIds, discoveredLandmarkIds }: JiangxinzhouSceneProps) {
   const controls = useRef<OrbitControlsImpl>(null);
   const reportedReady = useRef(false);
   const reportReady = useCallback(() => {
@@ -289,7 +321,8 @@ function SceneContent({ items, selectedId, onSelect, onReady, routeId, view, tar
     <LandscapeZones visible={layers.landscape} />
     <RoadNetwork visible={layers.roads} />
     <RouteNetwork routeId={routeId} visible={view === "route"} />
-    {layers.landmarks && <MarkerLabels items={items} selectedId={selectedId} onSelect={onSelect} language={language} view={view} />}
+    {layers.landmarks && <ObjectiveBeacon objectiveId={objectiveId} items={items} />}
+    {layers.landmarks && <MarkerLabels items={items} selectedId={selectedId} onSelect={onSelect} language={language} view={view} objectiveId={objectiveId} discoveredIds={discoveredLandmarkIds} expeditionIds={expeditionLandmarkIds} />}
     <CameraRig target={target} view={view} controls={controls} quality={quality} />
     <SceneControls controls={controls} />
     <AdaptiveDpr pixelated={quality === "efficiency"} />

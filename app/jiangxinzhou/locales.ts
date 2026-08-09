@@ -1,4 +1,5 @@
 import type { LandmarkCategory } from "./landmarks";
+import type { ExpeditionId } from "./exploration";
 
 export type Language = "zh" | "en";
 
@@ -216,6 +217,36 @@ export const experienceCopy = {
     zh: "聚焦这个地标",
     en: "Focus this landmark",
   },
+  missionControl: { zh: "探索任务", en: "EXPEDITION" },
+  currentExpedition: { zh: "当前任务", en: "Current expedition" },
+  nextObjective: { zh: "下一目标", en: "Next objective" },
+  expeditionProgress: { zh: "任务进度", en: "Expedition progress" },
+  worldProgress: { zh: "全岛发现", en: "Island discoveries" },
+  discovered: { zh: "已发现", en: "Discovered" },
+  undiscovered: { zh: "未发现", en: "Undiscovered" },
+  missionComplete: { zh: "任务完成", en: "Expedition complete" },
+  missionCompleteBody: { zh: "这条探索路线的全部地标已经收录。可以选择另一项任务继续探索江心洲。", en: "Every landmark in this expedition has been logged. Choose another mission to continue exploring Jiangxinzhou." },
+  briefingTitle: { zh: "江心洲探索简报", en: "JIANGXINZHOU FIELD BRIEFING" },
+  briefingBody: { zh: "选择一条探索任务，跟随地图目标依次聚焦地标。每次主动收录都会更新你的本地探索进度。", en: "Choose an expedition, follow its objectives and focus each landmark. Log discoveries to build progress stored only on this device." },
+  briefingHint: { zh: "真实坐标 · 虚拟探索 · 无排名与付费机制", en: "Real coordinates · virtual exploration · no ranking or monetization" },
+  startIslandQuest: { zh: "开始环岛探索", en: "Start island expedition" },
+  briefingSkip: { zh: "自由探索", en: "Explore freely" },
+  chooseMission: { zh: "选择任务", en: "Choose expedition" },
+  beginExpedition: { zh: "开始任务", en: "Start expedition" },
+  activeMission: { zh: "进行中", en: "Active" },
+  discoverLandmark: { zh: "收录这个发现", en: "Log this discovery" },
+  discoveredLandmark: { zh: "已收录到地标图鉴", en: "Logged in landmark collection" },
+  focusObjective: { zh: "前往下一目标", en: "Go to next objective" },
+  locate: { zh: "定位", en: "Locate" },
+  resetProgress: { zh: "重置探索进度", en: "Reset exploration progress" },
+  collapsePanel: { zh: "收起任务面板", en: "Collapse mission panel" },
+  expandPanel: { zh: "打开任务面板", en: "Open mission panel" },
+  settings: { zh: "地图设置", en: "Map settings" },
+  minutes: { zh: "分钟", en: "min" },
+  easy: { zh: "轻松", en: "Easy" },
+  standard: { zh: "标准", en: "Standard" },
+  discoveryUnlocked: { zh: "新发现已收录", en: "New discovery logged" },
+  localProgress: { zh: "进度仅保存在当前浏览器", en: "Progress is stored only in this browser" },
   routeSelector: {
     zh: "路线选择",
     en: "ROUTE SELECTOR",
@@ -239,6 +270,25 @@ export const experienceCopy = {
     en: "Nanjing · Jiangxinzhou · 2026",
   },
 } satisfies Record<string, LocalizedText>;
+
+export const expeditionCopy: Record<ExpeditionId, { name: LocalizedText; description: LocalizedText }> = {
+  "island-quest": {
+    name: { zh: "环岛地标巡游", en: "Island Landmark Quest" },
+    description: { zh: "从北段灯塔出发，穿过科创建筑与南段花海，完成江心洲全岛探索。", en: "Travel from the northern lighthouses through the innovation district to the southern gardens." },
+  },
+  "nature-trail": {
+    name: { zh: "自然景观寻踪", en: "Nature Trail" },
+    description: { zh: "寻找粉黛花田、池杉林、森林公园与江堤慢行空间。", en: "Find the pink muhly field, pond cypress garden, forest park and riverside walk." },
+  },
+  "architecture-tour": {
+    name: { zh: "建筑与文化巡礼", en: "Architecture & Culture Tour" },
+    description: { zh: "聚焦灯塔、江豚中心、科创园区、教堂与南京眼等代表性建筑。", en: "Focus on the lighthouses, porpoise center, innovation campus, church and Nanjing Eye." },
+  },
+  "free-explore": {
+    name: { zh: "自由探索", en: "Free Explore" },
+    description: { zh: "不按固定顺序浏览全岛，并建立自己的地标图鉴。", en: "Explore the island in any order and build your own landmark collection." },
+  },
+};
 
 export const categoryLabels: Record<Language, Record<LandmarkCategory, string>> = {
   zh: {
