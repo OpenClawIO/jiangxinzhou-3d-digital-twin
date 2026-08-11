@@ -1,4 +1,4 @@
-# 南京江心洲3D数字物理地图
+# 南京江心洲3D时空
 
 [English](#english) · 中文
 
@@ -70,4 +70,4 @@ The transport layer covers buses, Metro Line 10, park and city shuttles, holiday
 
 The game-inspired exploration mode adds four expeditions, guided camera objectives, discovery feedback and browser-local progress. It does not introduce accounts, leaderboards, payments or fictional geography.
 
-This is a public visitor 3D digital physical map, not survey, navigation or cadastral data. OpenStreetMap-derived geometry is provided under ODbL; reference imagery is not redistributed.
+This is a public visitor 3D time-space map, not survey, navigation or cadastral data. OpenStreetMap-derived geometry is provided under ODbL; reference imagery is not redistributed.

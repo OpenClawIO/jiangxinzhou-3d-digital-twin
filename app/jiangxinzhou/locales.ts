@@ -18,8 +18,8 @@ export const localize = (text: LocalizedText, language: Language): string => tex
 
 export const pageCopy = {
   title: {
-    zh: "南京江心洲3D数字物理地图",
-    en: "Nanjing Jiangxinzhou 3D Digital Physical Map",
+    zh: "南京江心洲3D时空",
+    en: "Nanjing Jiangxinzhou 3D Time-Space",
   },
   description: {
     zh: "基于 WGS84、开放建筑轮廓、高德地图、Google Earth 与公开建筑资料交叉核验的江心洲全岛 3D 数字地图。",
@@ -41,8 +41,8 @@ export const pageCopy = {
 
 export const experienceCopy = {
   ariaLabel: {
-    zh: "江心洲 3D 地图体验",
-    en: "Jiangxinzhou 3D map experience",
+    zh: "南京江心洲3D时空",
+    en: "Nanjing Jiangxinzhou 3D Time-Space",
   },
   toolbarKicker: {
     zh: "探索江心洲 · 地图数据",

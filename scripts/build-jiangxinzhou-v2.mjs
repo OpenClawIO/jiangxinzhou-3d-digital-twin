@@ -211,7 +211,7 @@ const evidence = {
 const origin = gcj02ToWgs84(legacy.reference.origin);
 const manifest = {
   version: VERSION,
-  title: { zh: "南京江心洲3D数字物理地图", en: "Nanjing Jiangxinzhou 3D Digital Physical Map" },
+  title: { zh: "南京江心洲3D时空", en: "Nanjing Jiangxinzhou 3D Time-Space" },
   snapshot: "2026-08-09",
   canonicalCrs: "EPSG:4326",
   origin,
