@@ -1,10 +1,10 @@
 {
-  "version": "2026-08-09.2",
+  "version": "2026-08-11",
   "title": {
     "zh": "南京江心洲3D数字物理地图",
     "en": "Nanjing Jiangxinzhou 3D Digital Physical Map"
   },
-  "snapshot": "2026-08-09",
+  "snapshot": "2026-08-11",
   "canonicalCrs": "EPSG:4326",
   "origin": [
     118.6982074,
@@ -18,7 +18,10 @@
     "roads": 263,
     "landmarks": 13,
     "transitLines": 12,
-    "transitStops": 43
+    "transitStops": 43,
+    "contextLands": 4,
+    "waterBodies": 2,
+    "crossings": 7
   },
   "layers": {
     "island": "island.geojson",
@@ -30,6 +33,11 @@
     "transitLines": "transit-lines.geojson",
     "transitStops": "transit-stops.geojson",
     "transportHubs": "transport-hubs.geojson",
-    "transportEvidence": "transport-evidence.json"
+    "transportEvidence": "transport-evidence.json",
+    "contextLands": "context-land.geojson",
+    "waterBodies": "water-bodies.geojson",
+    "contextRoads": "context-roads.geojson",
+    "crossings": "crossings.geojson",
+    "contextEvidence": "context-evidence.json"
   }
 }

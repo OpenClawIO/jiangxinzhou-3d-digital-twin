@@ -46,6 +46,7 @@ ISLAND = load("island.geojson")
 BUILDINGS = load("buildings.geojson")
 LANDMARKS = load("landmarks.geojson")
 LANDSCAPES = load("landscapes.geojson")
+CROSSINGS = load("crossings.geojson")
 ORIGIN_LNG, ORIGIN_LAT = MANIFEST["origin"]
 LON_METERS = 111320 * math.cos(math.radians(ORIGIN_LAT))
 LAT_METERS = 110540
@@ -255,19 +256,50 @@ lighthouse(landmark_points["xiaokenting-lighthouse"], "south", 38, -28, 15, 1.8)
 lighthouse(landmark_points["xiaokenting-lighthouse"], "north", -31, 22, 12, 1.5)
 
 
-eye = landmark_points["nanjing-eye"]
-ex, ey, _ = geo_to_xy(eye)
-cube("Nanjing Eye deck", (ex, ey, 5.8), (285, 9, 2.3), STEEL, bevel=0.4)
-for tower_x in (ex - 120, ex + 120):
-    beam("Nanjing Eye tower outer", (tower_x, ey - 9, 5), (tower_x, ey - 2.5, 62), 1.65, STEEL)
-    beam("Nanjing Eye tower inner", (tower_x, ey + 9, 5), (tower_x, ey + 2.5, 62), 1.65, STEEL)
-    beam("Nanjing Eye tower crown", (tower_x, ey - 2.5, 62), (tower_x, ey + 2.5, 62), 1.2, STEEL)
-    for offset in range(-96, 97, 24):
-        deck_x = tower_x + offset
-        if abs(deck_x - ex) > 142:
-            continue
-        tower_side = -2.2 if offset < 0 else 2.2
-        beam("Nanjing Eye stay", (tower_x, ey + tower_side, 57), (deck_x, ey + tower_side * 2, 7), 0.16, CABLE)
+eye_crossing = next(feature for feature in CROSSINGS["features"] if feature["id"] == "nanjing-eye-crossing")
+eye_points = [Vector(geo_to_xy(coordinate)) for coordinate in eye_crossing["geometry"]["coordinates"]]
+
+
+def path_point(points, fraction):
+    fraction = max(0.0, min(1.0, fraction))
+    lengths = [0.0]
+    for index in range(len(points) - 1):
+        lengths.append(lengths[-1] + (points[index + 1] - points[index]).length)
+    target = lengths[-1] * fraction
+    for index in range(len(points) - 1):
+        if target <= lengths[index + 1]:
+            portion = (target - lengths[index]) / max(0.001, lengths[index + 1] - lengths[index])
+            return points[index].lerp(points[index + 1], portion)
+    return points[-1]
+
+
+def length(vector):
+    return math.sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z)
+
+
+for index in range(len(eye_points) - 1):
+    start, end = eye_points[index], eye_points[index + 1]
+    direction = end - start
+    midpoint = (start + end) / 2
+    cube("Nanjing Eye deck segment", (midpoint.x, midpoint.y, 5.8), (length(direction) + 4, 9, 2.3), STEEL, rotation=math.atan2(direction.y, direction.x), bevel=0.4)
+
+for tower_index, fraction in enumerate((0.35, 0.65), start=1):
+    center = path_point(eye_points, fraction)
+    before = path_point(eye_points, max(0.0, fraction - 0.01))
+    after = path_point(eye_points, min(1.0, fraction + 0.01))
+    direction = after - before
+    direction.z = 0
+    direction.normalize()
+    perpendicular = Vector((-direction.y, direction.x, 0))
+    for side_index, offset in enumerate((-9.0, 9.0), start=1):
+        base = center + perpendicular * offset
+        top = center + perpendicular * (offset * 0.55) + direction * (8 if fraction > 0.5 else -8)
+        beam(f"Nanjing Eye tower {tower_index}-{side_index}", (base.x, base.y, 5), (top.x, top.y, 62), 1.65, STEEL)
+        for stay_index, delta in enumerate((-0.13, -0.08, -0.035, 0.035, 0.08, 0.13), start=1):
+            deck = path_point(eye_points, fraction + delta)
+            deck_side = deck + perpendicular * (offset * 0.35)
+            beam(f"Nanjing Eye stay {tower_index}-{side_index}-{stay_index}", (top.x, top.y, 56), (deck_side.x, deck_side.y, 7.3), 0.16, CABLE)
+    beam(f"Nanjing Eye crossbeam {tower_index}", (center.x - perpendicular.x * 9, center.y - perpendicular.y * 9, 59), (center.x + perpendicular.x * 9, center.y + perpendicular.y * 9, 59), 1.2, STEEL)
 
 
 rocho = landmark_points["rocho-cafe"]

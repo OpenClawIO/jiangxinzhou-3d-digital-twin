@@ -5,6 +5,10 @@ export type Point3 = [number, number, number];
 export type RoadClass = "major" | "arterial" | "collector" | "local" | "greenway";
 export type Confidence = "triangulated" | "estimated" | "planned";
 export type TransitMode = "bus" | "metro" | "shuttle" | "tourism" | "ferry" | "cycle";
+export type ContextLandKind = "west-bank" | "east-bank" | "north-bank" | "south-bank";
+export type WaterBodyKind = "yangtze-main-channel" | "jiajiang";
+export type CrossingType = "bridge" | "tunnel";
+export type CrossingMode = "road" | "pedestrian" | "metro";
 
 export type LocalizedName = { zh: string | null; en: string | null };
 export type PointGeometry = { type: "Point"; coordinates: GeoPoint };
@@ -53,6 +57,57 @@ export type RoadProperties = {
   status: string;
 };
 export type MapRoadFeature = SpatialFeature<LineStringGeometry, RoadProperties>;
+export type ContextLandProperties = {
+  id: string;
+  name: LocalizedName;
+  kind: ContextLandKind;
+  color: string;
+  opacity: number;
+  source: string;
+  confidence: Confidence;
+  status: "existing" | "under-construction" | "planned";
+};
+export type WaterBodyProperties = {
+  id: string;
+  name: LocalizedName;
+  kind: WaterBodyKind;
+  color: string;
+  opacity: number;
+  source: string;
+  confidence: Confidence;
+  status: "existing" | "under-construction" | "planned";
+  centerline?: GeoPoint[];
+};
+export type ContextRoadProperties = {
+  id: string;
+  name: LocalizedName;
+  class: "major";
+  widthM: number;
+  renderWidthPx: number;
+  color: string;
+  source: string;
+  confidence: Confidence;
+  status: "existing" | "under-construction" | "planned";
+};
+export type CrossingProperties = {
+  id: string;
+  name: LocalizedName;
+  type: CrossingType;
+  mode: CrossingMode;
+  color: string;
+  status: "existing" | "under-construction" | "planned";
+  confidence: Confidence;
+  source: string;
+  sourceId: string;
+  totalRouteM: number | null;
+  mainSpanM: number | null;
+  modelKey: string | null;
+  layer: number;
+};
+export type MapContextLandFeature = SpatialFeature<PolygonGeometry, ContextLandProperties>;
+export type MapWaterBodyFeature = SpatialFeature<PolygonGeometry, WaterBodyProperties>;
+export type MapContextRoadFeature = SpatialFeature<LineStringGeometry, ContextRoadProperties>;
+export type MapCrossingFeature = SpatialFeature<LineStringGeometry, CrossingProperties>;
 export type TransitLineProperties = {
   id: string;
   name: LocalizedName;
@@ -90,7 +145,7 @@ type RuntimeData = {
     units: string;
     officialAreaKm2: number;
     officialEmbankmentKm: number;
-    counts: { buildings: number; roads: number; landmarks: number; transitLines?: number; transitStops?: number };
+    counts: { buildings: number; roads: number; landmarks: number; transitLines?: number; transitStops?: number; contextLands?: number; waterBodies?: number; crossings?: number };
   };
   island: { type: "FeatureCollection"; features: SpatialFeature<PolygonGeometry>[] };
   roads: { type: "FeatureCollection"; features: SpatialFeature<LineStringGeometry, RoadProperties>[] };
@@ -113,6 +168,13 @@ type RuntimeData = {
     hubs: { type: "FeatureCollection"; features: SpatialFeature<PointGeometry>[] };
     evidence: { sources: FeatureEvidence[] };
   };
+  context: {
+    lands: { type: "FeatureCollection"; features: MapContextLandFeature[] };
+    waters: { type: "FeatureCollection"; features: MapWaterBodyFeature[] };
+    roads: { type: "FeatureCollection"; features: MapContextRoadFeature[] };
+    crossings: { type: "FeatureCollection"; features: MapCrossingFeature[] };
+    evidence: { version: string; snapshot: string; canonicalCrs: string; precision: string; redistribution: string; sources: FeatureEvidence[] };
+  };
 };
 
 export const mapData = runtimeJson as unknown as RuntimeData;
@@ -123,6 +185,11 @@ export const mapLandmarks = mapData.landmarks.features as unknown as MapLandmark
 export const transportLines = mapData.transit.lines.features as unknown as MapTransitLineFeature[];
 export const transportStops = mapData.transit.stops.features as unknown as MapTransitStopFeature[];
 export const transportEvidenceSources = mapData.transit.evidence.sources;
+export const contextLands = mapData.context.lands.features;
+export const waterBodies = mapData.context.waters.features;
+export const contextRoads = mapData.context.roads.features;
+export const crossings = mapData.context.crossings.features;
+export const contextEvidenceSources = mapData.context.evidence.sources;
 
 const [originLng, originLat] = mapManifest.origin;
 const longitudeScale = 111_320 * Math.cos((originLat * Math.PI) / 180);
@@ -159,6 +226,37 @@ export const mapBounds = (() => {
     center: [(minX + maxX) / 2, 0, (minZ + maxZ) / 2] as Point3,
   };
 })();
+
+function geometryCoordinates(geometry: LineStringGeometry | PolygonGeometry): GeoPoint[] {
+  return geometry.type === "LineString" ? geometry.coordinates : geometry.coordinates.flat();
+}
+
+export const contextBounds = (() => {
+  const coordinates = [
+    ...contextLands.flatMap((feature) => geometryCoordinates(feature.geometry)),
+    ...waterBodies.flatMap((feature) => geometryCoordinates(feature.geometry)),
+    ...contextRoads.flatMap((feature) => geometryCoordinates(feature.geometry)),
+    ...crossings.flatMap((feature) => geometryCoordinates(feature.geometry)),
+  ];
+  const projected = coordinates.map((coordinate) => projectPoint(coordinate));
+  const xs = projected.map(([x]) => x);
+  const zs = projected.map(([, , z]) => z);
+  const minX = Math.min(...xs);
+  const maxX = Math.max(...xs);
+  const minZ = Math.min(...zs);
+  const maxZ = Math.max(...zs);
+  return {
+    minX,
+    maxX,
+    minZ,
+    maxZ,
+    width: maxX - minX,
+    depth: maxZ - minZ,
+    center: [(minX + maxX) / 2, 0, (minZ + maxZ) / 2] as Point3,
+  };
+})();
+
+export const regionalBounds = contextBounds;
 
 export function findAnchor(anchorId: string): MapLandmarkFeature | undefined {
   return mapLandmarks.find((feature) => feature.id === anchorId);

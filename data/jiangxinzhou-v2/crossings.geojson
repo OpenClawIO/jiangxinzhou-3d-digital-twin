@@ -1,0 +1,282 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "jiangxinzhou-yangtze-bridge",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.641868,
+            32.019244
+          ],
+          [
+            118.651,
+            32.0154
+          ],
+          [
+            118.662,
+            32.0107
+          ],
+          [
+            118.673,
+            32.0062
+          ],
+          [
+            118.68262,
+            32.002087
+          ]
+        ]
+      },
+      "properties": {
+        "id": "jiangxinzhou-yangtze-bridge",
+        "name": {
+          "zh": "南京江心洲长江大桥",
+          "en": "Nanjing Jiangxinzhou Yangtze River Bridge"
+        },
+        "type": "bridge",
+        "mode": "road",
+        "color": "#f1c46a",
+        "status": "existing",
+        "confidence": "triangulated",
+        "source": "OSM bridge geometry + Nanjing government bridge project资料",
+        "sourceId": "458525355/458709962",
+        "totalRouteM": 10335,
+        "mainSpanM": 600,
+        "modelKey": "jiangxinzhou-yangtze-bridge",
+        "layer": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "jiajiang-bridge",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.702071,
+            32.034805
+          ],
+          [
+            118.7048,
+            32.0331
+          ],
+          [
+            118.707944,
+            32.031631
+          ]
+        ]
+      },
+      "properties": {
+        "id": "jiajiang-bridge",
+        "name": {
+          "zh": "夹江大桥",
+          "en": "Jiajiang Bridge"
+        },
+        "type": "bridge",
+        "mode": "road",
+        "color": "#e9b75f",
+        "status": "existing",
+        "confidence": "triangulated",
+        "source": "OSM bridge geometry + Nanjing transportation references",
+        "sourceId": "137972556/137972560",
+        "totalRouteM": null,
+        "mainSpanM": null,
+        "modelKey": "jiajiang-bridge",
+        "layer": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "nanjing-eye-crossing",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.69399,
+            31.999741
+          ],
+          [
+            118.69655,
+            31.99755
+          ],
+          [
+            118.699348,
+            31.995421
+          ]
+        ]
+      },
+      "properties": {
+        "id": "nanjing-eye-crossing",
+        "name": {
+          "zh": "南京眼步行桥",
+          "en": "Nanjing Eye Pedestrian Bridge"
+        },
+        "type": "bridge",
+        "mode": "pedestrian",
+        "color": "#a7e0c2",
+        "status": "existing",
+        "confidence": "triangulated",
+        "source": "OSM bridge geometry + Nanjing Eye official project资料",
+        "sourceId": "321392362/445886857/445886858",
+        "totalRouteM": 827.5,
+        "mainSpanM": 240,
+        "modelKey": "nanjing-eye-context",
+        "layer": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "jiajiang-tunnel",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.684867,
+            32.001322
+          ],
+          [
+            118.6939,
+            31.997
+          ],
+          [
+            118.701921,
+            31.992288
+          ]
+        ]
+      },
+      "properties": {
+        "id": "jiajiang-tunnel",
+        "name": {
+          "zh": "夹江隧道",
+          "en": "Jiajiang Tunnel"
+        },
+        "type": "tunnel",
+        "mode": "road",
+        "color": "#82a5bd",
+        "status": "existing",
+        "confidence": "triangulated",
+        "source": "OSM tunnel geometry + Nanjing government bridge project资料",
+        "sourceId": "458709944",
+        "totalRouteM": 1800,
+        "mainSpanM": null,
+        "modelKey": null,
+        "layer": -2
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "qingao-axis-tunnel-north",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.703292,
+            31.997225
+          ],
+          [
+            118.700816,
+            31.994358
+          ]
+        ]
+      },
+      "properties": {
+        "id": "qingao-axis-tunnel-north",
+        "name": {
+          "zh": "青奥轴线隧道",
+          "en": "Qing'ao Axis Tunnel"
+        },
+        "type": "tunnel",
+        "mode": "road",
+        "color": "#728da3",
+        "status": "existing",
+        "confidence": "triangulated",
+        "source": "OpenStreetMap tunnel geometry",
+        "sourceId": "321394415",
+        "totalRouteM": null,
+        "mainSpanM": null,
+        "modelKey": null,
+        "layer": -1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "qingao-axis-tunnel-south",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.695413,
+            31.991451
+          ],
+          [
+            118.699937,
+            31.993537
+          ]
+        ]
+      },
+      "properties": {
+        "id": "qingao-axis-tunnel-south",
+        "name": {
+          "zh": "青奥轴线隧道南段",
+          "en": "Qing'ao Axis Tunnel · South"
+        },
+        "type": "tunnel",
+        "mode": "road",
+        "color": "#728da3",
+        "status": "existing",
+        "confidence": "triangulated",
+        "source": "OpenStreetMap tunnel geometry",
+        "sourceId": "321394417",
+        "totalRouteM": null,
+        "mainSpanM": null,
+        "modelKey": null,
+        "layer": -1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "yingtian-avenue-tunnel",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.698383,
+            32.037478
+          ],
+          [
+            118.685,
+            32.045
+          ],
+          [
+            118.675,
+            32.052
+          ],
+          [
+            118.667667,
+            32.056265
+          ]
+        ]
+      },
+      "properties": {
+        "id": "yingtian-avenue-tunnel",
+        "name": {
+          "zh": "应天大街长江隧道",
+          "en": "Yingtian Avenue Yangtze Tunnel"
+        },
+        "type": "tunnel",
+        "mode": "road",
+        "color": "#637f96",
+        "status": "existing",
+        "confidence": "triangulated",
+        "source": "OpenStreetMap tunnel geometry",
+        "sourceId": "137978972",
+        "totalRouteM": null,
+        "mainSpanM": null,
+        "modelKey": null,
+        "layer": -1
+      }
+    }
+  ]
+}

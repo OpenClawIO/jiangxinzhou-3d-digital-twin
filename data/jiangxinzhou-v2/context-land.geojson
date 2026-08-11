@@ -1,0 +1,221 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "jiangbei-west-bank",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              118.62,
+              31.97
+            ],
+            [
+              118.647,
+              31.97
+            ],
+            [
+              118.661,
+              31.987
+            ],
+            [
+              118.667,
+              32.008
+            ],
+            [
+              118.668,
+              32.034
+            ],
+            [
+              118.665,
+              32.061
+            ],
+            [
+              118.674,
+              32.085
+            ],
+            [
+              118.62,
+              32.085
+            ],
+            [
+              118.62,
+              31.97
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "jiangbei-west-bank",
+        "name": {
+          "zh": "江北新区西岸",
+          "en": "Jiangbei New Area · West Bank"
+        },
+        "kind": "west-bank",
+        "color": "#315864",
+        "opacity": 0.84,
+        "source": "Nanjing government geography cross-checked with OSM and Google Earth",
+        "confidence": "triangulated",
+        "status": "existing"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "hexi-east-bank",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              118.722,
+              31.97
+            ],
+            [
+              118.748,
+              31.97
+            ],
+            [
+              118.748,
+              32.085
+            ],
+            [
+              118.718,
+              32.085
+            ],
+            [
+              118.722,
+              32.066
+            ],
+            [
+              118.723,
+              32.045
+            ],
+            [
+              118.718,
+              32.026
+            ],
+            [
+              118.708,
+              32.008
+            ],
+            [
+              118.694,
+              31.985
+            ],
+            [
+              118.686,
+              31.97
+            ],
+            [
+              118.722,
+              31.97
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "hexi-east-bank",
+        "name": {
+          "zh": "河西新城东岸",
+          "en": "Hexi New City · East Bank"
+        },
+        "kind": "east-bank",
+        "color": "#3a6268",
+        "opacity": 0.88,
+        "source": "Nanjing government geography cross-checked with OSM and Google Earth",
+        "confidence": "triangulated",
+        "status": "existing"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "north-bank",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              118.62,
+              32.073
+            ],
+            [
+              118.748,
+              32.073
+            ],
+            [
+              118.748,
+              32.092
+            ],
+            [
+              118.62,
+              32.092
+            ],
+            [
+              118.62,
+              32.073
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "north-bank",
+        "name": {
+          "zh": "北岸城市界面",
+          "en": "Northern Urban Edge"
+        },
+        "kind": "north-bank",
+        "color": "#294b55",
+        "opacity": 0.78,
+        "source": "Generalized regional context from OSM and Google Earth",
+        "confidence": "estimated",
+        "status": "existing"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "south-bank",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              118.62,
+              31.96
+            ],
+            [
+              118.748,
+              31.96
+            ],
+            [
+              118.748,
+              31.982
+            ],
+            [
+              118.62,
+              31.982
+            ],
+            [
+              118.62,
+              31.96
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "south-bank",
+        "name": {
+          "zh": "南岸城市界面",
+          "en": "Southern Urban Edge"
+        },
+        "kind": "south-bank",
+        "color": "#294b55",
+        "opacity": 0.78,
+        "source": "Generalized regional context from OSM and Google Earth",
+        "confidence": "estimated",
+        "status": "existing"
+      }
+    }
+  ]
+}

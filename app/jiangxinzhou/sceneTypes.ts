@@ -2,8 +2,8 @@ import type { Landmark } from "./landmarks";
 import type { Language } from "./locales";
 import type { Point3 } from "./mapGeometry";
 
-export type ViewMode = "overview" | "route" | "landmark";
-export type LayerKey = "roads" | "buildings" | "landscape" | "landmarks" | "transport";
+export type ViewMode = "regional" | "overview" | "route" | "landmark";
+export type LayerKey = "water" | "surroundings" | "roads" | "buildings" | "landscape" | "landmarks" | "crossings" | "transport";
 export type LayerVisibility = Record<LayerKey, boolean>;
 export type SceneQuality = "high" | "balanced" | "efficiency";
 
@@ -24,4 +24,6 @@ export type JiangxinzhouSceneProps = {
   selectedTransportLineId: string;
   selectedTransportStopId?: string;
   onSelectTransportStop: (id: string) => void;
+  selectedCrossingId: string;
+  onSelectCrossing: (id: string) => void;
 };

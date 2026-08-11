@@ -14,7 +14,7 @@ import {
   localize,
   type Language,
 } from "./locales";
-import { anchorPosition, evidenceSources, findAnchor, mapBounds, mapManifest, projectPoint, transportEvidenceSources, transportLines, transportStops } from "./mapGeometry";
+import { anchorPosition, contextEvidenceSources, crossings, evidenceSources, findAnchor, localizeFeatureName, mapBounds, mapManifest, projectPoint, regionalBounds, transportEvidenceSources, transportLines, transportStops } from "./mapGeometry";
 import type { JiangxinzhouSceneProps, LayerKey, LayerVisibility, SceneQuality, ViewMode } from "./sceneTypes";
 import { TransportPanel } from "./TransportPanel";
 import { useExplorationProgress } from "./useExplorationProgress";
@@ -40,7 +40,16 @@ function LanguageToggle({ language, onChange }: { language: Language; onChange: 
 }
 
 function LayerToggles({ layers, language, onToggle }: { layers: LayerVisibility; language: Language; onToggle: (key: LayerKey) => void }) {
-  const labels: Record<LayerKey, typeof experienceCopy.roads> = { roads: experienceCopy.roads, buildings: experienceCopy.buildings, landscape: experienceCopy.landscape, landmarks: experienceCopy.landmarkLayer, transport: experienceCopy.transportLayer };
+  const labels: Record<LayerKey, typeof experienceCopy.roads> = {
+    water: experienceCopy.water,
+    surroundings: experienceCopy.surroundings,
+    roads: experienceCopy.roads,
+    buildings: experienceCopy.buildings,
+    landscape: experienceCopy.landscape,
+    landmarks: experienceCopy.landmarkLayer,
+    crossings: experienceCopy.crossingLayer,
+    transport: experienceCopy.transportLayer,
+  };
   return <div className="layer-toggles" aria-label={localize(experienceCopy.layers, language)}>{(Object.keys(labels) as LayerKey[]).map((key) => (
     <button key={key} className={layers[key] ? "active" : ""} aria-pressed={layers[key]} onClick={() => onToggle(key)}>{localize(labels[key], language)}</button>
   ))}</div>;
@@ -69,8 +78,10 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   const [selectedId, setSelectedId] = useState(items[0]?.id ?? 1);
   const [selectedTransportLineId, setSelectedTransportLineId] = useState(transportLines.find((line) => line.id === "bus-486")?.id ?? transportLines[0]?.id ?? "");
   const [selectedTransportStopId, setSelectedTransportStopId] = useState<string>();
-  const [view, setView] = useState<ViewMode>("overview");
-  const [layers, setLayers] = useState<LayerVisibility>({ roads: true, buildings: true, landscape: true, landmarks: true, transport: true });
+  const [view, setView] = useState<ViewMode>("regional");
+  const [layers, setLayers] = useState<LayerVisibility>({ water: true, surroundings: true, roads: true, buildings: true, landscape: true, landmarks: true, crossings: true, transport: true });
+  const [selectedCrossingId, setSelectedCrossingId] = useState("jiangxinzhou-yangtze-bridge");
+  const [crossingFocused, setCrossingFocused] = useState(false);
   const [evidenceOpen, setEvidenceOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -107,11 +118,17 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   const selected = items.find((item) => item.id === selectedId) ?? items[0];
   const selectedAnchor = selected ? findAnchor(selected.anchorId) : undefined;
   const selectedTransportStop = transportStops.find((stop) => stop.id === selectedTransportStopId);
+  const selectedCrossing = crossings.find((crossing) => crossing.id === selectedCrossingId) ?? crossings[0];
   const target = useMemo(() => {
     if (view === "landmark" && selected) return anchorPosition(selected.anchorId, 18);
     if (view === "route" && selectedTransportStop) return projectPoint(selectedTransportStop.geometry.coordinates, 14);
+    if (view === "regional" && crossingFocused && selectedCrossing) {
+      const coordinates = selectedCrossing.geometry.coordinates;
+      return projectPoint(coordinates[Math.floor(coordinates.length / 2)], 18);
+    }
+    if (view === "regional") return regionalBounds.center;
     return mapBounds.center;
-  }, [selected, selectedTransportStop, view]);
+  }, [crossingFocused, selected, selectedCrossing, selectedTransportStop, view]);
   const routeId = exploration.activeExpedition.routeId ?? routes[0].id;
   const selectedDiscovered = exploration.state.discoveredLandmarkIds.includes(selectedId);
   const missionComplete = exploration.activeProgress.completed === exploration.activeProgress.total;
@@ -121,7 +138,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
     setSelectedId(id);
     setView("landmark");
   }, []);
-  const resetView = useCallback(() => setView("overview"), []);
+  const resetView = useCallback(() => { setCrossingFocused(false); setView("regional"); }, []);
   const chooseTransportLine = useCallback((id: string) => {
     setSelectedTransportLineId(id);
     setSelectedTransportStopId(undefined);
@@ -132,6 +149,12 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
     setSelectedTransportStopId(id);
     setLayers((current) => ({ ...current, transport: true }));
     setView("route");
+  }, []);
+  const chooseCrossing = useCallback((id: string) => {
+    setSelectedCrossingId(id);
+    setCrossingFocused(true);
+    setLayers((current) => ({ ...current, water: true, surroundings: true, crossings: true }));
+    setView("regional");
   }, []);
   const focusObjective = useCallback(() => {
     if (exploration.nextObjectiveId) chooseLandmark(exploration.nextObjectiveId);
@@ -152,7 +175,8 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   const resetProgress = useCallback(() => {
     exploration.resetProgress();
     setSelectedId(items[0]?.id ?? 1);
-    setView("overview");
+    setCrossingFocused(false);
+    setView("regional");
   }, [exploration, items]);
 
   useEffect(() => {
@@ -180,7 +204,8 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
         <div className="toolbar-actions">
           <LanguageToggle language={language} onChange={onLanguageChange} />
           <div className="view-tabs" role="tablist" aria-label={localize(experienceCopy.viewTabs, language)}>
-            <button className={view === "overview" ? "active" : ""} onClick={resetView}>{localize(experienceCopy.overview, language)}</button>
+            <button className={view === "regional" ? "active" : ""} onClick={resetView}>{localize(experienceCopy.regional, language)}</button>
+            <button className={view === "overview" ? "active" : ""} onClick={() => { setCrossingFocused(false); setView("overview"); }}>{localize(experienceCopy.overview, language)}</button>
             <button className={view === "route" ? "active" : ""} onClick={() => setView("route")}>{localize(experienceCopy.route, language)}</button>
             <button className={view === "landmark" ? "active" : ""} onClick={() => setView("landmark")}>{localize(experienceCopy.landmark, language)}</button>
           </div>
@@ -209,6 +234,8 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
               selectedTransportLineId={selectedTransportLineId}
               selectedTransportStopId={selectedTransportStopId}
               onSelectTransportStop={chooseTransportStop}
+              selectedCrossingId={selectedCrossingId}
+              onSelectCrossing={chooseCrossing}
             />
           </SceneErrorBoundary> : sceneFallback}
           {!sceneReady && webglSupported !== false && <div className="scene-loading-overlay" role="status" aria-live="polite"><span className="loading-orbit" /><b>{localize(experienceCopy.loadingScene, language)}</b><small>{localize(experienceCopy.loadingSceneDetail, language)}</small></div>}
@@ -216,7 +243,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
           <MissionHud expedition={exploration.activeExpedition} {...exploration.activeProgress} nextObjectiveId={exploration.nextObjectiveId} language={language} />
           <DiscoveryToast landmarkId={toastLandmarkId} language={language} />
           <button className="sidebar-toggle" onClick={() => setSidebarCollapsed((value) => !value)} aria-label={localize(sidebarCollapsed ? experienceCopy.expandPanel : experienceCopy.collapsePanel, language)}>{sidebarCollapsed ? "‹" : "›"}</button>
-          <div className="map-scale"><span>0</span><i /><span>1 km</span></div>
+          <div className="map-scale"><span>0</span><i /><span>{view === "regional" ? "5 km" : view === "overview" ? "1 km" : "500 m"}</span></div>
           <div className="north-marker" aria-label={localize(experienceCopy.north, language)}><span>N</span><b>↑</b></div>
           <div className="stage-note"><span className="stage-pulse" />{localize(experienceCopy.stageNote, language)} · N {language === "zh" ? "前往目标" : "next objective"}</div>
           <div className="stage-controls">
@@ -242,8 +269,24 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
             <TransportPanel language={language} selectedLineId={selectedTransportLineId} selectedStopId={selectedTransportStopId} onSelectLine={chooseTransportLine} onSelectStop={chooseTransportStop} />
           </div>
 
+          <div className="sidebar-section crossing-section">
+            <span className="sidebar-index">03 / {localize(experienceCopy.crossingNetwork, language)}</span>
+            <p className="transport-intro">{localize(experienceCopy.regionalContextBody, language)}</p>
+            <div className="crossing-list">
+              {crossings.filter((crossing) => ["jiangxinzhou-yangtze-bridge", "jiajiang-bridge", "nanjing-eye-crossing", "jiajiang-tunnel"].includes(crossing.id)).map((crossing) => {
+                const selected = crossing.id === selectedCrossingId;
+                const measure = crossing.properties.mainSpanM ? `${localize(experienceCopy.crossingSpan, language)} ${crossing.properties.mainSpanM} m` : crossing.properties.totalRouteM ? `${localize(experienceCopy.crossingLength, language)} ${(crossing.properties.totalRouteM / 1000).toFixed(1)} km` : "";
+                return <button key={crossing.id} className={selected ? "active" : ""} onClick={() => chooseCrossing(crossing.id)} style={{ "--crossing-color": crossing.properties.color } as React.CSSProperties}>
+                  <i />
+                  <span><strong>{localizeFeatureName(crossing, language)}</strong><small>{crossing.properties.type === "bridge" ? localize(experienceCopy.crossingTypeBridge, language) : localize(experienceCopy.crossingTypeTunnel, language)}{measure ? ` · ${measure}` : ""}</small></span>
+                  <b>↗</b>
+                </button>;
+              })}
+            </div>
+          </div>
+
           {selected && <div className="sidebar-section selected-landmark" style={{ "--selected-color": selected.accent } as React.CSSProperties}>
-            <span className="sidebar-index">03 / {localize(experienceCopy.selectedLandmark, language)}</span>
+            <span className="sidebar-index">04 / {localize(experienceCopy.selectedLandmark, language)}</span>
             <label className="landmark-select"><span>{localize(experienceCopy.landmarkIndex, language)}</span><select value={selectedId} onChange={(event) => chooseLandmark(Number(event.target.value))}>{items.map((item) => <option key={item.id} value={item.id}>{exploration.state.discoveredLandmarkIds.includes(item.id) ? "✓" : "◇"} {String(item.id).padStart(2, "0")} · {localize(landmarkCopy[item.id].name, language)}</option>)}</select></label>
             <div className="selected-title"><span className={`selected-symbol ${selectedDiscovered ? "discovered" : ""}`}>{selectedDiscovered ? "✓" : String(selected.id).padStart(2, "0")}</span><div><h3>{localize(landmarkCopy[selected.id].name, language)}</h3><span>{categoryLabels[language][selected.category]} · {localize(selectedDiscovered ? experienceCopy.discovered : experienceCopy.undiscovered, language)}</span></div></div>
             <p>{localize(landmarkCopy[selected.id].description, language)}</p>
@@ -256,13 +299,13 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
           </div>}
 
           <div className="sidebar-section expedition-section">
-            <span className="sidebar-index">04 / {localize(experienceCopy.chooseMission, language)}</span>
+            <span className="sidebar-index">05 / {localize(experienceCopy.chooseMission, language)}</span>
             <ExpeditionDeck activeId={exploration.state.activeExpeditionId} completedIds={exploration.state.completedExpeditionIds} discoveredIds={exploration.state.discoveredLandmarkIds} language={language} onStart={startMission} onReset={resetProgress} />
           </div>
 
           <div className="sidebar-section evidence-section">
-            <button className="evidence-toggle" onClick={() => setEvidenceOpen((value) => !value)} aria-expanded={evidenceOpen}><span><b>05 / {localize(experienceCopy.evidence, language)}</b><small>{evidenceSources.length + transportEvidenceSources.length} {localize(experienceCopy.sources, language)} · WGS84</small></span><span>{evidenceOpen ? "−" : "+"}</span></button>
-            {evidenceOpen && <div className="evidence-list">{[...evidenceSources, ...transportEvidenceSources].map((source) => <a key={source.id} href={source.url} target="_blank" rel="noreferrer"><strong>{source.title}</strong><span>{source.type} · {source.date ?? source.imageryDate ?? "—"}</span></a>)}</div>}
+            <button className="evidence-toggle" onClick={() => setEvidenceOpen((value) => !value)} aria-expanded={evidenceOpen}><span><b>06 / {localize(experienceCopy.evidence, language)}</b><small>{evidenceSources.length + transportEvidenceSources.length + contextEvidenceSources.length} {localize(experienceCopy.sources, language)} · WGS84</small></span><span>{evidenceOpen ? "−" : "+"}</span></button>
+            {evidenceOpen && <div className="evidence-list">{[...evidenceSources, ...transportEvidenceSources, ...contextEvidenceSources].map((source) => <a key={source.id} href={source.url} target="_blank" rel="noreferrer"><strong>{source.title}</strong><span>{source.type} · {source.date ?? source.imageryDate ?? "—"}</span></a>)}</div>}
           </div>
         </aside>
       </div>

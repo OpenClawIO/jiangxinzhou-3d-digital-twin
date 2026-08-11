@@ -1,0 +1,193 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "yangtze-main-channel",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              118.62,
+              31.96
+            ],
+            [
+              118.62,
+              32.092
+            ],
+            [
+              118.675,
+              32.092
+            ],
+            [
+              118.674,
+              32.078
+            ],
+            [
+              118.672,
+              32.064
+            ],
+            [
+              118.671,
+              32.048
+            ],
+            [
+              118.67,
+              32.032
+            ],
+            [
+              118.666,
+              32.015
+            ],
+            [
+              118.659,
+              31.995
+            ],
+            [
+              118.648,
+              31.978
+            ],
+            [
+              118.638,
+              31.966
+            ],
+            [
+              118.62,
+              31.96
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "yangtze-main-channel",
+        "name": {
+          "zh": "长江主江（大江）",
+          "en": "Yangtze Main Channel"
+        },
+        "kind": "yangtze-main-channel",
+        "color": "#2d8eaa",
+        "opacity": 0.78,
+        "source": "OSM waterways cross-checked with Google Earth shoreline form",
+        "confidence": "triangulated",
+        "status": "existing",
+        "centerline": [
+          [
+            118.635,
+            32.082
+          ],
+          [
+            118.646,
+            32.06
+          ],
+          [
+            118.654,
+            32.038
+          ],
+          [
+            118.655,
+            32.015
+          ],
+          [
+            118.643,
+            31.981
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "jiajiang",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              118.686,
+              31.96
+            ],
+            [
+              118.748,
+              31.96
+            ],
+            [
+              118.748,
+              32.092
+            ],
+            [
+              118.718,
+              32.092
+            ],
+            [
+              118.719,
+              32.075
+            ],
+            [
+              118.721,
+              32.059
+            ],
+            [
+              118.72,
+              32.044
+            ],
+            [
+              118.713,
+              32.028
+            ],
+            [
+              118.705,
+              32.012
+            ],
+            [
+              118.695,
+              31.992
+            ],
+            [
+              118.686,
+              31.975
+            ],
+            [
+              118.686,
+              31.96
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "jiajiang",
+        "name": {
+          "zh": "夹江",
+          "en": "Jiajiang"
+        },
+        "kind": "jiajiang",
+        "color": "#3da6b3",
+        "opacity": 0.72,
+        "source": "OSM named waterways cross-checked with Google Earth shoreline form",
+        "confidence": "triangulated",
+        "status": "existing",
+        "centerline": [
+          [
+            118.735,
+            32.084
+          ],
+          [
+            118.727,
+            32.064
+          ],
+          [
+            118.719,
+            32.044
+          ],
+          [
+            118.707,
+            32.025
+          ],
+          [
+            118.692,
+            31.98
+          ]
+        ]
+      }
+    }
+  ]
+}

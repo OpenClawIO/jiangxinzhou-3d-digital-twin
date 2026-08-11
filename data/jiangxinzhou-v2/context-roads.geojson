@@ -1,0 +1,110 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "context-jiajiang-approach",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.748,
+            32.051
+          ],
+          [
+            118.729,
+            32.042
+          ],
+          [
+            118.707944,
+            32.031631
+          ]
+        ]
+      },
+      "properties": {
+        "id": "context-jiajiang-approach",
+        "name": {
+          "zh": "河西桥头接线",
+          "en": "Hexi Bridge Approach"
+        },
+        "class": "major",
+        "widthM": 22,
+        "renderWidthPx": 2.3,
+        "color": "#c3a972",
+        "source": "OSM major-road context",
+        "confidence": "triangulated",
+        "status": "existing"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "context-yangtze-approach",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.62,
+            32.029
+          ],
+          [
+            118.635,
+            32.023
+          ],
+          [
+            118.641868,
+            32.019244
+          ]
+        ]
+      },
+      "properties": {
+        "id": "context-yangtze-approach",
+        "name": {
+          "zh": "江北桥头接线",
+          "en": "Jiangbei Bridge Approach"
+        },
+        "class": "major",
+        "widthM": 22,
+        "renderWidthPx": 2.3,
+        "color": "#c3a972",
+        "source": "OSM major-road context",
+        "confidence": "triangulated",
+        "status": "existing"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "context-yangtze-south-approach",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            118.68262,
+            32.002087
+          ],
+          [
+            118.675,
+            31.994
+          ],
+          [
+            118.662,
+            31.982
+          ]
+        ]
+      },
+      "properties": {
+        "id": "context-yangtze-south-approach",
+        "name": {
+          "zh": "江心洲大桥南接线",
+          "en": "Jiangxinzhou Bridge South Approach"
+        },
+        "class": "major",
+        "widthM": 22,
+        "renderWidthPx": 2.3,
+        "color": "#c3a972",
+        "source": "OSM major-road context",
+        "confidence": "triangulated",
+        "status": "existing"
+      }
+    }
+  ]
+}

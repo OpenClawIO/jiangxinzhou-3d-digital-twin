@@ -79,6 +79,7 @@
 .view-tabs,
 .language-toggle,
 .layer-toggles { display: flex; gap: 3px; padding: 3px; border: 1px solid rgba(142, 183, 170, .16); border-radius: 9px; background: rgba(255, 255, 255, .035); }
+.layer-toggles { flex-wrap: wrap; }
 .view-tabs button,
 .language-toggle button,
 .layer-toggles button,
@@ -136,6 +137,19 @@
 .road-name-label { display: block; padding: 2px 5px; border-radius: 4px; color: rgba(18, 65, 65, .8); background: rgba(239, 247, 228, .56); box-shadow: 0 2px 8px rgba(19, 63, 62, .08); backdrop-filter: blur(4px); font: 700 7px/1.2 var(--font-geist-sans), sans-serif; white-space: nowrap; transform: rotate(-8deg); }
 .road-name-label.major,
 .road-name-label.arterial { color: #173f3e; background: rgba(255, 247, 211, .75); font-size: 8px; }
+.water-label,
+.context-bank-label { display: grid; gap: 2px; width: max-content; padding: 6px 8px; border: 1px solid rgba(223, 247, 237, .28); border-radius: 8px; color: #e8f5e9; background: rgba(19, 70, 78, .68); box-shadow: 0 7px 22px rgba(9, 51, 61, .18); backdrop-filter: blur(6px); text-align: center; }
+.water-label span,
+.context-bank-label span { color: rgba(219, 242, 232, .64); font: 700 6px var(--font-geist-mono), monospace; letter-spacing: .12em; }
+.water-label strong,
+.context-bank-label strong { font-size: 9px; font-weight: 650; }
+.water-label.jiajiang { border-color: rgba(166, 229, 216, .42); background: rgba(24, 100, 111, .72); }
+.water-label.yangtze { border-color: rgba(143, 220, 235, .42); background: rgba(25, 89, 108, .72); }
+.crossing-label { display: grid; gap: 2px; min-width: 118px; padding: 6px 8px; border: 1px solid color-mix(in srgb, var(--crossing-color) 60%, rgba(24, 75, 73, .2)); border-radius: 8px; color: #163e40; background: rgba(247, 250, 233, .86); box-shadow: 0 7px 22px rgba(12, 55, 53, .16); backdrop-filter: blur(7px); }
+.crossing-label span { color: color-mix(in srgb, var(--crossing-color) 78%, #174847); font: 700 6px var(--font-geist-mono), monospace; letter-spacing: .12em; }
+.crossing-label strong { overflow: hidden; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+.crossing-label small { color: #587570; font-size: 7px; }
+.crossing-label.active { transform: translateY(-4px) scale(1.06); background: #fffdf0; box-shadow: 0 0 0 4px color-mix(in srgb, var(--crossing-color) 18%, transparent), 0 9px 24px rgba(11, 53, 52, .18); }
 .transport-stop-label { display: flex; align-items: center; gap: 5px; width: max-content; max-width: 150px; padding: 4px 7px 4px 4px; border: 1px solid color-mix(in srgb, var(--stop-color) 45%, rgba(20, 68, 68, .2)); border-radius: 7px; color: #174847; background: rgba(248, 251, 237, .88); box-shadow: 0 6px 16px rgba(11, 53, 52, .13); backdrop-filter: blur(7px); font-size: 8px; }
 .transport-stop-label > span { display: grid; place-items: center; min-width: 19px; height: 19px; border-radius: 5px; color: white; background: var(--stop-color); font: 700 7px var(--font-geist-mono), monospace; }
 .transport-stop-label strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -157,6 +171,17 @@
 .metric-grid small { display: block; margin-top: 5px; overflow: hidden; color: #66827d; font-size: 7px; white-space: nowrap; text-overflow: ellipsis; }
 .selected-landmark { background: linear-gradient(145deg, color-mix(in srgb, var(--selected-color) 12%, transparent), transparent 70%); }
 .transport-section { background: linear-gradient(145deg, color-mix(in srgb, var(--transit-color, #66b7a7) 8%, transparent), transparent 72%); }
+.crossing-section { background: linear-gradient(145deg, rgba(114, 174, 173, .08), transparent 72%); }
+.crossing-list { display: grid; gap: 5px; margin-top: 10px; }
+.crossing-list button { display: grid; grid-template-columns: 4px 1fr auto; align-items: center; gap: 8px; width: 100%; padding: 8px; border: 1px solid transparent; border-radius: 8px; color: #78948e; background: rgba(255, 255, 255, .02); font: inherit; text-align: left; cursor: pointer; }
+.crossing-list button:hover,
+.crossing-list button.active { border-color: color-mix(in srgb, var(--crossing-color) 34%, transparent); background: color-mix(in srgb, var(--crossing-color) 9%, transparent); }
+.crossing-list i { width: 4px; height: 28px; border-radius: 4px; background: var(--crossing-color); }
+.crossing-list strong,
+.crossing-list small { display: block; }
+.crossing-list strong { color: #b9cbc3; font-size: 8px; }
+.crossing-list small { margin-top: 3px; color: #66817b; font-size: 7px; }
+.crossing-list b { color: var(--crossing-color); font-size: 11px; }
 .transport-intro { margin: 8px 0 0; color: #78958e; font-size: 8px; line-height: 1.5; }
 .transport-summary { display: flex; gap: 6px; margin-top: 10px; }
 .transport-summary span { padding: 4px 6px; border: 1px solid rgba(142, 183, 170, .14); border-radius: 999px; color: #78968e; background: rgba(255, 255, 255, .025); font-size: 7px; }

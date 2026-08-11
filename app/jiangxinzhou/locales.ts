@@ -64,6 +64,14 @@ export const experienceCopy = {
     zh: "道路",
     en: "Roads",
   },
+  water: {
+    zh: "江河水系",
+    en: "Waterways",
+  },
+  surroundings: {
+    zh: "四周岸线",
+    en: "Surroundings",
+  },
   buildings: {
     zh: "建筑",
     en: "Buildings",
@@ -80,6 +88,10 @@ export const experienceCopy = {
     zh: "交通",
     en: "Transport",
   },
+  crossingLayer: {
+    zh: "桥隧",
+    en: "Bridges & tunnels",
+  },
   viewTabs: {
     zh: "地图视角",
     en: "Map view",
@@ -88,6 +100,10 @@ export const experienceCopy = {
     zh: "全岛视图",
     en: "Overview",
   },
+  regional: {
+    zh: "区域总览",
+    en: "Regional",
+  },
   route: {
     zh: "路线浏览",
     en: "Route browse",
@@ -95,6 +111,10 @@ export const experienceCopy = {
   landmark: {
     zh: "地标视图",
     en: "Landmark view",
+  },
+  regionalOverview: {
+    zh: "大江、夹江与四岸关系",
+    en: "Main channel, Jiajiang and four-bank context",
   },
   stageNote: {
     zh: "拖拽旋转 · 滚轮缩放 · 点击地标或站点",
@@ -153,8 +173,8 @@ export const experienceCopy = {
     en: "Retry 3D scene",
   },
   resetView: {
-    zh: "复位全岛",
-    en: "Reset island",
+    zh: "复位区域",
+    en: "Reset region",
   },
   north: {
     zh: "北方",
@@ -179,6 +199,50 @@ export const experienceCopy = {
   legendWater: {
     zh: "滨水区域",
     en: "Waterfront",
+  },
+  legendYangtze: {
+    zh: "长江主江（大江）",
+    en: "Yangtze main channel",
+  },
+  legendJiajiang: {
+    zh: "夹江",
+    en: "Jiajiang",
+  },
+  regionalContext: {
+    zh: "区域上下文",
+    en: "REGIONAL CONTEXT",
+  },
+  regionalContextBody: {
+    zh: "把江心洲放回长江主江、夹江和周边岸线的真实关系中；桥梁与隧道按公开项目资料核对，岸线为公众游览级概化几何。",
+    en: "Place Jiangxinzhou back into its Yangtze, Jiajiang and surrounding-bank context. Bridges and tunnels follow public project references; banks are generalized for visitor-scale use.",
+  },
+  crossingNetwork: {
+    zh: "主要桥梁与隧道",
+    en: "MAJOR BRIDGES & TUNNELS",
+  },
+  crossingTypeBridge: {
+    zh: "桥梁",
+    en: "Bridge",
+  },
+  crossingTypeTunnel: {
+    zh: "隧道",
+    en: "Tunnel",
+  },
+  crossingSpan: {
+    zh: "主跨",
+    en: "Main span",
+  },
+  crossingLength: {
+    zh: "路线",
+    en: "Route",
+  },
+  focusCrossing: {
+    zh: "聚焦桥隧",
+    en: "Focus crossing",
+  },
+  contextPrecision: {
+    zh: "区域岸线为概化几何 · 桥隧位置已多源核验",
+    en: "Generalized regional banks · crossing positions cross-checked",
   },
   islandProfile: {
     zh: "岸线、道路、建筑、景观与地标统一投影到 WGS84 米制坐标；高德 GCJ-02 锚点已转换后再参与叠合。",

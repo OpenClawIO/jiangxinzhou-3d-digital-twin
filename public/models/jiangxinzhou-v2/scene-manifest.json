@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-09.2",
+  "version": "2026-08-11",
   "origin": [
     118.6982074,
     32.0354297
@@ -40,8 +40,20 @@
     {
       "id": "Landmarks",
       "url": "/models/jiangxinzhou-v2/landmarks.glb",
-      "bytes": 467028,
+      "bytes": 504508,
       "lod": 2
+    }
+  ],
+  "contextTiles": [
+    {
+      "id": "ContextBridges",
+      "url": "/models/jiangxinzhou-v2/bridges-context.glb",
+      "bytes": 188064,
+      "lod": 1,
+      "crossings": [
+        "jiangxinzhou-yangtze-bridge",
+        "jiajiang-bridge"
+      ]
     }
   ],
   "transportVehicles": [
