@@ -5,6 +5,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { startTransition, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { type OrbitControls as OrbitControlsImpl } from "three-stdlib";
+import { calculateCelestialState, celestialDirection, type CelestialState } from "./celestial";
 import { routes, type Landmark } from "./landmarks";
 import { experienceCopy, landmarkCopy, localize, transportModeLabels, type Language } from "./locales";
 import {
@@ -53,7 +54,7 @@ useGLTF.preload(modelUrls.terrain);
 useGLTF.preload(modelUrls.landmarks);
 useGLTF.preload(modelUrls.contextBridges);
 
-function Asset({ url, onReady }: { url: string; onReady?: () => void }) {
+function Asset({ url, onReady, nightFactor = 0, nightLighting = false }: { url: string; onReady?: () => void; nightFactor?: number; nightLighting?: boolean }) {
   const gltf = useGLTF(url);
   const scene = useMemo(() => {
     const clone = gltf.scene.clone(true);
@@ -62,21 +63,42 @@ function Asset({ url, onReady }: { url: string; onReady?: () => void }) {
       if (object instanceof THREE.Mesh) {
         object.castShadow = false;
         object.receiveShadow = false;
+        object.material = Array.isArray(object.material)
+          ? object.material.map((material) => material.clone())
+          : object.material.clone();
       }
     });
     return clone;
   }, [gltf.scene]);
   useEffect(() => onReady?.(), [onReady]);
+  useEffect(() => {
+    if (!nightLighting) return;
+    scene.traverse((object) => {
+      if (!(object instanceof THREE.Mesh)) return;
+      const materials = Array.isArray(object.material) ? object.material : [object.material];
+      materials.forEach((material) => {
+        if (!(material instanceof THREE.MeshStandardMaterial)) return;
+        const glass = /glass|window|low-iron/i.test(material.name);
+        const landmarkAccent = /lighthouse|coral|porpoise|bridge cables/i.test(material.name);
+        material.emissive.set(glass ? "#ffd795" : landmarkAccent ? "#ffc78f" : "#e0a764");
+        material.emissiveIntensity = nightFactor * (glass ? 0.72 : landmarkAccent ? 0.34 : 0.09);
+      });
+    });
+  }, [nightFactor, nightLighting, scene]);
   return <primitive object={scene} dispose={null} />;
 }
 
-function Water({ visible }: { visible: boolean }) {
+function blendColor(from: string, to: string, amount: number) {
+  return `#${new THREE.Color(from).lerp(new THREE.Color(to), THREE.MathUtils.clamp(amount, 0, 1)).getHexString()}`;
+}
+
+function Water({ visible, daylight }: { visible: boolean; daylight: number }) {
   const span = Math.max(regionalBounds.width, regionalBounds.depth) * 1.18;
   if (!visible) return null;
   return (
     <mesh position={[regionalBounds.center[0], -40, regionalBounds.center[2]]} rotation={[-Math.PI / 2, 0, 0]}>
       <planeGeometry args={[span, span]} />
-      <meshPhysicalMaterial color="#245e78" roughness={0.46} metalness={0.04} clearcoat={0.18} clearcoatRoughness={0.7} />
+      <meshPhysicalMaterial color={blendColor("#071c2c", "#245e78", daylight)} roughness={0.46} metalness={0.04} clearcoat={0.18 + daylight * 0.12} clearcoatRoughness={0.7} />
     </mesh>
   );
 }
@@ -99,7 +121,7 @@ function shapeFromRing(ring: [number, number][]) {
   return shape;
 }
 
-function RegionalContext({ waterVisible, surroundingsVisible, language }: { waterVisible: boolean; surroundingsVisible: boolean; language: Language }) {
+function RegionalContext({ waterVisible, surroundingsVisible, language, daylight }: { waterVisible: boolean; surroundingsVisible: boolean; language: Language; daylight: number }) {
   const { size } = useThree();
   const waters = useMemo(() => mapDataShapes(), []);
   const showBankLabels = size.width >= 760;
@@ -114,7 +136,7 @@ function RegionalContext({ waterVisible, surroundingsVisible, language }: { wate
       <group key={water.id}>
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -18, 0]} renderOrder={0}>
           <shapeGeometry args={[water.shape]} />
-          <meshBasicMaterial color={water.id === "jiajiang" ? contextPalette.jiajiang : contextPalette.yangtze} transparent opacity={water.id === "jiajiang" ? 0.92 : 0.9} depthWrite={false} side={THREE.DoubleSide} />
+          <meshBasicMaterial color={water.id === "jiajiang" ? blendColor("#0b3144", contextPalette.jiajiang, daylight) : blendColor("#08283d", contextPalette.yangtze, daylight)} transparent opacity={water.id === "jiajiang" ? 0.92 : 0.9} depthWrite={false} side={THREE.DoubleSide} />
         </mesh>
         <WideColorLine positions={water.borderPositions} color={water.id === "jiajiang" ? contextPalette.jiajiangEdge : contextPalette.yangtzeEdge} width={1.7} opacity={0.68} />
         <Html position={[water.label[0], -1.4, water.label[2]]} center zIndexRange={[0, 0]} style={{ pointerEvents: "none" }}>
@@ -628,7 +650,7 @@ function ScaleReporter({ onScaleChange }: { onScaleChange: (meters: number) => v
   return null;
 }
 
-function DeferredAssets({ layers, quality, onCoreReady }: { layers: LayerVisibility; quality: SceneQuality; onCoreReady: () => void }) {
+function DeferredAssets({ layers, quality, onCoreReady, nightFactor }: { layers: LayerVisibility; quality: SceneQuality; onCoreReady: () => void; nightFactor: number }) {
   const [idleAssets, setIdleAssets] = useState(false);
   useEffect(() => {
     if (quality === "efficiency") return undefined;
@@ -643,16 +665,132 @@ function DeferredAssets({ layers, quality, onCoreReady }: { layers: LayerVisibil
 
   return <Suspense fallback={null}>
     <Asset url={modelUrls.terrain} onReady={onCoreReady} />
-    {layers.buildings && <><Asset url={modelUrls.south} /><Asset url={modelUrls.center} /><Asset url={modelUrls.north} /></>}
+    {layers.buildings && <><Asset url={modelUrls.south} nightFactor={nightFactor} nightLighting /><Asset url={modelUrls.center} nightFactor={nightFactor} nightLighting /><Asset url={modelUrls.north} nightFactor={nightFactor} nightLighting /></>}
     {layers.landscape && quality !== "efficiency" && idleAssets && <Asset url={modelUrls.vegetation} />}
-    {layers.landmarks && <Asset url={modelUrls.landmarks} />}
+    {layers.landmarks && <Asset url={modelUrls.landmarks} nightFactor={nightFactor} nightLighting />}
     {layers.crossings && <Asset url={modelUrls.contextBridges} />}
   </Suspense>;
 }
 
-function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, routeId, view, target, layers, language, quality, objectiveId, expeditionLandmarkIds, discoveredLandmarkIds, selectedTransportLineId, selectedTransportStopId, onSelectTransportStop, selectedCrossingId, onSelectCrossing }: JiangxinzhouSceneProps) {
+function CelestialDisc({ kind, state, position }: { kind: "sun" | "moon"; state: CelestialState; position: Point3 }) {
+  const mesh = useRef<THREE.Mesh>(null);
+  const moonMaterial = useMemo(() => new THREE.ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    fog: false,
+    uniforms: {
+      phaseAngle: { value: THREE.MathUtils.degToRad(state.moon.phaseAngleDeg) },
+      phaseSign: { value: state.moon.phaseCycleDeg < 180 ? -1 : 1 },
+      opacity: { value: 0.5 + state.moon.illumination * 0.5 },
+    },
+    vertexShader: `
+      varying vec2 vUv;
+      void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: `
+      varying vec2 vUv;
+      uniform float phaseAngle;
+      uniform float phaseSign;
+      uniform float opacity;
+      void main() {
+        vec2 point = vUv * 2.0 - 1.0;
+        float radius2 = dot(point, point);
+        if (radius2 > 1.0) discard;
+        float surface = sqrt(max(0.0, 1.0 - radius2));
+        vec3 normal = normalize(vec3(point.x, point.y, surface));
+        vec3 lightDirection = normalize(vec3(phaseSign * sin(phaseAngle), 0.12, cos(phaseAngle)));
+        float lit = max(dot(normal, lightDirection), 0.0);
+        float rim = smoothstep(1.0, 0.82, sqrt(radius2));
+        vec3 darkSide = vec3(0.08, 0.11, 0.16);
+        vec3 litSide = vec3(0.92, 0.93, 0.82) * (0.35 + lit * 0.85);
+        gl_FragColor = vec4(mix(darkSide, litSide, smoothstep(0.01, 0.15, lit)), rim * opacity);
+      }
+    `,
+  }), [state.moon.illumination, state.moon.phaseAngleDeg, state.moon.phaseCycleDeg]);
+
+  useEffect(() => () => moonMaterial.dispose(), [moonMaterial]);
+  useFrame(({ camera }) => {
+    if (mesh.current) mesh.current.quaternion.copy(camera.quaternion);
+  });
+
+  if (kind === "sun") {
+    return <group position={position} visible={state.sun.visible}>
+      <sprite scale={[1_700, 1_700, 1]} renderOrder={-1}>
+        <spriteMaterial color="#ffd58a" transparent opacity={0.2 + state.daylight * 0.32} depthWrite={false} depthTest={false} fog={false} blending={THREE.AdditiveBlending} />
+      </sprite>
+      <sprite scale={[650, 650, 1]} renderOrder={-1}>
+        <spriteMaterial color="#fff3c4" transparent opacity={0.96} depthWrite={false} depthTest={false} fog={false} />
+      </sprite>
+    </group>;
+  }
+
+  return <mesh ref={mesh} position={position} visible={state.moon.visible} renderOrder={-1}>
+    <planeGeometry args={[720, 720]} />
+    <primitive object={moonMaterial} attach="material" />
+  </mesh>;
+}
+
+function NightStars({ opacity, quality }: { opacity: number; quality: SceneQuality }) {
+  const count = quality === "high" ? 620 : quality === "balanced" ? 380 : 180;
+  const positions = useMemo(() => {
+    let seed = 24681357;
+    const random = () => {
+      seed = (seed * 1664525 + 1013904223) >>> 0;
+      return seed / 4294967296;
+    };
+    const values = new Float32Array(count * 3);
+    for (let index = 0; index < count; index += 1) {
+      const azimuth = random() * Math.PI * 2;
+      const altitude = THREE.MathUtils.degToRad(8 + random() * 76);
+      const radius = 28_000 + random() * 5_000;
+      values[index * 3] = regionalBounds.center[0] + Math.sin(azimuth) * Math.cos(altitude) * radius;
+      values[index * 3 + 1] = Math.sin(altitude) * radius;
+      values[index * 3 + 2] = regionalBounds.center[2] - Math.cos(azimuth) * Math.cos(altitude) * radius;
+    }
+    return values;
+  }, [count]);
+  if (opacity <= 0.01) return null;
+  return <points renderOrder={-2}>
+    <bufferGeometry><bufferAttribute attach="attributes-position" args={[positions, 3]} /></bufferGeometry>
+    <pointsMaterial color="#dbe9ff" size={quality === "high" ? 30 : 42} sizeAttenuation transparent opacity={opacity * 0.82} depthWrite={false} fog={false} />
+  </points>;
+}
+
+function CelestialEnvironment({ state, quality }: { state: CelestialState; quality: SceneQuality }) {
+  const sunPosition = useMemo(() => {
+    const direction = celestialDirection(state.sun.azimuthDeg, state.sun.altitudeDeg, 24_000);
+    return [regionalBounds.center[0] + direction[0], direction[1], regionalBounds.center[2] + direction[2]] as Point3;
+  }, [state.sun.altitudeDeg, state.sun.azimuthDeg]);
+  const moonPosition = useMemo(() => {
+    const direction = celestialDirection(state.moon.azimuthDeg, state.moon.altitudeDeg, 23_000);
+    return [regionalBounds.center[0] + direction[0], direction[1], regionalBounds.center[2] + direction[2]] as Point3;
+  }, [state.moon.altitudeDeg, state.moon.azimuthDeg]);
+  const twilightSky = blendColor("#071321", "#b86e62", state.twilight);
+  const skyColor = blendColor(twilightSky, "#72b7c0", state.daylight);
+  const finalSky = blendColor(skyColor, "#d98e68", state.horizonGlow * 0.42);
+  const fogColor = blendColor("#091824", finalSky, 0.8);
+  const moonStrength = state.night * (0.12 + state.moon.illumination * 0.58) * (state.moon.visible ? 1 : 0.35);
+
+  return <>
+    <color attach="background" args={[finalSky]} />
+    <fog attach="fog" args={[fogColor, 18_000, 48_000]} />
+    <hemisphereLight intensity={0.16 + state.twilight * 0.52 + state.daylight * 0.92} color={blendColor("#7183a5", "#f5f6e9", state.daylight)} groundColor={blendColor("#07151f", "#39747b", state.daylight)} />
+    <directionalLight position={sunPosition} intensity={state.daylight * 2.25 + state.horizonGlow * 0.4} color={blendColor("#f19a69", "#fff1cf", state.daylight)} />
+    <directionalLight position={moonPosition} intensity={moonStrength} color="#9ebae8" />
+    <CelestialDisc kind="sun" state={state} position={sunPosition} />
+    <CelestialDisc kind="moon" state={state} position={moonPosition} />
+    <NightStars opacity={state.night} quality={quality} />
+  </>;
+}
+
+function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, celestialTimestamp, routeId, view, target, layers, language, quality, objectiveId, expeditionLandmarkIds, discoveredLandmarkIds, selectedTransportLineId, selectedTransportStopId, onSelectTransportStop, selectedCrossingId, onSelectCrossing }: JiangxinzhouSceneProps) {
   const controls = useRef<OrbitControlsImpl>(null);
   const reportedReady = useRef(false);
+  const celestialTick = Math.floor(celestialTimestamp / 15_000) * 15_000;
+  const celestialState = useMemo(() => calculateCelestialState(celestialTick), [celestialTick]);
   const reportReady = useCallback(() => {
     if (reportedReady.current) return;
     reportedReady.current = true;
@@ -660,14 +798,11 @@ function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, rou
   }, [onReady]);
 
   return <>
-    <color attach="background" args={["#72b7c0"]} />
-    <fog attach="fog" args={["#72b7c0", 18_000, 48_000]} />
-    <hemisphereLight intensity={1.55} color="#f5f6e9" groundColor="#39747b" />
-    <directionalLight position={[-4_000, 8_000, 3_000]} intensity={2.25} color="#fff1cf" />
-    <Water visible={layers.water} />
-    <RegionalContext waterVisible={layers.water} surroundingsVisible={layers.surroundings} language={language} />
+    <CelestialEnvironment state={celestialState} quality={quality} />
+    <Water visible={layers.water} daylight={celestialState.daylight} />
+    <RegionalContext waterVisible={layers.water} surroundingsVisible={layers.surroundings} language={language} daylight={celestialState.daylight} />
     <CoordinateGrid visible={layers.coordinates} view={view} language={language} />
-    <DeferredAssets layers={layers} quality={quality} onCoreReady={reportReady} />
+    <DeferredAssets layers={layers} quality={quality} onCoreReady={reportReady} nightFactor={celestialState.night} />
     <LandscapeZones visible={layers.landscape} />
     <ContextRoadNetwork visible={layers.surroundings} />
     <RoadNetwork visible={layers.roads} />

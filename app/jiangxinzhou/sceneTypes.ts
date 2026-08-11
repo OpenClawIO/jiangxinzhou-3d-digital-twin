@@ -13,6 +13,7 @@ export type JiangxinzhouSceneProps = {
   onSelect: (id: number) => void;
   onReady: () => void;
   onScaleChange: (meters: number) => void;
+  celestialTimestamp: number;
   routeId: string;
   view: ViewMode;
   target: Point3;

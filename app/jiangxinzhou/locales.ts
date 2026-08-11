@@ -52,6 +52,50 @@ export const experienceCopy = {
     zh: "全岛空间实景 · 2026 当前状态",
     en: "FULL-ISLAND SPATIAL VIEW · CURRENT 2026",
   },
+  realWorldTime: {
+    zh: "南京真实时间",
+    en: "Nanjing live time",
+  },
+  networkClock: {
+    zh: "网络时间已校准",
+    en: "Network time synced",
+  },
+  deviceClock: {
+    zh: "设备时间",
+    en: "Device time",
+  },
+  timePreview: {
+    zh: "时间预览",
+    en: "Time preview",
+  },
+  returnToLive: {
+    zh: "恢复实时",
+    en: "Return live",
+  },
+  celestialDay: {
+    zh: "白昼",
+    en: "Daylight",
+  },
+  celestialDawn: {
+    zh: "晨曦",
+    en: "Dawn",
+  },
+  celestialDusk: {
+    zh: "暮色",
+    en: "Dusk",
+  },
+  celestialNight: {
+    zh: "夜晚",
+    en: "Night",
+  },
+  sunAltitude: {
+    zh: "太阳高度",
+    en: "Sun altitude",
+  },
+  moonIllumination: {
+    zh: "月面亮度",
+    en: "Moon illumination",
+  },
   languageToggle: {
     zh: "语言选择",
     en: "Language selector",
