@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Component, useCallback, useEffect, useMemo, useState, type ErrorInfo, type ReactNode } from "react";
-import { DiscoveryToast, ExpeditionDeck, ExplorationBriefing, MissionHud } from "./ExplorationUI";
+import { DiscoveryToast, ExpeditionDeck, MissionHud } from "./ExplorationUI";
 import { allLandmarkIds, findExpedition, type ExpeditionId } from "./exploration";
 import { landmarks as defaultLandmarks, routes, type Landmark } from "./landmarks";
 import {
@@ -25,6 +25,7 @@ const JiangxinzhouScene = dynamic<JiangxinzhouSceneProps>(() => import("./Jiangx
 });
 
 type QualityMode = "auto" | SceneQuality;
+type ControlPanel = "overview" | "transport" | "landmarks" | "explore" | "evidence";
 
 class SceneErrorBoundary extends Component<{ children: ReactNode; fallback: ReactNode }, { failed: boolean }> {
   state = { failed: false };
@@ -83,7 +84,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   const [layers, setLayers] = useState<LayerVisibility>({ water: true, surroundings: true, roads: true, buildings: true, landscape: true, landmarks: true, crossings: true, transport: true, coordinates: true });
   const [selectedCrossingId, setSelectedCrossingId] = useState("jiangxinzhou-yangtze-bridge");
   const [crossingFocused, setCrossingFocused] = useState(false);
-  const [evidenceOpen, setEvidenceOpen] = useState(false);
+  const [controlPanel, setControlPanel] = useState<ControlPanel>("overview");
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [qualityMode, setQualityMode] = useState<QualityMode>("auto");
@@ -137,23 +138,27 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
 
   const chooseLandmark = useCallback((id: number) => {
     setSelectedId(id);
+    setControlPanel("landmarks");
     setView("landmark");
   }, []);
   const resetView = useCallback(() => { setCrossingFocused(false); setView("regional"); }, []);
   const chooseTransportLine = useCallback((id: string) => {
     setSelectedTransportLineId(id);
     setSelectedTransportStopId(undefined);
+    setControlPanel("transport");
     setLayers((current) => ({ ...current, transport: true }));
     setView("route");
   }, []);
   const chooseTransportStop = useCallback((id: string) => {
     setSelectedTransportStopId(id);
+    setControlPanel("transport");
     setLayers((current) => ({ ...current, transport: true }));
     setView("route");
   }, []);
   const chooseCrossing = useCallback((id: string) => {
     setSelectedCrossingId(id);
     setCrossingFocused(true);
+    setControlPanel("overview");
     setLayers((current) => ({ ...current, water: true, surroundings: true, crossings: true }));
     setView("regional");
   }, []);
@@ -166,6 +171,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
     const firstTarget = expedition.landmarkIds.find((id) => !exploration.state.discoveredLandmarkIds.includes(id));
     if (firstTarget) setSelectedId(firstTarget);
     setView(expedition.routeId ? "route" : "overview");
+    setControlPanel("explore");
     setSidebarCollapsed(false);
   }, [exploration]);
   const discoverSelected = useCallback(() => {
@@ -177,6 +183,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
     exploration.resetProgress();
     setSelectedId(items[0]?.id ?? 1);
     setCrossingFocused(false);
+    setControlPanel("overview");
     setView("regional");
   }, [exploration, items]);
 
@@ -229,7 +236,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
               layers={layers}
               language={language}
               quality={quality}
-              objectiveId={exploration.nextObjectiveId}
+              objectiveId={controlPanel === "explore" ? exploration.nextObjectiveId : undefined}
               expeditionLandmarkIds={exploration.activeExpedition.landmarkIds}
               discoveredLandmarkIds={exploration.state.discoveredLandmarkIds}
               selectedTransportLineId={selectedTransportLineId}
@@ -240,8 +247,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
             />
           </SceneErrorBoundary> : sceneFallback}
           {!sceneReady && webglSupported !== false && <div className="scene-loading-overlay" role="status" aria-live="polite"><span className="loading-orbit" /><b>{localize(experienceCopy.loadingScene, language)}</b><small>{localize(experienceCopy.loadingSceneDetail, language)}</small></div>}
-          {exploration.hydrated && !exploration.state.briefingSeen && <ExplorationBriefing language={language} onStart={startMission} />}
-          <MissionHud expedition={exploration.activeExpedition} {...exploration.activeProgress} nextObjectiveId={exploration.nextObjectiveId} language={language} />
+          {controlPanel === "explore" && <MissionHud expedition={exploration.activeExpedition} {...exploration.activeProgress} nextObjectiveId={exploration.nextObjectiveId} language={language} />}
           <DiscoveryToast landmarkId={toastLandmarkId} language={language} />
           <button className="sidebar-toggle" onClick={() => setSidebarCollapsed((value) => !value)} aria-label={localize(sidebarCollapsed ? experienceCopy.expandPanel : experienceCopy.collapsePanel, language)}>{sidebarCollapsed ? "‹" : "›"}</button>
           <div className="map-scale"><span>0</span><i /><span>{view === "regional" ? "5 km" : view === "overview" ? "1 km" : "500 m"}</span></div>
@@ -255,58 +261,73 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
           </div>
         </div>
 
-        <aside className="map-sidebar" aria-label={localize(experienceCopy.missionControl, language)}>
-          <div className="sidebar-section mission-control-panel" style={{ "--mission-color": exploration.activeExpedition.accent } as React.CSSProperties}>
-            <span className="sidebar-index">01 / {localize(experienceCopy.missionControl, language)}</span>
-            <div className="mission-title-row"><div><small>{localize(experienceCopy.currentExpedition, language)}</small><h3>{localize(expeditionCopy[exploration.activeExpedition.id].name, language)}</h3></div><b>{exploration.activeProgress.percent}%</b></div>
-            <div className="sidebar-progress"><i style={{ width: `${exploration.activeProgress.percent}%` }} /></div>
-            {missionComplete ? <div className="mission-complete-message"><b>✓ {localize(experienceCopy.missionComplete, language)}</b><p>{localize(experienceCopy.missionCompleteBody, language)}</p></div> : <button className="objective-action" onClick={focusObjective}><span><small>{localize(experienceCopy.nextObjective, language)}</small><strong>{exploration.nextObjectiveId ? localize(landmarkCopy[exploration.nextObjectiveId].name, language) : "—"}</strong></span><b>{localize(experienceCopy.locate, language)} →</b></button>}
-            <div className="world-progress"><span>{localize(experienceCopy.worldProgress, language)}</span><strong>{exploration.state.discoveredLandmarkIds.length}/{allLandmarkIds.length}</strong><i><b style={{ width: `${worldPercent}%` }} /></i></div>
-          </div>
+        <aside className="map-sidebar" aria-label={localize(experienceCopy.informationPanel, language)}>
+          <nav className="panel-tabs" aria-label={localize(experienceCopy.panelNavigation, language)}>
+            {([
+              ["overview", experienceCopy.panelOverview],
+              ["transport", experienceCopy.panelTransport],
+              ["landmarks", experienceCopy.panelLandmarks],
+              ["explore", experienceCopy.panelExplore],
+              ["evidence", experienceCopy.panelEvidence],
+            ] as [ControlPanel, typeof experienceCopy.overview][]).map(([panel, label], index) => <button key={panel} className={controlPanel === panel ? "active" : ""} aria-pressed={controlPanel === panel} onClick={() => setControlPanel(panel)}><span>{String(index + 1).padStart(2, "0")}</span>{localize(label, language)}</button>)}
+          </nav>
 
-          <div className="sidebar-section transport-section">
-            <span className="sidebar-index">02 / {localize(experienceCopy.transportNetwork, language)}</span>
-            <p className="transport-intro">{localize(experienceCopy.transportSummary, language)}</p>
-            <TransportPanel language={language} selectedLineId={selectedTransportLineId} selectedStopId={selectedTransportStopId} onSelectLine={chooseTransportLine} onSelectStop={chooseTransportStop} />
-          </div>
+          <div className="panel-content">
+            {controlPanel === "overview" && <>
+              <div className="sidebar-section island-profile">
+                <span className="sidebar-index">01 / {localize(experienceCopy.regionalContext, language)}</span>
+                <h3>{localize(experienceCopy.regionalOverview, language)}</h3>
+                <p>{localize(experienceCopy.regionalContextBody, language)}</p>
+                <div className="metric-grid">
+                  <div><strong>{mapManifest.officialAreaKm2}</strong><span>km²</span><small>{localize(experienceCopy.area, language)}</small></div>
+                  <div><strong>{mapManifest.officialEmbankmentKm}</strong><span>km</span><small>{localize(experienceCopy.embankment, language)}</small></div>
+                  <div><strong>{mapManifest.counts.buildings}</strong><span>+</span><small>{localize(experienceCopy.buildingFootprints, language)}</small></div>
+                </div>
+                {!exploration.state.briefingSeen && <button className="panel-primary-action" onClick={() => setControlPanel("explore")}><span><small>{localize(experienceCopy.briefingTitle, language)}</small><strong>{localize(experienceCopy.briefingBody, language)}</strong></span><b>→</b></button>}
+              </div>
+              <div className="sidebar-section crossing-section">
+                <span className="sidebar-index">02 / {localize(experienceCopy.crossingNetwork, language)}</span>
+                <div className="crossing-list">
+                  {crossings.filter((crossing) => ["jiangxinzhou-yangtze-bridge", "jiajiang-bridge", "nanjing-eye-crossing", "jiajiang-tunnel"].includes(crossing.id)).map((crossing) => {
+                    const isSelected = crossing.id === selectedCrossingId;
+                    const measure = crossing.properties.mainSpanM ? `${localize(experienceCopy.crossingSpan, language)} ${crossing.properties.mainSpanM} m` : crossing.properties.totalRouteM ? `${localize(experienceCopy.crossingLength, language)} ${(crossing.properties.totalRouteM / 1000).toFixed(1)} km` : "";
+                    return <button key={crossing.id} className={isSelected ? "active" : ""} onClick={() => chooseCrossing(crossing.id)} style={{ "--crossing-color": crossing.properties.color } as React.CSSProperties}><i /><span><strong>{localizeFeatureName(crossing, language)}</strong><small>{crossing.properties.type === "bridge" ? localize(experienceCopy.crossingTypeBridge, language) : localize(experienceCopy.crossingTypeTunnel, language)}{measure ? ` · ${measure}` : ""}</small></span><b>↗</b></button>;
+                  })}
+                </div>
+              </div>
+            </>}
 
-          <div className="sidebar-section crossing-section">
-            <span className="sidebar-index">03 / {localize(experienceCopy.crossingNetwork, language)}</span>
-            <p className="transport-intro">{localize(experienceCopy.regionalContextBody, language)}</p>
-            <div className="crossing-list">
-              {crossings.filter((crossing) => ["jiangxinzhou-yangtze-bridge", "jiajiang-bridge", "nanjing-eye-crossing", "jiajiang-tunnel"].includes(crossing.id)).map((crossing) => {
-                const selected = crossing.id === selectedCrossingId;
-                const measure = crossing.properties.mainSpanM ? `${localize(experienceCopy.crossingSpan, language)} ${crossing.properties.mainSpanM} m` : crossing.properties.totalRouteM ? `${localize(experienceCopy.crossingLength, language)} ${(crossing.properties.totalRouteM / 1000).toFixed(1)} km` : "";
-                return <button key={crossing.id} className={selected ? "active" : ""} onClick={() => chooseCrossing(crossing.id)} style={{ "--crossing-color": crossing.properties.color } as React.CSSProperties}>
-                  <i />
-                  <span><strong>{localizeFeatureName(crossing, language)}</strong><small>{crossing.properties.type === "bridge" ? localize(experienceCopy.crossingTypeBridge, language) : localize(experienceCopy.crossingTypeTunnel, language)}{measure ? ` · ${measure}` : ""}</small></span>
-                  <b>↗</b>
-                </button>;
-              })}
-            </div>
-          </div>
+            {controlPanel === "transport" && <div className="sidebar-section transport-section">
+              <span className="sidebar-index">02 / {localize(experienceCopy.transportNetwork, language)}</span>
+              <p className="transport-intro">{localize(experienceCopy.transportSummary, language)}</p>
+              <TransportPanel language={language} selectedLineId={selectedTransportLineId} selectedStopId={selectedTransportStopId} onSelectLine={chooseTransportLine} onSelectStop={chooseTransportStop} />
+            </div>}
 
-          {selected && <div className="sidebar-section selected-landmark" style={{ "--selected-color": selected.accent } as React.CSSProperties}>
-            <span className="sidebar-index">04 / {localize(experienceCopy.selectedLandmark, language)}</span>
-            <label className="landmark-select"><span>{localize(experienceCopy.landmarkIndex, language)}</span><select value={selectedId} onChange={(event) => chooseLandmark(Number(event.target.value))}>{items.map((item) => <option key={item.id} value={item.id}>{exploration.state.discoveredLandmarkIds.includes(item.id) ? "✓" : "◇"} {String(item.id).padStart(2, "0")} · {localize(landmarkCopy[item.id].name, language)}</option>)}</select></label>
-            <div className="selected-title"><span className={`selected-symbol ${selectedDiscovered ? "discovered" : ""}`}>{selectedDiscovered ? "✓" : String(selected.id).padStart(2, "0")}</span><div><h3>{localize(landmarkCopy[selected.id].name, language)}</h3><span>{categoryLabels[language][selected.category]} · {localize(selectedDiscovered ? experienceCopy.discovered : experienceCopy.undiscovered, language)}</span></div></div>
-            <p>{localize(landmarkCopy[selected.id].description, language)}</p>
-            <div className="detail-chips">
-              <span>{localize(experienceCopy.bestExperience, language)} · {localize(landmarkCopy[selected.id].season, language)}</span>
-              {selectedAnchor && <span className={selectedAnchor.properties.confidence}>{selectedAnchor.properties.confidence === "triangulated" ? localize(experienceCopy.triangulated, language) : localize(experienceCopy.estimated, language)}</span>}
-              {selectedAnchor && <span>LOD {selectedAnchor.properties.lod}</span>}
-            </div>
-            {selectedDiscovered ? <button className="discovery-action is-complete" disabled>✓ {localize(experienceCopy.discoveredLandmark, language)}</button> : view === "landmark" ? <button className="discovery-action" onClick={discoverSelected}>{localize(experienceCopy.discoverLandmark, language)} <span>＋</span></button> : <button className="focus-button" onClick={() => setView("landmark")}>{localize(experienceCopy.focusLandmark, language)} <span>↗</span></button>}
-          </div>}
+            {controlPanel === "landmarks" && selected && <div className="sidebar-section selected-landmark" style={{ "--selected-color": selected.accent } as React.CSSProperties}>
+              <span className="sidebar-index">03 / {localize(experienceCopy.selectedLandmark, language)}</span>
+              <label className="landmark-select"><span>{localize(experienceCopy.landmarkIndex, language)}</span><select value={selectedId} onChange={(event) => chooseLandmark(Number(event.target.value))}>{items.map((item) => <option key={item.id} value={item.id}>{exploration.state.discoveredLandmarkIds.includes(item.id) ? "✓" : "◇"} {String(item.id).padStart(2, "0")} · {localize(landmarkCopy[item.id].name, language)}</option>)}</select></label>
+              <div className="selected-title"><span className={`selected-symbol ${selectedDiscovered ? "discovered" : ""}`}>{selectedDiscovered ? "✓" : String(selected.id).padStart(2, "0")}</span><div><h3>{localize(landmarkCopy[selected.id].name, language)}</h3><span>{categoryLabels[language][selected.category]} · {localize(selectedDiscovered ? experienceCopy.discovered : experienceCopy.undiscovered, language)}</span></div></div>
+              <p>{localize(landmarkCopy[selected.id].description, language)}</p>
+              <div className="detail-chips"><span>{localize(experienceCopy.bestExperience, language)} · {localize(landmarkCopy[selected.id].season, language)}</span>{selectedAnchor && <span className={selectedAnchor.properties.confidence}>{selectedAnchor.properties.confidence === "triangulated" ? localize(experienceCopy.triangulated, language) : localize(experienceCopy.estimated, language)}</span>}{selectedAnchor && <span>LOD {selectedAnchor.properties.lod}</span>}</div>
+              {selectedDiscovered ? <button className="discovery-action is-complete" disabled>✓ {localize(experienceCopy.discoveredLandmark, language)}</button> : view === "landmark" ? <button className="discovery-action" onClick={discoverSelected}>{localize(experienceCopy.discoverLandmark, language)} <span>＋</span></button> : <button className="focus-button" onClick={() => setView("landmark")}>{localize(experienceCopy.focusLandmark, language)} <span>↗</span></button>}
+            </div>}
 
-          <div className="sidebar-section expedition-section">
-            <span className="sidebar-index">05 / {localize(experienceCopy.chooseMission, language)}</span>
-            <ExpeditionDeck activeId={exploration.state.activeExpeditionId} completedIds={exploration.state.completedExpeditionIds} discoveredIds={exploration.state.discoveredLandmarkIds} language={language} onStart={startMission} onReset={resetProgress} />
-          </div>
+            {controlPanel === "explore" && <>
+              <div className="sidebar-section mission-control-panel" style={{ "--mission-color": exploration.activeExpedition.accent } as React.CSSProperties}>
+                <span className="sidebar-index">04 / {localize(experienceCopy.missionControl, language)}</span>
+                {!exploration.state.briefingSeen && <div className="inline-briefing"><h3>{localize(experienceCopy.briefingTitle, language)}</h3><p>{localize(experienceCopy.briefingBody, language)}</p></div>}
+                <div className="mission-title-row"><div><small>{localize(experienceCopy.currentExpedition, language)}</small><h3>{localize(expeditionCopy[exploration.activeExpedition.id].name, language)}</h3></div><b>{exploration.activeProgress.percent}%</b></div>
+                <div className="sidebar-progress"><i style={{ width: `${exploration.activeProgress.percent}%` }} /></div>
+                {missionComplete ? <div className="mission-complete-message"><b>✓ {localize(experienceCopy.missionComplete, language)}</b><p>{localize(experienceCopy.missionCompleteBody, language)}</p></div> : <button className="objective-action" onClick={focusObjective}><span><small>{localize(experienceCopy.nextObjective, language)}</small><strong>{exploration.nextObjectiveId ? localize(landmarkCopy[exploration.nextObjectiveId].name, language) : "—"}</strong></span><b>{localize(experienceCopy.locate, language)} →</b></button>}
+                <div className="world-progress"><span>{localize(experienceCopy.worldProgress, language)}</span><strong>{exploration.state.discoveredLandmarkIds.length}/{allLandmarkIds.length}</strong><i><b style={{ width: `${worldPercent}%` }} /></i></div>
+              </div>
+              <div className="sidebar-section expedition-section"><span className="sidebar-index">05 / {localize(experienceCopy.chooseMission, language)}</span><ExpeditionDeck activeId={exploration.state.activeExpeditionId} completedIds={exploration.state.completedExpeditionIds} discoveredIds={exploration.state.discoveredLandmarkIds} language={language} onStart={startMission} onReset={resetProgress} /></div>
+            </>}
 
-          <div className="sidebar-section evidence-section">
-            <button className="evidence-toggle" onClick={() => setEvidenceOpen((value) => !value)} aria-expanded={evidenceOpen}><span><b>06 / {localize(experienceCopy.evidence, language)}</b><small>{evidenceSources.length + transportEvidenceSources.length + contextEvidenceSources.length} {localize(experienceCopy.sources, language)} · WGS84</small></span><span>{evidenceOpen ? "−" : "+"}</span></button>
-            {evidenceOpen && <div className="evidence-list">{[...evidenceSources, ...transportEvidenceSources, ...contextEvidenceSources].map((source) => <a key={source.id} href={source.url} target="_blank" rel="noreferrer"><strong>{source.title}</strong><span>{source.type} · {source.date ?? source.imageryDate ?? "—"}</span></a>)}</div>}
+            {controlPanel === "evidence" && <div className="sidebar-section evidence-section">
+              <div className="evidence-heading"><span><b>05 / {localize(experienceCopy.evidence, language)}</b><small>{evidenceSources.length + transportEvidenceSources.length + contextEvidenceSources.length} {localize(experienceCopy.sources, language)} · WGS84</small></span></div>
+              <div className="evidence-list is-open">{[...evidenceSources, ...transportEvidenceSources, ...contextEvidenceSources].map((source) => <a key={source.id} href={source.url} target="_blank" rel="noreferrer"><strong>{source.title}</strong><span>{source.type} · {source.date ?? source.imageryDate ?? "—"}</span></a>)}</div>
+            </div>}
           </div>
         </aside>
       </div>

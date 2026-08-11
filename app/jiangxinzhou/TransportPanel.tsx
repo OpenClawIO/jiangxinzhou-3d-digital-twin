@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 import { experienceCopy, localize, transportModeLabels, type Language } from "./locales";
 import { localizeFeatureName, stopsForTransportLine, transportLines, type TransitMode } from "./mapGeometry";
 
@@ -13,11 +13,21 @@ export function TransportPanel({ language, selectedLineId, selectedStopId, onSel
 }) {
   const selectedLine = transportLines.find((line) => line.id === selectedLineId) ?? transportLines[0];
   const stops = stopsForTransportLine(selectedLine.id);
+  const [expandedLineId, setExpandedLineId] = useState<string>();
+  const stopsExpanded = expandedLineId === selectedLine.id;
+  const visibleStops = stopsExpanded ? stops : stops.slice(0, 6);
 
   return <div className="transport-panel" style={{ "--transit-color": selectedLine.properties.color } as CSSProperties}>
     <div className="transport-summary">
       <span>{transportLines.length} {localize(experienceCopy.lineCount, language)}</span>
       <span>{new Set(transportLines.flatMap((line) => line.properties.stopIds)).size} {localize(experienceCopy.stopCount, language)}</span>
+    </div>
+    <div className="transport-mode-tabs" aria-label={localize(experienceCopy.transportModes, language)}>
+      {modeOrder.map((mode) => {
+        const firstLine = transportLines.find((line) => line.properties.mode === mode);
+        if (!firstLine) return null;
+        return <button key={mode} className={selectedLine.properties.mode === mode ? "active" : ""} aria-pressed={selectedLine.properties.mode === mode} onClick={() => onSelectLine(firstLine.id)}>{transportModeLabels[language][mode]}</button>;
+      })}
     </div>
     <label className="transport-select">
       <span>{localize(experienceCopy.transportLine, language)}</span>
@@ -38,11 +48,12 @@ export function TransportPanel({ language, selectedLineId, selectedStopId, onSel
     </div>
     <div className="transport-stop-heading"><b>{localize(experienceCopy.transportStops, language)}</b><span>{stops.length}</span></div>
     <div className="transport-stop-list" role="list">
-      {stops.map((stop, index) => <button key={stop.id} role="listitem" className={selectedStopId === stop.id ? "active" : ""} onClick={() => onSelectStop(stop.id)}>
+      {visibleStops.map((stop, index) => <button key={stop.id} role="listitem" className={selectedStopId === stop.id ? "active" : ""} onClick={() => onSelectStop(stop.id)}>
         <span className="stop-sequence">{String(index + 1).padStart(2, "0")}</span>
         <span><strong>{localizeFeatureName(stop, language)}</strong><small>{localize(stop.properties.confidence === "triangulated" ? experienceCopy.transportCrossChecked : experienceCopy.transportEstimated, language)}</small></span>
         <b>↗</b>
       </button>)}
     </div>
+    {stops.length > 6 && <button className="transport-stops-toggle" aria-expanded={stopsExpanded} onClick={() => setExpandedLineId(stopsExpanded ? undefined : selectedLine.id)}>{localize(stopsExpanded ? experienceCopy.collapseStops : experienceCopy.showAllStops, language)} <span>{stopsExpanded ? "↑" : `+${stops.length - 6}`}</span></button>}
   </div>;
 }

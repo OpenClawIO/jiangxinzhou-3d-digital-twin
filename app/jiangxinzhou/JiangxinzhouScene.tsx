@@ -4,7 +4,7 @@ import { AdaptiveDpr, Html, OrbitControls, useGLTF } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { startTransition, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
-import { LineMaterial, LineSegments2, LineSegmentsGeometry, type OrbitControls as OrbitControlsImpl } from "three-stdlib";
+import { type OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { routes, type Landmark } from "./landmarks";
 import { experienceCopy, landmarkCopy, localize, transportModeLabels, type Language } from "./locales";
 import {
@@ -74,7 +74,7 @@ function Water({ visible }: { visible: boolean }) {
   const span = Math.max(regionalBounds.width, regionalBounds.depth) * 1.18;
   if (!visible) return null;
   return (
-    <mesh position={[regionalBounds.center[0], -12, regionalBounds.center[2]]} rotation={[-Math.PI / 2, 0, 0]}>
+    <mesh position={[regionalBounds.center[0], -40, regionalBounds.center[2]]} rotation={[-Math.PI / 2, 0, 0]}>
       <planeGeometry args={[span, span]} />
       <meshPhysicalMaterial color="#245e78" roughness={0.46} metalness={0.04} clearcoat={0.18} clearcoatRoughness={0.7} />
     </mesh>
@@ -100,7 +100,9 @@ function shapeFromRing(ring: [number, number][]) {
 }
 
 function RegionalContext({ waterVisible, surroundingsVisible, language }: { waterVisible: boolean; surroundingsVisible: boolean; language: Language }) {
+  const { size } = useThree();
   const waters = useMemo(() => mapDataShapes(), []);
+  const showBankLabels = size.width >= 760;
   const blocks = useMemo(() => [
     [118.635, 32.055, 34, 116, 26], [118.646, 32.044, 42, 150, 34], [118.634, 32.004, 28, 82, 20],
     [118.740, 32.062, 38, 128, 28], [118.733, 32.043, 54, 178, 42], [118.740, 32.011, 30, 104, 24],
@@ -110,7 +112,7 @@ function RegionalContext({ waterVisible, surroundingsVisible, language }: { wate
   return <group>
     {waterVisible && waters.water.map((water) => (
       <group key={water.id}>
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -3.05, 0]}>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -18, 0]} renderOrder={0}>
           <shapeGeometry args={[water.shape]} />
           <meshBasicMaterial color={water.id === "jiajiang" ? contextPalette.jiajiang : contextPalette.yangtze} transparent opacity={water.id === "jiajiang" ? 0.92 : 0.9} depthWrite={false} side={THREE.DoubleSide} />
         </mesh>
@@ -123,18 +125,18 @@ function RegionalContext({ waterVisible, surroundingsVisible, language }: { wate
     {surroundingsVisible && <>
       {waters.land.map((land) => (
         <group key={land.id}>
-          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2.55, 0]}>
+          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} renderOrder={1}>
             <shapeGeometry args={[land.shape]} />
-            <meshBasicMaterial color={land.feature.properties.kind === "north-bank" ? contextPalette.landNorth : contextPalette.land} transparent opacity={0.98} depthWrite={true} side={THREE.DoubleSide} />
+            <meshBasicMaterial color={land.feature.properties.kind === "north-bank" ? contextPalette.landNorth : contextPalette.land} depthWrite side={THREE.FrontSide} />
           </mesh>
-          <Html position={[land.label[0], 9, land.label[2]]} center zIndexRange={[1, 0]} style={{ pointerEvents: "none" }}>
+          {showBankLabels && <Html position={[land.label[0], 9, land.label[2]]} center zIndexRange={[1, 0]} style={{ pointerEvents: "none" }}>
             <div className="context-bank-label"><span>{land.feature.properties.kind.replace("-", " ").toUpperCase()}</span><strong>{localizeFeatureName(land.feature, language)}</strong></div>
-          </Html>
+          </Html>}
         </group>
       ))}
       {blocks.map(([longitude, latitude, width, depth, height], index) => {
         const [x, , z] = projectPoint([longitude, latitude], height / 2);
-        return <mesh key={`context-block-${index}`} position={[x, height / 2 - 1.8, z]} rotation={[0, (index % 3) * 0.18, 0]}>
+        return <mesh key={`context-block-${index}`} position={[x, height / 2 + 0.2, z]} rotation={[0, (index % 3) * 0.18, 0]}>
           <boxGeometry args={[width, height, depth]} />
           <meshBasicMaterial color={index % 2 ? contextPalette.blockAlt : contextPalette.block} transparent opacity={0.94} />
         </mesh>;
@@ -159,19 +161,19 @@ function mapDataShapes() {
       return [x, -z] as [number, number];
     });
     const shape = shapeFromRing(ring);
-    const borderPoints = feature.geometry.coordinates[0].map((coordinate) => projectPoint(coordinate, -2.92));
+    const borderPoints = feature.geometry.coordinates[0].map((coordinate) => projectPoint(coordinate, -17.8));
     const center = ring.reduce(([x, y], [nextX, nextY]) => [x + nextX, y + nextY], [0, 0] as [number, number]);
     const xs = ring.map(([x]) => x);
     const ys = ring.map(([, y]) => y);
     return {
       feature,
       id: feature.id,
-      center: [(Math.min(...xs) + Math.max(...xs)) / 2, -3.05, (Math.min(...ys) + Math.max(...ys)) / 2] as Point3,
+      center: [(Math.min(...xs) + Math.max(...xs)) / 2, -18, (Math.min(...ys) + Math.max(...ys)) / 2] as Point3,
       shape,
       borderPositions: lineSegments([...borderPoints, borderPoints[0]]),
       color: feature.properties.color,
       opacity: feature.properties.opacity,
-      label: [center[0] / ring.length, -1.4, -center[1] / ring.length] as Point3,
+      label: [center[0] / ring.length, -8, -center[1] / ring.length] as Point3,
     };
   });
   return { land: create(contextLands, 9), water };
@@ -193,42 +195,27 @@ function LandscapeZones({ visible }: { visible: boolean }) {
   ))}</group>;
 }
 
-const roadPixelWidth: Record<RoadClass, number> = { major: 3.5, arterial: 2.8, collector: 2.1, local: 1.15, greenway: 2.4 };
-
-function WideRoadGroup({ roadClass, positions, opacity }: { roadClass: RoadClass; positions: Float32Array; opacity: number }) {
-  const { size } = useThree();
+function StableSegmentLine({ positions, color, opacity, renderOrder = 1 }: { positions: Float32Array; color: string; opacity: number; renderOrder?: number }) {
   const line = useMemo(() => {
-    const geometry = new LineSegmentsGeometry();
-    geometry.setPositions(positions);
-    const material = new LineMaterial({
-      color: new THREE.Color(roadColor(roadClass)).getHex(),
-      linewidth: roadPixelWidth[roadClass],
-      transparent: true,
-      opacity,
-    });
-    return new LineSegments2(geometry, material);
-  }, [opacity, positions, roadClass]);
-  useEffect(() => {
-    line.material.resolution.set(size.width, size.height);
-  }, [line, size.height, size.width]);
-  useEffect(() => () => {
-    line.geometry.dispose();
-    line.material.dispose();
-  }, [line]);
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    geometry.computeBoundingSphere();
+    const material = new THREE.LineBasicMaterial({ color, transparent: opacity < 1, opacity, depthTest: true, depthWrite: false });
+    const segments = new THREE.LineSegments(geometry, material);
+    segments.frustumCulled = true;
+    segments.renderOrder = renderOrder;
+    return segments;
+  }, [color, opacity, positions, renderOrder]);
+  useEffect(() => () => { line.geometry.dispose(); line.material.dispose(); }, [line]);
   return <primitive object={line} />;
 }
 
-function WideColorLine({ positions, color, width, opacity }: { positions: Float32Array; color: string; width: number; opacity: number }) {
-  const { size } = useThree();
-  const line = useMemo(() => {
-    const geometry = new LineSegmentsGeometry();
-    geometry.setPositions(positions);
-    const material = new LineMaterial({ color: new THREE.Color(color).getHex(), linewidth: width, transparent: true, opacity, depthTest: true });
-    return new LineSegments2(geometry, material);
-  }, [color, opacity, positions, width]);
-  useEffect(() => { line.material.resolution.set(size.width, size.height); }, [line, size.height, size.width]);
-  useEffect(() => () => { line.geometry.dispose(); line.material.dispose(); }, [line]);
-  return <primitive object={line} />;
+function WideRoadGroup({ roadClass, positions, opacity }: { roadClass: RoadClass; positions: Float32Array; opacity: number }) {
+  return <StableSegmentLine positions={positions} color={roadColor(roadClass)} opacity={opacity} renderOrder={2} />;
+}
+
+function WideColorLine({ positions, color, opacity }: { positions: Float32Array; color: string; width: number; opacity: number }) {
+  return <StableSegmentLine positions={positions} color={color} opacity={opacity} renderOrder={3} />;
 }
 
 function coordinateLabel(value: number, axis: "longitude" | "latitude", language: Language) {
@@ -238,6 +225,7 @@ function coordinateLabel(value: number, axis: "longitude" | "latitude", language
 }
 
 function CoordinateGrid({ visible, view, language }: { visible: boolean; view: ViewMode; language: Language }) {
+  const { size } = useThree();
   const bounds = view === "regional" ? regionalBounds : mapBounds;
   const grid = useMemo(() => {
     const vertical = Array.from({ length: 5 }, (_, index) => bounds.minX + (bounds.width * index) / 4);
@@ -260,10 +248,10 @@ function CoordinateGrid({ visible, view, language }: { visible: boolean; view: V
   return <group>
     <WideColorLine positions={grid.verticalPositions} color="#d5f1e6" width={1.05} opacity={view === "regional" ? 0.28 : 0.22} />
     <WideColorLine positions={grid.horizontalPositions} color="#d5f1e6" width={1.05} opacity={view === "regional" ? 0.28 : 0.22} />
-    {grid.longitude.map((value, index) => <Html key={`longitude-${value}`} position={[grid.vertical[index], 22, grid.labelZ]} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}>
+    {grid.longitude.map((value, index) => (size.width >= 760 || index === 2) && <Html key={`longitude-${value}`} position={[grid.vertical[index], 22, grid.labelZ]} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}>
       <span className="coordinate-label longitude">{index === 0 && <small>{localize(experienceCopy.coordinateDatum, language)}</small>}{coordinateLabel(value, "longitude", language)}</span>
     </Html>)}
-    {grid.latitude.map((value, index) => <Html key={`latitude-${value}`} position={[grid.labelX, 22, grid.horizontal[index]]} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}>
+    {grid.latitude.map((value, index) => (size.width >= 760 || index === 2) && <Html key={`latitude-${value}`} position={[grid.labelX, 22, grid.horizontal[index]]} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}>
       <span className="coordinate-label latitude">{coordinateLabel(value, "latitude", language)}</span>
     </Html>)}
   </group>;
@@ -390,6 +378,7 @@ function TransportNetwork({ visible, lineId, stopId, onSelectStop, language, qua
   language: Language;
   quality: SceneQuality;
 }) {
+  const { size } = useThree();
   const selectedLine = transportLines.find((line) => line.id === lineId) ?? transportLines[0];
   const stops = stopsForTransportLine(selectedLine.id);
   const lines = useMemo(() => transportLines.map((line) => {
@@ -403,7 +392,7 @@ function TransportNetwork({ visible, lineId, stopId, onSelectStop, language, qua
     {selectedGeometry && <WideColorLine positions={selectedGeometry.positions} color={selectedLine.properties.color} width={5.2} opacity={0.96} />}
     {stops.map((stop, index) => {
       const selected = stop.id === stopId;
-      const important = selected || ["metro", "ferry", "terminal", "interchange", "portal"].includes(stop.properties.kind) || index === 0 || index === stops.length - 1;
+      const important = selected || (size.width >= 760 && (["metro", "ferry", "terminal", "interchange", "portal"].includes(stop.properties.kind) || index === 0 || index === stops.length - 1));
       return <group key={stop.id} position={projectPoint(stop.geometry.coordinates, modeHeight[selectedLine.properties.mode] + 2)} onClick={(event) => { event.stopPropagation(); onSelectStop(stop.id); }}>
         <mesh scale={selected ? 1.5 : 1}><sphereGeometry args={[selected ? 10 : 7, 16, 12]} /><meshStandardMaterial color={selected ? "#fff4b5" : "#f8fbef"} emissive={selectedLine.properties.color} emissiveIntensity={selected ? 0.85 : 0.35} /></mesh>
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.5, 0]}><ringGeometry args={[selected ? 16 : 11, selected ? 20 : 14, 24]} /><meshBasicMaterial color={selectedLine.properties.color} transparent opacity={0.72} side={THREE.DoubleSide} /></mesh>
@@ -431,6 +420,7 @@ function crossingLengthLabel(crossing: (typeof crossings)[number], language: Lan
 }
 
 function CrossingNetwork({ visible, selectedId, onSelect, language }: { visible: boolean; selectedId: string; onSelect: (id: string) => void; language: Language }) {
+  const { size } = useThree();
   const lineData = useMemo(() => crossings.map((crossing) => {
     const height = crossingHeight(crossing.id, crossing.properties.type);
     const points = projectPolyline(crossing.geometry.coordinates, height);
@@ -441,7 +431,7 @@ function CrossingNetwork({ visible, selectedId, onSelect, language }: { visible:
   return <group>
     {lineData.map(({ crossing, midpoint, positions }) => {
       const selected = crossing.id === selectedId;
-      const important = selected || ["jiangxinzhou-yangtze-bridge", "jiajiang-bridge", "nanjing-eye-crossing", "jiajiang-tunnel"].includes(crossing.id);
+      const important = selected || (size.width >= 760 && ["jiangxinzhou-yangtze-bridge", "jiajiang-bridge", "nanjing-eye-crossing", "jiajiang-tunnel"].includes(crossing.id));
       return <group key={crossing.id}>
         <WideColorLine positions={positions} color={crossing.properties.color} width={selected ? 6 : crossing.properties.type === "tunnel" ? 2.2 : 3.4} opacity={selected ? 1 : crossing.properties.type === "tunnel" ? 0.66 : 0.82} />
         <mesh position={midpoint} onClick={(event) => { event.stopPropagation(); onSelect(crossing.id); }}>
@@ -554,7 +544,7 @@ function MarkerLabels({ items, selectedId, onSelect, language, view, objectiveId
     }).filter((candidate) => candidate.visible && (expedition.has(candidate.item.id) || candidate.item.id === selectedId)).sort((a, b) => Number(b.item.id === objectiveId) - Number(a.item.id === objectiveId) || Number(b.item.id === selectedId) - Number(a.item.id === selectedId) || a.item.priority - b.item.priority);
     const boxes: { x1: number; y1: number; x2: number; y2: number }[] = [];
     const next = new Set<number>();
-    const overviewLimit = camera.position.y > 7_500 ? (size.width < 720 ? 4 : 7) : items.length;
+    const overviewLimit = camera.position.y > 7_500 ? (size.width < 720 ? 3 : 7) : size.width < 720 ? 5 : items.length;
     for (const candidate of candidates) {
       if (next.size >= overviewLimit && candidate.item.id !== selectedId && candidate.item.id !== objectiveId) continue;
       const width = language === "en" ? (size.width < 720 ? 128 : 164) : (size.width < 720 ? 96 : 112);
@@ -656,7 +646,7 @@ function SceneContent({ items, selectedId, onSelect, onReady, routeId, view, tar
     <LandscapeZones visible={layers.landscape} />
     <ContextRoadNetwork visible={layers.surroundings} />
     <RoadNetwork visible={layers.roads} />
-    <RoadNameLabels visible={layers.roads} language={language} />
+    <RoadNameLabels visible={layers.roads && view !== "regional"} language={language} />
     <CrossingNetwork visible={layers.crossings} selectedId={selectedCrossingId} onSelect={onSelectCrossing} language={language} />
     <RouteNetwork routeId={routeId} visible={view === "route" && !layers.transport} />
     <TransportNetwork visible={layers.transport} lineId={selectedTransportLineId} stopId={selectedTransportStopId} onSelectStop={onSelectTransportStop} language={language} quality={quality} />
@@ -675,7 +665,7 @@ export default function JiangxinzhouScene(props: JiangxinzhouSceneProps) {
       dpr={dpr}
       frameloop="demand"
       camera={{ fov: 38, position: [6_000, 17_000, 7_000], near: 20, far: 60_000 }}
-      gl={{ antialias: props.quality !== "efficiency", powerPreference: "high-performance", alpha: false, stencil: false, preserveDrawingBuffer: true }}
+      gl={{ antialias: props.quality !== "efficiency", powerPreference: "high-performance", alpha: false, stencil: false }}
       performance={{ min: 0.62, max: 1, debounce: 500 }}
       onCreated={({ gl }) => {
         gl.outputColorSpace = THREE.SRGBColorSpace;

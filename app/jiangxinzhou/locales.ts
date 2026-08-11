@@ -88,6 +88,10 @@ export const experienceCopy = {
     zh: "交通",
     en: "Transport",
   },
+  transportModes: {
+    zh: "交通方式",
+    en: "Transport modes",
+  },
   crossingLayer: {
     zh: "桥隧",
     en: "Bridges & tunnels",
@@ -100,6 +104,19 @@ export const experienceCopy = {
     zh: "地图视角",
     en: "Map view",
   },
+  informationPanel: {
+    zh: "地图信息面板",
+    en: "Map information panel",
+  },
+  panelNavigation: {
+    zh: "信息主题切换",
+    en: "Information topic navigation",
+  },
+  panelOverview: { zh: "地图", en: "Map" },
+  panelTransport: { zh: "交通", en: "Transit" },
+  panelLandmarks: { zh: "地标", en: "Landmarks" },
+  panelExplore: { zh: "探索", en: "Explore" },
+  panelEvidence: { zh: "资料", en: "Sources" },
   overview: {
     zh: "全岛视图",
     en: "Overview",
@@ -332,6 +349,8 @@ export const experienceCopy = {
   transportSummary: { zh: "公交、地铁、接驳、观光、轮渡与骑行线路", en: "Bus, metro, shuttle, sightseeing, ferry and cycling lines" },
   transportLine: { zh: "选择线路", en: "Choose line" },
   transportStops: { zh: "站点", en: "Stops" },
+  showAllStops: { zh: "显示全部站点", en: "Show all stops" },
+  collapseStops: { zh: "收起站点", en: "Collapse stops" },
   transportService: { zh: "运营信息", en: "Service" },
   transportCurrent: { zh: "当前运营", en: "Current service" },
   transportVehicle: { zh: "3D 交通工具", en: "3D vehicle" },
