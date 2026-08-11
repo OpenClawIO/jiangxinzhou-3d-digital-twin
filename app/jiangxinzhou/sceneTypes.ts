@@ -3,7 +3,7 @@ import type { Language } from "./locales";
 import type { Point3 } from "./mapGeometry";
 
 export type ViewMode = "regional" | "overview" | "route" | "landmark";
-export type LayerKey = "water" | "surroundings" | "roads" | "buildings" | "landscape" | "landmarks" | "crossings" | "transport";
+export type LayerKey = "water" | "surroundings" | "roads" | "buildings" | "landscape" | "landmarks" | "crossings" | "transport" | "coordinates";
 export type LayerVisibility = Record<LayerKey, boolean>;
 export type SceneQuality = "high" | "balanced" | "efficiency";
 

@@ -92,6 +92,10 @@ export const experienceCopy = {
     zh: "桥隧",
     en: "Bridges & tunnels",
   },
+  coordinates: {
+    zh: "经纬网格",
+    en: "Coordinate grid",
+  },
   viewTabs: {
     zh: "地图视角",
     en: "Map view",
@@ -339,6 +343,9 @@ export const experienceCopy = {
   lineCount: { zh: "条交通线", en: "transport lines" },
   stopCount: { zh: "个站点", en: "stops" },
   roadLabels: { zh: "道路名称随缩放显示", en: "Road names appear by zoom level" },
+  coordinateLongitude: { zh: "经度", en: "LON" },
+  coordinateLatitude: { zh: "纬度", en: "LAT" },
+  coordinateDatum: { zh: "WGS84 · 五横五纵", en: "WGS84 · 5 × 5 grid" },
   evidence: { zh: "证据与来源", en: "EVIDENCE & SOURCES" },
   sources: { zh: "项来源", en: "sources" },
   dataLayer: {

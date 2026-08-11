@@ -49,6 +49,7 @@ function LayerToggles({ layers, language, onToggle }: { layers: LayerVisibility;
     landmarks: experienceCopy.landmarkLayer,
     crossings: experienceCopy.crossingLayer,
     transport: experienceCopy.transportLayer,
+    coordinates: experienceCopy.coordinates,
   };
   return <div className="layer-toggles" aria-label={localize(experienceCopy.layers, language)}>{(Object.keys(labels) as LayerKey[]).map((key) => (
     <button key={key} className={layers[key] ? "active" : ""} aria-pressed={layers[key]} onClick={() => onToggle(key)}>{localize(labels[key], language)}</button>
@@ -79,7 +80,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   const [selectedTransportLineId, setSelectedTransportLineId] = useState(transportLines.find((line) => line.id === "bus-486")?.id ?? transportLines[0]?.id ?? "");
   const [selectedTransportStopId, setSelectedTransportStopId] = useState<string>();
   const [view, setView] = useState<ViewMode>("regional");
-  const [layers, setLayers] = useState<LayerVisibility>({ water: true, surroundings: true, roads: true, buildings: true, landscape: true, landmarks: true, crossings: true, transport: true });
+  const [layers, setLayers] = useState<LayerVisibility>({ water: true, surroundings: true, roads: true, buildings: true, landscape: true, landmarks: true, crossings: true, transport: true, coordinates: true });
   const [selectedCrossingId, setSelectedCrossingId] = useState("jiangxinzhou-yangtze-bridge");
   const [crossingFocused, setCrossingFocused] = useState(false);
   const [evidenceOpen, setEvidenceOpen] = useState(false);

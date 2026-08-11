@@ -202,6 +202,11 @@ export function projectPoint([longitude, latitude]: GeoPoint, height = 0): Point
   return [east, height, -north];
 }
 
+/** Convert a local Three.js/Blender metre coordinate back to canonical WGS84. */
+export function unprojectPoint([east, , south]: Point3): GeoPoint {
+  return [originLng + east / longitudeScale, originLat - south / latitudeScale];
+}
+
 export function projectPolyline(points: GeoPoint[], height = 0): Point3[] {
   return points.map((point) => projectPoint(point, height));
 }
