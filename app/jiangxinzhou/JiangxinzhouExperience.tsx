@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Component, useCallback, useEffect, useMemo, useState, type ErrorInfo, type ReactNode } from "react";
-import { calculateCelestialState, formatShanghaiTime, shanghaiDateParts, shanghaiPreviewTimestamp, type CelestialPeriod } from "./celestial";
+import { calculateCelestialState, formatShanghaiTime, shanghaiDateParts, shanghaiPreviewTimestamp, type CelestialPeriod, type CelestialState } from "./celestial";
 import { DiscoveryToast, ExpeditionDeck, MissionHud } from "./ExplorationUI";
 import { allLandmarkIds, findExpedition, type ExpeditionId } from "./exploration";
 import { landmarks as defaultLandmarks, routes, type Landmark } from "./landmarks";
@@ -93,6 +93,28 @@ function CelestialClock({ timestamp, mode, source, period, sunAltitude, moonAlti
       <label><span>{previewTime}</span><input type="range" min="0" max="1439" step="1" value={previewMinutes} aria-label={localize(experienceCopy.timePreview, language)} onChange={(event) => onPreviewChange(Number(event.target.value))} /></label>
       <button onClick={onLive}>{localize(experienceCopy.returnToLive, language)}</button>
     </div>}
+  </div>;
+}
+
+function CelestialMapBody({ state, language }: { state: CelestialState; language: Language }) {
+  const showSun = state.sun.visible || (!state.moon.visible && state.period !== "night");
+  const body = showSun ? state.sun : state.moon;
+  const azimuth = body.azimuthDeg;
+  const altitude = body.altitudeDeg;
+  const horizontalPercent = 50 + Math.sin(azimuth * Math.PI / 180) * 34;
+  const clampedAltitude = Math.min(90, Math.max(-12, altitude));
+  const verticalPercent = body.visible ? 56 - ((clampedAltitude + 12) / 102) * 40 : 64;
+  const moonPhases = ["🌑", "🌒", "🌓", "🌔", "🌕", "🌖", "🌗", "🌘"];
+  const phaseIndex = Math.round(state.moon.phaseCycleDeg / 45) % moonPhases.length;
+  const name = localize(showSun ? experienceCopy.sun : experienceCopy.moon, language);
+  const horizonState = localize(body.visible ? experienceCopy.aboveHorizon : experienceCopy.belowHorizon, language);
+  return <div
+    className={`celestial-map-body ${showSun ? "sun" : "moon"} ${body.visible ? "above-horizon" : "below-horizon"}`}
+    style={{ left: `${horizontalPercent}%`, top: `${verticalPercent}%` }}
+    aria-label={`${name}, ${horizonState}, ${localize(experienceCopy.azimuthShort, language)} ${azimuth.toFixed(0)}°, ${localize(experienceCopy.altitudeShort, language)} ${altitude.toFixed(1)}°`}
+  >
+    <span className="celestial-map-disc" aria-hidden="true">{showSun ? "" : moonPhases[phaseIndex]}</span>
+    <small><b>{name}</b><span>{horizonState}</span><em>{localize(experienceCopy.azimuthShort, language)} {azimuth.toFixed(0)}° · {localize(experienceCopy.altitudeShort, language)} {altitude.toFixed(1)}°</em></small>
   </div>;
 }
 
@@ -338,6 +360,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
           </SceneErrorBoundary> : sceneFallback}
           {!sceneReady && webglSupported !== false && <div className="scene-loading-overlay" role="status" aria-live="polite"><span className="loading-orbit" /><b>{localize(experienceCopy.loadingScene, language)}</b><small>{localize(experienceCopy.loadingSceneDetail, language)}</small></div>}
           <CelestialClock timestamp={celestialTimestamp} mode={timeMode} source={clockSource} period={celestialState.period} sunAltitude={celestialState.sun.altitudeDeg} moonAltitude={celestialState.moon.altitudeDeg} moonIllumination={celestialState.moon.illumination} previewMinutes={previewMinutes} language={language} onPreview={beginTimePreview} onPreviewChange={setPreviewMinutes} onLive={() => setTimeMode("live")} />
+          <CelestialMapBody state={celestialState} language={language} />
           {controlPanel === "explore" && <MissionHud expedition={exploration.activeExpedition} {...exploration.activeProgress} nextObjectiveId={exploration.nextObjectiveId} language={language} />}
           <DiscoveryToast landmarkId={toastLandmarkId} language={language} />
           <button className="sidebar-toggle" onClick={() => setSidebarCollapsed((value) => !value)} aria-label={localize(sidebarCollapsed ? experienceCopy.expandPanel : experienceCopy.collapsePanel, language)}>{sidebarCollapsed ? "‹" : "›"}</button>

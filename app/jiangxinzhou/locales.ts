@@ -96,6 +96,30 @@ export const experienceCopy = {
     zh: "月面亮度",
     en: "Moon illumination",
   },
+  sun: {
+    zh: "太阳",
+    en: "Sun",
+  },
+  moon: {
+    zh: "月亮",
+    en: "Moon",
+  },
+  aboveHorizon: {
+    zh: "地平线上",
+    en: "Above horizon",
+  },
+  belowHorizon: {
+    zh: "地平线下",
+    en: "Below horizon",
+  },
+  azimuthShort: {
+    zh: "方位",
+    en: "AZ",
+  },
+  altitudeShort: {
+    zh: "高度",
+    en: "ALT",
+  },
   languageToggle: {
     zh: "语言选择",
     en: "Language selector",
