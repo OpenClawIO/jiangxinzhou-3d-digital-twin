@@ -12,6 +12,7 @@ export type JiangxinzhouSceneProps = {
   selectedId: number;
   onSelect: (id: number) => void;
   onReady: () => void;
+  onScaleChange: (meters: number) => void;
   routeId: string;
   view: ViewMode;
   target: Point3;

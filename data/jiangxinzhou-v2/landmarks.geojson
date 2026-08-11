@@ -217,8 +217,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          118.6998,
-          32.0552
+          118.7075,
+          32.0524
         ]
       },
       "properties": {
@@ -235,8 +235,8 @@
         "source": "用户实景图、导览图与江堤路相对定位",
         "sourceUrl": null,
         "sourceCoordinate": [
-          118.6998,
-          32.0552
+          118.7075,
+          32.0524
         ],
         "sourceCrs": "EPSG:4326"
       }
@@ -295,8 +295,8 @@
         "source": "OpenStreetMap named building footprint cross-checked with guide map",
         "sourceUrl": "https://www.openstreetmap.org/way/1092530479",
         "sourceCoordinate": [
-          118.7084,
-          32.0222
+          118.6872599,
+          32.0247363
         ],
         "sourceCrs": "EPSG:4326"
       }
@@ -367,8 +367,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          118.7068,
-          32.0032
+          118.6812,
+          32.0191
         ]
       },
       "properties": {
@@ -385,8 +385,8 @@
         "source": "用户导览图相对定位",
         "sourceUrl": null,
         "sourceCoordinate": [
-          118.7068,
-          32.0032
+          118.6812,
+          32.0191
         ],
         "sourceCrs": "EPSG:4326"
       }

@@ -21,6 +21,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.7061,
+          32.0508
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -50,6 +54,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.7044,
+          32.0488
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -77,6 +85,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.7026,
+          32.0477
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -106,6 +118,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.7031,
+          32.0446
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -133,6 +149,10 @@
         "confidence": "triangulated",
         "status": "existing",
         "sourceCrs": "GCJ-02",
+        "sourceCoordinate": [
+          118.707977,
+          32.041853
+        ],
         "source": "Amap/OSM cross-check",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -162,6 +182,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.7049,
+          32.0411
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -191,6 +215,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.7012,
+          32.0388
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -219,6 +247,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6991,
+          32.0364
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -251,6 +283,10 @@
         "confidence": "triangulated",
         "status": "existing",
         "sourceCrs": "GCJ-02",
+        "sourceCoordinate": [
+          118.703401,
+          32.031758
+        ],
         "source": "Amap/OSM cross-check",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -286,6 +322,10 @@
         "confidence": "triangulated",
         "status": "existing",
         "sourceCrs": "GCJ-02",
+        "sourceCoordinate": [
+          118.703335,
+          32.031632
+        ],
         "source": "Amap/OSM cross-check",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -313,6 +353,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6962,
+          32.0319
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -340,6 +384,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6944,
+          32.0302
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -367,6 +415,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6917,
+          32.0291
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -394,6 +446,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6921,
+          32.0283
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -424,6 +480,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6927,
+          32.0268
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -454,6 +514,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6915,
+          32.0252
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -485,6 +549,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6911,
+          32.0224
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -513,6 +581,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6871,
+          32.0141
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -542,6 +614,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6928,
+          32.0103
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -570,6 +646,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6954,
+          32.0089
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -597,6 +677,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6935,
+          32.0061
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -628,6 +712,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6882,
+          32.0048
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -655,6 +743,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.684,
+          32.0062
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -682,6 +774,10 @@
         "confidence": "triangulated",
         "status": "existing",
         "sourceCrs": "GCJ-02",
+        "sourceCoordinate": [
+          118.685087,
+          32.007652
+        ],
         "source": "Amap/OSM cross-check",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -712,6 +808,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6777,
+          32.0032
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -742,6 +842,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6773,
+          32.0017
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -770,6 +874,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6768,
+          31.9999
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -798,6 +906,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6796,
+          31.9978
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -826,6 +938,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6742,
+          31.9987
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -856,6 +972,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6718,
+          31.9953
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -887,6 +1007,10 @@
         "confidence": "triangulated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6975913,
+          32.009866
+        ],
         "source": "Amap/OSM cross-check",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -917,6 +1041,10 @@
         "confidence": "triangulated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6999968,
+          32.0087366
+        ],
         "source": "Amap/OSM cross-check",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -930,8 +1058,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          118.7101,
-          32.0584
+          118.7114518,
+          32.0469491
         ]
       },
       "properties": {
@@ -944,6 +1072,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.7114518,
+          32.0469491
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -972,6 +1104,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.7075,
+          32.0524
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -986,8 +1122,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          118.7025,
-          32.0462
+          118.7115,
+          32.0525
         ]
       },
       "properties": {
@@ -1000,6 +1136,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.7115,
+          32.0525
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -1028,6 +1168,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6992,
+          32.0399
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -1043,8 +1187,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          118.6951,
-          32.0214
+          118.7125401,
+          32.0494233
         ]
       },
       "properties": {
@@ -1057,6 +1201,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.7125401,
+          32.0494233
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -1084,6 +1232,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6872599,
+          32.0247363
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -1097,8 +1249,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          118.6788,
-          32.0119
+          118.6868,
+          32.0042
         ]
       },
       "properties": {
@@ -1111,6 +1263,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6868,
+          32.0042
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -1139,6 +1295,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.6812,
+          32.0191
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -1166,6 +1326,10 @@
         "confidence": "estimated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.7118,
+          32.0334
+        ],
         "source": "Official stop order snapped to verified road corridor",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -1196,6 +1360,10 @@
         "confidence": "triangulated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.7102574,
+          32.0268513
+        ],
         "source": "Amap/OSM cross-check",
         "snapshot": "2026-08-09",
         "lineIds": [
@@ -1223,6 +1391,10 @@
         "confidence": "triangulated",
         "status": "existing",
         "sourceCrs": "EPSG:4326",
+        "sourceCoordinate": [
+          118.660314,
+          32.059584
+        ],
         "source": "Amap/OSM cross-check",
         "snapshot": "2026-08-09",
         "lineIds": [

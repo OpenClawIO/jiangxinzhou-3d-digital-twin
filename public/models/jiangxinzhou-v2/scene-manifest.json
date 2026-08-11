@@ -10,19 +10,19 @@
     {
       "id": "Terrain",
       "url": "/models/jiangxinzhou-v2/terrain.glb",
-      "bytes": 18544,
+      "bytes": 18552,
       "lod": 1
     },
     {
       "id": "BuildingsSouth",
       "url": "/models/jiangxinzhou-v2/buildings-south.glb",
-      "bytes": 50744,
+      "bytes": 50752,
       "lod": 1
     },
     {
       "id": "BuildingsCenter",
       "url": "/models/jiangxinzhou-v2/buildings-center.glb",
-      "bytes": 150388,
+      "bytes": 150380,
       "lod": 1
     },
     {
@@ -34,13 +34,13 @@
     {
       "id": "Vegetation",
       "url": "/models/jiangxinzhou-v2/vegetation.glb",
-      "bytes": 985196,
+      "bytes": 985192,
       "lod": 1
     },
     {
       "id": "Landmarks",
       "url": "/models/jiangxinzhou-v2/landmarks.glb",
-      "bytes": 504508,
+      "bytes": 504500,
       "lod": 2
     }
   ],
@@ -48,7 +48,7 @@
     {
       "id": "ContextBridges",
       "url": "/models/jiangxinzhou-v2/bridges-context.glb",
-      "bytes": 188064,
+      "bytes": 188880,
       "lod": 1,
       "crossings": [
         "jiangxinzhou-yangtze-bridge",

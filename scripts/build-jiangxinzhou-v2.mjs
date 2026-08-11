@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { metersPerDegreeAt, polygonAreaM2, polylineLengthM } from "./lib/geodesy.mjs";
 
 const root = process.cwd();
 const legacy = JSON.parse(await readFile(path.join(root, "data/jiangxinzhou-map.json"), "utf8"));
@@ -8,7 +9,7 @@ await mkdir(outputDir, { recursive: true });
 
 const OVERPASS_URL = "https://overpass-api.de/api/interpreter";
 const OSM_RELATION_AREA = 3611630502;
-const VERSION = "2026-08-09.2";
+const VERSION = "2026-08-11.1";
 
 const outOfChina = (lng, lat) => lng < 72.004 || lng > 137.8347 || lat < 0.8293 || lat > 55.8271;
 const transformLat = (x, y) => {
@@ -56,16 +57,7 @@ async function fetchBuildings() {
   return response.json();
 }
 
-const signedAreaMeters = (ring) => {
-  const originLat = ring.reduce((sum, [, lat]) => sum + lat, 0) / ring.length;
-  const lonM = 111320 * Math.cos((originLat * Math.PI) / 180);
-  const latM = 110540;
-  let area = 0;
-  for (let i = 0; i < ring.length - 1; i += 1) {
-    area += ring[i][0] * lonM * ring[i + 1][1] * latM - ring[i + 1][0] * lonM * ring[i][1] * latM;
-  }
-  return Math.abs(area / 2);
-};
+const signedAreaMeters = polygonAreaM2;
 
 function buildingProfile(tags, areaM2) {
   const explicitHeight = Number.parseFloat(tags.height);
@@ -108,10 +100,14 @@ const buildingFeatures = osm.elements.map((element) => {
 
 const islandRing = [...legacy.island.boundary];
 if (islandRing[0][0] !== islandRing.at(-1)[0] || islandRing[0][1] !== islandRing.at(-1)[1]) islandRing.push(islandRing[0]);
+const measuredIslandAreaKm2 = polygonAreaM2(islandRing) / 1_000_000;
+const measuredIslandBoundaryKm = polylineLengthM(islandRing) / 1_000;
 const island = collection([
   feature("jiangxinzhou-island", { type: "Polygon", coordinates: [islandRing] }, {
     name: { zh: "江心洲", en: "Jiangxinzhou" },
-    areaKm2: 15.21,
+    officialAreaKm2: 15.21,
+    measuredGeometryAreaKm2: Number(measuredIslandAreaKm2.toFixed(6)),
+    measuredGeometryBoundaryKm: Number(measuredIslandBoundaryKm.toFixed(6)),
     source: "OpenStreetMap boundary cross-checked with Amap and Google Earth",
     sourceCrs: "EPSG:4326",
     confidence: "triangulated",
@@ -151,10 +147,15 @@ const landmarkEnglish = {
   "seasonal-garden": "Pond Cypress Seasonal Garden",
 };
 const highDetailIds = new Set(["nanjing-eye", "xiaokenting-lighthouse", "rocho-cafe", "dolphin-center", "water-center", "e3-park", "chapel"]);
+const correctedEstimatedCoordinates = {
+  "xiaokenting-lighthouse": [118.7075, 32.0524],
+  "seasonal-garden": [118.6812, 32.0191],
+};
 const landmarkFeatures = legacy.anchors.map((anchor) => {
   const isGcj = anchor.confidence === "verified";
   const osmChurchCoordinate = [118.6872599, 32.0247363];
-  const coordinates = anchor.id === "chapel" ? osmChurchCoordinate : isGcj ? gcj02ToWgs84(anchor.coordinates) : anchor.coordinates;
+  const sourceCoordinate = correctedEstimatedCoordinates[anchor.id] ?? anchor.coordinates;
+  const coordinates = anchor.id === "chapel" ? osmChurchCoordinate : isGcj ? gcj02ToWgs84(sourceCoordinate) : sourceCoordinate;
   const churchVerified = anchor.id === "chapel";
   return feature(anchor.id, { type: "Point", coordinates }, {
     name: { zh: anchor.id === "chapel" ? "基督教江心洲堂" : anchor.name, en: landmarkEnglish[anchor.id] ?? anchor.name },
@@ -165,7 +166,7 @@ const landmarkFeatures = legacy.anchors.map((anchor) => {
     confidence: anchor.confidence === "verified" || churchVerified ? "triangulated" : "estimated",
     source: churchVerified ? "OpenStreetMap named building footprint cross-checked with guide map" : anchor.source,
     sourceUrl: churchVerified ? "https://www.openstreetmap.org/way/1092530479" : anchor.sourceUrl ?? null,
-    sourceCoordinate: anchor.coordinates,
+    sourceCoordinate: churchVerified ? osmChurchCoordinate : sourceCoordinate,
     sourceCrs: isGcj ? "GCJ-02" : "EPSG:4326",
   });
 });
@@ -186,7 +187,7 @@ const evidence = {
   generatedAt: new Date().toISOString(),
   policy: {
     canonicalCrs: "EPSG:4326",
-    renderProjection: "local ENU metres",
+    renderProjection: "WGS84 local equirectangular metres",
     precision: "public visitor map; not cadastral or survey grade",
     redistribution: "Reference imagery is not redistributed. Runtime geometry is original or OpenStreetMap ODbL data.",
     confidence: {
@@ -209,15 +210,25 @@ const evidence = {
 };
 
 const origin = gcj02ToWgs84(legacy.reference.origin);
+const projectionScale = metersPerDegreeAt(origin[1]);
 const manifest = {
   version: VERSION,
   title: { zh: "南京江心洲3D时空", en: "Nanjing Jiangxinzhou 3D Time-Space" },
-  snapshot: "2026-08-09",
+  snapshot: "2026-08-11",
   canonicalCrs: "EPSG:4326",
   origin,
   units: "metres",
+  projection: {
+    method: "WGS84-local-equirectangular",
+    metersPerDegreeLongitude: projectionScale.longitude,
+    metersPerDegreeLatitude: projectionScale.latitude,
+  },
   officialAreaKm2: 15.21,
   officialEmbankmentKm: 22.5,
+  geometryMetrics: {
+    islandAreaKm2: Number(measuredIslandAreaKm2.toFixed(6)),
+    islandBoundaryKm: Number(measuredIslandBoundaryKm.toFixed(6)),
+  },
   counts: { buildings: buildingFeatures.length, roads: roadFeatures.length, landmarks: landmarkFeatures.length },
   layers: {
     island: "island.geojson",

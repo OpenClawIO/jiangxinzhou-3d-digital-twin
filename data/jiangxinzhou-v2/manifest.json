@@ -11,8 +11,17 @@
     32.0354297
   ],
   "units": "metres",
+  "projection": {
+    "method": "WGS84-local-equirectangular",
+    "metersPerDegreeLongitude": 94456.78797114191,
+    "metersPerDegreeLatitude": 110887.42962189173
+  },
   "officialAreaKm2": 15.21,
   "officialEmbankmentKm": 22.5,
+  "geometryMetrics": {
+    "islandAreaKm2": 15.079897,
+    "islandBoundaryKm": 25.011622
+  },
   "counts": {
     "buildings": 286,
     "roads": 263,

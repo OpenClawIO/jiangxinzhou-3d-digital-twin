@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { metersPerDegreeAt, polygonAreaM2, polylineLengthM } from "./lib/geodesy.mjs";
 
 const root = process.cwd();
 const dir = path.join(root, "data/jiangxinzhou-v2");
@@ -12,6 +13,7 @@ const [manifest, island, roads, buildings, landmarks, landscapes, evidence] = aw
 
 assert.equal(manifest.canonicalCrs, "EPSG:4326");
 assert.equal(manifest.units, "metres");
+assert.equal(manifest.projection.method, "WGS84-local-equirectangular");
 assert.equal(manifest.officialAreaKm2, 15.21);
 assert.equal(manifest.officialEmbankmentKm, 22.5);
 assert.ok(buildings.features.length >= 286, "expected all OSM building footprints");
@@ -20,6 +22,15 @@ assert.ok(landmarks.features.length >= 13, "expected verified and estimated land
 assert.ok(evidence.sources.length >= 8, "expected a multi-source evidence ledger");
 
 const islandRing = island.features[0].geometry.coordinates[0];
+const projectionScale = metersPerDegreeAt(manifest.origin[1]);
+assert.ok(Math.abs(manifest.projection.metersPerDegreeLongitude - projectionScale.longitude) < 0.001, "longitude scale must use WGS84 ellipsoid");
+assert.ok(Math.abs(manifest.projection.metersPerDegreeLatitude - projectionScale.latitude) < 0.001, "latitude scale must use WGS84 ellipsoid");
+const measuredAreaKm2 = polygonAreaM2(islandRing) / 1_000_000;
+const measuredBoundaryKm = polylineLengthM(islandRing) / 1_000;
+assert.ok(Math.abs(measuredAreaKm2 - 15.0795761803) < 0.002, "island area drifted from Wolfram audit baseline");
+assert.ok(Math.abs(measuredBoundaryKm - 25.0116224637) < 0.002, "island boundary drifted from Wolfram audit baseline");
+assert.ok(Math.abs(manifest.geometryMetrics.islandAreaKm2 - measuredAreaKm2) < 0.00001, "manifest island area is stale");
+assert.ok(Math.abs(manifest.geometryMetrics.islandBoundaryKm - measuredBoundaryKm) < 0.00001, "manifest island boundary is stale");
 const [minLng, maxLng] = [Math.min(...islandRing.map(([lng]) => lng)), Math.max(...islandRing.map(([lng]) => lng))];
 const [minLat, maxLat] = [Math.min(...islandRing.map(([, lat]) => lat)), Math.max(...islandRing.map(([, lat]) => lat))];
 assert.ok(maxLng - minLng > 0.03 && maxLat - minLat > 0.07, "island bounds must retain real geographic scale");
@@ -43,6 +54,13 @@ for (const feature of landmarks.features) {
   assert.ok(["triangulated", "estimated", "planned"].includes(feature.properties.confidence), `${feature.id}: invalid confidence`);
   assert.ok(feature.properties.sourceCrs, `${feature.id}: source CRS missing`);
   assert.ok(feature.properties.name.zh && feature.properties.name.en, `${feature.id}: bilingual name missing`);
+}
+const chapel = landmarks.features.find((feature) => feature.id === "chapel");
+assert.deepEqual(chapel.properties.sourceCoordinate, chapel.geometry.coordinates, "chapel source coordinate must match its OSM geometry");
+for (const id of ["xiaokenting-lighthouse", "seasonal-garden"]) {
+  const landmark = landmarks.features.find((feature) => feature.id === id);
+  const [longitude, latitude] = landmark.geometry.coordinates;
+  assert.ok(longitude >= minLng && longitude <= maxLng && latitude >= minLat && latitude <= maxLat, `${id}: corrected estimate outside island bounds`);
 }
 for (const feature of landscapes.features) assert.ok(feature.properties.name.zh && feature.properties.name.en);
 

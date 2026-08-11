@@ -1,5 +1,6 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { polylineLengthM } from "./lib/geodesy.mjs";
 
 const root = process.cwd();
 const outputDir = path.join(root, "data/jiangxinzhou-v2");
@@ -133,36 +134,39 @@ const crossings = collection([
   feature("jiangxinzhou-yangtze-bridge", { type: "LineString", coordinates: [[118.641868, 32.019244], [118.651, 32.0154], [118.662, 32.0107], [118.673, 32.0062], [118.68262, 32.002087]] }, {
     name: name("南京江心洲长江大桥", "Nanjing Jiangxinzhou Yangtze River Bridge"), type: "bridge", mode: "road", color: "#f1c46a",
     status: existing, confidence: triangulated, source: "OSM bridge geometry + Nanjing government bridge project资料", sourceId: "458525355/458709962",
-    totalRouteM: 10335, mainSpanM: 600, modelKey: "jiangxinzhou-yangtze-bridge", layer: 1,
+    officialProjectLengthM: 10335, officialStructureLengthM: null, officialMainSpanM: 600, modelKey: "jiangxinzhou-yangtze-bridge", layer: 1,
   }),
   feature("jiajiang-bridge", { type: "LineString", coordinates: [[118.702071, 32.034805], [118.7048, 32.0331], [118.707944, 32.031631]] }, {
     name: name("夹江大桥", "Jiajiang Bridge"), type: "bridge", mode: "road", color: "#e9b75f",
     status: existing, confidence: triangulated, source: "OSM bridge geometry + Nanjing transportation references", sourceId: "137972556/137972560",
-    totalRouteM: null, mainSpanM: null, modelKey: "jiajiang-bridge", layer: 1,
+    officialProjectLengthM: null, officialStructureLengthM: null, officialMainSpanM: null, modelKey: "jiajiang-bridge", layer: 1,
   }),
   feature("nanjing-eye-crossing", { type: "LineString", coordinates: [[118.69399, 31.999741], [118.69655, 31.99755], [118.699348, 31.995421]] }, {
     name: name("南京眼步行桥", "Nanjing Eye Pedestrian Bridge"), type: "bridge", mode: "pedestrian", color: "#a7e0c2",
     status: existing, confidence: triangulated, source: "OSM bridge geometry + Nanjing Eye official project资料", sourceId: "321392362/445886857/445886858",
-    totalRouteM: 827.5, mainSpanM: 240, modelKey: "nanjing-eye-context", layer: 2,
+    officialProjectLengthM: null, officialStructureLengthM: null, officialMainSpanM: 240, modelKey: "nanjing-eye-context", layer: 2,
   }),
   feature("jiajiang-tunnel", { type: "LineString", coordinates: [[118.684867, 32.001322], [118.6939, 31.9970], [118.701921, 31.992288]] }, {
     name: name("夹江隧道", "Jiajiang Tunnel"), type: "tunnel", mode: "road", color: "#82a5bd",
     status: existing, confidence: triangulated, source: "OSM tunnel geometry + Nanjing government bridge project资料", sourceId: "458709944",
-    totalRouteM: 1800, mainSpanM: null, modelKey: null, layer: -2,
+    officialProjectLengthM: null, officialStructureLengthM: 1800, officialMainSpanM: null, modelKey: null, layer: -2,
   }),
   feature("qingao-axis-tunnel-north", { type: "LineString", coordinates: [[118.703292, 31.997225], [118.700816, 31.994358]] }, {
     name: name("青奥轴线隧道", "Qing'ao Axis Tunnel"), type: "tunnel", mode: "road", color: "#728da3",
-    status: existing, confidence: triangulated, source: "OpenStreetMap tunnel geometry", sourceId: "321394415", totalRouteM: null, mainSpanM: null, modelKey: null, layer: -1,
+    status: existing, confidence: triangulated, source: "OpenStreetMap tunnel geometry", sourceId: "321394415", officialProjectLengthM: null, officialStructureLengthM: null, officialMainSpanM: null, modelKey: null, layer: -1,
   }),
   feature("qingao-axis-tunnel-south", { type: "LineString", coordinates: [[118.695413, 31.991451], [118.699937, 31.993537]] }, {
     name: name("青奥轴线隧道南段", "Qing'ao Axis Tunnel · South"), type: "tunnel", mode: "road", color: "#728da3",
-    status: existing, confidence: triangulated, source: "OpenStreetMap tunnel geometry", sourceId: "321394417", totalRouteM: null, mainSpanM: null, modelKey: null, layer: -1,
+    status: existing, confidence: triangulated, source: "OpenStreetMap tunnel geometry", sourceId: "321394417", officialProjectLengthM: null, officialStructureLengthM: null, officialMainSpanM: null, modelKey: null, layer: -1,
   }),
   feature("yingtian-avenue-tunnel", { type: "LineString", coordinates: [[118.698383, 32.037478], [118.685, 32.045], [118.675, 32.052], [118.667667, 32.056265]] }, {
     name: name("应天大街长江隧道", "Yingtian Avenue Yangtze Tunnel"), type: "tunnel", mode: "road", color: "#637f96",
-    status: existing, confidence: triangulated, source: "OpenStreetMap tunnel geometry", sourceId: "137978972", totalRouteM: null, mainSpanM: null, modelKey: null, layer: -1,
+    status: existing, confidence: triangulated, source: "OpenStreetMap tunnel geometry", sourceId: "137978972", officialProjectLengthM: null, officialStructureLengthM: null, officialMainSpanM: null, modelKey: null, layer: -1,
   }),
 ]);
+for (const crossing of crossings.features) {
+  crossing.properties.measuredGeometryLengthM = Math.round(polylineLengthM(crossing.geometry.coordinates));
+}
 
 const evidence = {
   version: `${snapshot}.context.1`, snapshot, canonicalCrs: "EPSG:4326",

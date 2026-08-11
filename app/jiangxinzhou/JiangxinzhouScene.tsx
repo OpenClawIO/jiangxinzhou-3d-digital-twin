@@ -393,7 +393,7 @@ function TransportNetwork({ visible, lineId, stopId, onSelectStop, language, qua
     {stops.map((stop, index) => {
       const selected = stop.id === stopId;
       const important = selected || (size.width >= 760 && (["metro", "ferry", "terminal", "interchange", "portal"].includes(stop.properties.kind) || index === 0 || index === stops.length - 1));
-      return <group key={stop.id} position={projectPoint(stop.geometry.coordinates, modeHeight[selectedLine.properties.mode] + 2)} onClick={(event) => { event.stopPropagation(); onSelectStop(stop.id); }}>
+      return <group key={`${selectedLine.id}-${stop.id}-${index}`} position={projectPoint(stop.geometry.coordinates, modeHeight[selectedLine.properties.mode] + 2)} onClick={(event) => { event.stopPropagation(); onSelectStop(stop.id); }}>
         <mesh scale={selected ? 1.5 : 1}><sphereGeometry args={[selected ? 10 : 7, 16, 12]} /><meshStandardMaterial color={selected ? "#fff4b5" : "#f8fbef"} emissive={selectedLine.properties.color} emissiveIntensity={selected ? 0.85 : 0.35} /></mesh>
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.5, 0]}><ringGeometry args={[selected ? 16 : 11, selected ? 20 : 14, 24]} /><meshBasicMaterial color={selectedLine.properties.color} transparent opacity={0.72} side={THREE.DoubleSide} /></mesh>
         {important && <Html position={[0, 28, 0]} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}><div className={`transport-stop-label ${selected ? "active" : ""}`} style={{ "--stop-color": selectedLine.properties.color } as React.CSSProperties}><span>{String(index + 1).padStart(2, "0")}</span><strong>{localizeFeatureName(stop, language)}</strong></div></Html>}
@@ -414,9 +414,10 @@ function crossingHeight(id: string, type: CrossingType) {
 }
 
 function crossingLengthLabel(crossing: (typeof crossings)[number], language: Language) {
-  if (crossing.properties.mainSpanM) return `${localize(experienceCopy.crossingSpan, language)} ${crossing.properties.mainSpanM} m`;
-  if (crossing.properties.totalRouteM) return `${localize(experienceCopy.crossingLength, language)} ${(crossing.properties.totalRouteM / 1000).toFixed(1)} km`;
-  return localize(crossing.properties.type === "bridge" ? experienceCopy.crossingTypeBridge : experienceCopy.crossingTypeTunnel, language);
+  if (crossing.properties.officialMainSpanM) return `${localize(experienceCopy.crossingSpan, language)} ${crossing.properties.officialMainSpanM} m`;
+  if (crossing.properties.officialStructureLengthM) return `${localize(experienceCopy.crossingStructureLength, language)} ${(crossing.properties.officialStructureLengthM / 1000).toFixed(1)} km`;
+  if (crossing.properties.officialProjectLengthM) return `${localize(experienceCopy.crossingProjectLength, language)} ${(crossing.properties.officialProjectLengthM / 1000).toFixed(3)} km`;
+  return `${localize(experienceCopy.crossingGeometryLength, language)} ${(crossing.properties.measuredGeometryLengthM / 1000).toFixed(2)} km`;
 }
 
 function CrossingNetwork({ visible, selectedId, onSelect, language }: { visible: boolean; selectedId: string; onSelect: (id: string) => void; language: Language }) {
@@ -603,6 +604,30 @@ function SceneControls({ controls }: { controls: React.RefObject<OrbitControlsIm
   />;
 }
 
+function ScaleReporter({ onScaleChange }: { onScaleChange: (meters: number) => void }) {
+  const { camera, size } = useThree();
+  const raycaster = useMemo(() => new THREE.Raycaster(), []);
+  const ground = useMemo(() => new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), []);
+  const left = useMemo(() => new THREE.Vector3(), []);
+  const right = useMemo(() => new THREE.Vector3(), []);
+  const lastValue = useRef(0);
+  useFrame(() => {
+    if (size.width <= 0) return;
+    const halfScaleNdc = 70 / size.width;
+    raycaster.setFromCamera(new THREE.Vector2(-halfScaleNdc, 0), camera);
+    if (!raycaster.ray.intersectPlane(ground, left)) return;
+    raycaster.setFromCamera(new THREE.Vector2(halfScaleNdc, 0), camera);
+    if (!raycaster.ray.intersectPlane(ground, right)) return;
+    const meters = left.distanceTo(right);
+    if (!Number.isFinite(meters) || meters <= 0) return;
+    if (Math.abs(lastValue.current - meters) / Math.max(1, lastValue.current) > 0.01) {
+      lastValue.current = meters;
+      onScaleChange(meters);
+    }
+  });
+  return null;
+}
+
 function DeferredAssets({ layers, quality, onCoreReady }: { layers: LayerVisibility; quality: SceneQuality; onCoreReady: () => void }) {
   const [idleAssets, setIdleAssets] = useState(false);
   useEffect(() => {
@@ -625,7 +650,7 @@ function DeferredAssets({ layers, quality, onCoreReady }: { layers: LayerVisibil
   </Suspense>;
 }
 
-function SceneContent({ items, selectedId, onSelect, onReady, routeId, view, target, layers, language, quality, objectiveId, expeditionLandmarkIds, discoveredLandmarkIds, selectedTransportLineId, selectedTransportStopId, onSelectTransportStop, selectedCrossingId, onSelectCrossing }: JiangxinzhouSceneProps) {
+function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, routeId, view, target, layers, language, quality, objectiveId, expeditionLandmarkIds, discoveredLandmarkIds, selectedTransportLineId, selectedTransportStopId, onSelectTransportStop, selectedCrossingId, onSelectCrossing }: JiangxinzhouSceneProps) {
   const controls = useRef<OrbitControlsImpl>(null);
   const reportedReady = useRef(false);
   const reportReady = useCallback(() => {
@@ -654,6 +679,7 @@ function SceneContent({ items, selectedId, onSelect, onReady, routeId, view, tar
     {layers.landmarks && <MarkerLabels items={items} selectedId={selectedId} onSelect={onSelect} language={language} view={view} objectiveId={objectiveId} discoveredIds={discoveredLandmarkIds} expeditionIds={expeditionLandmarkIds} />}
     <CameraRig target={target} view={view} controls={controls} quality={quality} />
     <SceneControls controls={controls} />
+    <ScaleReporter onScaleChange={onScaleChange} />
     <AdaptiveDpr pixelated={quality === "efficiency"} />
   </>;
 }

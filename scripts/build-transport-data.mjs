@@ -1,9 +1,12 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { geodesicDistanceM, polylineLengthM } from "./lib/geodesy.mjs";
 
 const root = process.cwd();
 const outputDir = path.join(root, "data/jiangxinzhou-v2");
 await mkdir(outputDir, { recursive: true });
+const roadsPath = path.join(outputDir, "roads.geojson");
+const roads = JSON.parse(await readFile(roadsPath, "utf8"));
 
 const snapshot = "2026-08-09";
 const feature = (id, geometry, properties) => ({ type: "Feature", id, geometry, properties: { id, ...properties } });
@@ -72,13 +75,13 @@ const stopDefinitions = [
   ["jiangxinzhou-south", "江心洲南", "Jiangxinzhou South", [118.6718, 31.9953], "terminal", "estimated"],
   ["qigan-pier", "旗杆渡口", "Qigan Ferry Pier", [118.6975913, 32.009866], "ferry", "triangulated"],
   ["mianhuadi-pier", "棉花堤渡口", "Mianhuadi Ferry Pier", [118.6999968, 32.0087366], "ferry", "triangulated"],
-  ["porpoise-center-stop", "江豚科教中心", "Finless Porpoise Center", [118.7101, 32.0584], "tourism", "estimated"],
+  ["porpoise-center-stop", "江豚科教中心", "Finless Porpoise Center", [118.7114518, 32.0469491], "tourism", "estimated"],
   ["xiaokenting-stop", "小垦丁灯塔", "Xiaokenting Lighthouse", [118.7075, 32.0524], "tourism", "estimated"],
-  ["rocho-stop", "ROCHO灯塔咖啡", "ROCHO Lighthouse Café", [118.7025, 32.0462], "tourism", "estimated"],
+  ["rocho-stop", "ROCHO灯塔咖啡", "ROCHO Lighthouse Café", [118.7115, 32.0525], "tourism", "estimated"],
   ["imo-stop", "iMO江岛新天地", "iMO Jiangdao New World", [118.6992, 32.0399], "shuttle", "estimated"],
-  ["e3-park-stop", "E³ PARK体育公园", "E³ PARK Sports Park", [118.6951, 32.0214], "tourism", "estimated"],
+  ["e3-park-stop", "E³ PARK体育公园", "E³ PARK Sports Park", [118.7125401, 32.0494233], "tourism", "estimated"],
   ["church-stop", "基督教江心洲堂", "Jiangxinzhou Christian Church", [118.6872599, 32.0247363], "tourism", "estimated"],
-  ["pink-field-stop", "粉黛花海", "Pink Muhly Field", [118.6788, 32.0119], "tourism", "estimated"],
+  ["pink-field-stop", "粉黛花海", "Pink Muhly Field", [118.6868, 32.0042], "tourism", "estimated"],
   ["cypress-stop", "池杉林四季花海", "Pond Cypress Garden", [118.6812, 32.0191], "tourism", "estimated"],
   ["city-portal", "夹江大桥·河西方向", "Jiajiang Bridge · Hexi", [118.7118, 32.0334], "portal", "estimated"],
   ["metro-greenexpo", "绿博园站", "Lüboyuan Station", [118.7102574, 32.0268513], "metro", "triangulated"],
@@ -89,6 +92,7 @@ const stopFeatures = stopDefinitions.map(([id, zh, en, coordinate, kind, confide
   const canonical = sourceCrs === "GCJ-02" ? gcj02ToWgs84(coordinate) : coordinate;
   return feature(id, { type: "Point", coordinates: canonical }, {
     name: { zh, en }, kind, confidence, status: "existing", sourceCrs,
+    sourceCoordinate: coordinate,
     source: confidence === "triangulated" ? "Amap/OSM cross-check" : "Official stop order snapped to verified road corridor",
     snapshot,
   });
@@ -125,14 +129,135 @@ const serviceEnglish = {
   "cycle-loop": "Open all day except during event controls",
 };
 
-const lineFeatures = lineDefinitions.map((line) => feature(line.id, {
-  type: "LineString",
-  coordinates: line.stops.map((id) => stops.get(id).geometry.coordinates),
-}, {
-  name: { zh: line.zh, en: line.en }, ref: line.ref, mode: line.mode, color: line.color,
-  status: line.status, service: { zh: line.service, en: serviceEnglish[line.id] }, stopIds: line.stops, source: line.source,
-  confidence: line.source.includes("estimated") ? "estimated" : "triangulated", snapshot, modelKey: line.model,
-}));
+const nodeKey = ([longitude, latitude]) => `${longitude.toFixed(7)},${latitude.toFixed(7)}`;
+const graph = new Map();
+const coordinatesByKey = new Map();
+const connect = (from, to) => {
+  const fromKey = nodeKey(from);
+  const toKey = nodeKey(to);
+  coordinatesByKey.set(fromKey, from);
+  coordinatesByKey.set(toKey, to);
+  const neighbors = graph.get(fromKey) ?? [];
+  neighbors.push({ key: toKey, weight: geodesicDistanceM(from, to) });
+  graph.set(fromKey, neighbors);
+};
+for (const road of roads.features) {
+  const coordinates = road.geometry.coordinates;
+  for (let index = 0; index < coordinates.length - 1; index += 1) {
+    connect(coordinates[index], coordinates[index + 1]);
+    connect(coordinates[index + 1], coordinates[index]);
+  }
+}
+
+function nearestRoadNode(coordinate) {
+  let bestKey = null;
+  let bestDistance = Number.POSITIVE_INFINITY;
+  for (const [key, candidate] of coordinatesByKey) {
+    const distance = geodesicDistanceM(coordinate, candidate);
+    if (distance < bestDistance) {
+      bestDistance = distance;
+      bestKey = key;
+    }
+  }
+  return { key: bestKey, distance: bestDistance };
+}
+
+function shortestRoadPath(startCoordinate, endCoordinate) {
+  const start = nearestRoadNode(startCoordinate);
+  const end = nearestRoadNode(endCoordinate);
+  if (!start.key || !end.key || start.distance > 500 || end.distance > 500) return null;
+  const distances = new Map([[start.key, 0]]);
+  const previous = new Map();
+  const unvisited = new Set(graph.keys());
+  while (unvisited.size > 0) {
+    let current = null;
+    let currentDistance = Number.POSITIVE_INFINITY;
+    for (const key of unvisited) {
+      const distance = distances.get(key) ?? Number.POSITIVE_INFINITY;
+      if (distance < currentDistance) {
+        current = key;
+        currentDistance = distance;
+      }
+    }
+    if (current === null || currentDistance === Number.POSITIVE_INFINITY) return null;
+    if (current === end.key) break;
+    unvisited.delete(current);
+    for (const neighbor of graph.get(current) ?? []) {
+      if (!unvisited.has(neighbor.key)) continue;
+      const candidate = currentDistance + neighbor.weight;
+      if (candidate < (distances.get(neighbor.key) ?? Number.POSITIVE_INFINITY)) {
+        distances.set(neighbor.key, candidate);
+        previous.set(neighbor.key, current);
+      }
+    }
+  }
+  const keys = [end.key];
+  while (keys[0] !== start.key) {
+    const predecessor = previous.get(keys[0]);
+    if (!predecessor) return null;
+    keys.unshift(predecessor);
+  }
+  return [startCoordinate, ...keys.map((key) => coordinatesByKey.get(key)), endCoordinate];
+}
+
+function routeAlongRoads(stopIds) {
+  const output = [];
+  let derivedSegments = 0;
+  for (let index = 0; index < stopIds.length - 1; index += 1) {
+    const start = stops.get(stopIds[index]).geometry.coordinates;
+    const end = stops.get(stopIds[index + 1]).geometry.coordinates;
+    const path = shortestRoadPath(start, end);
+    const segment = path ?? [start, end];
+    if (path) derivedSegments += 1;
+    output.push(...(index === 0 ? segment : segment.slice(1)));
+  }
+  return { coordinates: output, complete: derivedSegments === stopIds.length - 1 };
+}
+
+function stitchedEmbankmentLoop() {
+  const remaining = roads.features
+    .filter((road) => road.properties.name.zh === "江堤路")
+    .map((road) => [...road.geometry.coordinates]);
+  const output = remaining.shift() ?? [];
+  while (remaining.length > 0) {
+    const endpoint = output.at(-1);
+    let best = { index: -1, reverse: false, distance: Number.POSITIVE_INFINITY };
+    remaining.forEach((segment, index) => {
+      const forward = geodesicDistanceM(endpoint, segment[0]);
+      const reverse = geodesicDistanceM(endpoint, segment.at(-1));
+      if (forward < best.distance) best = { index, reverse: false, distance: forward };
+      if (reverse < best.distance) best = { index, reverse: true, distance: reverse };
+    });
+    const [next] = remaining.splice(best.index, 1);
+    if (best.reverse) next.reverse();
+    output.push(...next.slice(best.distance < 2 ? 1 : 0));
+  }
+  if (geodesicDistanceM(output[0], output.at(-1)) > 2) output.push(output[0]);
+  return output;
+}
+
+const lineFeatures = lineDefinitions.map((line) => {
+  const isRoadMode = ["bus", "shuttle", "tourism"].includes(line.mode);
+  const derived = isRoadMode ? routeAlongRoads(line.stops) : null;
+  const coordinates = line.id === "cycle-loop"
+    ? stitchedEmbankmentLoop()
+    : derived?.coordinates ?? line.stops.map((id) => stops.get(id).geometry.coordinates);
+  const geometryKind = line.id === "cycle-loop"
+    ? "verified-road-centerline"
+    : isRoadMode
+      ? derived.complete ? "road-network-derived" : "partially-road-network-derived"
+      : line.mode === "ferry" ? "direct-water-connection" : "schematic-stop-connection";
+  return feature(line.id, { type: "LineString", coordinates }, {
+    name: { zh: line.zh, en: line.en }, ref: line.ref, mode: line.mode, color: line.color,
+    status: line.status, service: { zh: line.service, en: serviceEnglish[line.id] }, stopIds: line.stops, source: line.source,
+    confidence: line.id === "cycle-loop" || line.id === "ferry-qigan" ? "triangulated" : "estimated",
+    geometryKind,
+    officialLengthM: line.id === "cycle-loop" ? 22_500 : null,
+    measuredGeometryLengthM: null,
+    snapshot, modelKey: line.model,
+  });
+});
+for (const line of lineFeatures) line.properties.measuredGeometryLengthM = Math.round(polylineLengthM(line.geometry.coordinates));
 
 const memberships = new Map();
 for (const line of lineDefinitions) for (const stopId of line.stops) {
@@ -172,8 +297,6 @@ const roadEnglish = {
   "环岛西路": "Island West Road", "科技路": "Keji Road", "红星街": "Hongxing Street", "绿水街": "Lüshui Street", "葡园路": "Puyuan Road",
   "贤坤路": "Xiankun Road", "贤达路": "Xianda Road", "龙恩街": "Long'en Street",
 };
-const roadsPath = path.join(outputDir, "roads.geojson");
-const roads = JSON.parse(await readFile(roadsPath, "utf8"));
 for (const road of roads.features) {
   road.properties.widthM = roadWidthM[road.properties.class];
   road.properties.renderWidthPx = { major: 3.5, arterial: 2.8, collector: 2.1, local: 1.15, greenway: 2.4 }[road.properties.class];

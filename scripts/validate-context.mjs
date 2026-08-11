@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { polylineLengthM } from "./lib/geodesy.mjs";
 
 const dir = path.join(process.cwd(), "data/jiangxinzhou-v2");
 const read = async (file) => JSON.parse(await readFile(path.join(dir, file), "utf8"));
@@ -38,10 +39,21 @@ for (const layer of [lands, waters, roads, crossings]) for (const item of layer.
   coordinates.forEach((coordinate) => validateCoordinate(coordinate, item.id));
 }
 for (const item of crossings.features) {
-  if (item.properties.mainSpanM !== null) assert.ok(item.properties.mainSpanM > 0, `${item.id}: invalid span`);
-  if (item.properties.totalRouteM !== null) assert.ok(item.properties.totalRouteM > 0, `${item.id}: invalid route length`);
+  if (item.properties.officialMainSpanM !== null) assert.ok(item.properties.officialMainSpanM > 0, `${item.id}: invalid span`);
+  if (item.properties.officialProjectLengthM !== null) assert.ok(item.properties.officialProjectLengthM > 0, `${item.id}: invalid project length`);
+  if (item.properties.officialStructureLengthM !== null) assert.ok(item.properties.officialStructureLengthM > 0, `${item.id}: invalid structure length`);
+  assert.ok(Math.abs(item.properties.measuredGeometryLengthM - Math.round(polylineLengthM(item.geometry.coordinates))) <= 1, `${item.id}: stale geometry length`);
   assert.ok(["bridge", "tunnel"].includes(item.properties.type), `${item.id}: invalid crossing type`);
 }
+const yangtzeBridge = crossings.features.find((item) => item.id === "jiangxinzhou-yangtze-bridge");
+assert.equal(yangtzeBridge.properties.officialProjectLengthM, 10_335, "10.335 km is the complete bridge/tunnel corridor");
+assert.equal(yangtzeBridge.properties.officialMainSpanM, 600);
+assert.ok(yangtzeBridge.properties.measuredGeometryLengthM >= 4_290 && yangtzeBridge.properties.measuredGeometryLengthM <= 4_300);
+const nanjingEye = crossings.features.find((item) => item.id === "nanjing-eye-crossing");
+assert.equal(nanjingEye.properties.officialMainSpanM, 240);
+assert.equal(nanjingEye.properties.officialStructureLengthM, null, "unsupported 827.5 m Nanjing Eye value must not be published");
+const jiajiangTunnel = crossings.features.find((item) => item.id === "jiajiang-tunnel");
+assert.equal(jiajiangTunnel.properties.officialStructureLengthM, 1_800);
 const contextCoordinates = [...lands.features, ...waters.features, ...roads.features, ...crossings.features].flatMap((item) => allCoordinates(item.geometry));
 const contextBounds = {
   minLng: Math.min(...contextCoordinates.map(([lng]) => lng)), maxLng: Math.max(...contextCoordinates.map(([lng]) => lng)),

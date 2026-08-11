@@ -99,8 +99,10 @@ export type CrossingProperties = {
   confidence: Confidence;
   source: string;
   sourceId: string;
-  totalRouteM: number | null;
-  mainSpanM: number | null;
+  officialProjectLengthM: number | null;
+  officialStructureLengthM: number | null;
+  officialMainSpanM: number | null;
+  measuredGeometryLengthM: number;
   modelKey: string | null;
   layer: number;
 };
@@ -119,6 +121,9 @@ export type TransitLineProperties = {
   stopIds: string[];
   source: string;
   confidence: Confidence;
+  geometryKind: "verified-road-centerline" | "road-network-derived" | "partially-road-network-derived" | "direct-water-connection" | "schematic-stop-connection";
+  officialLengthM: number | null;
+  measuredGeometryLengthM: number;
   snapshot: string;
   modelKey: string | null;
 };
@@ -129,6 +134,7 @@ export type TransitStopProperties = {
   confidence: Exclude<Confidence, "planned">;
   status: "existing";
   sourceCrs: string;
+  sourceCoordinate: GeoPoint;
   source: string;
   snapshot: string;
   lineIds: string[];
@@ -143,8 +149,14 @@ type RuntimeData = {
     canonicalCrs: string;
     origin: GeoPoint;
     units: string;
+    projection: {
+      method: "WGS84-local-equirectangular";
+      metersPerDegreeLongitude: number;
+      metersPerDegreeLatitude: number;
+    };
     officialAreaKm2: number;
     officialEmbankmentKm: number;
+    geometryMetrics: { islandAreaKm2: number; islandBoundaryKm: number };
     counts: { buildings: number; roads: number; landmarks: number; transitLines?: number; transitStops?: number; contextLands?: number; waterBodies?: number; crossings?: number };
   };
   island: { type: "FeatureCollection"; features: SpatialFeature<PolygonGeometry>[] };
@@ -192,8 +204,8 @@ export const crossings = mapData.context.crossings.features;
 export const contextEvidenceSources = mapData.context.evidence.sources;
 
 const [originLng, originLat] = mapManifest.origin;
-const longitudeScale = 111_320 * Math.cos((originLat * Math.PI) / 180);
-const latitudeScale = 110_540;
+const longitudeScale = mapManifest.projection.metersPerDegreeLongitude;
+const latitudeScale = mapManifest.projection.metersPerDegreeLatitude;
 
 /** Project canonical WGS84 coordinates into the shared Blender/Three.js metre scene. */
 export function projectPoint([longitude, latitude]: GeoPoint, height = 0): Point3 {

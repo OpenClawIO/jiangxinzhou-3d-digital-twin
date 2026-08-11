@@ -37,8 +37,8 @@ def load(name):
 MANIFEST = load("manifest.json")
 CROSSINGS = load("crossings.geojson")
 ORIGIN_LNG, ORIGIN_LAT = MANIFEST["origin"]
-LON_METERS = 111320 * math.cos(math.radians(ORIGIN_LAT))
-LAT_METERS = 110540
+LON_METERS = MANIFEST["projection"]["metersPerDegreeLongitude"]
+LAT_METERS = MANIFEST["projection"]["metersPerDegreeLatitude"]
 
 
 def clean_scene():

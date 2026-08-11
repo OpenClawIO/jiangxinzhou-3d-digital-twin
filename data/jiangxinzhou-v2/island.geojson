@@ -237,7 +237,9 @@
           "zh": "江心洲",
           "en": "Jiangxinzhou"
         },
-        "areaKm2": 15.21,
+        "officialAreaKm2": 15.21,
+        "measuredGeometryAreaKm2": 15.079897,
+        "measuredGeometryBoundaryKm": 25.011622,
         "source": "OpenStreetMap boundary cross-checked with Amap and Google Earth",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",

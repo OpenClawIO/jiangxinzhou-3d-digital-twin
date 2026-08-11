@@ -42,10 +42,12 @@
         "confidence": "triangulated",
         "source": "OSM bridge geometry + Nanjing government bridge project资料",
         "sourceId": "458525355/458709962",
-        "totalRouteM": 10335,
-        "mainSpanM": 600,
+        "officialProjectLengthM": 10335,
+        "officialStructureLengthM": null,
+        "officialMainSpanM": 600,
         "modelKey": "jiangxinzhou-yangtze-bridge",
-        "layer": 1
+        "layer": 1,
+        "measuredGeometryLengthM": 4295
       }
     },
     {
@@ -81,10 +83,12 @@
         "confidence": "triangulated",
         "source": "OSM bridge geometry + Nanjing transportation references",
         "sourceId": "137972556/137972560",
-        "totalRouteM": null,
-        "mainSpanM": null,
+        "officialProjectLengthM": null,
+        "officialStructureLengthM": null,
+        "officialMainSpanM": null,
         "modelKey": "jiajiang-bridge",
-        "layer": 1
+        "layer": 1,
+        "measuredGeometryLengthM": 658
       }
     },
     {
@@ -120,10 +124,12 @@
         "confidence": "triangulated",
         "source": "OSM bridge geometry + Nanjing Eye official project资料",
         "sourceId": "321392362/445886857/445886858",
-        "totalRouteM": 827.5,
-        "mainSpanM": 240,
+        "officialProjectLengthM": null,
+        "officialStructureLengthM": null,
+        "officialMainSpanM": 240,
         "modelKey": "nanjing-eye-context",
-        "layer": 2
+        "layer": 2,
+        "measuredGeometryLengthM": 697
       }
     },
     {
@@ -159,10 +165,12 @@
         "confidence": "triangulated",
         "source": "OSM tunnel geometry + Nanjing government bridge project资料",
         "sourceId": "458709944",
-        "totalRouteM": 1800,
-        "mainSpanM": null,
+        "officialProjectLengthM": null,
+        "officialStructureLengthM": 1800,
+        "officialMainSpanM": null,
         "modelKey": null,
-        "layer": -2
+        "layer": -2,
+        "measuredGeometryLengthM": 1900
       }
     },
     {
@@ -194,10 +202,12 @@
         "confidence": "triangulated",
         "source": "OpenStreetMap tunnel geometry",
         "sourceId": "321394415",
-        "totalRouteM": null,
-        "mainSpanM": null,
+        "officialProjectLengthM": null,
+        "officialStructureLengthM": null,
+        "officialMainSpanM": null,
         "modelKey": null,
-        "layer": -1
+        "layer": -1,
+        "measuredGeometryLengthM": 395
       }
     },
     {
@@ -229,10 +239,12 @@
         "confidence": "triangulated",
         "source": "OpenStreetMap tunnel geometry",
         "sourceId": "321394417",
-        "totalRouteM": null,
-        "mainSpanM": null,
+        "officialProjectLengthM": null,
+        "officialStructureLengthM": null,
+        "officialMainSpanM": null,
         "modelKey": null,
-        "layer": -1
+        "layer": -1,
+        "measuredGeometryLengthM": 486
       }
     },
     {
@@ -272,10 +284,12 @@
         "confidence": "triangulated",
         "source": "OpenStreetMap tunnel geometry",
         "sourceId": "137978972",
-        "totalRouteM": null,
-        "mainSpanM": null,
+        "officialProjectLengthM": null,
+        "officialStructureLengthM": null,
+        "officialMainSpanM": null,
         "modelKey": null,
-        "layer": -1
+        "layer": -1,
+        "measuredGeometryLengthM": 3576
       }
     }
   ]

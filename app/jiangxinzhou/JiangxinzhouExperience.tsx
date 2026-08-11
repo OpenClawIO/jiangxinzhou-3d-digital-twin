@@ -91,6 +91,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   const [autoQuality, setAutoQuality] = useState<SceneQuality>("balanced");
   const [webglSupported, setWebglSupported] = useState<boolean | null>(null);
   const [sceneReady, setSceneReady] = useState(false);
+  const [scaleMeters, setScaleMeters] = useState(1000);
   const [sceneKey, setSceneKey] = useState(0);
   const [toastLandmarkId, setToastLandmarkId] = useState<number>();
   const exploration = useExplorationProgress();
@@ -135,6 +136,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   const selectedDiscovered = exploration.state.discoveredLandmarkIds.includes(selectedId);
   const missionComplete = exploration.activeProgress.completed === exploration.activeProgress.total;
   const worldPercent = Math.round((exploration.state.discoveredLandmarkIds.length / allLandmarkIds.length) * 100);
+  const scaleLabel = scaleMeters >= 1000 ? `${(scaleMeters / 1000).toFixed(scaleMeters >= 10_000 ? 0 : 1)} km` : `${Math.round(scaleMeters / 10) * 10} m`;
 
   const chooseLandmark = useCallback((id: number) => {
     setSelectedId(id);
@@ -230,6 +232,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
               selectedId={selectedId}
               onSelect={chooseLandmark}
               onReady={() => setSceneReady(true)}
+              onScaleChange={(meters) => setScaleMeters((current) => Math.abs(current - meters) / Math.max(1, current) > 0.01 ? meters : current)}
               routeId={routeId}
               view={view}
               target={target}
@@ -250,7 +253,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
           {controlPanel === "explore" && <MissionHud expedition={exploration.activeExpedition} {...exploration.activeProgress} nextObjectiveId={exploration.nextObjectiveId} language={language} />}
           <DiscoveryToast landmarkId={toastLandmarkId} language={language} />
           <button className="sidebar-toggle" onClick={() => setSidebarCollapsed((value) => !value)} aria-label={localize(sidebarCollapsed ? experienceCopy.expandPanel : experienceCopy.collapsePanel, language)}>{sidebarCollapsed ? "‹" : "›"}</button>
-          <div className="map-scale"><span>0</span><i /><span>{view === "regional" ? "5 km" : view === "overview" ? "1 km" : "500 m"}</span></div>
+          <div className="map-scale"><span>0</span><i /><span>{scaleLabel}</span></div>
           <div className="north-marker" aria-label={localize(experienceCopy.north, language)}><span>N</span><b>↑</b></div>
           <div className="stage-note"><span className="stage-pulse" />{localize(experienceCopy.stageNote, language)} · N {language === "zh" ? "前往目标" : "next objective"}</div>
           <div className="stage-controls">
@@ -290,7 +293,13 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
                 <div className="crossing-list">
                   {crossings.filter((crossing) => ["jiangxinzhou-yangtze-bridge", "jiajiang-bridge", "nanjing-eye-crossing", "jiajiang-tunnel"].includes(crossing.id)).map((crossing) => {
                     const isSelected = crossing.id === selectedCrossingId;
-                    const measure = crossing.properties.mainSpanM ? `${localize(experienceCopy.crossingSpan, language)} ${crossing.properties.mainSpanM} m` : crossing.properties.totalRouteM ? `${localize(experienceCopy.crossingLength, language)} ${(crossing.properties.totalRouteM / 1000).toFixed(1)} km` : "";
+                    const measure = crossing.properties.officialMainSpanM
+                      ? `${localize(experienceCopy.crossingSpan, language)} ${crossing.properties.officialMainSpanM} m`
+                      : crossing.properties.officialStructureLengthM
+                        ? `${localize(experienceCopy.crossingStructureLength, language)} ${(crossing.properties.officialStructureLengthM / 1000).toFixed(1)} km`
+                        : crossing.properties.officialProjectLengthM
+                          ? `${localize(experienceCopy.crossingProjectLength, language)} ${(crossing.properties.officialProjectLengthM / 1000).toFixed(3)} km`
+                          : `${localize(experienceCopy.crossingGeometryLength, language)} ${(crossing.properties.measuredGeometryLengthM / 1000).toFixed(2)} km`;
                     return <button key={crossing.id} className={isSelected ? "active" : ""} onClick={() => chooseCrossing(crossing.id)} style={{ "--crossing-color": crossing.properties.color } as React.CSSProperties}><i /><span><strong>{localizeFeatureName(crossing, language)}</strong><small>{crossing.properties.type === "bridge" ? localize(experienceCopy.crossingTypeBridge, language) : localize(experienceCopy.crossingTypeTunnel, language)}{measure ? ` · ${measure}` : ""}</small></span><b>↗</b></button>;
                   })}
                 </div>

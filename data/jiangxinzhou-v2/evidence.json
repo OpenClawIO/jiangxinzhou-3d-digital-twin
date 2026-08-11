@@ -1,9 +1,9 @@
 {
-  "version": "2026-08-09.2",
-  "generatedAt": "2026-08-09T01:33:43.353Z",
+  "version": "2026-08-11.1",
+  "generatedAt": "2026-08-11T10:54:35.963Z",
   "policy": {
     "canonicalCrs": "EPSG:4326",
-    "renderProjection": "local ENU metres",
+    "renderProjection": "WGS84 local equirectangular metres",
     "precision": "public visitor map; not cadastral or survey grade",
     "redistribution": "Reference imagery is not redistributed. Runtime geometry is original or OpenStreetMap ODbL data.",
     "confidence": {

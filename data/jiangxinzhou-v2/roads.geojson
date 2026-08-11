@@ -41,11 +41,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -72,11 +72,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -103,11 +103,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -134,11 +134,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -165,11 +165,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -280,11 +280,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -379,11 +379,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -450,11 +450,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -517,11 +517,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -632,11 +632,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -663,11 +663,11 @@
         },
         "class": "major",
         "widthM": 22,
+        "renderWidthPx": 3.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 3.5
+        "status": "existing"
       }
     },
     {
@@ -694,11 +694,11 @@
         },
         "class": "major",
         "widthM": 22,
+        "renderWidthPx": 3.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 3.5
+        "status": "existing"
       }
     },
     {
@@ -725,11 +725,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -756,11 +756,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -787,11 +787,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -830,11 +830,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -861,11 +861,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -892,11 +892,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -923,11 +923,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -958,11 +958,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -993,11 +993,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1036,11 +1036,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1067,11 +1067,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1098,11 +1098,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1137,11 +1137,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1168,11 +1168,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1199,11 +1199,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1230,11 +1230,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1261,11 +1261,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1292,11 +1292,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1323,11 +1323,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1354,11 +1354,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1393,11 +1393,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1424,11 +1424,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1463,11 +1463,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1506,11 +1506,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1545,11 +1545,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1588,11 +1588,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1619,11 +1619,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1650,11 +1650,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1681,11 +1681,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1712,11 +1712,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1743,11 +1743,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1774,11 +1774,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1805,11 +1805,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -1836,11 +1836,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -1867,11 +1867,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -1898,11 +1898,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -1929,11 +1929,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -1960,11 +1960,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -1991,11 +1991,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2022,11 +2022,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2053,11 +2053,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2084,11 +2084,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2115,11 +2115,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2146,11 +2146,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2177,11 +2177,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2216,11 +2216,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2251,11 +2251,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2282,11 +2282,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2313,11 +2313,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2344,11 +2344,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2379,11 +2379,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2422,11 +2422,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2453,11 +2453,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2484,11 +2484,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2515,11 +2515,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2546,11 +2546,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2577,11 +2577,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2608,11 +2608,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2639,11 +2639,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2670,11 +2670,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2701,11 +2701,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2732,11 +2732,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2763,11 +2763,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2794,11 +2794,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2825,11 +2825,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2856,11 +2856,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2887,11 +2887,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2918,11 +2918,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2949,11 +2949,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -2980,11 +2980,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3011,11 +3011,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3042,11 +3042,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3073,11 +3073,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3108,11 +3108,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3163,11 +3163,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -3194,11 +3194,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -3225,11 +3225,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -3256,11 +3256,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -3287,11 +3287,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -3318,11 +3318,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -3349,11 +3349,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -3380,11 +3380,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3411,11 +3411,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3442,11 +3442,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3473,11 +3473,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3504,11 +3504,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3535,11 +3535,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3566,11 +3566,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3597,11 +3597,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3628,11 +3628,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3659,11 +3659,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3690,11 +3690,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3721,11 +3721,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3752,11 +3752,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3783,11 +3783,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3814,11 +3814,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3857,11 +3857,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3888,11 +3888,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3919,11 +3919,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3950,11 +3950,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -3985,11 +3985,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4040,11 +4040,11 @@
         },
         "class": "major",
         "widthM": 22,
+        "renderWidthPx": 3.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 3.5
+        "status": "existing"
       }
     },
     {
@@ -4095,11 +4095,11 @@
         },
         "class": "major",
         "widthM": 22,
+        "renderWidthPx": 3.5,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 3.5
+        "status": "existing"
       }
     },
     {
@@ -4126,11 +4126,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4169,11 +4169,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4200,11 +4200,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4231,11 +4231,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4270,11 +4270,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4305,11 +4305,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4336,11 +4336,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4367,11 +4367,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4402,11 +4402,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4433,11 +4433,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4464,11 +4464,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4495,11 +4495,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4526,11 +4526,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4557,11 +4557,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4588,11 +4588,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4619,11 +4619,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4650,11 +4650,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4681,11 +4681,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4712,11 +4712,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4743,11 +4743,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4774,11 +4774,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4805,11 +4805,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4836,11 +4836,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4867,11 +4867,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4910,11 +4910,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4941,11 +4941,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -4988,11 +4988,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5027,11 +5027,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5066,11 +5066,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5097,11 +5097,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5160,11 +5160,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5191,11 +5191,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5226,11 +5226,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5257,11 +5257,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5312,11 +5312,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5343,11 +5343,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5374,11 +5374,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5405,11 +5405,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5436,11 +5436,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5467,11 +5467,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5498,11 +5498,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5529,11 +5529,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5568,11 +5568,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5599,11 +5599,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5630,11 +5630,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5661,11 +5661,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5692,11 +5692,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5723,11 +5723,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5762,11 +5762,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5793,11 +5793,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5824,11 +5824,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5863,11 +5863,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5894,11 +5894,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5925,11 +5925,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5956,11 +5956,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -5987,11 +5987,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -6018,11 +6018,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -6049,11 +6049,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -6080,11 +6080,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -6119,11 +6119,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -6150,11 +6150,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -6193,11 +6193,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -6248,11 +6248,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -6291,11 +6291,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -6330,11 +6330,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -6361,11 +6361,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -6392,11 +6392,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -6431,11 +6431,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -6462,11 +6462,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -6493,11 +6493,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -6524,11 +6524,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -6559,11 +6559,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -6598,11 +6598,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM centerline cross-checked with Amap and Nanjing official road naming",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -6629,11 +6629,11 @@
         },
         "class": "major",
         "widthM": 22,
+        "renderWidthPx": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 3.5
+        "status": "existing"
       }
     },
     {
@@ -6660,11 +6660,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -6691,11 +6691,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -6722,11 +6722,11 @@
         },
         "class": "major",
         "widthM": 22,
+        "renderWidthPx": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 3.5
+        "status": "existing"
       }
     },
     {
@@ -6753,11 +6753,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -6784,11 +6784,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -6815,11 +6815,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -6854,11 +6854,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -6885,11 +6885,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -6952,11 +6952,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -6995,11 +6995,11 @@
         },
         "class": "major",
         "widthM": 22,
+        "renderWidthPx": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 3.5
+        "status": "existing"
       }
     },
     {
@@ -7026,11 +7026,11 @@
         },
         "class": "major",
         "widthM": 22,
+        "renderWidthPx": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 3.5
+        "status": "existing"
       }
     },
     {
@@ -7057,11 +7057,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -7100,11 +7100,11 @@
         },
         "class": "major",
         "widthM": 22,
+        "renderWidthPx": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 3.5
+        "status": "existing"
       }
     },
     {
@@ -7139,11 +7139,11 @@
         },
         "class": "major",
         "widthM": 22,
+        "renderWidthPx": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 3.5
+        "status": "existing"
       }
     },
     {
@@ -7174,11 +7174,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -7205,11 +7205,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -7240,11 +7240,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -7283,11 +7283,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -7318,11 +7318,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -7353,11 +7353,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -7388,11 +7388,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -7419,11 +7419,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -7454,11 +7454,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -7485,11 +7485,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -7544,11 +7544,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -7619,11 +7619,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -7674,11 +7674,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -7789,11 +7789,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -7824,11 +7824,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -7883,11 +7883,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -7942,11 +7942,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -7977,11 +7977,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -8008,11 +8008,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -8039,11 +8039,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -8070,11 +8070,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -8105,11 +8105,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -8136,11 +8136,11 @@
         },
         "class": "major",
         "widthM": 22,
+        "renderWidthPx": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 3.5
+        "status": "existing"
       }
     },
     {
@@ -8167,11 +8167,11 @@
         },
         "class": "major",
         "widthM": 22,
+        "renderWidthPx": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 3.5
+        "status": "existing"
       }
     },
     {
@@ -8198,11 +8198,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -8229,11 +8229,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -8260,11 +8260,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -8291,11 +8291,11 @@
         },
         "class": "major",
         "widthM": 22,
+        "renderWidthPx": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 3.5
+        "status": "existing"
       }
     },
     {
@@ -8322,11 +8322,11 @@
         },
         "class": "major",
         "widthM": 22,
+        "renderWidthPx": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 3.5
+        "status": "existing"
       }
     },
     {
@@ -8353,11 +8353,11 @@
         },
         "class": "major",
         "widthM": 22,
+        "renderWidthPx": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 3.5
+        "status": "existing"
       }
     },
     {
@@ -8384,11 +8384,11 @@
         },
         "class": "major",
         "widthM": 22,
+        "renderWidthPx": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 3.5
+        "status": "existing"
       }
     },
     {
@@ -8415,11 +8415,11 @@
         },
         "class": "major",
         "widthM": 22,
+        "renderWidthPx": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 3.5
+        "status": "existing"
       }
     },
     {
@@ -8446,11 +8446,11 @@
         },
         "class": "major",
         "widthM": 22,
+        "renderWidthPx": 3.5,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 3.5
+        "status": "existing"
       }
     },
     {
@@ -8481,11 +8481,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -8512,11 +8512,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -8543,11 +8543,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -8586,11 +8586,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -8629,11 +8629,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -8660,11 +8660,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -8703,11 +8703,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -8746,11 +8746,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -8777,11 +8777,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -8808,11 +8808,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -8839,11 +8839,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -8870,11 +8870,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -8901,11 +8901,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -8932,11 +8932,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -8963,11 +8963,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -8994,11 +8994,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -9025,11 +9025,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -9056,11 +9056,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -9091,11 +9091,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -9122,11 +9122,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -9153,11 +9153,11 @@
         },
         "class": "collector",
         "widthM": 10.5,
+        "renderWidthPx": 2.1,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.1
+        "status": "existing"
       }
     },
     {
@@ -9184,11 +9184,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -9215,11 +9215,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     },
     {
@@ -9258,11 +9258,11 @@
         },
         "class": "greenway",
         "widthM": 3.5,
+        "renderWidthPx": 2.4,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.4
+        "status": "existing"
       }
     },
     {
@@ -9289,11 +9289,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -9320,11 +9320,11 @@
         },
         "class": "arterial",
         "widthM": 16,
+        "renderWidthPx": 2.8,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 2.8
+        "status": "existing"
       }
     },
     {
@@ -9355,11 +9355,11 @@
         },
         "class": "local",
         "widthM": 6,
+        "renderWidthPx": 1.15,
         "source": "OSM local centerline geometry",
         "sourceCrs": "EPSG:4326",
         "confidence": "triangulated",
-        "status": "existing",
-        "renderWidthPx": 1.15
+        "status": "existing"
       }
     }
   ]
