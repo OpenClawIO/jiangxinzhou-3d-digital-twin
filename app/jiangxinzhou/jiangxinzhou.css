@@ -143,6 +143,7 @@
 .context-bank-label span { color: rgba(219, 242, 232, .64); font: 700 6px var(--font-geist-mono), monospace; letter-spacing: .12em; }
 .water-label strong,
 .context-bank-label strong { font-size: 9px; font-weight: 650; }
+.context-bank-label { border-color: rgba(167, 214, 211, .38); background: rgba(7, 18, 26, .86); box-shadow: 0 7px 22px rgba(1, 10, 16, .34); }
 .water-label.jiajiang { border-color: rgba(166, 229, 216, .42); background: rgba(24, 100, 111, .72); }
 .water-label.yangtze { border-color: rgba(143, 220, 235, .42); background: rgba(25, 89, 108, .72); }
 .coordinate-label { display: grid; gap: 2px; width: max-content; padding: 4px 6px; border: 1px solid rgba(213, 241, 230, .34); border-radius: 6px; color: #d8f0e5; background: rgba(14, 58, 63, .56); box-shadow: 0 4px 14px rgba(8, 47, 53, .12); backdrop-filter: blur(5px); font: 700 7px var(--font-geist-mono), monospace; letter-spacing: .04em; white-space: nowrap; }

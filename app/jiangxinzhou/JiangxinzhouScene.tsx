@@ -70,15 +70,27 @@ function Asset({ url, onReady }: { url: string; onReady?: () => void }) {
   return <primitive object={scene} dispose={null} />;
 }
 
-function Water() {
+function Water({ visible }: { visible: boolean }) {
   const span = Math.max(regionalBounds.width, regionalBounds.depth) * 1.18;
+  if (!visible) return null;
   return (
     <mesh position={[regionalBounds.center[0], -12, regionalBounds.center[2]]} rotation={[-Math.PI / 2, 0, 0]}>
       <planeGeometry args={[span, span]} />
-      <meshPhysicalMaterial color="#4d9ca8" roughness={0.42} metalness={0.04} clearcoat={0.18} clearcoatRoughness={0.7} />
+      <meshPhysicalMaterial color="#245e78" roughness={0.46} metalness={0.04} clearcoat={0.18} clearcoatRoughness={0.7} />
     </mesh>
   );
 }
+
+const contextPalette = {
+  land: "#0c1821",
+  landNorth: "#13232d",
+  block: "#172a34",
+  blockAlt: "#223a45",
+  yangtze: "#429fbe",
+  jiajiang: "#55b7c3",
+  yangtzeEdge: "#8ad6e1",
+  jiajiangEdge: "#a6e5dc",
+} as const;
 
 function shapeFromRing(ring: [number, number][]) {
   const shape = new THREE.Shape();
@@ -98,10 +110,11 @@ function RegionalContext({ waterVisible, surroundingsVisible, language }: { wate
   return <group>
     {waterVisible && waters.water.map((water) => (
       <group key={water.id}>
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[water.center[0], -3.05, water.center[2]]}>
-          <planeGeometry args={[water.width, water.depth]} />
-          <meshBasicMaterial color={water.color} depthWrite={false} />
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -3.05, 0]}>
+          <shapeGeometry args={[water.shape]} />
+          <meshBasicMaterial color={water.id === "jiajiang" ? contextPalette.jiajiang : contextPalette.yangtze} transparent opacity={water.id === "jiajiang" ? 0.92 : 0.9} depthWrite={false} side={THREE.DoubleSide} />
         </mesh>
+        <WideColorLine positions={water.borderPositions} color={water.id === "jiajiang" ? contextPalette.jiajiangEdge : contextPalette.yangtzeEdge} width={1.7} opacity={0.68} />
         <Html position={[water.label[0], -1.4, water.label[2]]} center zIndexRange={[0, 0]} style={{ pointerEvents: "none" }}>
           <div className={`water-label ${water.id === "jiajiang" ? "jiajiang" : "yangtze"}`}><span>{water.id === "jiajiang" ? "RIVER 02" : "RIVER 01"}</span><strong>{localizeFeatureName(water.feature, language)}</strong></div>
         </Html>
@@ -112,7 +125,7 @@ function RegionalContext({ waterVisible, surroundingsVisible, language }: { wate
         <group key={land.id}>
           <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2.55, 0]}>
             <shapeGeometry args={[land.shape]} />
-            <meshStandardMaterial color={land.color} transparent opacity={land.opacity} depthWrite={false} roughness={1} />
+            <meshBasicMaterial color={land.feature.properties.kind === "north-bank" ? contextPalette.landNorth : contextPalette.land} transparent opacity={0.98} depthWrite={true} side={THREE.DoubleSide} />
           </mesh>
           <Html position={[land.label[0], 9, land.label[2]]} center zIndexRange={[1, 0]} style={{ pointerEvents: "none" }}>
             <div className="context-bank-label"><span>{land.feature.properties.kind.replace("-", " ").toUpperCase()}</span><strong>{localizeFeatureName(land.feature, language)}</strong></div>
@@ -123,7 +136,7 @@ function RegionalContext({ waterVisible, surroundingsVisible, language }: { wate
         const [x, , z] = projectPoint([longitude, latitude], height / 2);
         return <mesh key={`context-block-${index}`} position={[x, height / 2 - 1.8, z]} rotation={[0, (index % 3) * 0.18, 0]}>
           <boxGeometry args={[width, height, depth]} />
-          <meshStandardMaterial color={index % 2 ? "#456b70" : "#527c7b"} transparent opacity={0.72} roughness={0.94} />
+          <meshBasicMaterial color={index % 2 ? contextPalette.blockAlt : contextPalette.block} transparent opacity={0.94} />
         </mesh>;
       })}
     </>}
@@ -145,15 +158,17 @@ function mapDataShapes() {
       const [x, , z] = projectPoint([longitude, latitude]);
       return [x, -z] as [number, number];
     });
+    const shape = shapeFromRing(ring);
+    const borderPoints = feature.geometry.coordinates[0].map((coordinate) => projectPoint(coordinate, -2.92));
     const center = ring.reduce(([x, y], [nextX, nextY]) => [x + nextX, y + nextY], [0, 0] as [number, number]);
     const xs = ring.map(([x]) => x);
     const ys = ring.map(([, y]) => y);
     return {
       feature,
       id: feature.id,
-      width: Math.max(...xs) - Math.min(...xs),
-      depth: Math.max(...ys) - Math.min(...ys),
       center: [(Math.min(...xs) + Math.max(...xs)) / 2, -3.05, (Math.min(...ys) + Math.max(...ys)) / 2] as Point3,
+      shape,
+      borderPositions: lineSegments([...borderPoints, borderPoints[0]]),
       color: feature.properties.color,
       opacity: feature.properties.opacity,
       label: [center[0] / ring.length, -1.4, -center[1] / ring.length] as Point3,
@@ -634,7 +649,7 @@ function SceneContent({ items, selectedId, onSelect, onReady, routeId, view, tar
     <fog attach="fog" args={["#72b7c0", 18_000, 48_000]} />
     <hemisphereLight intensity={1.55} color="#f5f6e9" groundColor="#39747b" />
     <directionalLight position={[-4_000, 8_000, 3_000]} intensity={2.25} color="#fff1cf" />
-    <Water />
+    <Water visible={layers.water} />
     <RegionalContext waterVisible={layers.water} surroundingsVisible={layers.surroundings} language={language} />
     <CoordinateGrid visible={layers.coordinates} view={view} language={language} />
     <DeferredAssets layers={layers} quality={quality} onCoreReady={reportReady} />
