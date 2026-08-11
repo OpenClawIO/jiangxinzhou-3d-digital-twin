@@ -23,7 +23,7 @@
 - [x] 更新 Three.js 投影、比例尺和说明
 - [x] 重建 Blender GLB
 - [x] 浏览器回归
-- [ ] GitHub、Vercel 发布
+- [x] GitHub、Vercel 发布
 
 ## 当前验证
 
