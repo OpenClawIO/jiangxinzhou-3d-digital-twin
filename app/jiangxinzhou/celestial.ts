@@ -1,4 +1,4 @@
-import { Body, Equator, Horizon, Illumination, MoonPhase, Observer } from "astronomy-engine";
+import { Body, Equator, Horizon, Illumination, MoonPhase, Observer, SearchRiseSet } from "astronomy-engine";
 
 export const JIANGXINZHOU_OBSERVER = {
   longitude: 118.6982074,
@@ -29,6 +29,17 @@ export type CelestialState = {
   };
 };
 
+export type CelestialEvents = {
+  sunrise: number | null;
+  sunset: number | null;
+  moonrise: number | null;
+  moonset: number | null;
+  nextSunrise: number | null;
+  nextSunset: number | null;
+  nextMoonrise: number | null;
+  nextMoonset: number | null;
+};
+
 const observer = new Observer(
   JIANGXINZHOU_OBSERVER.latitude,
   JIANGXINZHOU_OBSERVER.longitude,
@@ -50,7 +61,30 @@ function bodyState(body: Body, date: Date): CelestialBodyState {
   return {
     azimuthDeg: horizontal.azimuth,
     altitudeDeg: horizontal.altitude,
-    visible: horizontal.altitude > -0.85,
+    // The normal refraction model already lifts a body close to the horizon.
+    // This apparent-altitude threshold matches the visible limb to within a few minutes.
+    visible: horizontal.altitude > -0.3,
+  };
+}
+
+function riseSetTimestamp(body: Body, direction: 1 | -1, start: Date, limitDays: number) {
+  return SearchRiseSet(body, observer, direction, start, limitDays, JIANGXINZHOU_OBSERVER.elevationM)?.date.getTime() ?? null;
+}
+
+export function calculateCelestialEvents(input: Date | number): CelestialEvents {
+  const date = input instanceof Date ? input : new Date(input);
+  if (!Number.isFinite(date.getTime())) throw new TypeError("A valid date is required for celestial event calculations.");
+  const localMidnight = new Date(shanghaiPreviewTimestamp(date, 0));
+
+  return {
+    sunrise: riseSetTimestamp(Body.Sun, 1, localMidnight, 1),
+    sunset: riseSetTimestamp(Body.Sun, -1, localMidnight, 1),
+    moonrise: riseSetTimestamp(Body.Moon, 1, localMidnight, 1),
+    moonset: riseSetTimestamp(Body.Moon, -1, localMidnight, 1),
+    nextSunrise: riseSetTimestamp(Body.Sun, 1, date, 2),
+    nextSunset: riseSetTimestamp(Body.Sun, -1, date, 2),
+    nextMoonrise: riseSetTimestamp(Body.Moon, 1, date, 2),
+    nextMoonset: riseSetTimestamp(Body.Moon, -1, date, 2),
   };
 }
 
@@ -143,6 +177,16 @@ export function formatShanghaiTime(timestamp: number, language: "zh" | "en") {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
+    hourCycle: "h23",
+  }).format(timestamp);
+}
+
+export function formatShanghaiEventTime(timestamp: number | null, language: "zh" | "en") {
+  if (timestamp === null) return "—";
+  return new Intl.DateTimeFormat(language === "zh" ? "zh-CN" : "en-GB", {
+    timeZone: JIANGXINZHOU_OBSERVER.timeZone,
+    hour: "2-digit",
+    minute: "2-digit",
     hourCycle: "h23",
   }).format(timestamp);
 }

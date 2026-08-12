@@ -56,6 +56,10 @@ export const experienceCopy = {
     zh: "南京真实时间",
     en: "Nanjing live time",
   },
+  live: {
+    zh: "实时",
+    en: "LIVE",
+  },
   networkClock: {
     zh: "网络时间已校准",
     en: "Network time synced",
@@ -67,6 +71,10 @@ export const experienceCopy = {
   timePreview: {
     zh: "时间预览",
     en: "Time preview",
+  },
+  previewMode: {
+    zh: "预览模式",
+    en: "PREVIEW",
   },
   returnToLive: {
     zh: "恢复实时",
@@ -95,6 +103,54 @@ export const experienceCopy = {
   moonIllumination: {
     zh: "月面亮度",
     en: "Moon illumination",
+  },
+  skyPosition: {
+    zh: "实时天空方位",
+    en: "LIVE SKY POSITION",
+  },
+  noBodyAboveHorizon: {
+    zh: "当前日月均在地平线下",
+    en: "Sun and moon are below the horizon",
+  },
+  sunrise: {
+    zh: "日出",
+    en: "Sunrise",
+  },
+  sunset: {
+    zh: "日落",
+    en: "Sunset",
+  },
+  moonrise: {
+    zh: "月升",
+    en: "Moonrise",
+  },
+  moonset: {
+    zh: "月落",
+    en: "Moonset",
+  },
+  nextRise: {
+    zh: "下次升起",
+    en: "Next rise",
+  },
+  previewSunrise: {
+    zh: "日出",
+    en: "Sunrise",
+  },
+  previewNoon: {
+    zh: "正午",
+    en: "Noon",
+  },
+  previewSunset: {
+    zh: "日落",
+    en: "Sunset",
+  },
+  previewNight: {
+    zh: "夜间",
+    en: "Night",
+  },
+  clockAccuracy: {
+    zh: "校时误差约",
+    en: "Clock uncertainty",
   },
   sun: {
     zh: "太阳",

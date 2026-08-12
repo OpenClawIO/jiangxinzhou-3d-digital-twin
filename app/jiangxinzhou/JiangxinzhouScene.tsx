@@ -780,7 +780,7 @@ function CelestialEnvironment({ state, quality }: { state: CelestialState; quali
 function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, celestialTimestamp, routeId, view, target, layers, language, quality, objectiveId, expeditionLandmarkIds, discoveredLandmarkIds, selectedTransportLineId, selectedTransportStopId, onSelectTransportStop, selectedCrossingId, onSelectCrossing }: JiangxinzhouSceneProps) {
   const controls = useRef<OrbitControlsImpl>(null);
   const reportedReady = useRef(false);
-  const celestialTick = Math.floor(celestialTimestamp / 15_000) * 15_000;
+  const celestialTick = Math.floor(celestialTimestamp / 10_000) * 10_000;
   const celestialState = useMemo(() => calculateCelestialState(celestialTick), [celestialTick]);
   const reportReady = useCallback(() => {
     if (reportedReady.current) return;

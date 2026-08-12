@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Component, useCallback, useEffect, useMemo, useState, type ErrorInfo, type ReactNode } from "react";
-import { calculateCelestialState, formatShanghaiTime, shanghaiDateParts, shanghaiPreviewTimestamp, type CelestialPeriod, type CelestialState } from "./celestial";
+import { calculateCelestialEvents, calculateCelestialState, formatShanghaiEventTime, formatShanghaiTime, shanghaiDateParts, shanghaiPreviewTimestamp, type CelestialEvents, type CelestialPeriod, type CelestialState } from "./celestial";
 import { DiscoveryToast, ExpeditionDeck, MissionHud } from "./ExplorationUI";
 import { allLandmarkIds, findExpedition, type ExpeditionId } from "./exploration";
 import { landmarks as defaultLandmarks, routes, type Landmark } from "./landmarks";
@@ -19,6 +19,7 @@ import { anchorPosition, contextEvidenceSources, crossings, evidenceSources, fin
 import type { JiangxinzhouSceneProps, LayerKey, LayerVisibility, SceneQuality, ViewMode } from "./sceneTypes";
 import { TransportPanel } from "./TransportPanel";
 import { useExplorationProgress } from "./useExplorationProgress";
+import { useSynchronizedClock, type ClockSource } from "./useSynchronizedClock";
 
 const JiangxinzhouScene = dynamic<JiangxinzhouSceneProps>(() => import("./JiangxinzhouScene"), {
   ssr: false,
@@ -28,8 +29,6 @@ const JiangxinzhouScene = dynamic<JiangxinzhouSceneProps>(() => import("./Jiangx
 type QualityMode = "auto" | SceneQuality;
 type ControlPanel = "overview" | "transport" | "landmarks" | "explore" | "evidence";
 type TimeMode = "live" | "preview";
-type ClockSource = "network" | "device";
-const REALTIME_CLOCK_BOOTSTRAP = Date.UTC(2026, 7, 11, 4, 0, 0);
 
 class SceneErrorBoundary extends Component<{ children: ReactNode; fallback: ReactNode }, { failed: boolean }> {
   state = { failed: false };
@@ -61,18 +60,18 @@ function LayerToggles({ layers, language, onToggle }: { layers: LayerVisibility;
   ))}</div>;
 }
 
-function CelestialClock({ timestamp, mode, source, period, sunAltitude, moonAltitude, moonIllumination, previewMinutes, language, onPreview, onPreviewChange, onLive }: {
+function CelestialClock({ timestamp, mode, source, uncertaintyMs, state, events, previewMinutes, language, onPreview, onPreviewChange, onPreset, onLive }: {
   timestamp: number;
   mode: TimeMode;
   source: ClockSource;
-  period: CelestialPeriod;
-  sunAltitude: number;
-  moonAltitude: number;
-  moonIllumination: number;
+  uncertaintyMs: number;
+  state: CelestialState;
+  events: CelestialEvents;
   previewMinutes: number;
   language: Language;
   onPreview: () => void;
   onPreviewChange: (minutes: number) => void;
+  onPreset: (preset: "sunrise" | "noon" | "sunset" | "night") => void;
   onLive: () => void;
 }) {
   const periodCopy = {
@@ -82,40 +81,55 @@ function CelestialClock({ timestamp, mode, source, period, sunAltitude, moonAlti
     night: experienceCopy.celestialNight,
   } satisfies Record<CelestialPeriod, typeof experienceCopy.celestialDay>;
   const previewTime = `${String(Math.floor(previewMinutes / 60)).padStart(2, "0")}:${String(previewMinutes % 60).padStart(2, "0")}`;
-  return <div className={`celestial-clock ${mode}`} aria-live="polite">
-    <span className="celestial-icon" aria-hidden="true"><i className="sun" style={{ opacity: sunAltitude > -0.85 ? 1 : 0.25 }}>☀</i><i className="moon" style={{ opacity: moonAltitude > -0.85 ? 1 : 0.25 }}>◐</i></span>
-    <div className="celestial-readout">
-      <small>{localize(mode === "live" ? experienceCopy.realWorldTime : experienceCopy.timePreview, language)}</small>
-      <strong>{formatShanghaiTime(timestamp, language)}</strong>
-      <span>{localize(periodCopy[period], language)} · {mode === "live" ? localize(source === "network" ? experienceCopy.networkClock : experienceCopy.deviceClock, language) : `${localize(experienceCopy.sunAltitude, language)} ${sunAltitude.toFixed(1)}°`} · {localize(experienceCopy.moonIllumination, language)} {Math.round(moonIllumination * 100)}%</span>
+  const eventItems = [
+    ["sunrise", experienceCopy.sunrise, events.sunrise, "☀"],
+    ["sunset", experienceCopy.sunset, events.sunset, "◒"],
+    ["moonrise", experienceCopy.moonrise, events.moonrise, "☾"],
+    ["moonset", experienceCopy.moonset, events.moonset, "◐"],
+  ] as const;
+  return <section className={`celestial-clock ${mode}`} aria-live="polite" aria-label={localize(experienceCopy.realWorldTime, language)}>
+    <header className="celestial-clock-header">
+      <span className={`celestial-live-badge ${mode}`}><i />{localize(mode === "live" ? experienceCopy.live : experienceCopy.previewMode, language)}</span>
+      <span>{localize(periodCopy[state.period], language)}</span>
+      <button onClick={mode === "live" ? onPreview : onLive}>{localize(mode === "live" ? experienceCopy.timePreview : experienceCopy.returnToLive, language)}</button>
+    </header>
+    <div className="celestial-clock-main">
+      <div className="celestial-readout">
+        <small>{localize(mode === "live" ? experienceCopy.realWorldTime : experienceCopy.timePreview, language)}</small>
+        <strong>{formatShanghaiTime(timestamp, language)}</strong>
+        <span>{mode === "live" ? localize(source === "network" ? experienceCopy.networkClock : experienceCopy.deviceClock, language) : `${localize(experienceCopy.sunAltitude, language)} ${state.sun.altitudeDeg.toFixed(1)}°`} · {localize(experienceCopy.moonIllumination, language)} {Math.round(state.moon.illumination * 100)}%</span>
+        {mode === "live" && source === "network" && <em>{localize(experienceCopy.clockAccuracy, language)} ±{Math.ceil(uncertaintyMs)} ms</em>}
+      </div>
+      <div className="celestial-events">{eventItems.map(([key, label, value, icon]) => <div key={key}><span aria-hidden="true">{icon}</span><small>{localize(label, language)}</small><b>{formatShanghaiEventTime(value, language)}</b></div>)}</div>
     </div>
-    {mode === "live" ? <button onClick={onPreview}>{localize(experienceCopy.timePreview, language)}</button> : <div className="celestial-preview-controls">
+    {mode === "preview" && <div className="celestial-preview-controls">
+      <div className="celestial-presets">{(["sunrise", "noon", "sunset", "night"] as const).map((preset) => <button key={preset} onClick={() => onPreset(preset)}>{localize({ sunrise: experienceCopy.previewSunrise, noon: experienceCopy.previewNoon, sunset: experienceCopy.previewSunset, night: experienceCopy.previewNight }[preset], language)}</button>)}</div>
       <label><span>{previewTime}</span><input type="range" min="0" max="1439" step="1" value={previewMinutes} aria-label={localize(experienceCopy.timePreview, language)} onChange={(event) => onPreviewChange(Number(event.target.value))} /></label>
-      <button onClick={onLive}>{localize(experienceCopy.returnToLive, language)}</button>
     </div>}
-  </div>;
+  </section>;
 }
 
-function CelestialMapBody({ state, language }: { state: CelestialState; language: Language }) {
-  const showSun = state.sun.visible || (!state.moon.visible && state.period !== "night");
-  const body = showSun ? state.sun : state.moon;
-  const azimuth = body.azimuthDeg;
-  const altitude = body.altitudeDeg;
-  const horizontalPercent = 50 + Math.sin(azimuth * Math.PI / 180) * 34;
-  const clampedAltitude = Math.min(90, Math.max(-12, altitude));
-  const verticalPercent = body.visible ? 56 - ((clampedAltitude + 12) / 102) * 40 : 64;
+function CelestialSkyTrack({ state, language }: { state: CelestialState; language: Language }) {
   const moonPhases = ["🌑", "🌒", "🌓", "🌔", "🌕", "🌖", "🌗", "🌘"];
   const phaseIndex = Math.round(state.moon.phaseCycleDeg / 45) % moonPhases.length;
-  const name = localize(showSun ? experienceCopy.sun : experienceCopy.moon, language);
-  const horizonState = localize(body.visible ? experienceCopy.aboveHorizon : experienceCopy.belowHorizon, language);
-  return <div
-    className={`celestial-map-body ${showSun ? "sun" : "moon"} ${body.visible ? "above-horizon" : "below-horizon"}`}
-    style={{ left: `${horizontalPercent}%`, top: `${verticalPercent}%` }}
-    aria-label={`${name}, ${horizonState}, ${localize(experienceCopy.azimuthShort, language)} ${azimuth.toFixed(0)}°, ${localize(experienceCopy.altitudeShort, language)} ${altitude.toFixed(1)}°`}
-  >
-    <span className="celestial-map-disc" aria-hidden="true">{showSun ? "" : moonPhases[phaseIndex]}</span>
-    <small><b>{name}</b><span>{horizonState}</span><em>{localize(experienceCopy.azimuthShort, language)} {azimuth.toFixed(0)}° · {localize(experienceCopy.altitudeShort, language)} {altitude.toFixed(1)}°</em></small>
-  </div>;
+  const bodies = [
+    { key: "sun", state: state.sun, name: experienceCopy.sun, symbol: "☀" },
+    { key: "moon", state: state.moon, name: experienceCopy.moon, symbol: moonPhases[phaseIndex] },
+  ] as const;
+  const visibleBodies = bodies.filter((body) => body.state.visible);
+  return <section className="celestial-sky-track" aria-label={localize(experienceCopy.skyPosition, language)}>
+    <header><span>{localize(experienceCopy.skyPosition, language)}</span><small>{localize(experienceCopy.azimuthShort, language)} 0–360°</small></header>
+    <div className="sky-track-field">
+      <div className="sky-track-grid" aria-hidden="true"><span>N</span><span>E</span><span>S</span><span>W</span><span>N</span></div>
+      {visibleBodies.map((body) => <span
+        key={body.key}
+        className={`sky-track-body ${body.key}`}
+        style={{ left: `${(body.state.azimuthDeg / 3.6).toFixed(3)}%`, top: `${(70 - Math.min(90, Math.max(0, body.state.altitudeDeg)) / 90 * 54).toFixed(3)}%` }}
+        title={`${localize(body.name, language)} · ${localize(experienceCopy.azimuthShort, language)} ${body.state.azimuthDeg.toFixed(0)}° · ${localize(experienceCopy.altitudeShort, language)} ${body.state.altitudeDeg.toFixed(1)}°`}
+      ><b aria-hidden="true">{body.symbol}</b><small>{body.state.altitudeDeg.toFixed(0)}°</small></span>)}
+      {visibleBodies.length === 0 && <span className="sky-track-empty">{localize(experienceCopy.noBodyAboveHorizon, language)}</span>}
+    </div>
+  </section>;
 }
 
 function detectSceneQuality(): SceneQuality {
@@ -155,53 +169,17 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   const [scaleMeters, setScaleMeters] = useState(1000);
   const [sceneKey, setSceneKey] = useState(0);
   const [toastLandmarkId, setToastLandmarkId] = useState<number>();
-  const [clockNow, setClockNow] = useState(REALTIME_CLOCK_BOOTSTRAP);
-  const [clockOffsetMs, setClockOffsetMs] = useState(0);
-  const [clockSource, setClockSource] = useState<ClockSource>("device");
   const [timeMode, setTimeMode] = useState<TimeMode>("live");
   const [previewMinutes, setPreviewMinutes] = useState(720);
+  const synchronizedClock = useSynchronizedClock();
   const exploration = useExplorationProgress();
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
       setAutoQuality(detectSceneQuality());
       setWebglSupported(supportsWebGL());
-      setClockNow(Date.now());
     });
     return () => window.cancelAnimationFrame(frame);
-  }, []);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => setClockNow(Date.now()), 1_000);
-    return () => window.clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
-    const controller = new AbortController();
-    const synchronize = async () => {
-      const requestStarted = Date.now();
-      try {
-        const response = await fetch(`${window.location.pathname}?clock=${requestStarted}`, {
-          method: "HEAD",
-          cache: "no-store",
-          signal: controller.signal,
-        });
-        const serverHeader = response.headers.get("date");
-        const serverTimestamp = serverHeader ? Date.parse(serverHeader) : Number.NaN;
-        if (!response.ok || !Number.isFinite(serverTimestamp)) return;
-        const requestMidpoint = (requestStarted + Date.now()) / 2;
-        setClockOffsetMs(serverTimestamp - requestMidpoint);
-        setClockSource("network");
-      } catch {
-        // Same-origin network time is an enhancement; device time remains the safe fallback.
-      }
-    };
-    void synchronize();
-    const timer = window.setInterval(synchronize, 15 * 60 * 1_000);
-    return () => {
-      controller.abort();
-      window.clearInterval(timer);
-    };
   }, []);
 
   useEffect(() => {
@@ -237,9 +215,17 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   const missionComplete = exploration.activeProgress.completed === exploration.activeProgress.total;
   const worldPercent = Math.round((exploration.state.discoveredLandmarkIds.length / allLandmarkIds.length) * 100);
   const scaleLabel = scaleMeters >= 1000 ? `${(scaleMeters / 1000).toFixed(scaleMeters >= 10_000 ? 0 : 1)} km` : `${Math.round(scaleMeters / 10) * 10} m`;
-  const liveTimestamp = clockNow + clockOffsetMs;
+  const liveTimestamp = synchronizedClock.timestamp;
   const celestialTimestamp = timeMode === "live" ? liveTimestamp : shanghaiPreviewTimestamp(new Date(liveTimestamp), previewMinutes);
   const celestialState = useMemo(() => calculateCelestialState(celestialTimestamp), [celestialTimestamp]);
+  const celestialDayKey = (() => {
+    const parts = shanghaiDateParts(new Date(celestialTimestamp));
+    return `${parts.year}-${parts.month}-${parts.day}`;
+  })();
+  const celestialEvents = useMemo(() => {
+    const [year, month, day] = celestialDayKey.split("-").map(Number);
+    return calculateCelestialEvents(Date.UTC(year, month - 1, day, 4));
+  }, [celestialDayKey]);
 
   const chooseLandmark = useCallback((id: number) => {
     setSelectedId(id);
@@ -296,6 +282,22 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
     setPreviewMinutes(parts.hour * 60 + parts.minute);
     setTimeMode("preview");
   }, [liveTimestamp]);
+  const chooseTimePreset = useCallback((preset: "sunrise" | "noon" | "sunset" | "night") => {
+    const minuteOfDay = (timestamp: number | null, fallback: number) => {
+      if (timestamp === null) return fallback;
+      const parts = shanghaiDateParts(new Date(timestamp));
+      return parts.hour * 60 + parts.minute;
+    };
+    const sunrise = minuteOfDay(celestialEvents.sunrise, 360);
+    const sunset = minuteOfDay(celestialEvents.sunset, 1080);
+    const presets = {
+      sunrise,
+      noon: Math.round((sunrise + sunset) / 2),
+      sunset,
+      night: Math.min(1439, sunset + 90),
+    };
+    setPreviewMinutes(presets[preset]);
+  }, [celestialEvents.sunrise, celestialEvents.sunset]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -359,8 +361,8 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
             />
           </SceneErrorBoundary> : sceneFallback}
           {!sceneReady && webglSupported !== false && <div className="scene-loading-overlay" role="status" aria-live="polite"><span className="loading-orbit" /><b>{localize(experienceCopy.loadingScene, language)}</b><small>{localize(experienceCopy.loadingSceneDetail, language)}</small></div>}
-          <CelestialClock timestamp={celestialTimestamp} mode={timeMode} source={clockSource} period={celestialState.period} sunAltitude={celestialState.sun.altitudeDeg} moonAltitude={celestialState.moon.altitudeDeg} moonIllumination={celestialState.moon.illumination} previewMinutes={previewMinutes} language={language} onPreview={beginTimePreview} onPreviewChange={setPreviewMinutes} onLive={() => setTimeMode("live")} />
-          <CelestialMapBody state={celestialState} language={language} />
+          <CelestialClock timestamp={celestialTimestamp} mode={timeMode} source={synchronizedClock.source} uncertaintyMs={synchronizedClock.uncertaintyMs} state={celestialState} events={celestialEvents} previewMinutes={previewMinutes} language={language} onPreview={beginTimePreview} onPreviewChange={setPreviewMinutes} onPreset={chooseTimePreset} onLive={() => setTimeMode("live")} />
+          <CelestialSkyTrack state={celestialState} language={language} />
           {controlPanel === "explore" && <MissionHud expedition={exploration.activeExpedition} {...exploration.activeProgress} nextObjectiveId={exploration.nextObjectiveId} language={language} />}
           <DiscoveryToast landmarkId={toastLandmarkId} language={language} />
           <button className="sidebar-toggle" onClick={() => setSidebarCollapsed((value) => !value)} aria-label={localize(sidebarCollapsed ? experienceCopy.expandPanel : experienceCopy.collapsePanel, language)}>{sidebarCollapsed ? "‹" : "›"}</button>

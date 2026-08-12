@@ -130,45 +130,60 @@
 .north-marker b { font-size: 19px; line-height: .6; }
 .map-scale { right: 16px; bottom: 16px; display: grid; grid-template-columns: auto 70px auto; align-items: end; gap: 5px; padding: 7px 9px; border-radius: 8px; font: 700 8px var(--font-geist-mono), monospace; }
 .map-scale i { height: 6px; border-right: 1px solid; border-bottom: 2px solid; border-left: 1px solid; }
-.celestial-clock { position: absolute; z-index: 3; top: 15px; left: 50%; display: flex; align-items: center; gap: 9px; width: max-content; max-width: min(520px, calc(100% - 330px)); min-height: 48px; padding: 7px 9px; border: 1px solid rgba(32, 76, 76, .2); border-radius: 11px; color: #164b4d; background: rgba(235, 246, 232, .78); box-shadow: 0 10px 30px rgba(6, 38, 42, .14); backdrop-filter: blur(13px); transform: translateX(-50%); }
-.celestial-icon { position: relative; display: block; width: 38px; height: 30px; flex: 0 0 38px; border-radius: 16px; color: #7b5b16; background: linear-gradient(90deg, rgba(245, 204, 98, .33), rgba(138, 158, 208, .22)); }
-.celestial-icon i { position: absolute; top: 50%; font-style: normal; line-height: 1; transform: translateY(-50%); transition: opacity .3s ease; }
-.celestial-icon .sun { left: 5px; font-size: 16px; }
-.celestial-icon .moon { right: 5px; color: #6478a7; font-size: 14px; }
-.celestial-readout { min-width: 152px; }
+.celestial-clock { position: absolute; z-index: 4; top: 12px; left: 50%; width: min(620px, calc(100% - 350px)); padding: 10px 12px 11px; border: 1px solid rgba(32, 76, 76, .2); border-radius: 13px; color: #164b4d; background: rgba(235, 246, 232, .86); box-shadow: 0 12px 34px rgba(6, 38, 42, .15); backdrop-filter: blur(16px); transform: translateX(-50%); }
+.celestial-clock-header { display: flex; align-items: center; gap: 8px; min-height: 24px; padding-bottom: 7px; border-bottom: 1px solid rgba(29, 77, 75, .1); color: #567c78; font: 700 7px var(--font-geist-mono), monospace; letter-spacing: .08em; text-transform: uppercase; }
+.celestial-clock-header > span:nth-child(2) { margin-right: auto; }
+.celestial-live-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 7px; border-radius: 999px; color: #f7fff9; background: #157669; }
+.celestial-live-badge i { width: 5px; height: 5px; border-radius: 50%; background: #8ff2bf; box-shadow: 0 0 0 3px rgba(143, 242, 191, .2); }
+.celestial-live-badge.preview { color: #fff7da; background: #9a6c18; }
+.celestial-live-badge.preview i { background: #ffd76f; box-shadow: none; }
+.celestial-clock button { min-height: 25px; padding: 5px 8px; border: 1px solid rgba(30, 80, 78, .16); border-radius: 7px; color: #174a48; background: rgba(255, 255, 255, .48); font: 700 7px var(--font-geist-sans), sans-serif; cursor: pointer; white-space: nowrap; }
+.celestial-clock button:hover { border-color: rgba(20, 105, 96, .38); background: rgba(255, 255, 255, .8); }
+.celestial-clock-main { display: grid; grid-template-columns: minmax(180px, .9fr) minmax(250px, 1.25fr); gap: 13px; align-items: center; padding-top: 8px; }
+.celestial-readout { min-width: 0; }
 .celestial-readout small,
 .celestial-readout strong,
-.celestial-readout span { display: block; }
-.celestial-readout small { color: #587c78; font: 700 6px var(--font-geist-mono), monospace; letter-spacing: .1em; text-transform: uppercase; }
-.celestial-readout strong { margin-top: 2px; font: 750 10px var(--font-geist-mono), monospace; }
-.celestial-readout span { margin-top: 2px; color: #527572; font-size: 6px; white-space: nowrap; }
-.celestial-clock button { min-height: 30px; padding: 6px 8px; border: 1px solid rgba(30, 80, 78, .15); border-radius: 7px; color: #174a48; background: rgba(255, 255, 255, .38); font: 700 7px var(--font-geist-sans), sans-serif; cursor: pointer; white-space: nowrap; }
-.celestial-preview-controls { display: flex; align-items: center; gap: 7px; }
-.celestial-preview-controls label { display: grid; grid-template-columns: 34px 112px; align-items: center; gap: 5px; color: #244f4f; font: 700 7px var(--font-geist-mono), monospace; }
-.celestial-preview-controls input { width: 112px; accent-color: #d8b243; }
-.celestial-map-body { position: absolute; z-index: 2; display: flex; align-items: center; gap: 8px; width: max-content; pointer-events: none; transform: translate(-50%, -50%); transition: top .8s linear, left .8s linear, opacity .3s ease; }
-.celestial-map-disc { position: relative; display: grid; place-items: center; width: 58px; height: 58px; flex: 0 0 58px; border-radius: 50%; font-size: 49px; line-height: 1; filter: drop-shadow(0 0 15px rgba(188, 213, 255, .38)); }
-.celestial-map-body.sun .celestial-map-disc { background: radial-gradient(circle at 38% 36%, #fffbe4 0 14%, #ffe59a 30%, #f6b83f 68%, #dc8122 100%); box-shadow: 0 0 0 8px rgba(255, 214, 105, .08), 0 0 32px 12px rgba(255, 184, 61, .3); }
-.celestial-map-body.moon .celestial-map-disc { border: 1px solid rgba(190, 211, 237, .34); background: radial-gradient(circle at 38% 32%, rgba(219, 229, 239, .42), rgba(71, 88, 116, .72)); text-shadow: 0 0 20px rgba(185, 210, 255, .58); }
-.celestial-map-body small { display: grid; gap: 1px; min-width: 91px; padding: 6px 8px; border: 1px solid rgba(206, 229, 233, .25); border-radius: 8px; color: #e8f3ef; background: rgba(8, 30, 39, .72); box-shadow: 0 8px 22px rgba(2, 14, 22, .22); backdrop-filter: blur(9px); }
-.celestial-map-body small b { font-size: 8px; }
-.celestial-map-body small span { color: #aac4c7; font-size: 6px; }
-.celestial-map-body small em { color: #789aa1; font: 600 6px var(--font-geist-mono), monospace; font-style: normal; }
-.celestial-map-body.below-horizon { flex-direction: column; gap: 2px; opacity: .72; }
-.celestial-map-body.below-horizon small { text-align: center; }
-.celestial-map-body.below-horizon .celestial-map-disc { filter: grayscale(.35) drop-shadow(0 0 8px rgba(158, 185, 207, .2)); }
+.celestial-readout span,
+.celestial-readout em { display: block; }
+.celestial-readout small { color: #587c78; font: 700 7px var(--font-geist-mono), monospace; letter-spacing: .1em; text-transform: uppercase; }
+.celestial-readout strong { margin-top: 3px; font: 760 14px var(--font-geist-mono), monospace; }
+.celestial-readout span { margin-top: 3px; color: #527572; font-size: 7px; white-space: nowrap; }
+.celestial-readout em { margin-top: 2px; color: #75918e; font: 600 6px var(--font-geist-mono), monospace; font-style: normal; }
+.celestial-events { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+.celestial-events > div { display: grid; grid-template-columns: auto 1fr; column-gap: 4px; padding: 6px; border: 1px solid rgba(30, 80, 78, .1); border-radius: 8px; background: rgba(255, 255, 255, .32); }
+.celestial-events > div > span { grid-row: 1 / 3; align-self: center; color: #997629; font-size: 11px; }
+.celestial-events small { color: #6f8b86; font-size: 6px; }
+.celestial-events b { font: 750 9px var(--font-geist-mono), monospace; }
+.celestial-preview-controls { display: grid; grid-template-columns: auto minmax(150px, 1fr); gap: 9px; align-items: center; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgba(29, 77, 75, .1); }
+.celestial-presets { display: flex; gap: 4px; }
+.celestial-presets button { min-height: 23px; padding: 4px 6px; }
+.celestial-preview-controls label { display: grid; grid-template-columns: 38px minmax(100px, 1fr); align-items: center; gap: 6px; color: #244f4f; font: 700 8px var(--font-geist-mono), monospace; }
+.celestial-preview-controls input { width: 100%; accent-color: #d8b243; }
+.celestial-sky-track { position: absolute; z-index: 3; top: 132px; left: 50%; width: min(460px, 48%); padding: 7px 9px 8px; border: 1px solid rgba(171, 208, 211, .2); border-radius: 10px; color: #dcebea; background: rgba(7, 31, 39, .68); box-shadow: 0 9px 24px rgba(2, 16, 22, .17); pointer-events: none; backdrop-filter: blur(10px); transform: translateX(-50%); }
+.celestial-clock.preview + .celestial-sky-track { top: 174px; }
+.celestial-sky-track header { display: flex; justify-content: space-between; color: #a8c4c4; font: 700 6px var(--font-geist-mono), monospace; letter-spacing: .08em; }
+.celestial-sky-track header small { color: #75989b; font-size: 5px; }
+.sky-track-field { position: relative; height: 40px; margin-top: 5px; overflow: hidden; border-bottom: 1px solid rgba(198, 226, 224, .25); background: linear-gradient(180deg, rgba(82, 137, 163, .16), rgba(22, 63, 71, .04)); }
+.sky-track-grid { position: absolute; inset: 0; display: flex; justify-content: space-between; align-items: end; color: #79999c; font: 650 5px var(--font-geist-mono), monospace; }
+.sky-track-grid span { width: 1px; height: 100%; border-left: 1px dashed rgba(164, 198, 199, .13); text-indent: 3px; }
+.sky-track-body { position: absolute; display: grid; justify-items: center; color: #eef6ff; transform: translate(-50%, -50%); transition: left .8s linear, top .8s linear; }
+.sky-track-body b { font-size: 13px; line-height: 1; filter: drop-shadow(0 0 5px rgba(255, 226, 145, .5)); }
+.sky-track-body small { margin-top: 1px; color: #d4e3e4; font: 700 5px var(--font-geist-mono), monospace; }
+.sky-track-body.moon b { font-size: 11px; filter: drop-shadow(0 0 5px rgba(187, 211, 255, .5)); }
+.sky-track-empty { position: absolute; inset: 0; display: grid; place-items: center; color: #8da9aa; font-size: 6px; }
 .jiangxinzhou-experience[data-celestial-period="night"] .celestial-clock,
 .jiangxinzhou-experience[data-celestial-period="night"] .stage-note,
 .jiangxinzhou-experience[data-celestial-period="night"] .reset-view,
 .jiangxinzhou-experience[data-celestial-period="night"] .quality-control,
 .jiangxinzhou-experience[data-celestial-period="night"] .map-scale,
 .jiangxinzhou-experience[data-celestial-period="night"] .north-marker { border-color: rgba(157, 190, 220, .24); color: #d6e5ef; background: rgba(8, 25, 38, .72); box-shadow: 0 10px 30px rgba(0, 7, 15, .3); }
-.jiangxinzhou-experience[data-celestial-period="night"] .celestial-icon { color: #dce6ff; background: rgba(126, 148, 202, .22); }
+.jiangxinzhou-experience[data-celestial-period="night"] .celestial-live-badge { background: #516aa4; }
 .jiangxinzhou-experience[data-celestial-period="night"] .celestial-readout small,
 .jiangxinzhou-experience[data-celestial-period="night"] .celestial-readout span,
 .jiangxinzhou-experience[data-celestial-period="night"] .quality-control span { color: #91aaba; }
 .jiangxinzhou-experience[data-celestial-period="night"] .celestial-clock button { border-color: rgba(154, 190, 219, .2); color: #dbe9f2; background: rgba(139, 173, 203, .12); }
 .jiangxinzhou-experience[data-celestial-period="night"] .celestial-preview-controls label { color: #bad0df; }
+.jiangxinzhou-experience[data-celestial-period="night"] .celestial-events > div { border-color: rgba(159, 190, 213, .12); background: rgba(138, 171, 202, .08); }
 .jiangxinzhou-experience[data-celestial-period="night"] .map-label,
 .jiangxinzhou-experience[data-celestial-period="night"] .transport-stop-label,
 .jiangxinzhou-experience[data-celestial-period="night"] .transport-line-label,
@@ -322,16 +337,17 @@
   .map-scale { right: 10px; bottom: 10px; }
   .north-marker { top: 10px; right: 10px; }
   .stage-controls { top: 10px; left: 10px; }
-  .celestial-clock { top: 65px; max-width: calc(100% - 20px); }
-  .celestial-readout { min-width: 0; }
-  .celestial-readout span { max-width: 150px; overflow: hidden; text-overflow: ellipsis; }
-  .celestial-preview-controls label { grid-template-columns: 32px minmax(70px, 1fr); }
-  .celestial-preview-controls input { width: min(112px, 22vw); }
-  .celestial-map-body { gap: 5px; }
-  .celestial-map-disc { width: 42px; height: 42px; flex-basis: 42px; font-size: 36px; }
-  .celestial-map-body.sun .celestial-map-disc { box-shadow: 0 0 0 5px rgba(255, 214, 105, .08), 0 0 22px 7px rgba(255, 184, 61, .25); }
-  .celestial-map-body small { min-width: 72px; padding: 5px 6px; }
-  .celestial-map-body small em { display: none; }
+  .celestial-clock { top: 58px; width: calc(100% - 20px); padding: 8px 9px 9px; }
+  .celestial-clock-main { grid-template-columns: 1fr; gap: 7px; }
+  .celestial-readout strong { font-size: 12px; }
+  .celestial-events > div { padding: 5px 4px; }
+  .celestial-events > div > span { display: none; }
+  .celestial-events small { font-size: 5px; }
+  .celestial-events b { font-size: 8px; }
+  .celestial-preview-controls { grid-template-columns: 1fr; }
+  .celestial-presets button { flex: 1; }
+  .celestial-sky-track { top: 201px; width: calc(100% - 42px); }
+  .celestial-clock.preview + .celestial-sky-track { top: 270px; }
   .quality-control { max-width: 148px; }
   .scene-loading-overlay small { max-width: 250px; }
   .map-footer { display: block; line-height: 1.7; }

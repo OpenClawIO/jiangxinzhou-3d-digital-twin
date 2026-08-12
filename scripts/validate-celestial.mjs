@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
 import {
   JIANGXINZHOU_OBSERVER,
+  calculateCelestialEvents,
   calculateCelestialState,
   celestialDirection,
+  formatShanghaiEventTime,
   shanghaiDateParts,
   shanghaiPreviewTimestamp,
 } from "../app/jiangxinzhou/celestial.ts";
@@ -23,6 +25,20 @@ assert.equal(night.period, "night");
 assert.ok(night.sun.altitudeDeg < -12 && night.night > 0.95);
 assert.ok(night.moon.illumination >= 0 && night.moon.illumination <= 1);
 
+const usnoReferenceDate = new Date("2026-08-12T04:00:00Z");
+const events = calculateCelestialEvents(usnoReferenceDate);
+const assertWithinMinutes = (actual, expectedIso, toleranceMinutes = 3) => {
+  assert.notEqual(actual, null);
+  assert.ok(Math.abs(actual - Date.parse(expectedIso)) <= toleranceMinutes * 60_000, `${new Date(actual).toISOString()} differs from USNO by more than ${toleranceMinutes} minutes.`);
+};
+assertWithinMinutes(events.sunrise, "2026-08-11T21:27:00Z");
+assertWithinMinutes(events.sunset, "2026-08-12T10:53:00Z");
+assertWithinMinutes(events.moonrise, "2026-08-11T20:32:00Z");
+assertWithinMinutes(events.moonset, "2026-08-12T10:41:00Z");
+assert.equal(formatShanghaiEventTime(events.sunrise, "en"), "05:27");
+assert.ok(calculateCelestialState(new Date("2026-08-11T21:30:00Z")).sun.visible);
+assert.ok(!calculateCelestialState(new Date("2026-08-11T21:20:00Z")).sun.visible);
+
 const north = celestialDirection(0, 0, 100);
 const east = celestialDirection(90, 0, 100);
 const zenith = celestialDirection(0, 90, 100);
@@ -38,4 +54,4 @@ assert.deepEqual(
 );
 assert.throws(() => calculateCelestialState(Number.NaN), /valid date/i);
 
-console.log("Validated real-time sun/moon state, Shanghai preview time and scene directions.");
+console.log("Validated synchronized sun/moon state, USNO rise/set times, Shanghai preview time and scene directions.");
