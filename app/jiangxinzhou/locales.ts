@@ -384,6 +384,13 @@ export const experienceCopy = {
   crossingProjectLength: { zh: "工程路线", en: "Project corridor" },
   crossingStructureLength: { zh: "结构长度约", en: "Structure approx." },
   crossingGeometryLength: { zh: "模型线长", en: "Model geometry" },
+  photoVerifiedModel: { zh: "实景照片核验模型", en: "Photo-verified reconstruction" },
+  bridgeProjectLength: { zh: "工程总长", en: "Project length" },
+  bridgeMainSpan: { zh: "主跨", en: "Main span" },
+  bridgeTowerHeight: { zh: "桥塔高度", en: "Pylon height" },
+  bridgeStayCables: { zh: "斜拉索", en: "Stay cables" },
+  bridgeEvidenceUpdated: { zh: "资料核验", en: "Evidence checked" },
+  bridgeEvidenceSources: { zh: "查看建模资料", en: "View model evidence" },
   focusCrossing: {
     zh: "聚焦桥隧",
     en: "Focus crossing",

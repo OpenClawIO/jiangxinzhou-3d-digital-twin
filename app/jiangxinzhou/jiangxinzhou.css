@@ -227,6 +227,18 @@
 .sidebar-section { padding: 17px 18px; border-bottom: 1px solid rgba(142, 183, 170, .12); }
 .island-profile p,
 .selected-landmark p { margin: 12px 0 0; color: #8aa39e; font-size: 10px; line-height: 1.7; }
+.nanjing-eye-model-card { display: grid; gap: 8px; margin-top: 9px; padding: 10px; border: 1px solid rgba(104, 185, 207, .22); border-radius: 10px; background: linear-gradient(145deg, rgba(52, 134, 164, .13), rgba(255, 255, 255, .015)); }
+.model-card-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.model-card-heading span { color: #a9d4da; font-size: 7px; font-weight: 760; letter-spacing: .04em; }
+.model-card-heading b { color: #76c3d2; font: 700 6px var(--font-geist-mono), monospace; }
+.bridge-spec-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
+.bridge-spec-grid span { display: grid; gap: 2px; padding: 6px; border-radius: 7px; background: rgba(4, 19, 27, .28); }
+.bridge-spec-grid small { color: #607e7f; font-size: 6px; }
+.bridge-spec-grid strong { color: #d8e8e3; font: 730 8px var(--font-geist-mono), monospace; }
+.bridge-evidence-links { display: flex; flex-wrap: wrap; align-items: center; gap: 5px 8px; }
+.bridge-evidence-links small { width: 100%; color: #5e7b7d; font-size: 6px; }
+.bridge-evidence-links a { color: #79bdca; font-size: 6px; text-decoration: none; }
+.bridge-evidence-links a:hover { color: #c9f0f2; }
 .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin-top: 13px; }
 .metric-grid div { min-width: 0; padding: 10px 8px; border: 1px solid rgba(142, 183, 170, .13); border-radius: 9px; background: rgba(255, 255, 255, .025); }
 .metric-grid strong { color: #d7e5d7; font-size: 17px; font-weight: 600; letter-spacing: -.04em; }

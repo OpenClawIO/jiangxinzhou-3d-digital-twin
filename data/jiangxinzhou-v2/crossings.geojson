@@ -102,12 +102,36 @@
             31.999741
           ],
           [
-            118.69655,
-            31.99755
+            118.694177,
+            32.000014
+          ],
+          [
+            118.694368,
+            32.000133
+          ],
+          [
+            118.694807,
+            32.000149
+          ],
+          [
+            118.695519,
+            31.999754
+          ],
+          [
+            118.695919,
+            31.999444
+          ],
+          [
+            118.697569,
+            31.997431
           ],
           [
             118.699348,
             31.995421
+          ],
+          [
+            118.699677,
+            31.995113
           ]
         ]
       },
@@ -124,12 +148,12 @@
         "confidence": "triangulated",
         "source": "OSM bridge geometry + Nanjing Eye official project资料",
         "sourceId": "321392362/445886857/445886858",
-        "officialProjectLengthM": null,
+        "officialProjectLengthM": 827.5,
         "officialStructureLengthM": null,
         "officialMainSpanM": 240,
         "modelKey": "nanjing-eye-context",
         "layer": 2,
-        "measuredGeometryLengthM": 697
+        "measuredGeometryLengthM": 828
       }
     },
     {

@@ -46,7 +46,6 @@ ISLAND = load("island.geojson")
 BUILDINGS = load("buildings.geojson")
 LANDMARKS = load("landmarks.geojson")
 LANDSCAPES = load("landscapes.geojson")
-CROSSINGS = load("crossings.geojson")
 ORIGIN_LNG, ORIGIN_LAT = MANIFEST["origin"]
 LON_METERS = MANIFEST["projection"]["metersPerDegreeLongitude"]
 LAT_METERS = MANIFEST["projection"]["metersPerDegreeLatitude"]
@@ -256,52 +255,6 @@ lighthouse(landmark_points["xiaokenting-lighthouse"], "south", 38, -28, 15, 1.8)
 lighthouse(landmark_points["xiaokenting-lighthouse"], "north", -31, 22, 12, 1.5)
 
 
-eye_crossing = next(feature for feature in CROSSINGS["features"] if feature["id"] == "nanjing-eye-crossing")
-eye_points = [Vector(geo_to_xy(coordinate)) for coordinate in eye_crossing["geometry"]["coordinates"]]
-
-
-def path_point(points, fraction):
-    fraction = max(0.0, min(1.0, fraction))
-    lengths = [0.0]
-    for index in range(len(points) - 1):
-        lengths.append(lengths[-1] + (points[index + 1] - points[index]).length)
-    target = lengths[-1] * fraction
-    for index in range(len(points) - 1):
-        if target <= lengths[index + 1]:
-            portion = (target - lengths[index]) / max(0.001, lengths[index + 1] - lengths[index])
-            return points[index].lerp(points[index + 1], portion)
-    return points[-1]
-
-
-def length(vector):
-    return math.sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z)
-
-
-for index in range(len(eye_points) - 1):
-    start, end = eye_points[index], eye_points[index + 1]
-    direction = end - start
-    midpoint = (start + end) / 2
-    cube("Nanjing Eye deck segment", (midpoint.x, midpoint.y, 5.8), (length(direction) + 4, 9, 2.3), STEEL, rotation=math.atan2(direction.y, direction.x), bevel=0.4)
-
-for tower_index, fraction in enumerate((0.35, 0.65), start=1):
-    center = path_point(eye_points, fraction)
-    before = path_point(eye_points, max(0.0, fraction - 0.01))
-    after = path_point(eye_points, min(1.0, fraction + 0.01))
-    direction = after - before
-    direction.z = 0
-    direction.normalize()
-    perpendicular = Vector((-direction.y, direction.x, 0))
-    for side_index, offset in enumerate((-9.0, 9.0), start=1):
-        base = center + perpendicular * offset
-        top = center + perpendicular * (offset * 0.55) + direction * (8 if fraction > 0.5 else -8)
-        beam(f"Nanjing Eye tower {tower_index}-{side_index}", (base.x, base.y, 5), (top.x, top.y, 62), 1.65, STEEL)
-        for stay_index, delta in enumerate((-0.13, -0.08, -0.035, 0.035, 0.08, 0.13), start=1):
-            deck = path_point(eye_points, fraction + delta)
-            deck_side = deck + perpendicular * (offset * 0.35)
-            beam(f"Nanjing Eye stay {tower_index}-{side_index}-{stay_index}", (top.x, top.y, 56), (deck_side.x, deck_side.y, 7.3), 0.16, CABLE)
-    beam(f"Nanjing Eye crossbeam {tower_index}", (center.x - perpendicular.x * 9, center.y - perpendicular.y * 9, 59), (center.x + perpendicular.x * 9, center.y + perpendicular.y * 9, 59), 1.2, STEEL)
-
-
 rocho = landmark_points["rocho-cafe"]
 rx, ry, _ = geo_to_xy(rocho)
 cylinder("ROCHO lower glass ring", (rx, ry, 4.2), 22, 7, GLASS, vertices=48)
@@ -463,12 +416,21 @@ area.rotation_euler = (target - area.location).to_track_quat("-Z", "Y").to_euler
 bpy.ops.wm.save_as_mainfile(filepath=str(OUTPUT_DIR / "jiangxinzhou-v2.blend"))
 bpy.ops.render.render(write_still=True)
 
+previous_asset_manifest = {}
+manifest_path = OUTPUT_DIR / "scene-manifest.json"
+if manifest_path.exists():
+    with open(manifest_path, "r", encoding="utf-8") as handle:
+        previous_asset_manifest = json.load(handle)
+
 asset_manifest = {
     "version": MANIFEST["version"],
     "origin": MANIFEST["origin"],
     "units": "metres",
     "north": "+Y",
     "tiles": [],
+    "landmarkTiles": previous_asset_manifest.get("landmarkTiles", []),
+    "contextTiles": previous_asset_manifest.get("contextTiles", []),
+    "transportVehicles": previous_asset_manifest.get("transportVehicles", []),
 }
 for collection, filename in exports:
     file_path = OUTPUT_DIR / filename
@@ -478,7 +440,7 @@ for collection, filename in exports:
         "bytes": file_path.stat().st_size,
         "lod": 2 if collection.name == "Landmarks" else 1,
     })
-with open(OUTPUT_DIR / "scene-manifest.json", "w", encoding="utf-8") as handle:
+with open(manifest_path, "w", encoding="utf-8") as handle:
     json.dump(asset_manifest, handle, ensure_ascii=False, indent=2)
     handle.write("\n")
 

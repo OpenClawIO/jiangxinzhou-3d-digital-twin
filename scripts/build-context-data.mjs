@@ -141,10 +141,10 @@ const crossings = collection([
     status: existing, confidence: triangulated, source: "OSM bridge geometry + Nanjing transportation references", sourceId: "137972556/137972560",
     officialProjectLengthM: null, officialStructureLengthM: null, officialMainSpanM: null, modelKey: "jiajiang-bridge", layer: 1,
   }),
-  feature("nanjing-eye-crossing", { type: "LineString", coordinates: [[118.69399, 31.999741], [118.69655, 31.99755], [118.699348, 31.995421]] }, {
+  feature("nanjing-eye-crossing", { type: "LineString", coordinates: [[118.69399, 31.999741], [118.694177, 32.000014], [118.694368, 32.000133], [118.694807, 32.000149], [118.695519, 31.999754], [118.695919, 31.999444], [118.697569, 31.997431], [118.699348, 31.995421], [118.699677, 31.995113]] }, {
     name: name("南京眼步行桥", "Nanjing Eye Pedestrian Bridge"), type: "bridge", mode: "pedestrian", color: "#a7e0c2",
     status: existing, confidence: triangulated, source: "OSM bridge geometry + Nanjing Eye official project资料", sourceId: "321392362/445886857/445886858",
-    officialProjectLengthM: null, officialStructureLengthM: null, officialMainSpanM: 240, modelKey: "nanjing-eye-context", layer: 2,
+    officialProjectLengthM: 827.5, officialStructureLengthM: null, officialMainSpanM: 240, modelKey: "nanjing-eye-context", layer: 2,
   }),
   feature("jiajiang-tunnel", { type: "LineString", coordinates: [[118.684867, 32.001322], [118.6939, 31.9970], [118.701921, 31.992288]] }, {
     name: name("夹江隧道", "Jiajiang Tunnel"), type: "tunnel", mode: "road", color: "#82a5bd",
@@ -176,7 +176,8 @@ const evidence = {
     { id: "nanjing-geography-context", title: "南京市政府江心洲生态文旅资料", type: "government", date: "2025-12-03", url: "https://www.nanjing.gov.cn/xxgkn/jytabljggk/2025njytabl/shizxta/202512/t20251203_5704828.html", verifies: ["island relationship to main channel and Jiajiang", "15.21 km² island scale", "22.5 km embankment loop"], redistribution: "reference-only" },
     { id: "osm-context-crossings", title: "OpenStreetMap Jiangxinzhou regional waterways and crossings", type: "open-data", date: snapshot, url: "https://www.openstreetmap.org/relation/11630502", verifies: ["named waterways", "bridge alignments", "tunnel alignments", "Metro 10 regional geometry"], license: "ODbL" },
     { id: "jiangxinzhou-bridge-official", title: "南京江心洲长江大桥及夹江隧道项目资料", type: "government", date: "2023-08-22", url: "https://www.nanjing.gov.cn/zgnjsjb/jrtt/202308/t20230822_3991869.html", verifies: ["2×600 m main spans", "about 1.8 km Jiajiang tunnel", "10.335 km route context"] },
-    { id: "nanjing-eye-official", title: "南京眼步行桥项目资料", type: "government", date: "2025-09-03", url: "https://gjzx.nanjing.gov.cn/xmqk/qabxq/202509/t20250903_5641986.html", verifies: ["240 m main span", "double inclined elliptical towers", "double cable planes"] },
+    { id: "nanjing-eye-official", title: "南京眼步行桥项目资料", type: "government", date: "2025-09-03", url: "https://gjzx.nanjing.gov.cn/xmqk/qabxq/202509/t20250903_5641986.html", verifies: ["240 m main span", "double inclined elliptical arch towers", "double cable planes"] },
+    { id: "nanjing-eye-technical", title: "南京眼步行桥工程技术资料", type: "engineering-institution", date: "2026-08-12-accessed", url: "https://www.sneb.com.cn/jszx/col1201/85941", verifies: ["827.5 m project length", "531.5 m main bridge", "296 m approach", "seven-span arrangement", "85 m tower height", "35 degree inclination", "20 m maximum deck width"] },
     { id: "google-earth-context", title: "Google Earth Jiangxinzhou", type: "satellite", imageryDate: "2024-10-04", url: "https://earth.google.com/web/search/Jiangxinzhou,+Nanjing,+Jiangsu,+China", verifies: ["shoreline curvature", "bank/green-space massing", "regional water separation"], redistribution: "reference-only" },
   ],
 };

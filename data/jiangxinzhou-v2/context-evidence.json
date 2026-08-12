@@ -52,8 +52,24 @@
       "url": "https://gjzx.nanjing.gov.cn/xmqk/qabxq/202509/t20250903_5641986.html",
       "verifies": [
         "240 m main span",
-        "double inclined elliptical towers",
+        "double inclined elliptical arch towers",
         "double cable planes"
+      ]
+    },
+    {
+      "id": "nanjing-eye-technical",
+      "title": "南京眼步行桥工程技术资料",
+      "type": "engineering-institution",
+      "date": "2026-08-12-accessed",
+      "url": "https://www.sneb.com.cn/jszx/col1201/85941",
+      "verifies": [
+        "827.5 m project length",
+        "531.5 m main bridge",
+        "296 m approach",
+        "seven-span arrangement",
+        "85 m tower height",
+        "35 degree inclination",
+        "20 m maximum deck width"
       ]
     },
     {

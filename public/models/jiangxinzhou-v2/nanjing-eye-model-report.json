@@ -1,0 +1,113 @@
+{
+  "version": "2026-08-12",
+  "coordinateSystem": {
+    "source": "EPSG:4326",
+    "scene": "local metres",
+    "north": "+Y in Blender / -Z in Three.js"
+  },
+  "specification": {
+    "projectLengthM": 827.5,
+    "mainBridgeLengthM": 531.5,
+    "approachLengthM": 296,
+    "spanArrangementM": [
+      45,
+      42,
+      58,
+      240,
+      58,
+      42,
+      46.5
+    ],
+    "mainSpanM": 240,
+    "towerVerticalHeightM": 85,
+    "towerSlantedLengthM": 102.464,
+    "towerInclinationFromVerticalDeg": 35,
+    "towerLongitudinalWidthM": 5,
+    "towerTransverseSectionWidthM": {
+      "root": 9.766,
+      "middle": 4.6,
+      "top": 6.2
+    },
+    "maximumDeckWidthM": 20,
+    "reportedGovernmentDeckWidthM": 22,
+    "stayCableCount": 36,
+    "navigationClearanceM": 18,
+    "maximumLongitudinalGradePercent": 3.5,
+    "gradeLengthM": 270
+  },
+  "centerline": {
+    "sourceRoadIds": [
+      "road-11-0",
+      "road-11-2"
+    ],
+    "coordinateCount": 9,
+    "geometryLengthM": 827.793
+  },
+  "towerStationsM": [
+    293.0,
+    533.0
+  ],
+  "lods": [
+    {
+      "id": "NanjingEyeLOD1",
+      "landmarkId": 2,
+      "lod": 1,
+      "url": "/models/jiangxinzhou-v2/nanjing-eye-lod1.glb",
+      "bytes": 411196,
+      "triangles": 12696,
+      "drawCalls": 7,
+      "cableCount": 16,
+      "bounds": {
+        "min": [
+          -403.933,
+          0.0,
+          3905.885
+        ],
+        "max": [
+          143.584,
+          104.26,
+          4474.956
+        ]
+      },
+      "lightingMaterials": [
+        "Nanjing Eye Tower Light",
+        "Nanjing Eye Deck Light",
+        "Nanjing Eye Edge Light"
+      ]
+    },
+    {
+      "id": "NanjingEyeLOD2",
+      "landmarkId": 2,
+      "lod": 2,
+      "url": "/models/jiangxinzhou-v2/nanjing-eye-lod2.glb",
+      "bytes": 2022548,
+      "triangles": 74992,
+      "drawCalls": 11,
+      "cableCount": 36,
+      "bounds": {
+        "min": [
+          -405.187,
+          0.0,
+          3905.898
+        ],
+        "max": [
+          143.584,
+          104.366,
+          4474.956
+        ]
+      },
+      "lightingMaterials": [
+        "Nanjing Eye Tower Light",
+        "Nanjing Eye Deck Light",
+        "Nanjing Eye Edge Light"
+      ]
+    }
+  ],
+  "reviewRenders": [
+    "output/nanjing-eye-review/01-side.png",
+    "output/nanjing-eye-review/02-plan.png",
+    "output/nanjing-eye-review/03-deck.png",
+    "output/nanjing-eye-review/04-oblique-day.png",
+    "output/nanjing-eye-review/05-oblique-night.png"
+  ]
+}

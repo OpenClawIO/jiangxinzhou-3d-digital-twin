@@ -30,6 +30,7 @@ import {
   type RoadClass,
   type TransitMode,
 } from "./mapGeometry";
+import { nanjingEyeBounds, nanjingEyeLod1, nanjingEyeLod2 } from "./nanjingEye";
 import type { JiangxinzhouSceneProps, LayerVisibility, SceneQuality, ViewMode } from "./sceneTypes";
 
 const modelUrls = {
@@ -39,6 +40,8 @@ const modelUrls = {
   north: "/models/jiangxinzhou-v2/buildings-north.glb",
   vegetation: "/models/jiangxinzhou-v2/vegetation.glb",
   landmarks: "/models/jiangxinzhou-v2/landmarks.glb",
+  nanjingEyeLod1: nanjingEyeLod1.url,
+  nanjingEyeLod2: nanjingEyeLod2.url,
   "city-bus": "/models/jiangxinzhou-v2/transport-city-bus.glb",
   "autonomous-shuttle": "/models/jiangxinzhou-v2/transport-autonomous-shuttle.glb",
   "shuttle-bus": "/models/jiangxinzhou-v2/transport-shuttle-bus.glb",
@@ -51,6 +54,7 @@ const modelUrls = {
 // Buildings are requested by Suspense and the largest GLB (vegetation) waits for idle time.
 useGLTF.preload(modelUrls.terrain);
 useGLTF.preload(modelUrls.landmarks);
+useGLTF.preload(modelUrls.nanjingEyeLod1);
 useGLTF.preload(modelUrls.contextBridges);
 
 function Asset({ url, onReady, nightFactor = 0, nightLighting = false }: { url: string; onReady?: () => void; nightFactor?: number; nightLighting?: boolean }) {
@@ -77,10 +81,17 @@ function Asset({ url, onReady, nightFactor = 0, nightLighting = false }: { url: 
       const materials = Array.isArray(object.material) ? object.material : [object.material];
       materials.forEach((material) => {
         if (!(material instanceof THREE.MeshStandardMaterial)) return;
+        const towerLight = /Nanjing Eye Tower Light/i.test(material.name);
+        const deckLight = /Nanjing Eye Deck Light/i.test(material.name);
+        const edgeLight = /Nanjing Eye Edge Light/i.test(material.name);
+        const bridgeTower = /Nanjing Eye White Painted Steel/i.test(material.name);
+        const bridgeRail = /Nanjing Eye White Railings/i.test(material.name);
         const glass = /glass|window|low-iron/i.test(material.name);
-        const landmarkAccent = /lighthouse|coral|porpoise|bridge cables/i.test(material.name);
-        material.emissive.set(glass ? "#ffd795" : landmarkAccent ? "#ffc78f" : "#e0a764");
-        material.emissiveIntensity = nightFactor * (glass ? 0.72 : landmarkAccent ? 0.34 : 0.09);
+        const landmarkAccent = /lighthouse|coral|porpoise|bridge cables|stay cables/i.test(material.name);
+        const color = towerLight || bridgeTower ? "#fff2d0" : deckLight ? "#ffd49a" : edgeLight ? "#c5e5ff" : bridgeRail ? "#f0f5ef" : glass ? "#ffd795" : landmarkAccent ? "#ffc78f" : "#e0a764";
+        const intensity = towerLight ? 3.8 : deckLight ? 4.6 : edgeLight ? 2.8 : bridgeTower ? 0.86 : bridgeRail ? 0.22 : glass ? 0.72 : landmarkAccent ? 0.34 : 0.07;
+        material.emissive.set(color);
+        material.emissiveIntensity = nightFactor * intensity;
       });
     });
   }, [nightFactor, nightLighting, scene]);
@@ -483,8 +494,8 @@ function ObjectiveBeacon({ objectiveId, items }: { objectiveId?: number; items: 
   </group>;
 }
 
-function CameraRig({ target, view, controls, quality }: { target: Point3; view: ViewMode; controls: React.RefObject<OrbitControlsImpl | null>; quality: SceneQuality }) {
-  const { camera, invalidate } = useThree();
+function CameraRig({ target, view, controls, quality, selectedId }: { target: Point3; view: ViewMode; controls: React.RefObject<OrbitControlsImpl | null>; quality: SceneQuality; selectedId: number }) {
+  const { camera, invalidate, size } = useThree();
   const cameraGoal = useRef(camera.position.clone());
   const targetGoal = useRef(new THREE.Vector3(...regionalBounds.center));
   const moving = useRef(true);
@@ -492,6 +503,28 @@ function CameraRig({ target, view, controls, quality }: { target: Point3; view: 
   useEffect(() => {
     const span = Math.max(mapBounds.width, mapBounds.depth);
     const regionalSpan = Math.max(regionalBounds.width, regionalBounds.depth);
+    if (view === "landmark" && selectedId === 2) {
+      const minimum = new THREE.Vector3(...nanjingEyeBounds.min);
+      const maximum = new THREE.Vector3(...nanjingEyeBounds.max);
+      const center = minimum.clone().add(maximum).multiplyScalar(0.5);
+      const dimensions = maximum.clone().sub(minimum);
+      const radius = minimum.distanceTo(maximum) * 0.5;
+      const verticalFov = THREE.MathUtils.degToRad((camera as THREE.PerspectiveCamera).fov);
+      const horizontalFov = 2 * Math.atan(Math.tan(verticalFov / 2) * Math.max(0.6, size.width / size.height));
+      const footprintDiagonal = Math.hypot(dimensions.x, dimensions.z);
+      const margin = size.width < 720 ? 1.2 : 1.08;
+      const fitDistance = Math.max(footprintDiagonal * 0.5 / Math.tan(horizontalFov / 2), dimensions.y * 0.8 / Math.tan(verticalFov / 2)) * margin;
+      const eyeCrossing = crossings.find((crossing) => crossing.id === "nanjing-eye-crossing");
+      const endpoints = eyeCrossing ? projectPolyline([eyeCrossing.geometry.coordinates[0], eyeCrossing.geometry.coordinates.at(-1)!]) : [[0, 0, 0], [1, 0, 1]] as Point3[];
+      const axis = new THREE.Vector3(endpoints[1][0] - endpoints[0][0], 0, endpoints[1][2] - endpoints[0][2]).normalize();
+      const side = new THREE.Vector3(-axis.z, 0, axis.x);
+      const viewDirection = axis.multiplyScalar(-0.72).add(side.multiplyScalar(0.69)).normalize();
+      cameraGoal.current.copy(center).addScaledVector(viewDirection, fitDistance * 0.98).add(new THREE.Vector3(0, fitDistance * 0.24, 0));
+      targetGoal.current.copy(center).add(new THREE.Vector3(0, -radius * 0.08, 0));
+      moving.current = true;
+      invalidate();
+      return;
+    }
     if (view === "regional") cameraGoal.current.set(regionalBounds.center[0] + regionalSpan * 0.06, regionalSpan * (quality === "efficiency" ? 2.6 : 1.85), regionalBounds.center[2] + regionalSpan * 0.2);
     else if (view === "overview") cameraGoal.current.set(mapBounds.center[0] + span * 0.06, span * (quality === "efficiency" ? 2.65 : 1.75), mapBounds.center[2] + span * 0.22);
     else if (view === "route" && Math.hypot(target[0] - mapBounds.center[0], target[2] - mapBounds.center[2]) > 20) cameraGoal.current.set(target[0] + 240, Math.max(220, target[1] + 210), target[2] + 290);
@@ -500,7 +533,7 @@ function CameraRig({ target, view, controls, quality }: { target: Point3; view: 
     targetGoal.current.set(...target);
     moving.current = true;
     invalidate();
-  }, [invalidate, quality, target, view]);
+  }, [camera, invalidate, quality, selectedId, size.height, size.width, target, view]);
 
   useFrame((_, delta) => {
     if (!moving.current) return;
@@ -590,7 +623,7 @@ function MarkerLabels({ items, selectedId, onSelect, language, view, objectiveId
           <ringGeometry args={[focused ? 7 : selected ? 23 : 17, focused ? 10 : selected ? 29 : 22, 24]} />
           <meshBasicMaterial color={item.accent} transparent opacity={0.66} side={THREE.DoubleSide} />
         </mesh>
-        {visibleIds.has(item.id) && <Html position={[0, 42, 0]} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}>
+        {visibleIds.has(item.id) && <Html position={[0, focused && item.id === 2 ? 132 : 42, 0]} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}>
           <div className={`map-label ${selected ? "is-selected" : ""} ${objective ? "is-objective" : ""} ${found ? "is-discovered" : ""}`} style={{ "--label-accent": objective ? "#d7a923" : found ? "#4e9b6a" : item.accent } as React.CSSProperties}>
             <span>{String(item.id).padStart(2, "0")}</span><strong>{localize(landmarkCopy[item.id].name, language)}</strong>
           </div>
@@ -641,7 +674,14 @@ function ScaleReporter({ onScaleChange }: { onScaleChange: (meters: number) => v
   return null;
 }
 
-function DeferredAssets({ layers, quality, onCoreReady, nightFactor }: { layers: LayerVisibility; quality: SceneQuality; onCoreReady: () => void; nightFactor: number }) {
+function NanjingEyeAsset({ highDetail, nightFactor }: { highDetail: boolean; nightFactor: number }) {
+  if (!highDetail) return <Asset url={modelUrls.nanjingEyeLod1} nightFactor={nightFactor} nightLighting />;
+  return <Suspense fallback={<Asset url={modelUrls.nanjingEyeLod1} nightFactor={nightFactor} nightLighting />}>
+    <Asset url={modelUrls.nanjingEyeLod2} nightFactor={nightFactor} nightLighting />
+  </Suspense>;
+}
+
+function DeferredAssets({ layers, quality, onCoreReady, nightFactor, selectedId, view }: { layers: LayerVisibility; quality: SceneQuality; onCoreReady: () => void; nightFactor: number; selectedId: number; view: ViewMode }) {
   const [idleAssets, setIdleAssets] = useState(false);
   useEffect(() => {
     if (quality === "efficiency") return undefined;
@@ -658,7 +698,7 @@ function DeferredAssets({ layers, quality, onCoreReady, nightFactor }: { layers:
     <Asset url={modelUrls.terrain} onReady={onCoreReady} />
     {layers.buildings && <><Asset url={modelUrls.south} nightFactor={nightFactor} nightLighting /><Asset url={modelUrls.center} nightFactor={nightFactor} nightLighting /><Asset url={modelUrls.north} nightFactor={nightFactor} nightLighting /></>}
     {layers.landscape && quality !== "efficiency" && idleAssets && <Asset url={modelUrls.vegetation} />}
-    {layers.landmarks && <Asset url={modelUrls.landmarks} nightFactor={nightFactor} nightLighting />}
+    {layers.landmarks && <><Asset url={modelUrls.landmarks} nightFactor={nightFactor} nightLighting /><NanjingEyeAsset highDetail={selectedId === 2 && view === "landmark" && quality !== "efficiency"} nightFactor={nightFactor} /></>}
     {layers.crossings && <Asset url={modelUrls.contextBridges} />}
   </Suspense>;
 }
@@ -787,23 +827,24 @@ function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, cel
     reportedReady.current = true;
     onReady();
   }, [onReady]);
+  const landmarkFocus = view === "landmark";
 
   return <>
     <CelestialEnvironment state={celestialState} quality={quality} />
     <Water visible={layers.water} daylight={celestialState.daylight} />
     <RegionalContext waterVisible={layers.water} surroundingsVisible={layers.surroundings} language={language} daylight={celestialState.daylight} />
     <CoordinateGrid visible={layers.coordinates} view={view} />
-    <DeferredAssets layers={layers} quality={quality} onCoreReady={reportReady} nightFactor={celestialState.night} />
+    <DeferredAssets layers={layers} quality={quality} onCoreReady={reportReady} nightFactor={celestialState.night} selectedId={selectedId} view={view} />
     <LandscapeZones visible={layers.landscape} />
     <ContextRoadNetwork visible={layers.surroundings} />
-    <RoadNetwork visible={layers.roads} />
-    <RoadNameLabels visible={layers.roads && view !== "regional"} language={language} />
-    <CrossingNetwork visible={layers.crossings} selectedId={selectedCrossingId} onSelect={onSelectCrossing} language={language} />
+    <RoadNetwork visible={layers.roads && !landmarkFocus} />
+    <RoadNameLabels visible={layers.roads && !landmarkFocus && view !== "regional"} language={language} />
+    <CrossingNetwork visible={layers.crossings && !landmarkFocus} selectedId={selectedCrossingId} onSelect={onSelectCrossing} language={language} />
     <RouteNetwork routeId={routeId} visible={view === "route" && !layers.transport} />
     <TransportNetwork visible={layers.transport} lineId={selectedTransportLineId} stopId={selectedTransportStopId} onSelectStop={onSelectTransportStop} language={language} quality={quality} />
     {layers.landmarks && <ObjectiveBeacon objectiveId={objectiveId} items={items} />}
     {layers.landmarks && <MarkerLabels items={items} selectedId={selectedId} onSelect={onSelect} language={language} view={view} objectiveId={objectiveId} discoveredIds={discoveredLandmarkIds} expeditionIds={expeditionLandmarkIds} />}
-    <CameraRig target={target} view={view} controls={controls} quality={quality} />
+    <CameraRig target={target} view={view} controls={controls} quality={quality} selectedId={selectedId} />
     <SceneControls controls={controls} />
     <ScaleReporter onScaleChange={onScaleChange} />
     <AdaptiveDpr pixelated={quality === "efficiency"} />

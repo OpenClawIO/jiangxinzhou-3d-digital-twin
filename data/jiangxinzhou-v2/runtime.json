@@ -10228,7 +10228,7 @@
   },
   "evidence": {
     "version": "2026-08-11.1",
-    "generatedAt": "2026-08-11T10:54:35.963Z",
+    "generatedAt": "2026-08-12T13:52:31.762Z",
     "policy": {
       "canonicalCrs": "EPSG:4326",
       "renderProjection": "WGS84 local equirectangular metres",
@@ -10302,8 +10302,39 @@
         "url": "https://gjzx.nanjing.gov.cn/xmqk/qabxq/202509/t20250903_5641986.html",
         "verifies": [
           "240 m main span",
-          "twin inclined elliptical towers",
+          "twin inclined elliptical arch towers",
           "cable-stayed structure"
+        ]
+      },
+      {
+        "id": "nanjing-eye-technical",
+        "title": "南京眼步行桥工程技术资料",
+        "type": "engineering-institution",
+        "date": "2026-08-12-accessed",
+        "url": "https://www.sneb.com.cn/jszx/col1201/85941",
+        "verifies": [
+          "827.5 m project length",
+          "531.5 m main bridge",
+          "296 m approaches",
+          "seven-span arrangement",
+          "85 m tower height",
+          "35 degree inclination",
+          "20 m maximum deck width"
+        ]
+      },
+      {
+        "id": "nanjing-eye-photos",
+        "title": "Wikimedia Commons 南京眼步行桥多视角照片",
+        "type": "open-photography",
+        "date": "2026-08-12-accessed",
+        "url": "https://commons.wikimedia.org/wiki/Category:Nanjing_Eye_Footbridge",
+        "license": "CC BY-SA 4.0",
+        "verifies": [
+          "pylon arch profile",
+          "deck passage",
+          "double cable planes",
+          "railings",
+          "tower bases"
         ]
       },
       {
@@ -14780,12 +14811,36 @@
                 31.999741
               ],
               [
-                118.69655,
-                31.99755
+                118.694177,
+                32.000014
+              ],
+              [
+                118.694368,
+                32.000133
+              ],
+              [
+                118.694807,
+                32.000149
+              ],
+              [
+                118.695519,
+                31.999754
+              ],
+              [
+                118.695919,
+                31.999444
+              ],
+              [
+                118.697569,
+                31.997431
               ],
               [
                 118.699348,
                 31.995421
+              ],
+              [
+                118.699677,
+                31.995113
               ]
             ]
           },
@@ -14802,12 +14857,12 @@
             "confidence": "triangulated",
             "source": "OSM bridge geometry + Nanjing Eye official project资料",
             "sourceId": "321392362/445886857/445886858",
-            "officialProjectLengthM": null,
+            "officialProjectLengthM": 827.5,
             "officialStructureLengthM": null,
             "officialMainSpanM": 240,
             "modelKey": "nanjing-eye-context",
             "layer": 2,
-            "measuredGeometryLengthM": 697
+            "measuredGeometryLengthM": 828
           }
         },
         {
@@ -15026,8 +15081,24 @@
           "url": "https://gjzx.nanjing.gov.cn/xmqk/qabxq/202509/t20250903_5641986.html",
           "verifies": [
             "240 m main span",
-            "double inclined elliptical towers",
+            "double inclined elliptical arch towers",
             "double cable planes"
+          ]
+        },
+        {
+          "id": "nanjing-eye-technical",
+          "title": "南京眼步行桥工程技术资料",
+          "type": "engineering-institution",
+          "date": "2026-08-12-accessed",
+          "url": "https://www.sneb.com.cn/jszx/col1201/85941",
+          "verifies": [
+            "827.5 m project length",
+            "531.5 m main bridge",
+            "296 m approach",
+            "seven-span arrangement",
+            "85 m tower height",
+            "35 degree inclination",
+            "20 m maximum deck width"
           ]
         },
         {

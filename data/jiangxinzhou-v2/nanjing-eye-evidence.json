@@ -1,0 +1,113 @@
+{
+  "version": "2026-08-12",
+  "landmarkId": "nanjing-eye",
+  "title": {
+    "zh": "南京眼步行桥高精度模型证据台账",
+    "en": "Nanjing Eye Pedestrian Bridge high-detail model evidence ledger"
+  },
+  "precision": "Photo-verified visitor-scale reconstruction; not survey, BIM, or laser-scan geometry.",
+  "redistribution": "Reference photography is not embedded in runtime assets. Wikimedia files are accessed as licensed modelling references and retain their original attribution.",
+  "specification": {
+    "projectLengthM": 827.5,
+    "mainBridgeLengthM": 531.5,
+    "approachLengthM": 296,
+    "spanArrangementM": [45, 42, 58, 240, 58, 42, 46.5],
+    "mainSpanM": 240,
+    "towerVerticalHeightM": 85,
+    "towerSlantedLengthM": 102.464,
+    "towerInclinationFromVerticalDeg": 35,
+    "towerLongitudinalWidthM": 5,
+    "towerTransverseSectionWidthM": {
+      "root": 9.766,
+      "middle": 4.6,
+      "top": 6.2
+    },
+    "maximumDeckWidthM": 20,
+    "reportedGovernmentDeckWidthM": 22,
+    "stayCableCount": 36,
+    "navigationClearanceM": 18,
+    "maximumLongitudinalGradePercent": 3.5,
+    "gradeLengthM": 270
+  },
+  "conflicts": [
+    {
+      "field": "deckWidthM",
+      "modelValue": 20,
+      "alternateReportedValue": 22,
+      "resolution": "Use the construction technical centre's maximum 20 m steel-box-girder width for geometry; retain the municipal 22 m figure as a differing reporting envelope."
+    }
+  ],
+  "visualIdentityChecks": [
+    "two separate inclined elliptical arch pylons open at deck level",
+    "deck passes between each pylon's two legs",
+    "double cable planes with fan-arranged stays",
+    "variable-width pedestrian deck and white multi-rail parapets",
+    "white-painted tower steel with concrete transition bases"
+  ],
+  "sources": [
+    {
+      "id": "nanjing-eye-official-project",
+      "type": "government",
+      "title": "南京眼步行桥工程简介",
+      "date": "2025-09-03",
+      "url": "https://gjzx.nanjing.gov.cn/xmqk/qabxq/202509/t20250903_5641986.html",
+      "verifies": ["240 m main span", "inclined elliptical arch pylons", "double cable planes", "steel towers and steel box girder"],
+      "license": "reference-only"
+    },
+    {
+      "id": "nanjing-eye-technical-centre",
+      "type": "engineering-institution",
+      "title": "南京眼步行桥工程技术资料",
+      "url": "https://www.sneb.com.cn/jszx/col1201/85941",
+      "verifies": ["827.5 m project length", "531.5 m main bridge", "296 m approaches", "seven-span arrangement", "85 m tower height", "35 degree inclination", "20 m maximum deck width", "tower section dimensions"],
+      "license": "reference-only"
+    },
+    {
+      "id": "nanjing-eye-municipal-response",
+      "type": "government",
+      "title": "南京眼步行桥通行与工程参数答复",
+      "date": "2022-12-05",
+      "url": "https://www.nanjing.gov.cn/xxgkn/jytabljggk/2022njytabl/shirddbjy/202212/t20221205_3775643.html",
+      "verifies": ["827.5 m project length", "22 m reported deck envelope", "18 m navigation clearance", "3.5 percent longitudinal grade", "270 m grade length"],
+      "license": "reference-only"
+    },
+    {
+      "id": "nanjing-eye-asc",
+      "type": "professional-association",
+      "title": "南京眼步行桥结构资料",
+      "url": "https://www.chinaasc.org.cn/news/104499.html",
+      "verifies": ["36 stay cables", "steel-box-girder structure", "mid-span damping system"],
+      "license": "reference-only"
+    },
+    {
+      "id": "nanjing-eye-lighting",
+      "type": "public-media",
+      "title": "南京眼夜景照明资料",
+      "url": "https://www.sohu.com/a/364781162_234572",
+      "verifies": ["tower floodlighting", "box-girder edge wash lighting", "deck railing lights", "ordinary white operating mode"],
+      "license": "reference-only"
+    },
+    {
+      "id": "nanjing-eye-commons-category",
+      "type": "open-photography",
+      "title": "Wikimedia Commons: Nanjing Eye Footbridge",
+      "url": "https://commons.wikimedia.org/wiki/Category:Nanjing_Eye_Footbridge",
+      "verifies": ["multi-direction appearance", "pylon arch profile", "deck passage", "cable fan", "railings", "entry structures"],
+      "license": "CC BY-SA 4.0"
+    }
+  ],
+  "photos": [
+    { "file": "Full view of Nanjing Eye Pedestrian Bridge.jpg", "creator": "Uyiliu2", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Full_view_of_Nanjing_Eye_Pedestrian_Bridge.jpg", "views": ["full side", "pylon inclination", "bridge setting"] },
+    { "file": "Gaze into the distance from the Nanjing Eye Pedestrian Bridge.jpg", "creator": "Uyiliu2", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Gaze_into_the_distance_from_the_Nanjing_Eye_Pedestrian_Bridge.jpg", "views": ["deck level", "railings", "approach landscape"] },
+    { "file": "Nanjing Eye Footbridge.jpg", "creator": "钉钉", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Nanjing_Eye_Footbridge.jpg", "views": ["side elevation", "both pylons", "stay arrangement"] },
+    { "file": "Nanjing Eye Footbridge 1.jpg", "creator": "钉钉", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Nanjing_Eye_Footbridge_1.jpg", "views": ["deck approach", "pylon opening"] },
+    { "file": "Nanjing Eye Footbridge 2.jpg", "creator": "钉钉", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Nanjing_Eye_Footbridge_2.jpg", "views": ["front elevation", "deck width", "parapets"] },
+    { "file": "Nanjing Eye Footbridge 3.jpg", "creator": "钉钉", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Nanjing_Eye_Footbridge_3.jpg", "views": ["inside pylon", "double cable planes"] },
+    { "file": "Nanjing Eye Footbridge 4.jpg", "creator": "钉钉", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Nanjing_Eye_Footbridge_4.jpg", "views": ["cable fan", "deck furniture"] },
+    { "file": "Nanjing Eye Footbridge 5.jpg", "creator": "钉钉", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Nanjing_Eye_Footbridge_5.jpg", "views": ["entry wall", "bridge approach"] },
+    { "file": "Nanjing Eye Footbridge 6.jpg", "creator": "钉钉", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Nanjing_Eye_Footbridge_6.jpg", "views": ["entry structure", "pylon distance"] },
+    { "file": "Nanjing Eye Footbridge 7.jpg", "creator": "钉钉", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Nanjing_Eye_Footbridge_7.jpg", "views": ["western approach", "urban context"] },
+    { "file": "Nanjing Eye Footbridge 8.jpg", "creator": "钉钉", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Nanjing_Eye_Footbridge_8.jpg", "views": ["urban approach", "deck transition"] },
+    { "file": "Nanjing Eye Footbridge 9.jpg", "creator": "钉钉", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Nanjing_Eye_Footbridge_9.jpg", "views": ["park-side pylon", "side profile", "tower bases"] }
+  ]
+}

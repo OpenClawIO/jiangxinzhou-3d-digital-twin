@@ -16,6 +16,7 @@ import {
   type Language,
 } from "./locales";
 import { anchorPosition, contextEvidenceSources, crossings, evidenceSources, findAnchor, localizeFeatureName, mapBounds, mapManifest, projectPoint, regionalBounds, transportEvidenceSources, transportLines, transportStops } from "./mapGeometry";
+import { nanjingEyeEvidence, nanjingEyeLod2, nanjingEyeSpecification } from "./nanjingEye";
 import type { JiangxinzhouSceneProps, LayerKey, LayerVisibility, SceneQuality, ViewMode } from "./sceneTypes";
 import { TransportPanel } from "./TransportPanel";
 import { useExplorationProgress } from "./useExplorationProgress";
@@ -426,6 +427,16 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
               <div className="selected-title"><span className={`selected-symbol ${selectedDiscovered ? "discovered" : ""}`}>{selectedDiscovered ? "✓" : String(selected.id).padStart(2, "0")}</span><div><h3>{localize(landmarkCopy[selected.id].name, language)}</h3><span>{categoryLabels[language][selected.category]} · {localize(selectedDiscovered ? experienceCopy.discovered : experienceCopy.undiscovered, language)}</span></div></div>
               <p>{localize(landmarkCopy[selected.id].description, language)}</p>
               <div className="detail-chips"><span>{localize(experienceCopy.bestExperience, language)} · {localize(landmarkCopy[selected.id].season, language)}</span>{selectedAnchor && <span className={selectedAnchor.properties.confidence}>{selectedAnchor.properties.confidence === "triangulated" ? localize(experienceCopy.triangulated, language) : localize(experienceCopy.estimated, language)}</span>}{selectedAnchor && <span>LOD {selectedAnchor.properties.lod}</span>}</div>
+              {selected.id === 2 && <div className="nanjing-eye-model-card">
+                <div className="model-card-heading"><span>{localize(experienceCopy.photoVerifiedModel, language)}</span><b>LOD 2 · {(nanjingEyeLod2.triangles / 1000).toFixed(0)}K</b></div>
+                <div className="bridge-spec-grid">
+                  <span><small>{localize(experienceCopy.bridgeProjectLength, language)}</small><strong>{nanjingEyeSpecification.projectLengthM} m</strong></span>
+                  <span><small>{localize(experienceCopy.bridgeMainSpan, language)}</small><strong>{nanjingEyeSpecification.mainSpanM} m</strong></span>
+                  <span><small>{localize(experienceCopy.bridgeTowerHeight, language)}</small><strong>{nanjingEyeSpecification.towerVerticalHeightM} m</strong></span>
+                  <span><small>{localize(experienceCopy.bridgeStayCables, language)}</small><strong>{nanjingEyeSpecification.stayCableCount}</strong></span>
+                </div>
+                <div className="bridge-evidence-links"><small>{localize(experienceCopy.bridgeEvidenceUpdated, language)} · {nanjingEyeEvidence.version}</small>{nanjingEyeEvidence.sources.filter((source) => ["nanjing-eye-official-project", "nanjing-eye-technical-centre", "nanjing-eye-commons-category"].includes(source.id)).map((source) => <a key={source.id} href={source.url} target="_blank" rel="noreferrer">{source.id === "nanjing-eye-commons-category" ? localize(experienceCopy.bridgeEvidenceSources, language) : source.type === "government" ? (language === "zh" ? "官方资料" : "Official data") : (language === "zh" ? "工程参数" : "Engineering data")} ↗</a>)}</div>
+              </div>}
               {selectedDiscovered ? <button className="discovery-action is-complete" disabled>✓ {localize(experienceCopy.discoveredLandmark, language)}</button> : view === "landmark" ? <button className="discovery-action" onClick={discoverSelected}>{localize(experienceCopy.discoverLandmark, language)} <span>＋</span></button> : <button className="focus-button" onClick={() => setView("landmark")}>{localize(experienceCopy.focusLandmark, language)} <span>↗</span></button>}
             </div>}
 
