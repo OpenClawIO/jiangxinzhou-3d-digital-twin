@@ -24,7 +24,6 @@ import {
   roadsByName,
   stopsForTransportLine,
   transportLines,
-  unprojectPoint,
   waterBodies,
   type Point3,
   type CrossingType,
@@ -251,42 +250,19 @@ function WideColorLine({ positions, color, opacity }: { positions: Float32Array;
   return <primitive object={line} />;
 }
 
-function coordinateLabel(value: number, axis: "longitude" | "latitude", language: Language) {
-  const label = axis === "longitude" ? experienceCopy.coordinateLongitude : experienceCopy.coordinateLatitude;
-  const hemisphere = axis === "longitude" ? (value >= 0 ? "E" : "W") : (value >= 0 ? "N" : "S");
-  return `${localize(label, language)} ${hemisphere} ${Math.abs(value).toFixed(4)}°`;
-}
-
-function CoordinateGrid({ visible, view, language }: { visible: boolean; view: ViewMode; language: Language }) {
-  const { size } = useThree();
+function CoordinateGrid({ visible, view }: { visible: boolean; view: ViewMode }) {
   const bounds = view === "regional" ? regionalBounds : mapBounds;
   const grid = useMemo(() => {
     const vertical = Array.from({ length: 5 }, (_, index) => bounds.minX + (bounds.width * index) / 4);
     const horizontal = Array.from({ length: 5 }, (_, index) => bounds.minZ + (bounds.depth * index) / 4);
-    const labelInset = Math.min(Math.max(bounds.width, bounds.depth) * 0.045, 480);
     const verticalPositions = new Float32Array(vertical.flatMap((x) => [x, 15, bounds.minZ, x, 15, bounds.maxZ]));
     const horizontalPositions = new Float32Array(horizontal.flatMap((z) => [bounds.minX, 15, z, bounds.maxX, 15, z]));
-    return {
-      vertical,
-      horizontal,
-      verticalPositions,
-      horizontalPositions,
-      labelX: bounds.minX + labelInset,
-      labelZ: bounds.maxZ - labelInset,
-      latitude: horizontal.map((z) => unprojectPoint([0, 0, z])[1]),
-      longitude: vertical.map((x) => unprojectPoint([x, 0, 0])[0]),
-    };
+    return { verticalPositions, horizontalPositions };
   }, [bounds]);
   if (!visible) return null;
   return <group>
     <WideColorLine positions={grid.verticalPositions} color="#8eb7ad" width={1} opacity={view === "regional" ? 0.12 : 0.08} />
     <WideColorLine positions={grid.horizontalPositions} color="#8eb7ad" width={1} opacity={view === "regional" ? 0.12 : 0.08} />
-    {grid.longitude.map((value, index) => (size.width >= 760 || index === 2) && <Html key={`longitude-${value}`} position={[grid.vertical[index], 22, grid.labelZ]} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}>
-      <span className="coordinate-label longitude">{index === 0 && <small>{localize(experienceCopy.coordinateDatum, language)}</small>}{coordinateLabel(value, "longitude", language)}</span>
-    </Html>)}
-    {grid.latitude.map((value, index) => (size.width >= 760 || index === 2) && <Html key={`latitude-${value}`} position={[grid.labelX, 22, grid.horizontal[index]]} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}>
-      <span className="coordinate-label latitude">{coordinateLabel(value, "latitude", language)}</span>
-    </Html>)}
   </group>;
 }
 
@@ -812,7 +788,7 @@ function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, cel
     <CelestialEnvironment state={celestialState} quality={quality} />
     <Water visible={layers.water} daylight={celestialState.daylight} />
     <RegionalContext waterVisible={layers.water} surroundingsVisible={layers.surroundings} language={language} daylight={celestialState.daylight} />
-    <CoordinateGrid visible={layers.coordinates} view={view} language={language} />
+    <CoordinateGrid visible={layers.coordinates} view={view} />
     <DeferredAssets layers={layers} quality={quality} onCoreReady={reportReady} nightFactor={celestialState.night} />
     <LandscapeZones visible={layers.landscape} />
     <ContextRoadNetwork visible={layers.surroundings} />
