@@ -141,8 +141,8 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   const [selectedId, setSelectedId] = useState(items[0]?.id ?? 1);
   const [selectedTransportLineId, setSelectedTransportLineId] = useState(transportLines.find((line) => line.id === "bus-486")?.id ?? transportLines[0]?.id ?? "");
   const [selectedTransportStopId, setSelectedTransportStopId] = useState<string>();
-  const [view, setView] = useState<ViewMode>("regional");
-  const [layers, setLayers] = useState<LayerVisibility>({ water: true, surroundings: true, roads: true, buildings: true, landscape: true, landmarks: true, crossings: true, transport: true, coordinates: true });
+  const [view, setView] = useState<ViewMode>("overview");
+  const [layers, setLayers] = useState<LayerVisibility>({ water: false, surroundings: false, roads: true, buildings: true, landscape: true, landmarks: true, crossings: true, transport: false, coordinates: false });
   const [selectedCrossingId, setSelectedCrossingId] = useState("jiangxinzhou-yangtze-bridge");
   const [crossingFocused, setCrossingFocused] = useState(false);
   const [controlPanel, setControlPanel] = useState<ControlPanel>("overview");
@@ -246,7 +246,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
     setControlPanel("landmarks");
     setView("landmark");
   }, []);
-  const resetView = useCallback(() => { setCrossingFocused(false); setView("regional"); }, []);
+  const resetView = useCallback(() => { setCrossingFocused(false); setView("overview"); }, []);
   const chooseTransportLine = useCallback((id: string) => {
     setSelectedTransportLineId(id);
     setSelectedTransportStopId(undefined);
@@ -264,7 +264,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
     setSelectedCrossingId(id);
     setCrossingFocused(true);
     setControlPanel("overview");
-    setLayers((current) => ({ ...current, water: true, surroundings: true, crossings: true }));
+    setLayers((current) => ({ ...current, water: false, surroundings: false, crossings: true, transport: false, coordinates: false }));
     setView("regional");
   }, []);
   const focusObjective = useCallback(() => {
@@ -402,7 +402,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
               <div className="sidebar-section crossing-section">
                 <span className="sidebar-index">02 / {localize(experienceCopy.crossingNetwork, language)}</span>
                 <div className="crossing-list">
-                  {crossings.filter((crossing) => ["jiangxinzhou-yangtze-bridge", "jiajiang-bridge", "nanjing-eye-crossing", "jiajiang-tunnel"].includes(crossing.id)).map((crossing) => {
+                  {crossings.filter((crossing) => crossing.properties.type === "bridge").map((crossing) => {
                     const isSelected = crossing.id === selectedCrossingId;
                     const measure = crossing.properties.officialMainSpanM
                       ? `${localize(experienceCopy.crossingSpan, language)} ${crossing.properties.officialMainSpanM} m`

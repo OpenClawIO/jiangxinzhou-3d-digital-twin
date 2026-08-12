@@ -236,16 +236,20 @@ function WideRoadGroup({ roadClass, positions, opacity }: { roadClass: RoadClass
 }
 
 function WideColorLine({ positions, color, opacity }: { positions: Float32Array; color: string; width: number; opacity: number }) {
+  return <StableSegmentLine positions={positions} color={color} opacity={opacity} renderOrder={3} />;
+}
+
+function CoordinateGridLine({ positions, opacity }: { positions: Float32Array; opacity: number }) {
   const line = useMemo(() => {
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
     geometry.computeBoundingSphere();
-    const material = new THREE.LineDashedMaterial({ color, transparent: true, opacity, dashSize: 140, gapSize: 230, depthTest: true, depthWrite: false });
+    const material = new THREE.LineDashedMaterial({ color: "#8eb7ad", transparent: true, opacity, dashSize: 140, gapSize: 230, depthTest: true, depthWrite: false });
     const segments = new THREE.LineSegments(geometry, material);
     segments.computeLineDistances();
     segments.renderOrder = 3;
     return segments;
-  }, [color, opacity, positions]);
+  }, [opacity, positions]);
   useEffect(() => () => { line.geometry.dispose(); line.material.dispose(); }, [line]);
   return <primitive object={line} />;
 }
@@ -261,8 +265,8 @@ function CoordinateGrid({ visible, view }: { visible: boolean; view: ViewMode })
   }, [bounds]);
   if (!visible) return null;
   return <group>
-    <WideColorLine positions={grid.verticalPositions} color="#8eb7ad" width={1} opacity={view === "regional" ? 0.12 : 0.08} />
-    <WideColorLine positions={grid.horizontalPositions} color="#8eb7ad" width={1} opacity={view === "regional" ? 0.12 : 0.08} />
+    <CoordinateGridLine positions={grid.verticalPositions} opacity={view === "regional" ? 0.12 : 0.08} />
+    <CoordinateGridLine positions={grid.horizontalPositions} opacity={view === "regional" ? 0.12 : 0.08} />
   </group>;
 }
 
@@ -431,7 +435,7 @@ function crossingLengthLabel(crossing: (typeof crossings)[number], language: Lan
 
 function CrossingNetwork({ visible, selectedId, onSelect, language }: { visible: boolean; selectedId: string; onSelect: (id: string) => void; language: Language }) {
   const { size } = useThree();
-  const lineData = useMemo(() => crossings.map((crossing) => {
+  const lineData = useMemo(() => crossings.filter((crossing) => crossing.properties.type === "bridge").map((crossing) => {
     const height = crossingHeight(crossing.id, crossing.properties.type);
     const points = projectPolyline(crossing.geometry.coordinates, height);
     const midpoint = points[Math.floor(points.length / 2)] ?? points[0];
@@ -441,7 +445,7 @@ function CrossingNetwork({ visible, selectedId, onSelect, language }: { visible:
   return <group>
     {lineData.map(({ crossing, midpoint, positions }) => {
       const selected = crossing.id === selectedId;
-      const important = selected || (size.width >= 760 && ["jiangxinzhou-yangtze-bridge", "jiajiang-bridge", "nanjing-eye-crossing", "jiajiang-tunnel"].includes(crossing.id));
+      const important = selected || size.width >= 760;
       return <group key={crossing.id}>
         <WideColorLine positions={positions} color={crossing.properties.color} width={selected ? 6 : crossing.properties.type === "tunnel" ? 2.2 : 3.4} opacity={selected ? 1 : crossing.properties.type === "tunnel" ? 0.66 : 0.82} />
         <mesh position={midpoint} onClick={(event) => { event.stopPropagation(); onSelect(crossing.id); }}>
