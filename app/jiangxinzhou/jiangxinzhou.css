@@ -149,6 +149,7 @@
 .celestial-readout strong { margin-top: 3px; font: 760 14px var(--font-geist-mono), monospace; }
 .celestial-readout span { margin-top: 3px; color: #527572; font-size: 7px; white-space: nowrap; }
 .celestial-readout em { margin-top: 2px; color: #75918e; font: 600 6px var(--font-geist-mono), monospace; font-style: normal; }
+.celestial-readout .celestial-next-rise { margin-top: 4px; color: #617f7b; white-space: nowrap; }
 .celestial-events { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
 .celestial-events > div { display: grid; grid-template-columns: auto 1fr; column-gap: 4px; padding: 6px; border: 1px solid rgba(30, 80, 78, .1); border-radius: 8px; background: rgba(255, 255, 255, .32); }
 .celestial-events > div > span { grid-row: 1 / 3; align-self: center; color: #997629; font-size: 11px; }

@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Component, useCallback, useEffect, useMemo, useState, type ErrorInfo, type ReactNode } from "react";
-import { calculateCelestialEvents, calculateCelestialState, formatShanghaiEventTime, formatShanghaiTime, shanghaiDateParts, shanghaiPreviewTimestamp, type CelestialEvents, type CelestialPeriod, type CelestialState } from "./celestial";
+import { calculateCelestialEvents, calculateCelestialState, formatShanghaiEventDateTime, formatShanghaiEventTime, formatShanghaiTime, shanghaiDateParts, shanghaiPreviewTimestamp, type CelestialEvents, type CelestialPeriod, type CelestialState } from "./celestial";
 import { DiscoveryToast, ExpeditionDeck, MissionHud } from "./ExplorationUI";
 import { allLandmarkIds, findExpedition, type ExpeditionId } from "./exploration";
 import { landmarks as defaultLandmarks, routes, type Landmark } from "./landmarks";
@@ -99,6 +99,7 @@ function CelestialClock({ timestamp, mode, source, uncertaintyMs, state, events,
         <strong>{formatShanghaiTime(timestamp, language)}</strong>
         <span>{mode === "live" ? localize(source === "network" ? experienceCopy.networkClock : experienceCopy.deviceClock, language) : `${localize(experienceCopy.sunAltitude, language)} ${state.sun.altitudeDeg.toFixed(1)}°`} · {localize(experienceCopy.moonIllumination, language)} {Math.round(state.moon.illumination * 100)}%</span>
         {mode === "live" && source === "network" && <em>{localize(experienceCopy.clockAccuracy, language)} ±{Math.ceil(uncertaintyMs)} ms</em>}
+        {(!state.sun.visible || !state.moon.visible) && <em className="celestial-next-rise">{!state.sun.visible && `☀ ${localize(experienceCopy.nextRise, language)} ${formatShanghaiEventDateTime(events.nextSunrise, language)}`}{!state.sun.visible && !state.moon.visible && " · "}{!state.moon.visible && `☾ ${localize(experienceCopy.nextRise, language)} ${formatShanghaiEventDateTime(events.nextMoonrise, language)}`}</em>}
       </div>
       <div className="celestial-events">{eventItems.map(([key, label, value, icon]) => <div key={key}><span aria-hidden="true">{icon}</span><small>{localize(label, language)}</small><b>{formatShanghaiEventTime(value, language)}</b></div>)}</div>
     </div>
@@ -218,14 +219,8 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   const liveTimestamp = synchronizedClock.timestamp;
   const celestialTimestamp = timeMode === "live" ? liveTimestamp : shanghaiPreviewTimestamp(new Date(liveTimestamp), previewMinutes);
   const celestialState = useMemo(() => calculateCelestialState(celestialTimestamp), [celestialTimestamp]);
-  const celestialDayKey = (() => {
-    const parts = shanghaiDateParts(new Date(celestialTimestamp));
-    return `${parts.year}-${parts.month}-${parts.day}`;
-  })();
-  const celestialEvents = useMemo(() => {
-    const [year, month, day] = celestialDayKey.split("-").map(Number);
-    return calculateCelestialEvents(Date.UTC(year, month - 1, day, 4));
-  }, [celestialDayKey]);
+  const celestialEventTick = Math.floor(celestialTimestamp / (10 * 60_000));
+  const celestialEvents = useMemo(() => calculateCelestialEvents(celestialEventTick * 10 * 60_000), [celestialEventTick]);
 
   const chooseLandmark = useCallback((id: number) => {
     setSelectedId(id);

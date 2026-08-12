@@ -190,3 +190,15 @@ export function formatShanghaiEventTime(timestamp: number | null, language: "zh"
     hourCycle: "h23",
   }).format(timestamp);
 }
+
+export function formatShanghaiEventDateTime(timestamp: number | null, language: "zh" | "en") {
+  if (timestamp === null) return "—";
+  return new Intl.DateTimeFormat(language === "zh" ? "zh-CN" : "en-GB", {
+    timeZone: JIANGXINZHOU_OBSERVER.timeZone,
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  }).format(timestamp);
+}
