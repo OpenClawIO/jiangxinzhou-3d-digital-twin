@@ -237,7 +237,18 @@ function WideRoadGroup({ roadClass, positions, opacity }: { roadClass: RoadClass
 }
 
 function WideColorLine({ positions, color, opacity }: { positions: Float32Array; color: string; width: number; opacity: number }) {
-  return <StableSegmentLine positions={positions} color={color} opacity={opacity} renderOrder={3} />;
+  const line = useMemo(() => {
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    geometry.computeBoundingSphere();
+    const material = new THREE.LineDashedMaterial({ color, transparent: true, opacity, dashSize: 140, gapSize: 230, depthTest: true, depthWrite: false });
+    const segments = new THREE.LineSegments(geometry, material);
+    segments.computeLineDistances();
+    segments.renderOrder = 3;
+    return segments;
+  }, [color, opacity, positions]);
+  useEffect(() => () => { line.geometry.dispose(); line.material.dispose(); }, [line]);
+  return <primitive object={line} />;
 }
 
 function coordinateLabel(value: number, axis: "longitude" | "latitude", language: Language) {
@@ -268,8 +279,8 @@ function CoordinateGrid({ visible, view, language }: { visible: boolean; view: V
   }, [bounds]);
   if (!visible) return null;
   return <group>
-    <WideColorLine positions={grid.verticalPositions} color="#d5f1e6" width={1.05} opacity={view === "regional" ? 0.28 : 0.22} />
-    <WideColorLine positions={grid.horizontalPositions} color="#d5f1e6" width={1.05} opacity={view === "regional" ? 0.28 : 0.22} />
+    <WideColorLine positions={grid.verticalPositions} color="#8eb7ad" width={1} opacity={view === "regional" ? 0.12 : 0.08} />
+    <WideColorLine positions={grid.horizontalPositions} color="#8eb7ad" width={1} opacity={view === "regional" ? 0.12 : 0.08} />
     {grid.longitude.map((value, index) => (size.width >= 760 || index === 2) && <Html key={`longitude-${value}`} position={[grid.vertical[index], 22, grid.labelZ]} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}>
       <span className="coordinate-label longitude">{index === 0 && <small>{localize(experienceCopy.coordinateDatum, language)}</small>}{coordinateLabel(value, "longitude", language)}</span>
     </Html>)}
