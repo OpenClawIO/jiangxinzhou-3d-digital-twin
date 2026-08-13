@@ -133,5 +133,7 @@ assert.match(layerSource, /if \(!visible\) return null/);
 assert.match(layerSource, /quality === "efficiency" \|\| reducedMotion \|\| legacy/);
 assert.match(layerSource, /useGLTF\(PORPOISE_URL\)/);
 assert.match(layerSource, /motionWithZoneLimit/);
+assert.match(layerSource, /PORPOISE_SIGNAL_Y/);
+assert.match(layerSource, /surface signal/);
 
 console.log(`Validated porpoise ecology: ${asset.triangles.toLocaleString()} triangles, ${asset.drawCalls} draws, ${modelBytes.toLocaleString()} bytes, two water zones and six deterministic agents.`);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useGLTF } from "@react-three/drei";
+import { Html, useGLTF } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Component, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import * as THREE from "three";
@@ -35,6 +35,8 @@ type PorpoisePart = {
   material: THREE.Material;
   localMatrix: THREE.Matrix4;
 };
+
+const PORPOISE_SIGNAL_Y = PORPOISE_WATERLINE_Y + 0.16;
 
 function buildPorpoisePaths(): PorpoisePathMap {
   const result: PorpoisePathMap = {
@@ -115,31 +117,70 @@ function setSplashMatrix(
   motion: PorpoiseMotion,
   scratch: { position: THREE.Vector3; scale: THREE.Vector3; quaternion: THREE.Quaternion },
 ) {
-  if (path.length < 2 || motion.emergence <= 0.001) {
+  if (path.length < 2) {
     target.makeScale(0.0001, 0.0001, 0.0001);
     return;
   }
   const { point } = pointAtPolyline(path, motion.progress);
-  scratch.position.set(point[0], PORPOISE_WATERLINE_Y + 0.08, point[2]);
+  scratch.position.set(point[0], PORPOISE_SIGNAL_Y, point[2]);
   scratch.quaternion.setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0));
-  const size = 0.45 + motion.emergence * (motion.state === "surfaced" ? 1.15 : 0.78);
-  scratch.scale.set(size, size, size);
+  // A real 1.8 m animal is intentionally tiny at full-island scale. The
+  // low-contrast surface signal keeps its location discoverable without
+  // scaling the GLB into an unrealistic landmark.
+  const size = agent.scale * (2.2 + motion.emergence * 3.8);
+  scratch.scale.set(size * 1.55, size, size);
   target.compose(scratch.position, scratch.quaternion, scratch.scale);
+}
+
+function PorpoiseActivityMarkers({ paths, lengths, animate }: { paths: PorpoisePathMap; lengths: PorpoiseLengthMap; animate: boolean }) {
+  const groupsRef = useRef<Array<THREE.Group | null>>([]);
+  const markerRefs = useRef<Array<HTMLSpanElement | null>>([]);
+  const initialMotions = useMemo(() => PORPOISE_AGENTS.map((agent) => motionFor(agent, 0, lengths[agent.zoneId])), [lengths]);
+
+  useFrame(({ clock }) => {
+    if (!animate) return;
+    PORPOISE_AGENTS.forEach((agent, index) => {
+      const group = groupsRef.current[index];
+      const marker = markerRefs.current[index];
+      if (!group || !marker) return;
+      const motion = motionFor(agent, clock.elapsedTime * 1000, lengths[agent.zoneId]);
+      const { point } = pointAtPolyline(paths[agent.zoneId], motion.progress);
+      group.position.set(point[0], PORPOISE_SIGNAL_Y, point[2]);
+      marker.dataset.state = motion.state;
+      marker.style.setProperty("--porpoise-opacity", `${0.34 + motion.emergence * 0.62}`);
+    });
+  });
+
+  return <group name="porpoise-activity-markers">
+    {PORPOISE_AGENTS.map((agent, index) => {
+      const motion = initialMotions[index];
+      const { point } = pointAtPolyline(paths[agent.zoneId], motion.progress);
+      return <group key={agent.id} ref={(group) => { groupsRef.current[index] = group; }} position={[point[0], PORPOISE_SIGNAL_Y, point[2]]}>
+        <Html center zIndexRange={[4, 0]} style={{ pointerEvents: "none" }}>
+          <span ref={(marker) => { markerRefs.current[index] = marker; }} className="porpoise-map-marker" data-state={motion.state} aria-hidden="true"><i /></span>
+        </Html>
+      </group>;
+    })}
+  </group>;
 }
 
 function StaticPorpoiseLayer({ paths }: { paths: PorpoisePathMap }) {
   const { invalidate } = useThree();
   const bodyRef = useRef<THREE.InstancedMesh>(null);
   const ridgeRef = useRef<THREE.InstancedMesh>(null);
+  const signalRef = useRef<THREE.InstancedMesh>(null);
   const bodyGeometry = useMemo(() => new THREE.SphereGeometry(1, 16, 8), []);
   const ridgeGeometry = useMemo(() => new THREE.BoxGeometry(0.8, 0.1, 0.18), []);
+  const signalGeometry = useMemo(() => new THREE.RingGeometry(0.72, 1, 24), []);
   const bodyMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: "#52747b", roughness: 0.88, metalness: 0.02 }), []);
   const ridgeMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: "#3c6269", roughness: 0.92, metalness: 0.01 }), []);
+  const signalMaterial = useMemo(() => new THREE.MeshBasicMaterial({ color: "#9fe8e4", transparent: true, opacity: 0.46, depthWrite: false, depthTest: false, side: THREE.DoubleSide, toneMapped: false }), []);
   const dummy = useMemo(() => new THREE.Object3D(), []);
 
   useEffect(() => {
     const body = bodyRef.current;
     const ridge = ridgeRef.current;
+    const signal = signalRef.current;
     if (!body || !ridge) return;
     PORPOISE_AGENTS.forEach((agent, index) => {
       const path = paths[agent.zoneId];
@@ -154,22 +195,33 @@ function StaticPorpoiseLayer({ paths }: { paths: PorpoisePathMap }) {
       dummy.scale.set(0.7 * agent.scale, 0.07 * agent.scale, 0.13 * agent.scale);
       dummy.updateMatrix();
       ridge.setMatrixAt(index, dummy.matrix);
+      if (signal) {
+        dummy.position.set(point[0], PORPOISE_SIGNAL_Y, point[2]);
+        dummy.rotation.set(-Math.PI / 2, 0, 0);
+        dummy.scale.set(2.8 * agent.scale, 1.8 * agent.scale, 2.8 * agent.scale);
+        dummy.updateMatrix();
+        signal.setMatrixAt(index, dummy.matrix);
+      }
     });
     body.instanceMatrix.needsUpdate = true;
     ridge.instanceMatrix.needsUpdate = true;
+    if (signal) signal.instanceMatrix.needsUpdate = true;
     invalidate();
   }, [dummy, invalidate, paths]);
 
   useEffect(() => () => {
     bodyGeometry.dispose();
     ridgeGeometry.dispose();
+    signalGeometry.dispose();
     bodyMaterial.dispose();
     ridgeMaterial.dispose();
-  }, [bodyGeometry, bodyMaterial, ridgeGeometry, ridgeMaterial]);
+    signalMaterial.dispose();
+  }, [bodyGeometry, bodyMaterial, ridgeGeometry, ridgeMaterial, signalGeometry, signalMaterial]);
 
   return <group name="porpoise-static-silhouettes">
     <instancedMesh ref={bodyRef} args={[bodyGeometry, bodyMaterial, PORPOISE_AGENTS.length]} frustumCulled={false} />
     <instancedMesh ref={ridgeRef} args={[ridgeGeometry, ridgeMaterial, PORPOISE_AGENTS.length]} frustumCulled={false} />
+    <instancedMesh ref={signalRef} args={[signalGeometry, signalMaterial, PORPOISE_AGENTS.length]} frustumCulled={false} renderOrder={5} />
   </group>;
 }
 
@@ -190,7 +242,7 @@ function DetailedPorpoiseLayer({ paths, lengths }: { paths: PorpoisePathMap; len
   const meshesRef = useRef<Array<THREE.InstancedMesh | null>>([]);
   const splashRef = useRef<THREE.InstancedMesh>(null);
   const splashGeometry = useMemo(() => new THREE.RingGeometry(0.72, 1, 24), []);
-  const splashMaterial = useMemo(() => new THREE.MeshBasicMaterial({ color: "#b5e5e4", transparent: true, opacity: 0.5, depthWrite: false, side: THREE.DoubleSide }), []);
+  const splashMaterial = useMemo(() => new THREE.MeshBasicMaterial({ color: "#9fe8e4", transparent: true, opacity: 0.52, depthWrite: false, depthTest: false, side: THREE.DoubleSide, toneMapped: false }), []);
   const scratch = useMemo(() => ({
     position: new THREE.Vector3(),
     scale: new THREE.Vector3(),
@@ -239,7 +291,7 @@ function DetailedPorpoiseLayer({ paths, lengths }: { paths: PorpoisePathMap; len
       frustumCulled={false}
       dispose={null}
     />)}
-    <instancedMesh ref={splashRef} args={[splashGeometry, splashMaterial, PORPOISE_AGENTS.length]} frustumCulled={false} />
+    <instancedMesh ref={splashRef} args={[splashGeometry, splashMaterial, PORPOISE_AGENTS.length]} frustumCulled={false} renderOrder={5} />
   </group>;
 }
 
@@ -265,10 +317,12 @@ export default function PorpoiseLayer({ visible, quality, reducedMotion, legacy 
   const lengths = useMemo(() => deriveLengths(paths), [paths]);
   const [assetFailed, setAssetFailed] = useState(false);
   if (!visible) return null;
-  if (quality === "efficiency" || reducedMotion || legacy || assetFailed) return <StaticPorpoiseLayer paths={paths} />;
-  return <Suspense fallback={<StaticPorpoiseLayer paths={paths} />}>
+  const animateMarkers = quality !== "efficiency" && !reducedMotion && !legacy;
+  const activityMarkers = <PorpoiseActivityMarkers paths={paths} lengths={lengths} animate={animateMarkers} />;
+  if (quality === "efficiency" || reducedMotion || legacy || assetFailed) return <group>{activityMarkers}<StaticPorpoiseLayer paths={paths} /></group>;
+  return <group>{activityMarkers}<Suspense fallback={<StaticPorpoiseLayer paths={paths} />}>
     <PorpoiseAssetBoundary fallback={<StaticPorpoiseLayer paths={paths} />} onError={() => setAssetFailed(true)}>
       <DetailedPorpoiseLayer paths={paths} lengths={lengths} />
     </PorpoiseAssetBoundary>
-  </Suspense>;
+  </Suspense></group>;
 }

@@ -69,7 +69,10 @@ export type InteractionAction =
   | { type: "escape" };
 
 export const defaultLayers: LayerVisibility = {
-  water: false,
+  // The water layer carries the porpoise ecology layer. Keep it on by
+  // default so the feature is discoverable on first entry; users can still
+  // hide the whole river system from Map Control.
+  water: true,
   surroundings: false,
   roads: true,
   buildings: true,
