@@ -10,37 +10,37 @@
     {
       "id": "Terrain",
       "url": "/models/jiangxinzhou-v2/terrain.glb",
-      "bytes": 18552,
+      "bytes": 5880,
       "lod": 1
     },
     {
       "id": "BuildingsSouth",
       "url": "/models/jiangxinzhou-v2/buildings-south.glb",
-      "bytes": 50752,
+      "bytes": 13700,
       "lod": 1
     },
     {
       "id": "BuildingsCenter",
       "url": "/models/jiangxinzhou-v2/buildings-center.glb",
-      "bytes": 150380,
+      "bytes": 34128,
       "lod": 1
     },
     {
       "id": "BuildingsNorth",
       "url": "/models/jiangxinzhou-v2/buildings-north.glb",
-      "bytes": 21872,
+      "bytes": 7104,
       "lod": 1
     },
     {
       "id": "Vegetation",
       "url": "/models/jiangxinzhou-v2/vegetation.glb",
-      "bytes": 985192,
+      "bytes": 189368,
       "lod": 1
     },
     {
       "id": "Landmarks",
       "url": "/models/jiangxinzhou-v2/landmarks.glb",
-      "bytes": 424332,
+      "bytes": 105044,
       "lod": 2
     }
   ],
@@ -50,14 +50,14 @@
       "landmarkId": 2,
       "lod": 1,
       "url": "/models/jiangxinzhou-v2/nanjing-eye-lod1.glb",
-      "bytes": 411196,
+      "bytes": 108144,
       "triangles": 12696,
       "drawCalls": 7,
       "cableCount": 16,
       "bounds": {
         "min": [
           -403.933,
-          0.0,
+          0,
           3905.885
         ],
         "max": [
@@ -77,14 +77,14 @@
       "landmarkId": 2,
       "lod": 2,
       "url": "/models/jiangxinzhou-v2/nanjing-eye-lod2.glb",
-      "bytes": 2022548,
+      "bytes": 451864,
       "triangles": 74992,
       "drawCalls": 11,
       "cableCount": 36,
       "bounds": {
         "min": [
           -405.187,
-          0.0,
+          0,
           3905.898
         ],
         "max": [
@@ -104,7 +104,7 @@
     {
       "id": "ContextBridges",
       "url": "/models/jiangxinzhou-v2/bridges-context.glb",
-      "bytes": 188880,
+      "bytes": 42308,
       "lod": 1,
       "crossings": [
         "jiangxinzhou-yangtze-bridge",
@@ -116,35 +116,35 @@
     {
       "id": "city-bus",
       "url": "/models/jiangxinzhou-v2/transport-city-bus.glb",
-      "bytes": 160920,
+      "bytes": 45452,
       "units": "metres",
       "forward": "+X"
     },
     {
       "id": "autonomous-shuttle",
       "url": "/models/jiangxinzhou-v2/transport-autonomous-shuttle.glb",
-      "bytes": 127748,
+      "bytes": 40528,
       "units": "metres",
       "forward": "+X"
     },
     {
       "id": "shuttle-bus",
       "url": "/models/jiangxinzhou-v2/transport-shuttle-bus.glb",
-      "bytes": 127752,
+      "bytes": 40532,
       "units": "metres",
       "forward": "+X"
     },
     {
       "id": "metro-line10",
       "url": "/models/jiangxinzhou-v2/transport-metro-line10.glb",
-      "bytes": 257952,
+      "bytes": 66412,
       "units": "metres",
       "forward": "+X"
     },
     {
       "id": "passenger-ferry",
       "url": "/models/jiangxinzhou-v2/transport-passenger-ferry.glb",
-      "bytes": 128580,
+      "bytes": 38992,
       "units": "metres",
       "forward": "+X"
     }

@@ -31,7 +31,6 @@ import {
   type LayerVisibility,
   type QualityMode,
   type SceneFocus,
-  type SceneQuality,
 } from "./interactionState";
 import { landmarks as defaultLandmarks, routes, type Landmark } from "./landmarks";
 import {
@@ -45,6 +44,19 @@ import {
 } from "./locales";
 import { contextEvidenceSources, crossings, evidenceSources, findAnchor, localizeFeatureName, mapManifest, transportEvidenceSources, transportLines, transportStops } from "./mapGeometry";
 import { nanjingEyeEvidence, nanjingEyeLod2, nanjingEyeSpecification } from "./nanjingEye";
+import {
+  contextRecoveryPolicy,
+  createAdaptiveQualityState,
+  detectRenderCapabilities,
+  initialAutoTier,
+  parseRenderMode,
+  renderProfileFor,
+  resolveRenderTier,
+  sampleAdaptiveQuality,
+  type RenderContextState,
+  type RenderMode,
+  type RenderTelemetry,
+} from "./render/runtime";
 import type { JiangxinzhouSceneProps, ViewportInsets } from "./sceneTypes";
 import { TransportPanel } from "./TransportPanel";
 import { useExplorationProgress } from "./useExplorationProgress";
@@ -68,10 +80,13 @@ const panelEntries = [
   ["evidence", experienceCopy.panelEvidence],
 ] as const;
 
-class SceneErrorBoundary extends Component<{ children: ReactNode; fallback: ReactNode }, { failed: boolean }> {
+class SceneErrorBoundary extends Component<{ children: ReactNode; fallback: ReactNode; onError?: (error: Error) => void }, { failed: boolean }> {
   state = { failed: false };
   static getDerivedStateFromError() { return { failed: true }; }
-  componentDidCatch(error: Error, info: ErrorInfo) { console.error("Jiangxinzhou WebGL scene failed", error, info.componentStack); }
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error("Jiangxinzhou WebGL scene failed", error, info.componentStack);
+    this.props.onError?.(error);
+  }
   render() { return this.state.failed ? this.props.fallback : this.props.children; }
 }
 
@@ -165,25 +180,6 @@ function CelestialSkyTrack({ state, language }: { state: CelestialState; languag
   </section>;
 }
 
-function detectSceneQuality(): SceneQuality {
-  const mobile = window.matchMedia("(max-width: 700px)").matches;
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 8;
-  const cores = navigator.hardwareConcurrency ?? 8;
-  if (mobile || reducedMotion || memory <= 4 || cores <= 4) return "efficiency";
-  if (memory <= 8 || cores <= 8) return "balanced";
-  return "high";
-}
-
-function supportsWebGL() {
-  try {
-    const canvas = document.createElement("canvas");
-    return Boolean(window.WebGL2RenderingContext && canvas.getContext("webgl2", { failIfMajorPerformanceCaveat: true }));
-  } catch {
-    return false;
-  }
-}
-
 function onRovingTabKeyDown<T extends string>(event: ReactKeyboardEvent<HTMLButtonElement>, entries: readonly T[], current: T, onSelect: (value: T) => void) {
   if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
   event.preventDefault();
@@ -197,8 +193,14 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   const defaultLineId = transportLines.find((line) => line.id === "bus-486")?.id ?? transportLines[0]?.id ?? "";
   const defaultCrossingId = crossings.find((crossing) => crossing.id === "jiangxinzhou-yangtze-bridge")?.id ?? crossings[0]?.id ?? "";
   const [ui, dispatch] = useReducer(interactionReducer, { landmarkId: items[0]?.id ?? 1, lineId: defaultLineId, crossingId: defaultCrossingId }, createInitialInteractionState);
-  const [autoQuality, setAutoQuality] = useState<SceneQuality>("balanced");
+  const [adaptiveQuality, setAdaptiveQuality] = useState(() => createAdaptiveQualityState("balanced"));
   const [webglSupported, setWebglSupported] = useState<boolean | null>(null);
+  const [renderMode, setRenderMode] = useState<RenderMode>("webgl-v6");
+  const [renderContextState, setRenderContextState] = useState<RenderContextState>("ready");
+  const [renderContextLosses, setRenderContextLosses] = useState(0);
+  const [forceEfficiency, setForceEfficiency] = useState(false);
+  const [renderTelemetry, setRenderTelemetry] = useState<RenderTelemetry>();
+  const [debugRender, setDebugRender] = useState(false);
   const [sceneReady, setSceneReady] = useState(false);
   const [scaleMeters, setScaleMeters] = useState(1000);
   const [sceneKey, setSceneKey] = useState(0);
@@ -252,8 +254,15 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
-      setAutoQuality(detectSceneQuality());
-      setWebglSupported(supportsWebGL());
+      const capabilities = detectRenderCapabilities();
+      const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
+      const tier = initialAutoTier(capabilities, { memoryGb: memory, cores: navigator.hardwareConcurrency });
+      setAdaptiveQuality(createAdaptiveQualityState(tier));
+      setWebglSupported(capabilities.webgl2);
+      setRenderMode(parseRenderMode(window.location.search));
+      const hostname = window.location.hostname;
+      const previewHost = hostname === "localhost" || hostname === "127.0.0.1" || (hostname.endsWith(".vercel.app") && hostname !== "jiangxinzhou-3d-digital-twin.vercel.app");
+      setDebugRender(previewHost && new URLSearchParams(window.location.search).get("debug") === "render");
       const savedQuality = window.localStorage.getItem("jiangxinzhou-quality-v1");
       if (qualityModes.includes(savedQuality as QualityMode)) dispatch({ type: "set-quality", quality: savedQuality as QualityMode });
     });
@@ -273,7 +282,8 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
     return () => window.clearTimeout(timeout);
   }, [toastLandmarkId]);
 
-  const quality = ui.qualityMode === "auto" ? autoQuality : ui.qualityMode;
+  const quality = forceEfficiency ? "efficiency" : resolveRenderTier(ui.qualityMode, adaptiveQuality.tier);
+  const renderProfile = useMemo(() => renderProfileFor(quality, { reducedMotion, mode: renderMode }), [quality, reducedMotion, renderMode]);
   const qualityCopy = {
     auto: experienceCopy.qualityAuto,
     high: experienceCopy.qualityHigh,
@@ -295,7 +305,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   const scaleLabel = scaleMeters >= 1000 ? `${(scaleMeters / 1000).toFixed(scaleMeters >= 10_000 ? 0 : 1)} km` : `${Math.round(scaleMeters / 10) * 10} m`;
   const liveTimestamp = synchronizedClock.timestamp;
   const celestialTimestamp = timeMode === "live" ? liveTimestamp : shanghaiPreviewTimestamp(new Date(liveTimestamp), previewMinutes);
-  const sceneCelestialTimestamp = Math.floor(celestialTimestamp / 10_000) * 10_000;
+  const sceneCelestialTimestamp = Math.floor(celestialTimestamp / 60_000) * 60_000;
   const celestialState = useMemo(() => calculateCelestialState(celestialTimestamp), [celestialTimestamp]);
   const celestialEventTick = Math.floor(celestialTimestamp / (10 * 60_000));
   const celestialEvents = useMemo(() => calculateCelestialEvents(celestialEventTick * 10 * 60_000), [celestialEventTick]);
@@ -306,7 +316,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
       const bottom = ui.sheetSnap === "peek" ? 96 : ui.sheetSnap === "half" ? Math.round(viewportSize.height * 0.44) : Math.round(viewportSize.height * 0.72);
       return { top: 60, right: 0, bottom, left: 0 };
     }
-    const right = ui.panelCollapsed ? 0 : viewportMode === "tablet" ? 344 : 360;
+    const right = !ui.panelCollapsed && viewportMode === "tablet" ? 344 : 0;
     return { top: 0, right, bottom: 0, left: 0 };
   }, [ui.panelCollapsed, ui.sheetSnap, viewportMode, viewportSize.height]);
 
@@ -392,9 +402,54 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
     setHasMapInteracted(true);
     dispatch({ type: "set-camera-phase", phase: "manual" });
   }, []);
-  const handleSceneReady = useCallback(() => setSceneReady(true), []);
+  const handleSceneReady = useCallback(() => {
+    setSceneReady(true);
+    setRenderContextState("ready");
+  }, []);
   const handleScaleChange = useCallback((meters: number) => {
     setScaleMeters((current) => Math.abs(current - meters) / Math.max(1, current) > 0.01 ? meters : current);
+  }, []);
+  const handlePerformanceSample = useCallback((fps: number) => {
+    if (ui.qualityMode !== "auto" || forceEfficiency) return;
+    setAdaptiveQuality((current) => sampleAdaptiveQuality(current, fps, viewportMode === "mobile"));
+  }, [forceEfficiency, ui.qualityMode, viewportMode]);
+  const handleRenderTelemetry = useCallback((telemetry: RenderTelemetry) => {
+    setRenderTelemetry((current) => debugRender || current === undefined ? telemetry : current);
+  }, [debugRender]);
+  const handleRenderContextStateChange = useCallback((state: RenderContextState) => {
+    setRenderContextState(state);
+    if (state === "lost") {
+      setRenderContextLosses((current) => {
+        const next = current + 1;
+        const policy = contextRecoveryPolicy(next);
+        if (policy.forceTier === "efficiency") setForceEfficiency(true);
+        if (policy.fallback) setWebglSupported(false);
+        return next;
+      });
+    } else if (state === "recovering") {
+      setSceneReady(false);
+      setSceneKey((current) => current + 1);
+    }
+  }, []);
+  const handleSceneFailure = useCallback(() => {
+    setSceneReady(false);
+    if (renderMode === "webgl-v6") {
+      setRenderMode("legacy");
+      setSceneKey((current) => current + 1);
+    } else {
+      setWebglSupported(false);
+      setRenderContextState("failed");
+    }
+  }, [renderMode]);
+  const retryScene = useCallback(() => {
+    const capabilities = detectRenderCapabilities();
+    setSceneReady(false);
+    setRenderContextLosses(0);
+    setForceEfficiency(false);
+    setRenderContextState(capabilities.webgl2 ? "recovering" : "failed");
+    setWebglSupported(capabilities.webgl2);
+    setRenderMode(parseRenderMode(window.location.search));
+    setSceneKey((current) => current + 1);
   }, []);
 
   const chooseView = useCallback((nextView: string) => {
@@ -466,10 +521,10 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
     dispatch({ type: "set-sheet", snap: ui.sheetSnap === "full" ? "half" : nextSheetSnap(ui.sheetSnap, "up") });
   };
 
-  const sceneFallback = <div className="map-fallback" role="alert"><div><b>{localize(experienceCopy.webglUnavailable, language)}</b><span>{localize(experienceCopy.webglFallback, language)}</span><button onClick={() => { setSceneReady(false); setWebglSupported(supportsWebGL()); setSceneKey((value) => value + 1); }}>{localize(experienceCopy.retryScene, language)}</button></div></div>;
+  const sceneFallback = <div className="map-fallback" role="alert"><div><b>{localize(experienceCopy.webglUnavailable, language)}</b><span>{localize(experienceCopy.webglFallback, language)}</span><button onClick={retryScene}>{localize(experienceCopy.retryScene, language)}</button></div></div>;
 
   return (
-    <section className="jiangxinzhou-experience game-mode v5-interaction" data-celestial-period={celestialState.period} data-viewport={viewportMode} data-camera-phase={ui.cameraPhase} data-map-interacted={hasMapInteracted} aria-label={localize(experienceCopy.ariaLabel, language)}>
+    <section className="jiangxinzhou-experience game-mode v5-interaction v6-webgl" data-celestial-period={celestialState.period} data-viewport={viewportMode} data-camera-phase={ui.cameraPhase} data-map-interacted={hasMapInteracted} data-render-tier={quality} data-renderer={renderMode} data-render-context={renderContextState} aria-label={localize(experienceCopy.ariaLabel, language)}>
       <div className="map-toolbar">
         <div className="toolbar-title"><span className="toolbar-kicker">FIELD MAP · {mapManifest.snapshot} · WGS84</span><h2>{localize(experienceCopy.heading, language)}</h2></div>
         <div className="toolbar-actions">
@@ -482,7 +537,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
 
       <div className={`map-layout ${ui.panelCollapsed ? "sidebar-collapsed" : ""}`} data-sheet-snap={ui.sheetSnap}>
         <div className="map-stage">
-          {webglSupported !== false ? <SceneErrorBoundary key={sceneKey} fallback={sceneFallback}>
+          {webglSupported !== false ? <SceneErrorBoundary key={sceneKey} fallback={sceneFallback} onError={handleSceneFailure}>
             <MemoizedJiangxinzhouScene
               items={items}
               selectedId={selectedId}
@@ -502,6 +557,13 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
               layers={ui.layers}
               language={language}
               quality={quality}
+              renderMode={renderMode}
+              renderProfile={renderProfile}
+              renderContextState={renderContextState}
+              renderContextLosses={renderContextLosses}
+              onPerformanceSample={handlePerformanceSample}
+              onRenderTelemetry={handleRenderTelemetry}
+              onRenderContextStateChange={handleRenderContextStateChange}
               objectiveId={controlPanel === "explore" ? exploration.nextObjectiveId : undefined}
               expeditionLandmarkIds={exploration.activeExpedition.landmarkIds}
               discoveredLandmarkIds={exploration.state.discoveredLandmarkIds}
@@ -513,6 +575,13 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
             />
           </SceneErrorBoundary> : sceneFallback}
           {!sceneReady && webglSupported !== false && <div className="scene-loading-overlay" role="status" aria-live="polite"><span className="loading-orbit" /><b>{localize(experienceCopy.loadingScene, language)}</b><small>{localize(experienceCopy.loadingSceneDetail, language)}</small></div>}
+          {debugRender && renderTelemetry && <aside className="render-debug-hud" aria-label="WebGL render telemetry">
+            <b>WEBGL2 · {renderMode === "legacy" ? "LEGACY" : "V6"}</b>
+            <span>{renderTelemetry.tier.toUpperCase()} · {renderTelemetry.fps.toFixed(1)} FPS · DPR {renderTelemetry.dpr.toFixed(2)}</span>
+            <span>{renderTelemetry.calls} calls · {renderTelemetry.triangles.toLocaleString()} tris</span>
+            <span>{renderTelemetry.geometries} geo · {renderTelemetry.textures} tex · {renderTelemetry.programs} programs</span>
+            <span>{renderTelemetry.contextState} · losses {renderTelemetry.contextLosses}</span>
+          </aside>}
 
           <button className="time-status-pill" aria-expanded={ui.popover === "time"} aria-controls="map-popover" onClick={() => dispatch({ type: "set-popover", popover: "time" })}><span aria-hidden="true">{celestialState.period === "night" ? "☾" : "☀"}</span><b>{compactTime}</b><small>{localize(timeMode === "live" ? experienceCopy.live : experienceCopy.previewMode, language)}</small></button>
 

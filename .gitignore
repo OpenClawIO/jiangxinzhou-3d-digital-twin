@@ -6,3 +6,4 @@ output/
 .DS_Store
 *.log
 *.blend1
+*.tsbuildinfo

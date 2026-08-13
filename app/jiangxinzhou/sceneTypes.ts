@@ -1,6 +1,7 @@
 import type { Landmark } from "./landmarks";
 import type { Language } from "./locales";
 import type { CameraCommand, CameraPhase, LayerVisibility, SceneFocus, SceneQuality } from "./interactionState";
+import type { RenderContextState, RenderMode, RenderProfile, RenderTelemetry } from "./render/runtime";
 
 export type { LayerKey, LayerVisibility, SceneQuality, ViewMode } from "./interactionState";
 
@@ -25,6 +26,13 @@ export type JiangxinzhouSceneProps = {
   layers: LayerVisibility;
   language: Language;
   quality: SceneQuality;
+  renderMode: RenderMode;
+  renderProfile: RenderProfile;
+  renderContextState: RenderContextState;
+  renderContextLosses: number;
+  onPerformanceSample: (fps: number) => void;
+  onRenderTelemetry: (telemetry: RenderTelemetry) => void;
+  onRenderContextStateChange: (state: RenderContextState) => void;
   objectiveId?: number;
   expeditionLandmarkIds: readonly number[];
   discoveredLandmarkIds: readonly number[];

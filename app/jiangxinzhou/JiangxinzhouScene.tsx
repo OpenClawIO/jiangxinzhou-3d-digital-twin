@@ -1,8 +1,8 @@
 "use client";
 
-import { AdaptiveDpr, Html, OrbitControls, useGLTF } from "@react-three/drei";
+import { Html, OrbitControls, useGLTF } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { startTransition, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Component, startTransition, Suspense, useCallback, useEffect, useMemo, useRef, useState, type ErrorInfo, type ReactNode } from "react";
 import * as THREE from "three";
 import { type OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { calculateCelestialState, celestialDirection, type CelestialState } from "./celestial";
@@ -32,6 +32,11 @@ import {
   type TransitMode,
 } from "./mapGeometry";
 import { nanjingEyeBounds, nanjingEyeLod1, nanjingEyeLod2 } from "./nanjingEye";
+import { prepareScene, type AssetRole, type PreparedScene } from "./render/materials";
+import { RenderEffects, ProceduralEnvironment, ProceduralSky, WaterSurface, celestialPosition } from "./render/RenderEnvironment";
+import { FrameBudgetScheduler, RendererLifecycle, RenderTelemetryProbe, ShaderCompiler } from "./render/RenderRuntime";
+import { buildRibbonGeometry, type RibbonPath } from "./render/roadGeometry";
+import type { RenderProfile } from "./render/runtime";
 import type { JiangxinzhouSceneProps, LayerVisibility, SceneQuality, ViewMode, ViewportInsets } from "./sceneTypes";
 
 const modelUrls = {
@@ -58,52 +63,97 @@ useGLTF.preload(modelUrls.landmarks);
 useGLTF.preload(modelUrls.nanjingEyeLod1);
 useGLTF.preload(modelUrls.contextBridges);
 
-function Asset({ url, onReady, nightFactor = 0, nightLighting = false }: { url: string; onReady?: () => void; nightFactor?: number; nightLighting?: boolean }) {
-  const gltf = useGLTF(url);
-  const scene = useMemo(() => {
-    const clone = gltf.scene.clone(true);
-    clone.traverse((object) => {
-      object.frustumCulled = true;
-      if (object instanceof THREE.Mesh) {
-        object.castShadow = false;
-        object.receiveShadow = false;
-        object.material = Array.isArray(object.material)
-          ? object.material.map((material) => material.clone())
-          : object.material.clone();
+class OptionalAssetBoundary extends Component<{ name: string; children: ReactNode; onError?: () => void }, { failed: boolean }> {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.warn(`Optional 3D asset ${this.props.name} was skipped`, error, info.componentStack);
+    window.setTimeout(() => this.props.onError?.(), 0);
+  }
+
+  render() {
+    return this.state.failed ? null : this.props.children;
+  }
+}
+
+function PreparedAssetPrimitive({ prepared, role, tier, url, onReady, nightFactor, shadows, compileBeforeReveal }: {
+  prepared: PreparedScene;
+  role: AssetRole;
+  tier: SceneQuality;
+  url: string;
+  onReady?: () => void;
+  nightFactor: number;
+  shadows: boolean;
+  compileBeforeReveal: boolean;
+}) {
+  const { gl, invalidate, camera, scene: rootScene } = useThree();
+  const rendererRef = useRef(gl);
+  const uniformsRef = useRef(prepared.uniforms);
+  const [compiled, setCompiled] = useState(!compileBeforeReveal);
+  useEffect(() => {
+    let cancelled = false;
+    if (!compileBeforeReveal) {
+      onReady?.();
+      return undefined;
+    }
+    gl.compileAsync(prepared.scene, camera, rootScene).then(() => {
+      if (cancelled) return;
+      setCompiled(true);
+      onReady?.();
+      invalidate();
+    }).catch((error) => {
+      console.warn(`Unable to precompile ${url}`, error);
+      if (!cancelled) {
+        setCompiled(true);
+        onReady?.();
       }
     });
-    return clone;
-  }, [gltf.scene]);
-  useEffect(() => onReady?.(), [onReady]);
+    return () => { cancelled = true; };
+  }, [camera, compileBeforeReveal, gl, invalidate, onReady, prepared.scene, rootScene, url]);
   useEffect(() => {
-    if (!nightLighting) return;
-    scene.traverse((object) => {
-      if (!(object instanceof THREE.Mesh)) return;
-      const materials = Array.isArray(object.material) ? object.material : [object.material];
-      materials.forEach((material) => {
-        if (!(material instanceof THREE.MeshStandardMaterial)) return;
-        const towerLight = /Nanjing Eye Tower Light/i.test(material.name);
-        const deckLight = /Nanjing Eye Deck Light/i.test(material.name);
-        const edgeLight = /Nanjing Eye Edge Light/i.test(material.name);
-        const bridgeTower = /Nanjing Eye White Painted Steel/i.test(material.name);
-        const bridgeRail = /Nanjing Eye White Railings/i.test(material.name);
-        const glass = /glass|window|low-iron/i.test(material.name);
-        const landmarkAccent = /lighthouse|coral|porpoise|bridge cables|stay cables/i.test(material.name);
-        const color = towerLight || bridgeTower ? "#fff2d0" : deckLight ? "#ffd49a" : edgeLight ? "#c5e5ff" : bridgeRail ? "#f0f5ef" : glass ? "#ffd795" : landmarkAccent ? "#ffc78f" : "#e0a764";
-        const intensity = towerLight ? 3.8 : deckLight ? 4.6 : edgeLight ? 2.8 : bridgeTower ? 0.86 : bridgeRail ? 0.22 : glass ? 0.72 : landmarkAccent ? 0.34 : 0.07;
-        material.emissive.set(color);
-        material.emissiveIntensity = nightFactor * intensity;
-      });
-    });
-  }, [nightFactor, nightLighting, scene]);
-  return <primitive object={scene} dispose={null} />;
+    uniformsRef.current.nightFactor.value = nightFactor;
+    invalidate();
+  }, [invalidate, nightFactor]);
+  useEffect(() => {
+    if (shadows) rendererRef.current.shadowMap.needsUpdate = true;
+  }, [prepared, shadows]);
+  useFrame(({ clock }) => {
+    if (role === "vegetation" && tier !== "efficiency") uniformsRef.current.time.value = clock.elapsedTime;
+  });
+  return compiled ? <primitive object={prepared.scene} dispose={null} /> : null;
+}
+
+function Asset({ url, role, tier, onReady, nightFactor = 0, nightLighting = false, shadows = false, legacy = false, compileBeforeReveal = false }: {
+  url: string;
+  role: AssetRole;
+  tier: SceneQuality;
+  onReady?: () => void;
+  nightFactor?: number;
+  nightLighting?: boolean;
+  shadows?: boolean;
+  legacy?: boolean;
+  compileBeforeReveal?: boolean;
+}) {
+  const gltf = useGLTF(url);
+  const prepared = useMemo(() => prepareScene(gltf.scene, {
+    role: legacy && !nightLighting ? "landmarks" : role,
+    tier,
+    nightLighting,
+    shadows,
+  }), [gltf.scene, legacy, nightLighting, role, shadows, tier]);
+  useEffect(() => () => prepared.dispose(), [prepared]);
+  return <PreparedAssetPrimitive key={prepared.scene.uuid} prepared={prepared} role={role} tier={tier} url={url} onReady={onReady} nightFactor={nightFactor} shadows={shadows} compileBeforeReveal={compileBeforeReveal} />;
 }
 
 function blendColor(from: string, to: string, amount: number) {
   return `#${new THREE.Color(from).lerp(new THREE.Color(to), THREE.MathUtils.clamp(amount, 0, 1)).getHexString()}`;
 }
 
-function Water({ visible, daylight }: { visible: boolean; daylight: number }) {
+function LegacyWater({ visible, daylight }: { visible: boolean; daylight: number }) {
   const span = Math.max(regionalBounds.width, regionalBounds.depth) * 1.18;
   if (!visible) return null;
   return (
@@ -251,6 +301,73 @@ function WideColorLine({ positions, color, opacity }: { positions: Float32Array;
   return <StableSegmentLine positions={positions} color={color} opacity={opacity} renderOrder={3} />;
 }
 
+const routeRibbonVertex = `
+  varying vec2 vUv;
+  void main() {
+    vUv = uv;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+const routeRibbonFragment = `
+  uniform vec3 uColor;
+  uniform float uOpacity;
+  uniform float uTime;
+  uniform float uFlow;
+  varying vec2 vUv;
+  void main() {
+    float laneEdge = smoothstep(0.0, 0.09, vUv.x) * (1.0 - smoothstep(0.91, 1.0, vUv.x));
+    float dash = 0.5 + 0.5 * sin(vUv.y * 0.055 - uTime * 1.8);
+    float pulse = mix(1.0, 0.72 + dash * 0.4, uFlow);
+    gl_FragColor = vec4(uColor * pulse, uOpacity * laneEdge);
+    #include <tonemapping_fragment>
+    #include <colorspace_fragment>
+  }
+`;
+
+function RibbonMesh({ paths, color, opacity = 1, renderOrder = 2, flow = false, animate = false }: {
+  paths: RibbonPath[];
+  color: string;
+  opacity?: number;
+  renderOrder?: number;
+  flow?: boolean;
+  animate?: boolean;
+}) {
+  const geometry = useMemo(() => buildRibbonGeometry(paths), [paths]);
+  const material = useMemo(() => {
+    if (!flow) return new THREE.MeshStandardMaterial({
+      color,
+      roughness: 0.88,
+      metalness: 0.02,
+      transparent: opacity < 1,
+      opacity,
+      depthWrite: opacity >= 0.95,
+      polygonOffset: true,
+      polygonOffsetFactor: -1,
+      polygonOffsetUnits: -1,
+    });
+    return new THREE.ShaderMaterial({
+      vertexShader: routeRibbonVertex,
+      fragmentShader: routeRibbonFragment,
+      transparent: true,
+      depthWrite: false,
+      uniforms: {
+        uColor: { value: new THREE.Color(color) },
+        uOpacity: { value: opacity },
+        uTime: { value: 0 },
+        uFlow: { value: animate ? 1 : 0 },
+      },
+    });
+  }, [animate, color, flow, opacity]);
+  const materialRef = useRef(material);
+  useEffect(() => { materialRef.current = material; }, [material]);
+  useFrame(({ clock }) => {
+    if (animate && materialRef.current instanceof THREE.ShaderMaterial) materialRef.current.uniforms.uTime.value = clock.elapsedTime;
+  });
+  useEffect(() => () => { geometry.dispose(); material.dispose(); }, [geometry, material]);
+  return <mesh geometry={geometry} material={material} renderOrder={renderOrder} receiveShadow />;
+}
+
 function CoordinateGridLine({ positions, opacity }: { positions: Float32Array; opacity: number }) {
   const line = useMemo(() => {
     const geometry = new THREE.BufferGeometry();
@@ -294,6 +411,32 @@ function SegmentLayer({ groups, opacity = 1 }: { groups: Partial<Record<RoadClas
   ))}</group>;
 }
 
+function roadPaths(features = mapRoads, height = 7.5, widthScale = 1) {
+  const groups: Partial<Record<RoadClass, RibbonPath[]>> = {};
+  for (const road of features) {
+    const paths = groups[road.properties.class] ?? [];
+    paths.push({ points: projectPolyline(road.geometry.coordinates, height), widthM: road.properties.widthM * widthScale });
+    groups[road.properties.class] = paths;
+  }
+  return groups;
+}
+
+const roadSurfaceColor: Record<RoadClass, string> = {
+  major: "#c0a55e",
+  arterial: "#bcae83",
+  collector: "#aaa58f",
+  local: "#929990",
+  greenway: "#3d8d78",
+};
+
+function PhysicalRoadRibbon({ roadClass, paths }: { roadClass: RoadClass; paths: RibbonPath[] }) {
+  const surfacePaths = useMemo(() => paths.map((path) => ({ ...path, points: path.points.map(([x, y, z]) => [x, y + 0.24, z] as Point3), widthM: path.widthM * 0.88 })), [paths]);
+  return <group>
+    <RibbonMesh paths={paths} color={roadClass === "greenway" ? "#214f49" : "#425156"} opacity={0.98} />
+    <RibbonMesh paths={surfacePaths} color={roadSurfaceColor[roadClass]} opacity={roadClass === "local" ? 0.9 : 0.98} renderOrder={3} />
+  </group>;
+}
+
 function roadSegments(features = mapRoads, height = 7.5) {
   const groups: Partial<Record<RoadClass, number[]>> = {};
   for (const road of features) {
@@ -305,17 +448,24 @@ function roadSegments(features = mapRoads, height = 7.5) {
   return Object.fromEntries(Object.entries(groups).map(([key, values]) => [key, new Float32Array(values)])) as Partial<Record<RoadClass, Float32Array>>;
 }
 
-function RoadNetwork({ visible }: { visible: boolean }) {
-  const groups = useMemo(() => roadSegments(), []);
-  return visible ? <SegmentLayer groups={groups} /> : null;
+function RoadNetwork({ visible, legacy }: { visible: boolean; legacy: boolean }) {
+  const lineGroups = useMemo(() => roadSegments(), []);
+  const ribbonGroups = useMemo(() => roadPaths(mapRoads, 9.5), []);
+  if (!visible) return null;
+  if (legacy) return <SegmentLayer groups={lineGroups} />;
+  return <group>{(Object.entries(ribbonGroups) as [RoadClass, RibbonPath[]][]).map(([roadClass, paths]) => (
+    <PhysicalRoadRibbon key={roadClass} roadClass={roadClass} paths={paths} />
+  ))}</group>;
 }
 
-function ContextRoadNetwork({ visible }: { visible: boolean }) {
+function ContextRoadNetwork({ visible, legacy }: { visible: boolean; legacy: boolean }) {
   const positions = useMemo(() => new Float32Array(contextRoads.flatMap((road) => {
     const points = projectPolyline(road.geometry.coordinates, 7.8);
     return points.slice(0, -1).flatMap((point, index) => [...point, ...points[index + 1]]);
   })), []);
-  return visible ? <WideColorLine positions={positions} color="#c8b879" width={2.6} opacity={0.68} /> : null;
+  const paths = useMemo<RibbonPath[]>(() => contextRoads.map((road) => ({ points: projectPolyline(road.geometry.coordinates, 7.8), widthM: road.properties.widthM })), []);
+  if (!visible) return null;
+  return legacy ? <WideColorLine positions={positions} color="#c8b879" width={2.6} opacity={0.68} /> : <RibbonMesh paths={paths} color="#756d54" opacity={0.7} />;
 }
 
 function RoadNameLabels({ visible, language }: { visible: boolean; language: Language }) {
@@ -351,11 +501,14 @@ function RoadNameLabels({ visible, language }: { visible: boolean; language: Lan
   ))}</>;
 }
 
-function RouteNetwork({ routeId, visible }: { routeId: string; visible: boolean }) {
+function RouteNetwork({ routeId, visible, legacy, animate }: { routeId: string; visible: boolean; legacy: boolean; animate: boolean }) {
   const route = routes.find((item) => item.id === routeId) ?? routes[0];
   const groups = useMemo(() => roadSegments(roadsByName([...route.roadNames]), 9.5), [route]);
+  const paths = useMemo(() => roadsByName([...route.roadNames]).map((road) => ({ points: projectPolyline(road.geometry.coordinates, 9.6), widthM: road.properties.widthM + 4 })), [route]);
   if (!visible) return null;
-  return <group><SegmentLayer groups={groups} /><pointLight position={[mapBounds.center[0], 120, mapBounds.center[2]]} color={route.color} intensity={0.25} distance={5000} /></group>;
+  return legacy
+    ? <group><SegmentLayer groups={groups} /><pointLight position={[mapBounds.center[0], 120, mapBounds.center[2]]} color={route.color} intensity={0.25} distance={5000} /></group>
+    : <RibbonMesh paths={paths} color={route.color} opacity={0.92} renderOrder={4} flow animate={animate} />;
 }
 
 const vehicleUrls: Record<string, string> = {
@@ -368,10 +521,9 @@ const vehicleUrls: Record<string, string> = {
 
 const modeHeight: Record<TransitMode, number> = { bus: 15, metro: 18, shuttle: 15, tourism: 15, ferry: 4, cycle: 13 };
 
-function MovingTransportVehicle({ modelKey, points, color, label, quality }: { modelKey: string; points: Point3[]; color: string; label: string; quality: SceneQuality }) {
+function MovingTransportVehicle({ modelKey, points, color, label, profile }: { modelKey: string; points: Point3[]; color: string; label: string; profile: RenderProfile }) {
   const url = vehicleUrls[modelKey];
   const gltf = useGLTF(url);
-  const { invalidate } = useThree();
   const ref = useRef<THREE.Group>(null);
   const curve = useMemo(() => new THREE.CatmullRomCurve3(points.map((point) => new THREE.Vector3(...point)), false, "centripetal"), [points]);
   const scene = useMemo(() => {
@@ -380,14 +532,16 @@ function MovingTransportVehicle({ modelKey, points, color, label, quality }: { m
     return clone;
   }, [gltf.scene]);
   const start = useMemo(() => curve.getPointAt(0.23), [curve]);
+  const lastTick = useRef(0);
   useFrame((state) => {
-    if (!ref.current || quality === "efficiency") return;
+    if (!ref.current || profile.trafficFps === 0) return;
+    if (state.clock.elapsedTime - lastTick.current < 1 / profile.trafficFps) return;
+    lastTick.current = state.clock.elapsedTime;
     const progress = (state.clock.elapsedTime * 0.018 + 0.23) % 1;
     const position = curve.getPointAt(progress);
     const tangent = curve.getTangentAt(progress);
     ref.current.position.copy(position);
     ref.current.rotation.y = -Math.atan2(tangent.z, tangent.x);
-    invalidate();
   });
   return <group ref={ref} position={start} scale={modelKey === "metro-line10" ? 3 : 4}>
     <primitive object={scene} dispose={null} />
@@ -395,26 +549,32 @@ function MovingTransportVehicle({ modelKey, points, color, label, quality }: { m
   </group>;
 }
 
-function TransportNetwork({ visible, lineId, stopId, onSelectStop, language, quality }: {
+function TransportNetwork({ visible, lineId, stopId, onSelectStop, language, profile, legacy }: {
   visible: boolean;
   lineId: string;
   stopId?: string;
   onSelectStop: (id: string) => void;
   language: Language;
-  quality: SceneQuality;
+  profile: RenderProfile;
+  legacy: boolean;
 }) {
   const { gl, size } = useThree();
   const selectedLine = transportLines.find((line) => line.id === lineId) ?? transportLines[0];
   const stops = stopsForTransportLine(selectedLine.id);
   const lines = useMemo(() => transportLines.map((line) => {
     const points = projectPolyline(line.geometry.coordinates, modeHeight[line.properties.mode]);
-    return { line, points, positions: lineSegments(points) };
+    return { line, points, positions: lineSegments(points), ribbon: [{ points, widthM: 4 }] as RibbonPath[] };
   }), []);
   const selectedGeometry = lines.find(({ line }) => line.id === selectedLine.id);
+  const selectedRibbon = useMemo<RibbonPath[]>(() => selectedGeometry ? [{ points: selectedGeometry.points, widthM: 12 }] : [], [selectedGeometry]);
   if (!visible) return null;
   return <group>
-    {lines.filter(({ line }) => line.id !== selectedLine.id).map(({ line, positions }) => <WideColorLine key={line.id} positions={positions} color={line.properties.color} width={1.35} opacity={0.22} />)}
-    {selectedGeometry && <WideColorLine positions={selectedGeometry.positions} color={selectedLine.properties.color} width={5.2} opacity={0.96} />}
+    {lines.filter(({ line }) => line.id !== selectedLine.id).map(({ line, positions, ribbon }) => legacy
+      ? <WideColorLine key={line.id} positions={positions} color={line.properties.color} width={1.35} opacity={0.22} />
+      : <RibbonMesh key={line.id} paths={ribbon} color={line.properties.color} opacity={0.2} renderOrder={3} />)}
+    {selectedGeometry && (legacy
+      ? <WideColorLine positions={selectedGeometry.positions} color={selectedLine.properties.color} width={5.2} opacity={0.96} />
+      : <RibbonMesh paths={selectedRibbon} color={selectedLine.properties.color} opacity={0.94} renderOrder={4} flow animate={profile.trafficFps > 0} />)}
     {stops.map((stop, index) => {
       const selected = stop.id === stopId;
       const important = selected || (size.width >= 760 && (["metro", "ferry", "terminal", "interchange", "portal"].includes(stop.properties.kind) || index === 0 || index === stops.length - 1));
@@ -425,7 +585,7 @@ function TransportNetwork({ visible, lineId, stopId, onSelectStop, language, qua
         {important && <Html position={[0, 28, 0]} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}><div className={`transport-stop-label ${selected ? "active" : ""}`} style={{ "--stop-color": selectedLine.properties.color } as React.CSSProperties}><span>{String(index + 1).padStart(2, "0")}</span><strong>{localizeFeatureName(stop, language)}</strong></div></Html>}
       </group>;
     })}
-    {selectedGeometry && selectedLine.properties.modelKey && <Suspense fallback={null}><MovingTransportVehicle modelKey={selectedLine.properties.modelKey} points={selectedGeometry.points} color={selectedLine.properties.color} label={`${transportModeLabels[language][selectedLine.properties.mode]} · ${selectedLine.properties.ref}`} quality={quality} /></Suspense>}
+    {selectedGeometry && selectedLine.properties.modelKey && <OptionalAssetBoundary name={`transport-${selectedLine.properties.modelKey}`}><Suspense fallback={null}><MovingTransportVehicle modelKey={selectedLine.properties.modelKey} points={selectedGeometry.points} color={selectedLine.properties.color} label={`${transportModeLabels[language][selectedLine.properties.mode]} · ${selectedLine.properties.ref}`} profile={profile} /></Suspense></OptionalAssetBoundary>}
     <Html position={selectedGeometry?.points[Math.floor((selectedGeometry?.points.length ?? 1) / 2)] ?? mapBounds.center} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}>
       <div className="transport-line-label" style={{ "--line-color": selectedLine.properties.color } as React.CSSProperties}><b>{selectedLine.properties.ref}</b><span>{localizeFeatureName(selectedLine, language)}</span><small>{localize(experienceCopy.transportVehicleScale, language)}</small></div>
     </Html>
@@ -446,21 +606,23 @@ function crossingLengthLabel(crossing: (typeof crossings)[number], language: Lan
   return `${localize(experienceCopy.crossingGeometryLength, language)} ${(crossing.properties.measuredGeometryLengthM / 1000).toFixed(2)} km`;
 }
 
-function CrossingNetwork({ visible, selectedId, onSelect, language }: { visible: boolean; selectedId: string; onSelect: (id: string) => void; language: Language }) {
+function CrossingNetwork({ visible, selectedId, onSelect, language, legacy }: { visible: boolean; selectedId: string; onSelect: (id: string) => void; language: Language; legacy: boolean }) {
   const { gl, size } = useThree();
   const lineData = useMemo(() => crossings.filter((crossing) => crossing.properties.type === "bridge").map((crossing) => {
     const height = crossingHeight(crossing.id, crossing.properties.type);
     const points = projectPolyline(crossing.geometry.coordinates, height);
     const midpoint = points[Math.floor(points.length / 2)] ?? points[0];
-    return { crossing, height, points, midpoint, positions: lineSegments(points) };
+    return { crossing, height, points, midpoint, positions: lineSegments(points), ribbon: [{ points, widthM: crossing.properties.mode === "pedestrian" ? 8 : 18 }] as RibbonPath[] };
   }), []);
   if (!visible) return null;
   return <group>
-    {lineData.map(({ crossing, midpoint, positions }) => {
+    {lineData.map(({ crossing, midpoint, positions, ribbon }) => {
       const selected = crossing.id === selectedId;
       const important = selected || size.width >= 760;
       return <group key={crossing.id}>
-        <WideColorLine positions={positions} color={crossing.properties.color} width={selected ? 6 : crossing.properties.type === "tunnel" ? 2.2 : 3.4} opacity={selected ? 1 : crossing.properties.type === "tunnel" ? 0.66 : 0.82} />
+        {legacy
+          ? <WideColorLine positions={positions} color={crossing.properties.color} width={selected ? 6 : crossing.properties.type === "tunnel" ? 2.2 : 3.4} opacity={selected ? 1 : crossing.properties.type === "tunnel" ? 0.66 : 0.82} />
+          : <RibbonMesh paths={ribbon} color={crossing.properties.color} opacity={selected ? 1 : 0.76} renderOrder={3} />}
         <mesh position={midpoint} onPointerOver={(event) => { event.stopPropagation(); gl.domElement.classList.add("is-targeting"); }} onPointerOut={() => { gl.domElement.classList.remove("is-targeting"); }} onClick={(event) => { event.stopPropagation(); if (event.delta <= 6) onSelect(crossing.id); }}>
           <sphereGeometry args={[selected ? 22 : 15, 12, 8]} />
           <meshBasicMaterial color={crossing.properties.color} transparent opacity={0.02} depthWrite={false} />
@@ -567,7 +729,8 @@ function CameraRig({ command, phase, items, controls, quality, reducedMotion, vi
       const axis = new THREE.Vector3(endpoints[1][0] - endpoints[0][0], 0, endpoints[1][2] - endpoints[0][2]).normalize();
       const side = new THREE.Vector3(-axis.z, 0, axis.x);
       const viewDirection = axis.multiplyScalar(-0.72).add(side.multiplyScalar(0.69)).normalize();
-      cameraGoal.copy(center).addScaledVector(viewDirection, fitDistance * 0.98).add(new THREE.Vector3(0, fitDistance * 0.24, 0));
+      const landmarkDistance = fitDistance * 0.98;
+      cameraGoal.copy(center).addScaledVector(viewDirection, landmarkDistance).add(new THREE.Vector3(0, landmarkDistance * 0.2, 0));
       targetGoal.copy(center).add(new THREE.Vector3(0, -radius * 0.08, 0));
     } else {
       if (command.focus.kind === "regional" && command.focus.crossingId) {
@@ -643,7 +806,7 @@ function CameraRig({ command, phase, items, controls, quality, reducedMotion, vi
   return null;
 }
 
-function MarkerLabels({ items, selectedId, onSelect, language, view, objectiveId, discoveredIds, expeditionIds }: {
+function MarkerLabels({ items, selectedId, onSelect, language, view, objectiveId, discoveredIds, expeditionIds, selectionRef }: {
   items: Landmark[];
   selectedId: number;
   onSelect: (id: number) => void;
@@ -652,6 +815,7 @@ function MarkerLabels({ items, selectedId, onSelect, language, view, objectiveId
   objectiveId?: number;
   discoveredIds: readonly number[];
   expeditionIds: readonly number[];
+  selectionRef?: React.RefObject<THREE.Group | null>;
 }) {
   const { camera, gl, size, invalidate } = useThree();
   const [visibleIds, setVisibleIds] = useState<Set<number>>(() => new Set([selectedId]));
@@ -699,7 +863,7 @@ function MarkerLabels({ items, selectedId, onSelect, language, view, objectiveId
     const found = discovered.has(item.id);
     const radius = objective ? 20 : selected ? 18 : 13;
     return (
-      <group key={item.id} position={anchorPosition(item.anchorId, 26)} onPointerOver={(event) => { event.stopPropagation(); gl.domElement.classList.add("is-targeting"); }} onPointerOut={() => { gl.domElement.classList.remove("is-targeting"); }} onClick={(event) => { event.stopPropagation(); if (event.delta <= 6) onSelect(item.id); }}>
+      <group ref={selected ? selectionRef : undefined} key={item.id} position={anchorPosition(item.anchorId, 26)} onPointerOver={(event) => { event.stopPropagation(); gl.domElement.classList.add("is-targeting"); }} onPointerOut={() => { gl.domElement.classList.remove("is-targeting"); }} onClick={(event) => { event.stopPropagation(); if (event.delta <= 6) onSelect(item.id); }}>
         <mesh><sphereGeometry args={[Math.max(27, radius + 9), 12, 8]} /><meshBasicMaterial transparent opacity={0} depthWrite={false} /></mesh>
         {!focused && <mesh scale={selected ? 1.22 : 1}>
           <sphereGeometry args={[radius, 16, 12]} />
@@ -769,16 +933,53 @@ function ScaleReporter({ onScaleChange }: { onScaleChange: (meters: number) => v
   return null;
 }
 
-function NanjingEyeAsset({ highDetail, nightFactor, onStateChange }: { highDetail: boolean; nightFactor: number; onStateChange: (state: "idle" | "loading" | "ready") => void }) {
-  const reportReady = useCallback(() => onStateChange("ready"), [onStateChange]);
-  useEffect(() => onStateChange(highDetail ? "loading" : "idle"), [highDetail, onStateChange]);
-  if (!highDetail) return <Asset url={modelUrls.nanjingEyeLod1} nightFactor={nightFactor} nightLighting />;
-  return <Suspense fallback={<Asset url={modelUrls.nanjingEyeLod1} nightFactor={nightFactor} nightLighting />}>
-    <Asset url={modelUrls.nanjingEyeLod2} onReady={reportReady} nightFactor={nightFactor} nightLighting />
-  </Suspense>;
+function DetailedNanjingEyeAsset({ nightFactor, tier, shadows, legacy, onStateChange }: {
+  nightFactor: number;
+  tier: SceneQuality;
+  shadows: boolean;
+  legacy: boolean;
+  onStateChange: (state: "idle" | "loading" | "ready") => void;
+}) {
+  const [lod2Ready, setLod2Ready] = useState(false);
+  useEffect(() => onStateChange("loading"), [onStateChange]);
+  const reportReady = useCallback(() => {
+    setLod2Ready(true);
+    onStateChange("ready");
+  }, [onStateChange]);
+  return <>
+    {!lod2Ready && <Asset url={modelUrls.nanjingEyeLod1} role="nanjing-eye" tier={tier} shadows={shadows} legacy={legacy} nightFactor={nightFactor} nightLighting />}
+    <OptionalAssetBoundary name="nanjing-eye-lod2" onError={() => onStateChange("ready")}>
+      <Suspense fallback={null}>
+        <Asset url={modelUrls.nanjingEyeLod2} role="nanjing-eye" tier={tier} shadows={shadows} legacy={legacy} onReady={reportReady} nightFactor={nightFactor} nightLighting compileBeforeReveal />
+      </Suspense>
+    </OptionalAssetBoundary>
+  </>;
 }
 
-function DeferredAssets({ layers, quality, onCoreReady, nightFactor, selectedId, view, onDetailedAssetStateChange }: { layers: LayerVisibility; quality: SceneQuality; onCoreReady: () => void; nightFactor: number; selectedId: number; view: ViewMode; onDetailedAssetStateChange: (state: "idle" | "loading" | "ready") => void }) {
+function NanjingEyeAsset({ highDetail, nightFactor, tier, shadows, legacy, onStateChange }: {
+  highDetail: boolean;
+  nightFactor: number;
+  tier: SceneQuality;
+  shadows: boolean;
+  legacy: boolean;
+  onStateChange: (state: "idle" | "loading" | "ready") => void;
+}) {
+  useEffect(() => onStateChange(highDetail ? "loading" : "idle"), [highDetail, onStateChange]);
+  if (!highDetail) return <Asset url={modelUrls.nanjingEyeLod1} role="nanjing-eye" tier={tier} shadows={shadows} legacy={legacy} nightFactor={nightFactor} nightLighting />;
+  return <DetailedNanjingEyeAsset key={`${tier}:${shadows}:${legacy}`} nightFactor={nightFactor} tier={tier} shadows={shadows} legacy={legacy} onStateChange={onStateChange} />;
+}
+
+function DeferredAssets({ layers, quality, onCoreReady, nightFactor, selectedId, view, profile, legacy, onDetailedAssetStateChange }: {
+  layers: LayerVisibility;
+  quality: SceneQuality;
+  onCoreReady: () => void;
+  nightFactor: number;
+  selectedId: number;
+  view: ViewMode;
+  profile: RenderProfile;
+  legacy: boolean;
+  onDetailedAssetStateChange: (state: "idle" | "loading" | "ready") => void;
+}) {
   const [idleAssets, setIdleAssets] = useState(false);
   useEffect(() => {
     if (quality === "efficiency") return undefined;
@@ -791,12 +992,20 @@ function DeferredAssets({ layers, quality, onCoreReady, nightFactor, selectedId,
     return () => window.clearTimeout(id);
   }, [quality]);
 
+  const focusShadows = profile.shadowMapSize > 0 && view === "landmark";
   return <Suspense fallback={null}>
-    <Asset url={modelUrls.terrain} onReady={onCoreReady} />
-    {layers.buildings && <><Asset url={modelUrls.south} nightFactor={nightFactor} nightLighting /><Asset url={modelUrls.center} nightFactor={nightFactor} nightLighting /><Asset url={modelUrls.north} nightFactor={nightFactor} nightLighting /></>}
-    {layers.landscape && quality !== "efficiency" && idleAssets && <Asset url={modelUrls.vegetation} />}
-    {layers.landmarks && <><Asset url={modelUrls.landmarks} nightFactor={nightFactor} nightLighting /><NanjingEyeAsset highDetail={selectedId === 2 && view === "landmark" && quality !== "efficiency"} nightFactor={nightFactor} onStateChange={onDetailedAssetStateChange} /></>}
-    {layers.crossings && <Asset url={modelUrls.contextBridges} />}
+    <Asset url={modelUrls.terrain} role="terrain" tier={quality} shadows={focusShadows} legacy={legacy} onReady={onCoreReady} />
+    {layers.buildings && <>
+      <OptionalAssetBoundary name="buildings-south"><Asset url={modelUrls.south} role="buildings" tier={quality} shadows={focusShadows} legacy={legacy} nightFactor={nightFactor} nightLighting /></OptionalAssetBoundary>
+      <OptionalAssetBoundary name="buildings-center"><Asset url={modelUrls.center} role="buildings" tier={quality} shadows={focusShadows} legacy={legacy} nightFactor={nightFactor} nightLighting /></OptionalAssetBoundary>
+      <OptionalAssetBoundary name="buildings-north"><Asset url={modelUrls.north} role="buildings" tier={quality} shadows={focusShadows} legacy={legacy} nightFactor={nightFactor} nightLighting /></OptionalAssetBoundary>
+    </>}
+    {layers.landscape && quality !== "efficiency" && idleAssets && <OptionalAssetBoundary name="vegetation"><Asset url={modelUrls.vegetation} role="vegetation" tier={quality} legacy={legacy} /></OptionalAssetBoundary>}
+    {layers.landmarks && <>
+      <OptionalAssetBoundary name="landmarks"><Asset url={modelUrls.landmarks} role="landmarks" tier={quality} shadows={focusShadows} legacy={legacy} nightFactor={nightFactor} nightLighting /></OptionalAssetBoundary>
+      <OptionalAssetBoundary name="nanjing-eye"><NanjingEyeAsset highDetail={selectedId === 2 && view === "landmark" && quality !== "efficiency"} nightFactor={nightFactor} tier={quality} shadows={focusShadows} legacy={legacy} onStateChange={onDetailedAssetStateChange} /></OptionalAssetBoundary>
+    </>}
+    {layers.crossings && <OptionalAssetBoundary name="context-bridges"><Asset url={modelUrls.contextBridges} role="bridges" tier={quality} shadows={focusShadows} legacy={legacy} /></OptionalAssetBoundary>}
   </Suspense>;
 }
 
@@ -887,15 +1096,53 @@ function NightStars({ opacity, quality }: { opacity: number; quality: SceneQuali
   </points>;
 }
 
-function CelestialEnvironment({ state, quality }: { state: CelestialState; quality: SceneQuality }) {
-  const sunPosition = useMemo(() => {
-    const direction = celestialDirection(state.sun.azimuthDeg, state.sun.altitudeDeg, 24_000);
-    return [regionalBounds.center[0] + direction[0], direction[1], regionalBounds.center[2] + direction[2]] as Point3;
-  }, [state.sun.altitudeDeg, state.sun.azimuthDeg]);
-  const moonPosition = useMemo(() => {
-    const direction = celestialDirection(state.moon.azimuthDeg, state.moon.altitudeDeg, 23_000);
-    return [regionalBounds.center[0] + direction[0], direction[1], regionalBounds.center[2] + direction[2]] as Point3;
-  }, [state.moon.altitudeDeg, state.moon.azimuthDeg]);
+function FocusSunLight({ state, profile, target, enabled }: { state: CelestialState; profile: RenderProfile; target: Point3; enabled: boolean }) {
+  const light = useRef<THREE.DirectionalLight>(null);
+  const targetObject = useMemo(() => new THREE.Object3D(), []);
+  const { gl, scene } = useThree();
+  const rendererRef = useRef(gl);
+  useEffect(() => {
+    scene.add(targetObject);
+    return () => { scene.remove(targetObject); };
+  }, [scene, targetObject]);
+  useEffect(() => {
+    if (!light.current) return;
+    const direction = new THREE.Vector3(...celestialDirection(state.sun.azimuthDeg, Math.max(8, state.sun.altitudeDeg), 6_000));
+    targetObject.position.set(...target);
+    targetObject.updateMatrixWorld();
+    light.current.position.copy(targetObject.position).add(direction);
+    light.current.target = targetObject;
+    const range = enabled ? 520 : 1;
+    const camera = light.current.shadow.camera;
+    camera.left = -range;
+    camera.right = range;
+    camera.top = range;
+    camera.bottom = -range;
+    camera.near = 100;
+    camera.far = 13_000;
+    camera.updateProjectionMatrix();
+    light.current.shadow.mapSize.set(profile.shadowMapSize || 1, profile.shadowMapSize || 1);
+    light.current.shadow.bias = -0.00012;
+    light.current.shadow.normalBias = 0.35;
+    light.current.shadow.radius = profile.tier === "high" ? 2 : 1;
+    rendererRef.current.shadowMap.enabled = enabled;
+    rendererRef.current.shadowMap.type = THREE.PCFShadowMap;
+    rendererRef.current.shadowMap.autoUpdate = false;
+    rendererRef.current.shadowMap.needsUpdate = enabled;
+  }, [enabled, profile.shadowMapSize, profile.tier, state.sun.altitudeDeg, state.sun.azimuthDeg, target, targetObject]);
+  return <directionalLight ref={light} castShadow={enabled} intensity={state.daylight * 2.2 + state.horizonGlow * 0.38} color={blendColor("#f19a69", "#fff1cf", state.daylight)} />;
+}
+
+function CelestialEnvironment({ state, quality, profile, shadowTarget, shadowEnabled, legacy }: {
+  state: CelestialState;
+  quality: SceneQuality;
+  profile: RenderProfile;
+  shadowTarget: Point3;
+  shadowEnabled: boolean;
+  legacy: boolean;
+}) {
+  const sunPosition = useMemo(() => celestialPosition(state, "sun", 24_000), [state]);
+  const moonPosition = useMemo(() => celestialPosition(state, "moon", 23_000), [state]);
   const twilightSky = blendColor("#071321", "#b86e62", state.twilight);
   const skyColor = blendColor(twilightSky, "#72b7c0", state.daylight);
   const finalSky = blendColor(skyColor, "#d98e68", state.horizonGlow * 0.42);
@@ -905,8 +1152,9 @@ function CelestialEnvironment({ state, quality }: { state: CelestialState; quali
   return <>
     <color attach="background" args={[finalSky]} />
     <fog attach="fog" args={[fogColor, 18_000, 48_000]} />
-    <hemisphereLight intensity={0.16 + state.twilight * 0.52 + state.daylight * 0.92} color={blendColor("#7183a5", "#f5f6e9", state.daylight)} groundColor={blendColor("#07151f", "#39747b", state.daylight)} />
-    <directionalLight position={sunPosition} intensity={state.daylight * 2.25 + state.horizonGlow * 0.4} color={blendColor("#f19a69", "#fff1cf", state.daylight)} />
+    {!legacy && <><ProceduralSky state={state} /><ProceduralEnvironment state={state} profile={profile} /></>}
+    <hemisphereLight intensity={legacy ? 0.16 + state.twilight * 0.52 + state.daylight * 0.92 : 0.12 + state.twilight * 0.38 + state.daylight * 0.58} color={blendColor("#7183a5", "#f5f6e9", state.daylight)} groundColor={blendColor("#07151f", "#315f63", state.daylight)} />
+    <FocusSunLight state={state} profile={profile} target={shadowTarget} enabled={shadowEnabled} />
     <directionalLight position={moonPosition} intensity={moonStrength} color="#9ebae8" />
     <CelestialDisc kind="sun" state={state} position={sunPosition} />
     <CelestialDisc kind="moon" state={state} position={moonPosition} />
@@ -914,10 +1162,11 @@ function CelestialEnvironment({ state, quality }: { state: CelestialState; quali
   </>;
 }
 
-function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, celestialTimestamp, routeId, focus, cameraCommand, cameraPhase, reducedMotion, viewportInsets, onCameraPhaseChange, onSceneInteractionStart, onDetailedAssetStateChange, layers, language, quality, objectiveId, expeditionLandmarkIds, discoveredLandmarkIds, selectedTransportLineId, selectedTransportStopId, onSelectTransportStop, selectedCrossingId, onSelectCrossing }: JiangxinzhouSceneProps) {
+function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, celestialTimestamp, routeId, focus, cameraCommand, cameraPhase, reducedMotion, viewportInsets, onCameraPhaseChange, onSceneInteractionStart, onDetailedAssetStateChange, layers, language, quality, renderMode, renderProfile, renderContextState, renderContextLosses, onPerformanceSample, onRenderTelemetry, onRenderContextStateChange, objectiveId, expeditionLandmarkIds, discoveredLandmarkIds, selectedTransportLineId, selectedTransportStopId, onSelectTransportStop, selectedCrossingId, onSelectCrossing }: JiangxinzhouSceneProps) {
   const controls = useRef<OrbitControlsImpl>(null);
+  const selectionRef = useRef<THREE.Group>(null);
   const reportedReady = useRef(false);
-  const celestialTick = Math.floor(celestialTimestamp / 10_000) * 10_000;
+  const celestialTick = Math.floor(celestialTimestamp / 60_000) * 60_000;
   const celestialState = useMemo(() => calculateCelestialState(celestialTick), [celestialTick]);
   const reportReady = useCallback(() => {
     if (reportedReady.current) return;
@@ -926,43 +1175,58 @@ function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, cel
   }, [onReady]);
   const view = viewModeFromFocus(focus);
   const landmarkFocus = view === "landmark";
+  const legacy = renderMode === "legacy";
+  const shadowTarget = useMemo(() => targetForFocus(focus, items), [focus, items]);
+  const shadowEnabled = !legacy && renderProfile.shadowMapSize > 0 && landmarkFocus;
+  const rendererReady = renderContextState === "ready";
+  const ambientActive = rendererReady && !reducedMotion && !legacy && renderProfile.ambientFps > 0 && (layers.water || (layers.landscape && landmarkFocus) || (view === "route" && !layers.transport));
+  const trafficActive = rendererReady && !reducedMotion && layers.transport && renderProfile.trafficFps > 0;
+  const closeFocus = landmarkFocus || (focus.kind === "transport" && Boolean(focus.stopId));
+  const compileRevision = `${renderProfile.tier}:${view}:${selectedId}:${layers.buildings}:${layers.landmarks}:${layers.landscape}:${Math.floor(celestialTick / 600_000)}`;
 
   return <>
-    <CelestialEnvironment state={celestialState} quality={quality} />
-    <Water visible={layers.water} daylight={celestialState.daylight} />
+    <CelestialEnvironment state={celestialState} quality={quality} profile={renderProfile} shadowTarget={shadowTarget} shadowEnabled={shadowEnabled} legacy={legacy} />
+    {legacy ? <LegacyWater visible={layers.water} daylight={celestialState.daylight} /> : <WaterSurface visible={layers.water} state={celestialState} profile={renderProfile} />}
     <RegionalContext waterVisible={layers.water} surroundingsVisible={layers.surroundings} language={language} daylight={celestialState.daylight} />
     <CoordinateGrid visible={layers.coordinates} view={view} />
-    <DeferredAssets layers={layers} quality={quality} onCoreReady={reportReady} nightFactor={celestialState.night} selectedId={selectedId} view={view} onDetailedAssetStateChange={onDetailedAssetStateChange} />
+    <DeferredAssets layers={layers} quality={quality} profile={renderProfile} legacy={legacy} onCoreReady={reportReady} nightFactor={celestialState.night} selectedId={selectedId} view={view} onDetailedAssetStateChange={onDetailedAssetStateChange} />
     <LandscapeZones visible={layers.landscape} />
-    <ContextRoadNetwork visible={layers.surroundings} />
-    <RoadNetwork visible={layers.roads && !landmarkFocus} />
+    <ContextRoadNetwork visible={layers.surroundings} legacy={legacy} />
+    <RoadNetwork visible={layers.roads && !landmarkFocus} legacy={legacy} />
     <RoadNameLabels visible={layers.roads && !landmarkFocus && view !== "regional"} language={language} />
-    <CrossingNetwork visible={layers.crossings && !landmarkFocus} selectedId={selectedCrossingId} onSelect={onSelectCrossing} language={language} />
-    <RouteNetwork routeId={routeId} visible={view === "route" && !layers.transport} />
-    <TransportNetwork visible={layers.transport} lineId={selectedTransportLineId} stopId={selectedTransportStopId} onSelectStop={onSelectTransportStop} language={language} quality={quality} />
+    <CrossingNetwork visible={layers.crossings && !landmarkFocus} selectedId={selectedCrossingId} onSelect={onSelectCrossing} language={language} legacy={legacy} />
+    <RouteNetwork routeId={routeId} visible={view === "route" && !layers.transport} legacy={legacy} animate={ambientActive} />
+    <TransportNetwork visible={layers.transport} lineId={selectedTransportLineId} stopId={selectedTransportStopId} onSelectStop={onSelectTransportStop} language={language} profile={renderProfile} legacy={legacy} />
     {layers.landmarks && <ObjectiveBeacon objectiveId={objectiveId} items={items} />}
-    {layers.landmarks && <MarkerLabels items={items} selectedId={selectedId} onSelect={onSelect} language={language} view={view} objectiveId={objectiveId} discoveredIds={discoveredLandmarkIds} expeditionIds={expeditionLandmarkIds} />}
+    {layers.landmarks && <MarkerLabels items={items} selectedId={selectedId} onSelect={onSelect} language={language} view={view} objectiveId={objectiveId} discoveredIds={discoveredLandmarkIds} expeditionIds={expeditionLandmarkIds} selectionRef={selectionRef} />}
     <CameraRig command={cameraCommand} phase={cameraPhase} items={items} controls={controls} quality={quality} reducedMotion={reducedMotion} viewportInsets={viewportInsets} onPhaseChange={onCameraPhaseChange} />
     <SceneControls controls={controls} onInteractionStart={onSceneInteractionStart} onPhaseChange={onCameraPhaseChange} />
     <ScaleReporter onScaleChange={onScaleChange} />
-    <AdaptiveDpr pixelated={quality === "efficiency"} />
+    <FrameBudgetScheduler profile={renderProfile} ambientActive={ambientActive} trafficActive={trafficActive} />
+    <RenderTelemetryProbe profile={renderProfile} contextState={renderContextState} contextLosses={renderContextLosses} monitorActive={cameraPhase !== "idle"} onPerformanceSample={onPerformanceSample} onTelemetry={onRenderTelemetry} />
+    <RendererLifecycle onContextStateChange={onRenderContextStateChange} />
+    {!legacy && <ShaderCompiler revision={compileRevision} />}
+    {!legacy && rendererReady && <RenderEffects profile={renderProfile} nightFactor={celestialState.night} closeFocus={closeFocus} selection={selectionRef} />}
   </>;
 }
 
 export default function JiangxinzhouScene(props: JiangxinzhouSceneProps) {
-  const dpr: [number, number] = props.quality === "high" ? [1, 1.75] : props.quality === "balanced" ? [0.9, 1.4] : [0.75, 1];
   return (
     <Canvas
-      dpr={dpr}
+      dpr={props.renderProfile.dpr}
       frameloop="demand"
       camera={{ fov: 38, position: [6_000, 17_000, 7_000], near: 20, far: 60_000 }}
-      gl={{ antialias: props.quality !== "efficiency", powerPreference: "high-performance", alpha: false, stencil: false }}
+      gl={{ antialias: props.renderMode === "legacy" && props.quality !== "efficiency", powerPreference: "high-performance", alpha: false, stencil: false }}
       performance={{ min: 0.62, max: 1, debounce: 500 }}
       onCreated={({ gl }) => {
         gl.outputColorSpace = THREE.SRGBColorSpace;
         gl.toneMapping = THREE.ACESFilmicToneMapping;
-        gl.toneMappingExposure = 1.03;
+        gl.toneMappingExposure = props.renderMode === "legacy" ? 1.03 : 0.96;
+        gl.shadowMap.enabled = props.renderProfile.shadowMapSize > 0 && props.renderMode !== "legacy";
+        gl.shadowMap.autoUpdate = false;
         gl.domElement.classList.add("is-map-canvas");
+        gl.domElement.dataset.renderer = props.renderMode;
+        gl.domElement.dataset.renderTier = props.renderProfile.tier;
       }}
     >
       <SceneContent {...props} />

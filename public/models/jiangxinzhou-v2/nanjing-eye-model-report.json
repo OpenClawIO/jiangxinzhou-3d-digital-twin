@@ -44,8 +44,8 @@
     "geometryLengthM": 827.793
   },
   "towerStationsM": [
-    293.0,
-    533.0
+    293,
+    533
   ],
   "lods": [
     {
@@ -53,14 +53,14 @@
       "landmarkId": 2,
       "lod": 1,
       "url": "/models/jiangxinzhou-v2/nanjing-eye-lod1.glb",
-      "bytes": 411196,
+      "bytes": 108144,
       "triangles": 12696,
       "drawCalls": 7,
       "cableCount": 16,
       "bounds": {
         "min": [
           -403.933,
-          0.0,
+          0,
           3905.885
         ],
         "max": [
@@ -80,14 +80,14 @@
       "landmarkId": 2,
       "lod": 2,
       "url": "/models/jiangxinzhou-v2/nanjing-eye-lod2.glb",
-      "bytes": 2022548,
+      "bytes": 451864,
       "triangles": 74992,
       "drawCalls": 11,
       "cableCount": 36,
       "bounds": {
         "min": [
           -405.187,
-          0.0,
+          0,
           3905.898
         ],
         "max": [

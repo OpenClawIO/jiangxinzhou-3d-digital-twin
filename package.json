@@ -3,13 +3,15 @@
   "version": "2.0.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=22.13.0" },
+  "engines": {
+    "node": ">=22.13.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test": "npm run map:validate && npm run transport:validate && npm run context:validate && npm run model:validate && npm run exploration:validate && npm run celestial:validate && npm run interaction:validate && npm run build",
+    "test": "npm run map:validate && npm run transport:validate && npm run context:validate && npm run model:validate && npm run exploration:validate && npm run celestial:validate && npm run interaction:validate && npm run render:validate && npm run build",
     "map:build": "node scripts/build-jiangxinzhou-v2.mjs",
     "map:validate": "node scripts/validate-jiangxinzhou-v2.mjs",
     "transport:build": "node scripts/build-transport-data.mjs",
@@ -19,29 +21,38 @@
     "exploration:validate": "node --experimental-strip-types scripts/validate-exploration.mjs",
     "celestial:validate": "node --experimental-strip-types scripts/validate-celestial.mjs",
     "interaction:validate": "node --experimental-strip-types scripts/validate-interaction.mjs",
-    "model:build": "blender -b --python scripts/jiangxinzhou_scene_v2.py -- --data-dir data/jiangxinzhou-v2 --output-dir public/models/jiangxinzhou-v2 && npm run model:eye",
+    "render:validate": "node --experimental-strip-types scripts/validate-render-runtime.mjs && node --experimental-strip-types scripts/validate-road-render.mjs && node --experimental-strip-types scripts/validate-render-materials.mjs",
+    "model:build": "blender -b --python scripts/jiangxinzhou_scene_v2.py -- --data-dir data/jiangxinzhou-v2 --output-dir public/models/jiangxinzhou-v2 && npm run model:eye && npm run model:optimize",
     "model:eye": "blender -b --python scripts/nanjing_eye_model.py -- --data-dir data/jiangxinzhou-v2 --output-dir public/models/jiangxinzhou-v2 --review-dir output/nanjing-eye-review",
     "model:validate": "node scripts/validate-nanjing-eye.mjs",
+    "model:optimize": "node scripts/optimize-glb.mjs",
+    "model:optimize:check": "node scripts/optimize-glb.mjs --dry-run",
     "model:transport": "blender -b --python scripts/jiangxinzhou_transport_models.py -- --output-dir public/models/jiangxinzhou-v2",
     "model:context": "blender -b --python scripts/jiangxinzhou_context_models.py -- --data-dir data/jiangxinzhou-v2 --output-dir public/models/jiangxinzhou-v2"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.8",
     "@react-three/fiber": "^9.7.0",
+    "@react-three/postprocessing": "3.0.5",
     "astronomy-engine": "^2.1.19",
-    "next": "16.2.6",
+    "next": "16.3.0",
+    "postprocessing": "6.39.4",
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "three": "^0.185.1",
     "three-stdlib": "^2.35.6"
   },
   "devDependencies": {
+    "@gltf-transform/core": "4.4.2",
+    "@gltf-transform/extensions": "4.4.2",
+    "@gltf-transform/functions": "4.4.2",
     "@types/node": "22.19.19",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@types/three": "^0.185.4",
     "eslint": "9.39.4",
-    "eslint-config-next": "16.2.6",
+    "eslint-config-next": "16.3.0",
+    "meshoptimizer": "1.2.0",
     "typescript": "5.9.3"
   }
 }
