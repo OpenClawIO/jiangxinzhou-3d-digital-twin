@@ -6,6 +6,7 @@ import { startTransition, Suspense, useCallback, useEffect, useMemo, useRef, use
 import * as THREE from "three";
 import { type OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { calculateCelestialState, celestialDirection, type CelestialState } from "./celestial";
+import { viewModeFromFocus, type CameraCommand, type CameraPhase, type SceneFocus } from "./interactionState";
 import { routes, type Landmark } from "./landmarks";
 import { experienceCopy, landmarkCopy, localize, transportModeLabels, type Language } from "./locales";
 import {
@@ -31,7 +32,7 @@ import {
   type TransitMode,
 } from "./mapGeometry";
 import { nanjingEyeBounds, nanjingEyeLod1, nanjingEyeLod2 } from "./nanjingEye";
-import type { JiangxinzhouSceneProps, LayerVisibility, SceneQuality, ViewMode } from "./sceneTypes";
+import type { JiangxinzhouSceneProps, LayerVisibility, SceneQuality, ViewMode, ViewportInsets } from "./sceneTypes";
 
 const modelUrls = {
   terrain: "/models/jiangxinzhou-v2/terrain.glb",
@@ -402,7 +403,7 @@ function TransportNetwork({ visible, lineId, stopId, onSelectStop, language, qua
   language: Language;
   quality: SceneQuality;
 }) {
-  const { size } = useThree();
+  const { gl, size } = useThree();
   const selectedLine = transportLines.find((line) => line.id === lineId) ?? transportLines[0];
   const stops = stopsForTransportLine(selectedLine.id);
   const lines = useMemo(() => transportLines.map((line) => {
@@ -417,7 +418,8 @@ function TransportNetwork({ visible, lineId, stopId, onSelectStop, language, qua
     {stops.map((stop, index) => {
       const selected = stop.id === stopId;
       const important = selected || (size.width >= 760 && (["metro", "ferry", "terminal", "interchange", "portal"].includes(stop.properties.kind) || index === 0 || index === stops.length - 1));
-      return <group key={`${selectedLine.id}-${stop.id}-${index}`} position={projectPoint(stop.geometry.coordinates, modeHeight[selectedLine.properties.mode] + 2)} onClick={(event) => { event.stopPropagation(); onSelectStop(stop.id); }}>
+      return <group key={`${selectedLine.id}-${stop.id}-${index}`} position={projectPoint(stop.geometry.coordinates, modeHeight[selectedLine.properties.mode] + 2)} onPointerOver={(event) => { event.stopPropagation(); gl.domElement.classList.add("is-targeting"); }} onPointerOut={() => { gl.domElement.classList.remove("is-targeting"); }} onClick={(event) => { event.stopPropagation(); if (event.delta <= 6) onSelectStop(stop.id); }}>
+        <mesh><sphereGeometry args={[selected ? 24 : 20, 12, 8]} /><meshBasicMaterial transparent opacity={0} depthWrite={false} /></mesh>
         <mesh scale={selected ? 1.5 : 1}><sphereGeometry args={[selected ? 10 : 7, 16, 12]} /><meshStandardMaterial color={selected ? "#fff4b5" : "#f8fbef"} emissive={selectedLine.properties.color} emissiveIntensity={selected ? 0.85 : 0.35} /></mesh>
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.5, 0]}><ringGeometry args={[selected ? 16 : 11, selected ? 20 : 14, 24]} /><meshBasicMaterial color={selectedLine.properties.color} transparent opacity={0.72} side={THREE.DoubleSide} /></mesh>
         {important && <Html position={[0, 28, 0]} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}><div className={`transport-stop-label ${selected ? "active" : ""}`} style={{ "--stop-color": selectedLine.properties.color } as React.CSSProperties}><span>{String(index + 1).padStart(2, "0")}</span><strong>{localizeFeatureName(stop, language)}</strong></div></Html>}
@@ -445,7 +447,7 @@ function crossingLengthLabel(crossing: (typeof crossings)[number], language: Lan
 }
 
 function CrossingNetwork({ visible, selectedId, onSelect, language }: { visible: boolean; selectedId: string; onSelect: (id: string) => void; language: Language }) {
-  const { size } = useThree();
+  const { gl, size } = useThree();
   const lineData = useMemo(() => crossings.filter((crossing) => crossing.properties.type === "bridge").map((crossing) => {
     const height = crossingHeight(crossing.id, crossing.properties.type);
     const points = projectPolyline(crossing.geometry.coordinates, height);
@@ -459,7 +461,7 @@ function CrossingNetwork({ visible, selectedId, onSelect, language }: { visible:
       const important = selected || size.width >= 760;
       return <group key={crossing.id}>
         <WideColorLine positions={positions} color={crossing.properties.color} width={selected ? 6 : crossing.properties.type === "tunnel" ? 2.2 : 3.4} opacity={selected ? 1 : crossing.properties.type === "tunnel" ? 0.66 : 0.82} />
-        <mesh position={midpoint} onClick={(event) => { event.stopPropagation(); onSelect(crossing.id); }}>
+        <mesh position={midpoint} onPointerOver={(event) => { event.stopPropagation(); gl.domElement.classList.add("is-targeting"); }} onPointerOut={() => { gl.domElement.classList.remove("is-targeting"); }} onClick={(event) => { event.stopPropagation(); if (event.delta <= 6) onSelect(crossing.id); }}>
           <sphereGeometry args={[selected ? 22 : 15, 12, 8]} />
           <meshBasicMaterial color={crossing.properties.color} transparent opacity={0.02} depthWrite={false} />
         </mesh>
@@ -494,66 +496,149 @@ function ObjectiveBeacon({ objectiveId, items }: { objectiveId?: number; items: 
   </group>;
 }
 
-function CameraRig({ target, view, controls, quality, selectedId }: { target: Point3; view: ViewMode; controls: React.RefObject<OrbitControlsImpl | null>; quality: SceneQuality; selectedId: number }) {
+function targetForFocus(focus: SceneFocus, items: Landmark[]): Point3 {
+  if (focus.kind === "landmark") {
+    const landmark = items.find((item) => item.id === focus.landmarkId);
+    if (landmark) return anchorPosition(landmark.anchorId, 18);
+  }
+  if (focus.kind === "transport" && focus.stopId) {
+    const stop = stopsForTransportLine(focus.lineId).find((item) => item.id === focus.stopId);
+    if (stop) return projectPoint(stop.geometry.coordinates, 14);
+  }
+  if (focus.kind === "regional" && focus.crossingId) {
+    const crossing = crossings.find((item) => item.id === focus.crossingId);
+    if (crossing) return projectPoint(crossing.geometry.coordinates[Math.floor(crossing.geometry.coordinates.length / 2)], 18);
+  }
+  if (focus.kind === "regional") return regionalBounds.center;
+  return mapBounds.center;
+}
+
+function CameraRig({ command, phase, items, controls, quality, reducedMotion, viewportInsets, onPhaseChange }: {
+  command: CameraCommand;
+  phase: CameraPhase;
+  items: Landmark[];
+  controls: React.RefObject<OrbitControlsImpl | null>;
+  quality: SceneQuality;
+  reducedMotion: boolean;
+  viewportInsets: ViewportInsets;
+  onPhaseChange: (phase: CameraPhase) => void;
+}) {
   const { camera, invalidate, size } = useThree();
-  const cameraGoal = useRef(camera.position.clone());
-  const targetGoal = useRef(new THREE.Vector3(...regionalBounds.center));
-  const moving = useRef(true);
+  const framing = useRef({ quality, reducedMotion, size, viewportInsets });
+  const flight = useRef<{
+    active: boolean;
+    startedAt: number;
+    duration: number;
+    startPosition: THREE.Vector3;
+    startTarget: THREE.Vector3;
+    endPosition: THREE.Vector3;
+    endTarget: THREE.Vector3;
+    arc: number;
+  } | undefined>(undefined);
 
   useEffect(() => {
+    framing.current = { quality, reducedMotion, size, viewportInsets };
+  }, [quality, reducedMotion, size, viewportInsets]);
+
+  useEffect(() => {
+    const { quality: framingQuality, reducedMotion: framingReducedMotion, size: framingSize, viewportInsets: framingInsets } = framing.current;
     const span = Math.max(mapBounds.width, mapBounds.depth);
     const regionalSpan = Math.max(regionalBounds.width, regionalBounds.depth);
-    if (view === "landmark" && selectedId === 2) {
+    const view = viewModeFromFocus(command.focus);
+    const target = targetForFocus(command.focus, items);
+    const cameraGoal = new THREE.Vector3();
+    const targetGoal = new THREE.Vector3(...target);
+    const availableWidth = Math.max(280, framingSize.width - framingInsets.left - framingInsets.right);
+    const availableHeight = Math.max(240, framingSize.height - framingInsets.top - framingInsets.bottom);
+    const safeScale = Math.max(framingSize.width / availableWidth, framingSize.height / availableHeight);
+    if (command.focus.kind === "landmark" && command.focus.landmarkId === 2) {
       const minimum = new THREE.Vector3(...nanjingEyeBounds.min);
       const maximum = new THREE.Vector3(...nanjingEyeBounds.max);
       const center = minimum.clone().add(maximum).multiplyScalar(0.5);
       const dimensions = maximum.clone().sub(minimum);
       const radius = minimum.distanceTo(maximum) * 0.5;
       const verticalFov = THREE.MathUtils.degToRad((camera as THREE.PerspectiveCamera).fov);
-      const horizontalFov = 2 * Math.atan(Math.tan(verticalFov / 2) * Math.max(0.6, size.width / size.height));
+      const horizontalFov = 2 * Math.atan(Math.tan(verticalFov / 2) * Math.max(0.6, availableWidth / availableHeight));
       const footprintDiagonal = Math.hypot(dimensions.x, dimensions.z);
-      const margin = size.width < 720 ? 1.2 : 1.08;
-      const fitDistance = Math.max(footprintDiagonal * 0.5 / Math.tan(horizontalFov / 2), dimensions.y * 0.8 / Math.tan(verticalFov / 2)) * margin;
+      const margin = framingSize.width < 720 ? 1.2 : 1.08;
+      const fitDistance = Math.max(footprintDiagonal * 0.5 / Math.tan(horizontalFov / 2), dimensions.y * 0.8 / Math.tan(verticalFov / 2)) * margin * Math.min(1.75, safeScale);
       const eyeCrossing = crossings.find((crossing) => crossing.id === "nanjing-eye-crossing");
       const endpoints = eyeCrossing ? projectPolyline([eyeCrossing.geometry.coordinates[0], eyeCrossing.geometry.coordinates.at(-1)!]) : [[0, 0, 0], [1, 0, 1]] as Point3[];
       const axis = new THREE.Vector3(endpoints[1][0] - endpoints[0][0], 0, endpoints[1][2] - endpoints[0][2]).normalize();
       const side = new THREE.Vector3(-axis.z, 0, axis.x);
       const viewDirection = axis.multiplyScalar(-0.72).add(side.multiplyScalar(0.69)).normalize();
-      cameraGoal.current.copy(center).addScaledVector(viewDirection, fitDistance * 0.98).add(new THREE.Vector3(0, fitDistance * 0.24, 0));
-      targetGoal.current.copy(center).add(new THREE.Vector3(0, -radius * 0.08, 0));
-      moving.current = true;
+      cameraGoal.copy(center).addScaledVector(viewDirection, fitDistance * 0.98).add(new THREE.Vector3(0, fitDistance * 0.24, 0));
+      targetGoal.copy(center).add(new THREE.Vector3(0, -radius * 0.08, 0));
+    } else {
+      if (command.focus.kind === "regional" && command.focus.crossingId) {
+        const crossingId = command.focus.crossingId;
+        const crossing = crossings.find((item) => item.id === crossingId);
+        const points = crossing ? projectPolyline(crossing.geometry.coordinates) : [];
+        const bounds = points.length > 1 ? new THREE.Box3().setFromPoints(points.map((point) => new THREE.Vector3(...point))) : undefined;
+        const dimensions = bounds?.getSize(new THREE.Vector3()) ?? new THREE.Vector3(420, 0, 420);
+        const fit = Math.max(360, Math.hypot(dimensions.x, dimensions.z) * 0.72) * Math.min(1.5, safeScale);
+        cameraGoal.set(target[0] + fit * 0.36, Math.max(260, fit * 0.72), target[2] + fit * 0.52);
+      } else if (view === "regional") cameraGoal.set(regionalBounds.center[0] + regionalSpan * 0.06, regionalSpan * (framingQuality === "efficiency" ? 2.6 : 1.85) * Math.min(1.35, safeScale), regionalBounds.center[2] + regionalSpan * 0.2);
+      else if (view === "overview") cameraGoal.set(mapBounds.center[0] + span * 0.06, span * (framingQuality === "efficiency" ? 2.65 : 1.75) * Math.min(1.35, safeScale), mapBounds.center[2] + span * 0.22);
+      else if (view === "route" && Math.hypot(target[0] - mapBounds.center[0], target[2] - mapBounds.center[2]) > 20) cameraGoal.set(target[0] + 240, Math.max(220, target[1] + 210) * Math.min(1.35, safeScale), target[2] + 290);
+      else if (view === "route") cameraGoal.set(mapBounds.center[0] + span * 0.12, span * (framingQuality === "efficiency" ? 1.42 : 1.12) * Math.min(1.35, safeScale), mapBounds.center[2] + span * 0.3);
+      else cameraGoal.set(target[0] + 180, Math.max(165, target[1] + 160) * Math.min(1.35, safeScale), target[2] + 220);
+    }
+
+    const viewDirection = targetGoal.clone().sub(cameraGoal).normalize();
+    const right = new THREE.Vector3().crossVectors(viewDirection, camera.up).normalize();
+    const focusDistance = cameraGoal.distanceTo(targetGoal);
+    const horizontalBias = (framingInsets.right - framingInsets.left) / Math.max(1, framingSize.width) * focusDistance * 0.18;
+    const verticalBias = (framingInsets.bottom - framingInsets.top) / Math.max(1, framingSize.height) * focusDistance * 0.12;
+    targetGoal.addScaledVector(right, horizontalBias).y -= verticalBias;
+
+    const startTarget = controls.current?.target.clone() ?? new THREE.Vector3(...regionalBounds.center);
+    const distance = camera.position.distanceTo(cameraGoal);
+    const duration = THREE.MathUtils.clamp(450 + Math.sqrt(distance) * 8, 450, 1_000);
+    if (framingReducedMotion) {
+      camera.position.set(cameraGoal.x, cameraGoal.y, cameraGoal.z);
+      controls.current?.target.copy(targetGoal);
+      controls.current?.update();
+      onPhaseChange("idle");
       invalidate();
       return;
     }
-    if (view === "regional") cameraGoal.current.set(regionalBounds.center[0] + regionalSpan * 0.06, regionalSpan * (quality === "efficiency" ? 2.6 : 1.85), regionalBounds.center[2] + regionalSpan * 0.2);
-    else if (view === "overview") cameraGoal.current.set(mapBounds.center[0] + span * 0.06, span * (quality === "efficiency" ? 2.65 : 1.75), mapBounds.center[2] + span * 0.22);
-    else if (view === "route" && Math.hypot(target[0] - mapBounds.center[0], target[2] - mapBounds.center[2]) > 20) cameraGoal.current.set(target[0] + 240, Math.max(220, target[1] + 210), target[2] + 290);
-    else if (view === "route") cameraGoal.current.set(mapBounds.center[0] + span * 0.12, span * (quality === "efficiency" ? 1.42 : 1.12), mapBounds.center[2] + span * 0.3);
-    else cameraGoal.current.set(target[0] + 180, Math.max(165, target[1] + 160), target[2] + 220);
-    targetGoal.current.set(...target);
-    moving.current = true;
+    flight.current = {
+      active: true,
+      startedAt: performance.now(),
+      duration,
+      startPosition: camera.position.clone(),
+      startTarget,
+      endPosition: cameraGoal,
+      endTarget: targetGoal,
+      arc: Math.min(560, distance * 0.08),
+    };
+    onPhaseChange("guided");
     invalidate();
-  }, [camera, invalidate, quality, selectedId, size.height, size.width, target, view]);
+  }, [camera, command, controls, invalidate, items, onPhaseChange]);
 
-  useFrame((_, delta) => {
-    if (!moving.current) return;
+  useEffect(() => {
+    if (phase === "manual" && flight.current) flight.current.active = false;
+  }, [phase]);
+
+  useFrame(() => {
+    const current = flight.current;
+    if (!current?.active) return;
+    const raw = THREE.MathUtils.clamp((performance.now() - current.startedAt) / current.duration, 0, 1);
+    const eased = raw * raw * raw * (raw * (raw * 6 - 15) + 10);
     camera.position.set(
-      THREE.MathUtils.damp(camera.position.x, cameraGoal.current.x, 5.5, delta),
-      THREE.MathUtils.damp(camera.position.y, cameraGoal.current.y, 5.5, delta),
-      THREE.MathUtils.damp(camera.position.z, cameraGoal.current.z, 5.5, delta),
+      THREE.MathUtils.lerp(current.startPosition.x, current.endPosition.x, eased),
+      THREE.MathUtils.lerp(current.startPosition.y, current.endPosition.y, eased) + Math.sin(Math.PI * eased) * current.arc,
+      THREE.MathUtils.lerp(current.startPosition.z, current.endPosition.z, eased),
     );
     if (controls.current) {
-      controls.current.target.set(
-        THREE.MathUtils.damp(controls.current.target.x, targetGoal.current.x, 7, delta),
-        THREE.MathUtils.damp(controls.current.target.y, targetGoal.current.y, 7, delta),
-        THREE.MathUtils.damp(controls.current.target.z, targetGoal.current.z, 7, delta),
-      );
+      controls.current.target.lerpVectors(current.startTarget, current.endTarget, eased);
       controls.current.update();
     }
-    const cameraSettled = camera.position.distanceToSquared(cameraGoal.current) < 0.45;
-    const targetSettled = !controls.current || controls.current.target.distanceToSquared(targetGoal.current) < 0.2;
-    moving.current = !(cameraSettled && targetSettled);
-    if (moving.current) invalidate();
+    if (raw >= 1) {
+      current.active = false;
+      onPhaseChange("idle");
+    } else invalidate();
   });
   return null;
 }
@@ -568,7 +653,7 @@ function MarkerLabels({ items, selectedId, onSelect, language, view, objectiveId
   discoveredIds: readonly number[];
   expeditionIds: readonly number[];
 }) {
-  const { camera, size, invalidate } = useThree();
+  const { camera, gl, size, invalidate } = useThree();
   const [visibleIds, setVisibleIds] = useState<Set<number>>(() => new Set([selectedId]));
   const lastView = useRef("");
   const discovered = useMemo(() => new Set(discoveredIds), [discoveredIds]);
@@ -614,7 +699,8 @@ function MarkerLabels({ items, selectedId, onSelect, language, view, objectiveId
     const found = discovered.has(item.id);
     const radius = objective ? 20 : selected ? 18 : 13;
     return (
-      <group key={item.id} position={anchorPosition(item.anchorId, 26)} onClick={(event) => { event.stopPropagation(); onSelect(item.id); }}>
+      <group key={item.id} position={anchorPosition(item.anchorId, 26)} onPointerOver={(event) => { event.stopPropagation(); gl.domElement.classList.add("is-targeting"); }} onPointerOut={() => { gl.domElement.classList.remove("is-targeting"); }} onClick={(event) => { event.stopPropagation(); if (event.delta <= 6) onSelect(item.id); }}>
+        <mesh><sphereGeometry args={[Math.max(27, radius + 9), 12, 8]} /><meshBasicMaterial transparent opacity={0} depthWrite={false} /></mesh>
         {!focused && <mesh scale={selected ? 1.22 : 1}>
           <sphereGeometry args={[radius, 16, 12]} />
           <meshStandardMaterial color={objective ? "#f5d36f" : found ? "#8fd5aa" : item.accent} emissive={objective ? "#f5d36f" : item.accent} emissiveIntensity={objective ? 0.8 : selected ? 0.5 : 0.14} />
@@ -633,20 +719,29 @@ function MarkerLabels({ items, selectedId, onSelect, language, view, objectiveId
   })}</>;
 }
 
-function SceneControls({ controls }: { controls: React.RefObject<OrbitControlsImpl | null> }) {
-  const { invalidate, performance } = useThree();
+function SceneControls({ controls, onInteractionStart, onPhaseChange }: { controls: React.RefObject<OrbitControlsImpl | null>; onInteractionStart: () => void; onPhaseChange: (phase: CameraPhase) => void }) {
+  const { gl, invalidate, performance } = useThree();
   return <OrbitControls
     ref={controls}
     makeDefault
     enableDamping
     dampingFactor={0.075}
+    zoomToCursor
     minDistance={150}
     maxDistance={52_000}
     maxPolarAngle={Math.PI / 2.02}
     target={regionalBounds.center}
-    onStart={() => performance.regress()}
+    onStart={() => {
+      gl.domElement.classList.add("is-interacting");
+      performance.regress();
+      onInteractionStart();
+      onPhaseChange("manual");
+    }}
     onChange={() => invalidate()}
-    onEnd={() => invalidate()}
+    onEnd={() => {
+      gl.domElement.classList.remove("is-interacting");
+      invalidate();
+    }}
   />;
 }
 
@@ -674,14 +769,16 @@ function ScaleReporter({ onScaleChange }: { onScaleChange: (meters: number) => v
   return null;
 }
 
-function NanjingEyeAsset({ highDetail, nightFactor }: { highDetail: boolean; nightFactor: number }) {
+function NanjingEyeAsset({ highDetail, nightFactor, onStateChange }: { highDetail: boolean; nightFactor: number; onStateChange: (state: "idle" | "loading" | "ready") => void }) {
+  const reportReady = useCallback(() => onStateChange("ready"), [onStateChange]);
+  useEffect(() => onStateChange(highDetail ? "loading" : "idle"), [highDetail, onStateChange]);
   if (!highDetail) return <Asset url={modelUrls.nanjingEyeLod1} nightFactor={nightFactor} nightLighting />;
   return <Suspense fallback={<Asset url={modelUrls.nanjingEyeLod1} nightFactor={nightFactor} nightLighting />}>
-    <Asset url={modelUrls.nanjingEyeLod2} nightFactor={nightFactor} nightLighting />
+    <Asset url={modelUrls.nanjingEyeLod2} onReady={reportReady} nightFactor={nightFactor} nightLighting />
   </Suspense>;
 }
 
-function DeferredAssets({ layers, quality, onCoreReady, nightFactor, selectedId, view }: { layers: LayerVisibility; quality: SceneQuality; onCoreReady: () => void; nightFactor: number; selectedId: number; view: ViewMode }) {
+function DeferredAssets({ layers, quality, onCoreReady, nightFactor, selectedId, view, onDetailedAssetStateChange }: { layers: LayerVisibility; quality: SceneQuality; onCoreReady: () => void; nightFactor: number; selectedId: number; view: ViewMode; onDetailedAssetStateChange: (state: "idle" | "loading" | "ready") => void }) {
   const [idleAssets, setIdleAssets] = useState(false);
   useEffect(() => {
     if (quality === "efficiency") return undefined;
@@ -698,7 +795,7 @@ function DeferredAssets({ layers, quality, onCoreReady, nightFactor, selectedId,
     <Asset url={modelUrls.terrain} onReady={onCoreReady} />
     {layers.buildings && <><Asset url={modelUrls.south} nightFactor={nightFactor} nightLighting /><Asset url={modelUrls.center} nightFactor={nightFactor} nightLighting /><Asset url={modelUrls.north} nightFactor={nightFactor} nightLighting /></>}
     {layers.landscape && quality !== "efficiency" && idleAssets && <Asset url={modelUrls.vegetation} />}
-    {layers.landmarks && <><Asset url={modelUrls.landmarks} nightFactor={nightFactor} nightLighting /><NanjingEyeAsset highDetail={selectedId === 2 && view === "landmark" && quality !== "efficiency"} nightFactor={nightFactor} /></>}
+    {layers.landmarks && <><Asset url={modelUrls.landmarks} nightFactor={nightFactor} nightLighting /><NanjingEyeAsset highDetail={selectedId === 2 && view === "landmark" && quality !== "efficiency"} nightFactor={nightFactor} onStateChange={onDetailedAssetStateChange} /></>}
     {layers.crossings && <Asset url={modelUrls.contextBridges} />}
   </Suspense>;
 }
@@ -817,7 +914,7 @@ function CelestialEnvironment({ state, quality }: { state: CelestialState; quali
   </>;
 }
 
-function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, celestialTimestamp, routeId, view, target, layers, language, quality, objectiveId, expeditionLandmarkIds, discoveredLandmarkIds, selectedTransportLineId, selectedTransportStopId, onSelectTransportStop, selectedCrossingId, onSelectCrossing }: JiangxinzhouSceneProps) {
+function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, celestialTimestamp, routeId, focus, cameraCommand, cameraPhase, reducedMotion, viewportInsets, onCameraPhaseChange, onSceneInteractionStart, onDetailedAssetStateChange, layers, language, quality, objectiveId, expeditionLandmarkIds, discoveredLandmarkIds, selectedTransportLineId, selectedTransportStopId, onSelectTransportStop, selectedCrossingId, onSelectCrossing }: JiangxinzhouSceneProps) {
   const controls = useRef<OrbitControlsImpl>(null);
   const reportedReady = useRef(false);
   const celestialTick = Math.floor(celestialTimestamp / 10_000) * 10_000;
@@ -827,6 +924,7 @@ function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, cel
     reportedReady.current = true;
     onReady();
   }, [onReady]);
+  const view = viewModeFromFocus(focus);
   const landmarkFocus = view === "landmark";
 
   return <>
@@ -834,7 +932,7 @@ function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, cel
     <Water visible={layers.water} daylight={celestialState.daylight} />
     <RegionalContext waterVisible={layers.water} surroundingsVisible={layers.surroundings} language={language} daylight={celestialState.daylight} />
     <CoordinateGrid visible={layers.coordinates} view={view} />
-    <DeferredAssets layers={layers} quality={quality} onCoreReady={reportReady} nightFactor={celestialState.night} selectedId={selectedId} view={view} />
+    <DeferredAssets layers={layers} quality={quality} onCoreReady={reportReady} nightFactor={celestialState.night} selectedId={selectedId} view={view} onDetailedAssetStateChange={onDetailedAssetStateChange} />
     <LandscapeZones visible={layers.landscape} />
     <ContextRoadNetwork visible={layers.surroundings} />
     <RoadNetwork visible={layers.roads && !landmarkFocus} />
@@ -844,8 +942,8 @@ function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, cel
     <TransportNetwork visible={layers.transport} lineId={selectedTransportLineId} stopId={selectedTransportStopId} onSelectStop={onSelectTransportStop} language={language} quality={quality} />
     {layers.landmarks && <ObjectiveBeacon objectiveId={objectiveId} items={items} />}
     {layers.landmarks && <MarkerLabels items={items} selectedId={selectedId} onSelect={onSelect} language={language} view={view} objectiveId={objectiveId} discoveredIds={discoveredLandmarkIds} expeditionIds={expeditionLandmarkIds} />}
-    <CameraRig target={target} view={view} controls={controls} quality={quality} selectedId={selectedId} />
-    <SceneControls controls={controls} />
+    <CameraRig command={cameraCommand} phase={cameraPhase} items={items} controls={controls} quality={quality} reducedMotion={reducedMotion} viewportInsets={viewportInsets} onPhaseChange={onCameraPhaseChange} />
+    <SceneControls controls={controls} onInteractionStart={onSceneInteractionStart} onPhaseChange={onCameraPhaseChange} />
     <ScaleReporter onScaleChange={onScaleChange} />
     <AdaptiveDpr pixelated={quality === "efficiency"} />
   </>;
@@ -864,6 +962,7 @@ export default function JiangxinzhouScene(props: JiangxinzhouSceneProps) {
         gl.outputColorSpace = THREE.SRGBColorSpace;
         gl.toneMapping = THREE.ACESFilmicToneMapping;
         gl.toneMappingExposure = 1.03;
+        gl.domElement.classList.add("is-map-canvas");
       }}
     >
       <SceneContent {...props} />

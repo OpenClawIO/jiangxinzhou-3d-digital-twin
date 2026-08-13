@@ -1,10 +1,38 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Component, useCallback, useEffect, useMemo, useState, type ErrorInfo, type ReactNode } from "react";
+import {
+  Component,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+  type ErrorInfo,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type PointerEvent as ReactPointerEvent,
+  type ReactNode,
+} from "react";
 import { calculateCelestialEvents, calculateCelestialState, formatShanghaiEventDateTime, formatShanghaiEventTime, formatShanghaiTime, shanghaiDateParts, shanghaiPreviewTimestamp, type CelestialEvents, type CelestialPeriod, type CelestialState } from "./celestial";
 import { DiscoveryToast, ExpeditionDeck, MissionHud } from "./ExplorationUI";
 import { allLandmarkIds, findExpedition, type ExpeditionId } from "./exploration";
+import {
+  createInitialInteractionState,
+  interactionReducer,
+  nextSheetSnap,
+  parseSceneFocus,
+  settleSheetSnap,
+  viewModeFromFocus,
+  writeSceneFocus,
+  type FocusCatalog,
+  type LayerKey,
+  type LayerVisibility,
+  type QualityMode,
+  type SceneFocus,
+  type SceneQuality,
+} from "./interactionState";
 import { landmarks as defaultLandmarks, routes, type Landmark } from "./landmarks";
 import {
   categoryLabels,
@@ -15,9 +43,9 @@ import {
   localize,
   type Language,
 } from "./locales";
-import { anchorPosition, contextEvidenceSources, crossings, evidenceSources, findAnchor, localizeFeatureName, mapBounds, mapManifest, projectPoint, regionalBounds, transportEvidenceSources, transportLines, transportStops } from "./mapGeometry";
+import { contextEvidenceSources, crossings, evidenceSources, findAnchor, localizeFeatureName, mapManifest, transportEvidenceSources, transportLines, transportStops } from "./mapGeometry";
 import { nanjingEyeEvidence, nanjingEyeLod2, nanjingEyeSpecification } from "./nanjingEye";
-import type { JiangxinzhouSceneProps, LayerKey, LayerVisibility, SceneQuality, ViewMode } from "./sceneTypes";
+import type { JiangxinzhouSceneProps, ViewportInsets } from "./sceneTypes";
 import { TransportPanel } from "./TransportPanel";
 import { useExplorationProgress } from "./useExplorationProgress";
 import { useSynchronizedClock, type ClockSource } from "./useSynchronizedClock";
@@ -26,10 +54,19 @@ const JiangxinzhouScene = dynamic<JiangxinzhouSceneProps>(() => import("./Jiangx
   ssr: false,
   loading: () => <div className="scene-module-loading" aria-hidden="true"><span /><b>THREE.JS</b></div>,
 });
+const MemoizedJiangxinzhouScene = memo(JiangxinzhouScene);
 
-type QualityMode = "auto" | SceneQuality;
-type ControlPanel = "overview" | "transport" | "landmarks" | "explore" | "evidence";
 type TimeMode = "live" | "preview";
+type ViewportMode = "desktop" | "tablet" | "mobile";
+
+const qualityModes: QualityMode[] = ["auto", "high", "balanced", "efficiency"];
+const panelEntries = [
+  ["overview", experienceCopy.panelOverview],
+  ["transport", experienceCopy.panelTransport],
+  ["landmarks", experienceCopy.panelLandmarks],
+  ["explore", experienceCopy.panelExplore],
+  ["evidence", experienceCopy.panelEvidence],
+] as const;
 
 class SceneErrorBoundary extends Component<{ children: ReactNode; fallback: ReactNode }, { failed: boolean }> {
   state = { failed: false };
@@ -39,13 +76,13 @@ class SceneErrorBoundary extends Component<{ children: ReactNode; fallback: Reac
 }
 
 function LanguageToggle({ language, onChange }: { language: Language; onChange: (value: Language) => void }) {
-  return <div className="language-toggle" aria-label={localize(experienceCopy.languageToggle, language)}>{(Object.keys(languageLabels) as Language[]).map((value) => (
+  return <div className="language-toggle" role="group" aria-label={localize(experienceCopy.languageToggle, language)}>{(Object.keys(languageLabels) as Language[]).map((value) => (
     <button key={value} className={value === language ? "active" : ""} aria-pressed={value === language} onClick={() => onChange(value)}>{languageLabels[value]}</button>
   ))}</div>;
 }
 
 function LayerToggles({ layers, language, onToggle }: { layers: LayerVisibility; language: Language; onToggle: (key: LayerKey) => void }) {
-  const labels: Record<LayerKey, typeof experienceCopy.roads> = {
+  const labels: Record<Exclude<LayerKey, "coordinates">, typeof experienceCopy.roads> = {
     water: experienceCopy.water,
     surroundings: experienceCopy.surroundings,
     roads: experienceCopy.roads,
@@ -54,9 +91,8 @@ function LayerToggles({ layers, language, onToggle }: { layers: LayerVisibility;
     landmarks: experienceCopy.landmarkLayer,
     crossings: experienceCopy.crossingLayer,
     transport: experienceCopy.transportLayer,
-    coordinates: experienceCopy.coordinates,
   };
-  return <div className="layer-toggles" aria-label={localize(experienceCopy.layers, language)}>{(Object.keys(labels) as LayerKey[]).map((key) => (
+  return <div className="layer-toggles" role="group" aria-label={localize(experienceCopy.layers, language)}>{(Object.keys(labels) as (keyof typeof labels)[]).map((key) => (
     <button key={key} className={layers[key] ? "active" : ""} aria-pressed={layers[key]} onClick={() => onToggle(key)}>{localize(labels[key], language)}</button>
   ))}</div>;
 }
@@ -88,7 +124,7 @@ function CelestialClock({ timestamp, mode, source, uncertaintyMs, state, events,
     ["moonrise", experienceCopy.moonrise, events.moonrise, "☾"],
     ["moonset", experienceCopy.moonset, events.moonset, "◐"],
   ] as const;
-  return <section className={`celestial-clock ${mode}`} aria-live="polite" aria-label={localize(experienceCopy.realWorldTime, language)}>
+  return <section className={`celestial-clock ${mode}`} aria-label={localize(experienceCopy.realWorldTime, language)}>
     <header className="celestial-clock-header">
       <span className={`celestial-live-badge ${mode}`}><i />{localize(mode === "live" ? experienceCopy.live : experienceCopy.previewMode, language)}</span>
       <span>{localize(periodCopy[state.period], language)}</span>
@@ -97,7 +133,7 @@ function CelestialClock({ timestamp, mode, source, uncertaintyMs, state, events,
     <div className="celestial-clock-main">
       <div className="celestial-readout">
         <small>{localize(mode === "live" ? experienceCopy.realWorldTime : experienceCopy.timePreview, language)}</small>
-        <strong>{formatShanghaiTime(timestamp, language)}</strong>
+        <time dateTime={new Date(timestamp).toISOString()}>{formatShanghaiTime(timestamp, language)}</time>
         <span>{mode === "live" ? localize(source === "network" ? experienceCopy.networkClock : experienceCopy.deviceClock, language) : `${localize(experienceCopy.sunAltitude, language)} ${state.sun.altitudeDeg.toFixed(1)}°`} · {localize(experienceCopy.moonIllumination, language)} {Math.round(state.moon.illumination * 100)}%</span>
         {mode === "live" && source === "network" && <em>{localize(experienceCopy.clockAccuracy, language)} ±{Math.ceil(uncertaintyMs)} ms</em>}
         {(!state.sun.visible || !state.moon.visible) && <em className="celestial-next-rise">{!state.sun.visible && `☀ ${localize(experienceCopy.nextRise, language)} ${formatShanghaiEventDateTime(events.nextSunrise, language)}`}{!state.sun.visible && !state.moon.visible && " · "}{!state.moon.visible && `☾ ${localize(experienceCopy.nextRise, language)} ${formatShanghaiEventDateTime(events.nextMoonrise, language)}`}</em>}
@@ -123,12 +159,7 @@ function CelestialSkyTrack({ state, language }: { state: CelestialState; languag
     <header><span>{localize(experienceCopy.skyPosition, language)}</span><small>{localize(experienceCopy.azimuthShort, language)} 0–360°</small></header>
     <div className="sky-track-field">
       <div className="sky-track-grid" aria-hidden="true"><span>N</span><span>E</span><span>S</span><span>W</span><span>N</span></div>
-      {visibleBodies.map((body) => <span
-        key={body.key}
-        className={`sky-track-body ${body.key}`}
-        style={{ left: `${(body.state.azimuthDeg / 3.6).toFixed(3)}%`, top: `${(70 - Math.min(90, Math.max(0, body.state.altitudeDeg)) / 90 * 54).toFixed(3)}%` }}
-        title={`${localize(body.name, language)} · ${localize(experienceCopy.azimuthShort, language)} ${body.state.azimuthDeg.toFixed(0)}° · ${localize(experienceCopy.altitudeShort, language)} ${body.state.altitudeDeg.toFixed(1)}°`}
-      ><b aria-hidden="true">{body.symbol}</b><small>{body.state.altitudeDeg.toFixed(0)}°</small></span>)}
+      {visibleBodies.map((body) => <span key={body.key} className={`sky-track-body ${body.key}`} style={{ left: `${(body.state.azimuthDeg / 3.6).toFixed(3)}%`, top: `${(70 - Math.min(90, Math.max(0, body.state.altitudeDeg)) / 90 * 54).toFixed(3)}%` }} title={`${localize(body.name, language)} · ${localize(experienceCopy.azimuthShort, language)} ${body.state.azimuthDeg.toFixed(0)}° · ${localize(experienceCopy.altitudeShort, language)} ${body.state.altitudeDeg.toFixed(1)}°`}><b aria-hidden="true">{body.symbol}</b><small>{body.state.altitudeDeg.toFixed(0)}°</small></span>)}
       {visibleBodies.length === 0 && <span className="sky-track-empty">{localize(experienceCopy.noBodyAboveHorizon, language)}</span>}
     </div>
   </section>;
@@ -153,18 +184,19 @@ function supportsWebGL() {
   }
 }
 
+function onRovingTabKeyDown<T extends string>(event: ReactKeyboardEvent<HTMLButtonElement>, entries: readonly T[], current: T, onSelect: (value: T) => void) {
+  if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+  event.preventDefault();
+  const currentIndex = Math.max(0, entries.indexOf(current));
+  const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? entries.length - 1 : (currentIndex + (event.key === "ArrowRight" ? 1 : -1) + entries.length) % entries.length;
+  onSelect(entries[nextIndex]);
+  event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role="tab"]')[nextIndex]?.focus();
+}
+
 export default function JiangxinzhouExperience({ landmarks: items = defaultLandmarks, language, onLanguageChange }: { landmarks: Landmark[]; language: Language; onLanguageChange: (language: Language) => void }) {
-  const [selectedId, setSelectedId] = useState(items[0]?.id ?? 1);
-  const [selectedTransportLineId, setSelectedTransportLineId] = useState(transportLines.find((line) => line.id === "bus-486")?.id ?? transportLines[0]?.id ?? "");
-  const [selectedTransportStopId, setSelectedTransportStopId] = useState<string>();
-  const [view, setView] = useState<ViewMode>("overview");
-  const [layers, setLayers] = useState<LayerVisibility>({ water: false, surroundings: false, roads: true, buildings: true, landscape: true, landmarks: true, crossings: true, transport: false, coordinates: false });
-  const [selectedCrossingId, setSelectedCrossingId] = useState("jiangxinzhou-yangtze-bridge");
-  const [crossingFocused, setCrossingFocused] = useState(false);
-  const [controlPanel, setControlPanel] = useState<ControlPanel>("overview");
-  const [settingsOpen, setSettingsOpen] = useState(false);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [qualityMode, setQualityMode] = useState<QualityMode>("auto");
+  const defaultLineId = transportLines.find((line) => line.id === "bus-486")?.id ?? transportLines[0]?.id ?? "";
+  const defaultCrossingId = crossings.find((crossing) => crossing.id === "jiangxinzhou-yangtze-bridge")?.id ?? crossings[0]?.id ?? "";
+  const [ui, dispatch] = useReducer(interactionReducer, { landmarkId: items[0]?.id ?? 1, lineId: defaultLineId, crossingId: defaultCrossingId }, createInitialInteractionState);
   const [autoQuality, setAutoQuality] = useState<SceneQuality>("balanced");
   const [webglSupported, setWebglSupported] = useState<boolean | null>(null);
   const [sceneReady, setSceneReady] = useState(false);
@@ -173,16 +205,67 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   const [toastLandmarkId, setToastLandmarkId] = useState<number>();
   const [timeMode, setTimeMode] = useState<TimeMode>("live");
   const [previewMinutes, setPreviewMinutes] = useState(720);
+  const [viewportMode, setViewportMode] = useState<ViewportMode>("desktop");
+  const [viewportSize, setViewportSize] = useState({ width: 1440, height: 900 });
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [detailedAssetState, setDetailedAssetState] = useState<"idle" | "loading" | "ready">("idle");
+  const [hasMapInteracted, setHasMapInteracted] = useState(false);
+  const sheetRef = useRef<HTMLElement>(null);
+  const sheetDrag = useRef<{ startY: number; startTranslate: number; lastY: number; lastTime: number; moved: boolean } | undefined>(undefined);
+  const suppressSheetClick = useRef(false);
   const synchronizedClock = useSynchronizedClock();
   const exploration = useExplorationProgress();
+
+  const focusCatalog = useMemo<FocusCatalog>(() => ({
+    landmarkIds: new Set(items.map((item) => item.id)),
+    routeIds: new Set(routes.map((route) => route.id)),
+    lineIds: new Set(transportLines.map((line) => line.id)),
+    stopIds: new Set(transportStops.map((stop) => stop.id)),
+    crossingIds: new Set(crossings.map((crossing) => crossing.id)),
+    defaultRouteId: routes[0].id,
+    defaultLineId,
+  }), [defaultLineId, items]);
+
+  useEffect(() => {
+    const mediaMobile = window.matchMedia("(max-width: 720px)");
+    const mediaTablet = window.matchMedia("(max-width: 1099px)");
+    const mediaMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateViewport = () => {
+      const mode: ViewportMode = mediaMobile.matches ? "mobile" : mediaTablet.matches ? "tablet" : "desktop";
+      setViewportMode(mode);
+      setViewportSize({ width: window.innerWidth, height: window.innerHeight });
+      setReducedMotion(mediaMotion.matches);
+      if (mode === "tablet") dispatch({ type: "set-panel-collapsed", collapsed: true });
+    };
+    updateViewport();
+    mediaMobile.addEventListener("change", updateViewport);
+    mediaTablet.addEventListener("change", updateViewport);
+    mediaMotion.addEventListener("change", updateViewport);
+    window.addEventListener("resize", updateViewport);
+    return () => {
+      mediaMobile.removeEventListener("change", updateViewport);
+      mediaTablet.removeEventListener("change", updateViewport);
+      mediaMotion.removeEventListener("change", updateViewport);
+      window.removeEventListener("resize", updateViewport);
+    };
+  }, []);
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
       setAutoQuality(detectSceneQuality());
       setWebglSupported(supportsWebGL());
+      const savedQuality = window.localStorage.getItem("jiangxinzhou-quality-v1");
+      if (qualityModes.includes(savedQuality as QualityMode)) dispatch({ type: "set-quality", quality: savedQuality as QualityMode });
     });
     return () => window.cancelAnimationFrame(frame);
   }, []);
+
+  useEffect(() => {
+    const restoreFromUrl = () => dispatch({ type: "restore-focus", focus: parseSceneFocus(window.location.search, focusCatalog) });
+    restoreFromUrl();
+    window.addEventListener("popstate", restoreFromUrl);
+    return () => window.removeEventListener("popstate", restoreFromUrl);
+  }, [focusCatalog]);
 
   useEffect(() => {
     if (!toastLandmarkId) return undefined;
@@ -190,77 +273,90 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
     return () => window.clearTimeout(timeout);
   }, [toastLandmarkId]);
 
-  const quality = qualityMode === "auto" ? autoQuality : qualityMode;
-  const qualityModes: QualityMode[] = ["auto", "high", "balanced", "efficiency"];
+  const quality = ui.qualityMode === "auto" ? autoQuality : ui.qualityMode;
   const qualityCopy = {
     auto: experienceCopy.qualityAuto,
     high: experienceCopy.qualityHigh,
     balanced: experienceCopy.qualityBalanced,
     efficiency: experienceCopy.qualityEfficiency,
   } satisfies Record<QualityMode, typeof experienceCopy.qualityAuto>;
+  const selectedId = ui.selectedLandmarkId;
+  const selectedTransportLineId = ui.selectedTransportLineId;
+  const selectedTransportStopId = ui.selectedTransportStopId;
+  const selectedCrossingId = ui.selectedCrossingId;
+  const controlPanel = ui.panel;
+  const view = viewModeFromFocus(ui.focus);
   const selected = items.find((item) => item.id === selectedId) ?? items[0];
   const selectedAnchor = selected ? findAnchor(selected.anchorId) : undefined;
-  const selectedTransportStop = transportStops.find((stop) => stop.id === selectedTransportStopId);
-  const selectedCrossing = crossings.find((crossing) => crossing.id === selectedCrossingId) ?? crossings[0];
-  const target = useMemo(() => {
-    if (view === "landmark" && selected) return anchorPosition(selected.anchorId, 18);
-    if (view === "route" && selectedTransportStop) return projectPoint(selectedTransportStop.geometry.coordinates, 14);
-    if (view === "regional" && crossingFocused && selectedCrossing) {
-      const coordinates = selectedCrossing.geometry.coordinates;
-      return projectPoint(coordinates[Math.floor(coordinates.length / 2)], 18);
-    }
-    if (view === "regional") return regionalBounds.center;
-    return mapBounds.center;
-  }, [crossingFocused, selected, selectedCrossing, selectedTransportStop, view]);
-  const routeId = exploration.activeExpedition.routeId ?? routes[0].id;
+  const routeId = ui.focus.kind === "route" ? ui.focus.routeId : exploration.activeExpedition.routeId ?? routes[0].id;
   const selectedDiscovered = exploration.state.discoveredLandmarkIds.includes(selectedId);
   const missionComplete = exploration.activeProgress.completed === exploration.activeProgress.total;
   const worldPercent = Math.round((exploration.state.discoveredLandmarkIds.length / allLandmarkIds.length) * 100);
   const scaleLabel = scaleMeters >= 1000 ? `${(scaleMeters / 1000).toFixed(scaleMeters >= 10_000 ? 0 : 1)} km` : `${Math.round(scaleMeters / 10) * 10} m`;
   const liveTimestamp = synchronizedClock.timestamp;
   const celestialTimestamp = timeMode === "live" ? liveTimestamp : shanghaiPreviewTimestamp(new Date(liveTimestamp), previewMinutes);
+  const sceneCelestialTimestamp = Math.floor(celestialTimestamp / 10_000) * 10_000;
   const celestialState = useMemo(() => calculateCelestialState(celestialTimestamp), [celestialTimestamp]);
   const celestialEventTick = Math.floor(celestialTimestamp / (10 * 60_000));
   const celestialEvents = useMemo(() => calculateCelestialEvents(celestialEventTick * 10 * 60_000), [celestialEventTick]);
+  const timeParts = shanghaiDateParts(new Date(celestialTimestamp));
+  const compactTime = `${String(timeParts.hour).padStart(2, "0")}:${String(timeParts.minute).padStart(2, "0")}`;
+  const viewportInsets = useMemo<ViewportInsets>(() => {
+    if (viewportMode === "mobile") {
+      const bottom = ui.sheetSnap === "peek" ? 96 : ui.sheetSnap === "half" ? Math.round(viewportSize.height * 0.44) : Math.round(viewportSize.height * 0.72);
+      return { top: 60, right: 0, bottom, left: 0 };
+    }
+    const right = ui.panelCollapsed ? 0 : viewportMode === "tablet" ? 344 : 360;
+    return { top: 0, right, bottom: 0, left: 0 };
+  }, [ui.panelCollapsed, ui.sheetSnap, viewportMode, viewportSize.height]);
 
-  const chooseLandmark = useCallback((id: number) => {
-    setSelectedId(id);
-    setControlPanel("landmarks");
-    setView("landmark");
+  const selectedTargetName = useMemo(() => {
+    const focus = ui.focus;
+    if (focus.kind === "landmark") {
+      const copy = landmarkCopy[focus.landmarkId];
+      return copy ? localize(copy.name, language) : localize(experienceCopy.overview, language);
+    }
+    if (focus.kind === "transport") {
+      const feature = transportStops.find((stop) => stop.id === focus.stopId) ?? transportLines.find((line) => line.id === focus.lineId);
+      return feature ? localizeFeatureName(feature, language) : localize(experienceCopy.transportNetwork, language);
+    }
+    if (focus.kind === "route") return localize(expeditionCopy[exploration.activeExpedition.id].name, language);
+    if (focus.kind === "regional" && focus.crossingId) {
+      const crossing = crossings.find((item) => item.id === focus.crossingId);
+      return crossing ? localizeFeatureName(crossing, language) : localize(experienceCopy.regional, language);
+    }
+    return localize(focus.kind === "regional" ? experienceCopy.regional : experienceCopy.overview, language);
+  }, [exploration.activeExpedition.id, language, ui.focus]);
+
+  const navigateFocus = useCallback((focus: SceneFocus, reason: "select" | "reset" = "select") => {
+    const url = new URL(window.location.href);
+    writeSceneFocus(url.searchParams, focus);
+    window.history.pushState({ jiangxinzhouFocus: true }, "", url);
+    dispatch({ type: "focus", focus, reason });
   }, []);
-  const resetView = useCallback(() => { setCrossingFocused(false); setView("overview"); }, []);
-  const chooseTransportLine = useCallback((id: string) => {
-    setSelectedTransportLineId(id);
-    setSelectedTransportStopId(undefined);
-    setControlPanel("transport");
-    setLayers((current) => ({ ...current, transport: true }));
-    setView("route");
-  }, []);
-  const chooseTransportStop = useCallback((id: string) => {
-    setSelectedTransportStopId(id);
-    setControlPanel("transport");
-    setLayers((current) => ({ ...current, transport: true }));
-    setView("route");
-  }, []);
-  const chooseCrossing = useCallback((id: string) => {
-    setSelectedCrossingId(id);
-    setCrossingFocused(true);
-    setControlPanel("overview");
-    setLayers((current) => ({ ...current, water: false, surroundings: false, crossings: true, transport: false, coordinates: false }));
-    setView("regional");
-  }, []);
+
+  const chooseLandmark = useCallback((id: number) => navigateFocus({ kind: "landmark", landmarkId: id }), [navigateFocus]);
+  const chooseTransportLine = useCallback((id: string) => navigateFocus({ kind: "transport", lineId: id }), [navigateFocus]);
+  const chooseTransportStop = useCallback((id: string) => navigateFocus({ kind: "transport", lineId: selectedTransportLineId, stopId: id }), [navigateFocus, selectedTransportLineId]);
+  const chooseCrossing = useCallback((id: string) => navigateFocus({ kind: "regional", crossingId: id }), [navigateFocus]);
+  const resetView = useCallback(() => navigateFocus({ kind: "island" }, "reset"), [navigateFocus]);
+  const previousView = useCallback(() => {
+    if (ui.focusHistory.length > 0) window.history.back();
+    else dispatch({ type: "back" });
+  }, [ui.focusHistory.length]);
   const focusObjective = useCallback(() => {
     if (exploration.nextObjectiveId) chooseLandmark(exploration.nextObjectiveId);
   }, [chooseLandmark, exploration.nextObjectiveId]);
   const startMission = useCallback((expeditionId: ExpeditionId) => {
     const expedition = findExpedition(expeditionId);
     exploration.startExpedition(expeditionId);
-    const firstTarget = expedition.landmarkIds.find((id) => !exploration.state.discoveredLandmarkIds.includes(id));
-    if (firstTarget) setSelectedId(firstTarget);
-    setView(expedition.routeId ? "route" : "overview");
-    setControlPanel("explore");
-    setSidebarCollapsed(false);
-  }, [exploration]);
+    if (expedition.routeId) navigateFocus({ kind: "route", routeId: expedition.routeId });
+    else {
+      const firstTarget = expedition.landmarkIds.find((id) => !exploration.state.discoveredLandmarkIds.includes(id));
+      navigateFocus(firstTarget ? { kind: "landmark", landmarkId: firstTarget } : { kind: "island" });
+    }
+    dispatch({ type: "set-panel", panel: "explore" });
+  }, [exploration, navigateFocus]);
   const discoverSelected = useCallback(() => {
     if (!selected || selectedDiscovered || view !== "landmark") return;
     exploration.discoverLandmark(selected.id);
@@ -268,11 +364,8 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   }, [exploration, selected, selectedDiscovered, view]);
   const resetProgress = useCallback(() => {
     exploration.resetProgress();
-    setSelectedId(items[0]?.id ?? 1);
-    setCrossingFocused(false);
-    setControlPanel("overview");
-    setView("regional");
-  }, [exploration, items]);
+    resetView();
+  }, [exploration, resetView]);
   const beginTimePreview = useCallback(() => {
     const parts = shanghaiDateParts(new Date(liveTimestamp));
     setPreviewMinutes(parts.hour * 60 + parts.minute);
@@ -286,64 +379,127 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
     };
     const sunrise = minuteOfDay(celestialEvents.sunrise, 360);
     const sunset = minuteOfDay(celestialEvents.sunset, 1080);
-    const presets = {
-      sunrise,
-      noon: Math.round((sunrise + sunset) / 2),
-      sunset,
-      night: Math.min(1439, sunset + 90),
-    };
-    setPreviewMinutes(presets[preset]);
+    setPreviewMinutes({ sunrise, noon: Math.round((sunrise + sunset) / 2), sunset, night: Math.min(1439, sunset + 90) }[preset]);
   }, [celestialEvents.sunrise, celestialEvents.sunset]);
+  const setQualityMode = useCallback((qualityMode: QualityMode) => {
+    dispatch({ type: "set-quality", quality: qualityMode });
+    window.localStorage.setItem("jiangxinzhou-quality-v1", qualityMode);
+  }, []);
+  const handleCameraPhaseChange = useCallback((phase: "idle" | "guided" | "manual") => {
+    dispatch({ type: "set-camera-phase", phase });
+  }, []);
+  const handleSceneInteractionStart = useCallback(() => {
+    setHasMapInteracted(true);
+    dispatch({ type: "set-camera-phase", phase: "manual" });
+  }, []);
+  const handleSceneReady = useCallback(() => setSceneReady(true), []);
+  const handleScaleChange = useCallback((meters: number) => {
+    setScaleMeters((current) => Math.abs(current - meters) / Math.max(1, current) > 0.01 ? meters : current);
+  }, []);
+
+  const chooseView = useCallback((nextView: string) => {
+    if (nextView === "regional") navigateFocus({ kind: "regional" });
+    else if (nextView === "overview") resetView();
+    else if (nextView === "route") navigateFocus({ kind: "route", routeId });
+    else chooseLandmark(selectedId);
+  }, [chooseLandmark, navigateFocus, resetView, routeId, selectedId]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const targetElement = event.target as HTMLElement | null;
-      if (targetElement?.closest("input, select, textarea, button")) return;
+      if (event.key === "Escape") {
+        if (!ui.popover && ui.cameraPhase !== "guided" && ui.sheetSnap === "peek" && ui.focusHistory.length > 0) previousView();
+        else dispatch({ type: "escape" });
+        return;
+      }
+      if (targetElement?.closest("input, select, textarea, button, a")) return;
       if (event.key.toLowerCase() === "n" && exploration.nextObjectiveId) focusObjective();
-      if (event.key === "Escape") resetView();
+      if (event.key === "1") chooseView("regional");
+      if (event.key === "2") chooseView("overview");
+      if (event.key === "3") chooseView("route");
+      if (event.key === "4") chooseView("landmark");
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [exploration.nextObjectiveId, focusObjective, resetView]);
+  }, [chooseView, exploration.nextObjectiveId, focusObjective, previousView, ui.cameraPhase, ui.focusHistory.length, ui.popover, ui.sheetSnap]);
 
-  const sceneFallback = <div className="map-fallback" role="alert">
-    <div><b>{localize(experienceCopy.webglUnavailable, language)}</b><span>{localize(experienceCopy.webglFallback, language)}</span><button onClick={() => { setSceneReady(false); setWebglSupported(supportsWebGL()); setSceneKey((value) => value + 1); }}>{localize(experienceCopy.retryScene, language)}</button></div>
-  </div>;
+  const sheetPointerDown = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    if (viewportMode !== "mobile" || !sheetRef.current?.parentElement) return;
+    const sheetRect = sheetRef.current.getBoundingClientRect();
+    const workspaceRect = sheetRef.current.parentElement.getBoundingClientRect();
+    sheetDrag.current = { startY: event.clientY, startTranslate: sheetRect.top - workspaceRect.top, lastY: event.clientY, lastTime: performance.now(), moved: false };
+    suppressSheetClick.current = false;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    sheetRef.current.style.transition = "none";
+  };
+  const sheetPointerMove = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    const drag = sheetDrag.current;
+    const sheet = sheetRef.current;
+    if (!drag || !sheet?.parentElement) return;
+    const maxTranslate = Math.max(0, sheet.parentElement.getBoundingClientRect().height - 96);
+    const translate = Math.max(0, Math.min(maxTranslate, drag.startTranslate + event.clientY - drag.startY));
+    drag.moved ||= Math.abs(event.clientY - drag.startY) > 5;
+    drag.lastY = event.clientY;
+    drag.lastTime = performance.now();
+    sheet.style.transform = `translate3d(0, ${translate}px, 0)`;
+  };
+  const finishSheetDrag = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    const drag = sheetDrag.current;
+    const sheet = sheetRef.current;
+    if (!drag || !sheet?.parentElement) return;
+    const now = performance.now();
+    const maxTranslate = Math.max(1, sheet.parentElement.getBoundingClientRect().height - 96);
+    const translate = Number.parseFloat(sheet.style.transform.match(/,\s*([\d.-]+)px/)?.[1] ?? String(drag.startTranslate));
+    const velocity = (event.clientY - drag.lastY) / Math.max(1, now - drag.lastTime);
+    if (drag.moved) dispatch({ type: "set-sheet", snap: settleSheetSnap(translate / maxTranslate, velocity) });
+    suppressSheetClick.current = drag.moved;
+    sheet.style.removeProperty("transform");
+    sheet.style.removeProperty("transition");
+    sheetDrag.current = undefined;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+  };
+  const sheetHandleClick = () => {
+    if (suppressSheetClick.current) {
+      suppressSheetClick.current = false;
+      return;
+    }
+    dispatch({ type: "set-sheet", snap: ui.sheetSnap === "full" ? "half" : nextSheetSnap(ui.sheetSnap, "up") });
+  };
+
+  const sceneFallback = <div className="map-fallback" role="alert"><div><b>{localize(experienceCopy.webglUnavailable, language)}</b><span>{localize(experienceCopy.webglFallback, language)}</span><button onClick={() => { setSceneReady(false); setWebglSupported(supportsWebGL()); setSceneKey((value) => value + 1); }}>{localize(experienceCopy.retryScene, language)}</button></div></div>;
 
   return (
-    <section className="jiangxinzhou-experience game-mode" data-celestial-period={celestialState.period} aria-label={localize(experienceCopy.ariaLabel, language)}>
+    <section className="jiangxinzhou-experience game-mode v5-interaction" data-celestial-period={celestialState.period} data-viewport={viewportMode} data-camera-phase={ui.cameraPhase} data-map-interacted={hasMapInteracted} aria-label={localize(experienceCopy.ariaLabel, language)}>
       <div className="map-toolbar">
-        <div className="toolbar-title">
-          <span className="toolbar-kicker">FIELD MAP · {mapManifest.snapshot} · WGS84</span>
-          <h2>{localize(experienceCopy.heading, language)}</h2>
-        </div>
+        <div className="toolbar-title"><span className="toolbar-kicker">FIELD MAP · {mapManifest.snapshot} · WGS84</span><h2>{localize(experienceCopy.heading, language)}</h2></div>
         <div className="toolbar-actions">
           <LanguageToggle language={language} onChange={onLanguageChange} />
           <div className="view-tabs" role="tablist" aria-label={localize(experienceCopy.viewTabs, language)}>
-            <button className={view === "regional" ? "active" : ""} onClick={resetView}>{localize(experienceCopy.regional, language)}</button>
-            <button className={view === "overview" ? "active" : ""} onClick={() => { setCrossingFocused(false); setView("overview"); }}>{localize(experienceCopy.overview, language)}</button>
-            <button className={view === "route" ? "active" : ""} onClick={() => setView("route")}>{localize(experienceCopy.route, language)}</button>
-            <button className={view === "landmark" ? "active" : ""} onClick={() => setView("landmark")}>{localize(experienceCopy.landmark, language)}</button>
+            {(["regional", "overview", "route", "landmark"] as const).map((entry) => <button key={entry} role="tab" aria-selected={view === entry} tabIndex={view === entry ? 0 : -1} className={view === entry ? "active" : ""} onClick={() => chooseView(entry)} onKeyDown={(event) => onRovingTabKeyDown(event, ["regional", "overview", "route", "landmark"] as const, view, chooseView)}>{localize({ regional: experienceCopy.regional, overview: experienceCopy.overview, route: experienceCopy.route, landmark: experienceCopy.landmark }[entry], language)}</button>)}
           </div>
-          <button className={`settings-toggle ${settingsOpen ? "active" : ""}`} aria-expanded={settingsOpen} onClick={() => setSettingsOpen((value) => !value)}>{localize(experienceCopy.settings, language)} <span>⌄</span></button>
         </div>
-        {settingsOpen && <div className="settings-drawer"><LayerToggles layers={layers} language={language} onToggle={(key) => setLayers((current) => ({ ...current, [key]: !current[key] }))} /></div>}
       </div>
 
-      <div className={`map-layout ${sidebarCollapsed ? "sidebar-collapsed" : ""}`}>
+      <div className={`map-layout ${ui.panelCollapsed ? "sidebar-collapsed" : ""}`} data-sheet-snap={ui.sheetSnap}>
         <div className="map-stage">
           {webglSupported !== false ? <SceneErrorBoundary key={sceneKey} fallback={sceneFallback}>
-            <JiangxinzhouScene
+            <MemoizedJiangxinzhouScene
               items={items}
               selectedId={selectedId}
               onSelect={chooseLandmark}
-              onReady={() => setSceneReady(true)}
-              onScaleChange={(meters) => setScaleMeters((current) => Math.abs(current - meters) / Math.max(1, current) > 0.01 ? meters : current)}
-              celestialTimestamp={celestialTimestamp}
+              onReady={handleSceneReady}
+              onScaleChange={handleScaleChange}
+              celestialTimestamp={sceneCelestialTimestamp}
               routeId={routeId}
-              view={view}
-              target={target}
-              layers={layers}
+              focus={ui.focus}
+              cameraCommand={ui.cameraCommand}
+              cameraPhase={ui.cameraPhase}
+              reducedMotion={reducedMotion}
+              viewportInsets={viewportInsets}
+              onCameraPhaseChange={handleCameraPhaseChange}
+              onSceneInteractionStart={handleSceneInteractionStart}
+              onDetailedAssetStateChange={setDetailedAssetState}
+              layers={ui.layers}
               language={language}
               quality={quality}
               objectiveId={controlPanel === "explore" ? exploration.nextObjectiveId : undefined}
@@ -357,69 +513,65 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
             />
           </SceneErrorBoundary> : sceneFallback}
           {!sceneReady && webglSupported !== false && <div className="scene-loading-overlay" role="status" aria-live="polite"><span className="loading-orbit" /><b>{localize(experienceCopy.loadingScene, language)}</b><small>{localize(experienceCopy.loadingSceneDetail, language)}</small></div>}
-          <CelestialClock timestamp={celestialTimestamp} mode={timeMode} source={synchronizedClock.source} uncertaintyMs={synchronizedClock.uncertaintyMs} state={celestialState} events={celestialEvents} previewMinutes={previewMinutes} language={language} onPreview={beginTimePreview} onPreviewChange={setPreviewMinutes} onPreset={chooseTimePreset} onLive={() => setTimeMode("live")} />
-          <CelestialSkyTrack state={celestialState} language={language} />
+
+          <button className="time-status-pill" aria-expanded={ui.popover === "time"} aria-controls="map-popover" onClick={() => dispatch({ type: "set-popover", popover: "time" })}><span aria-hidden="true">{celestialState.period === "night" ? "☾" : "☀"}</span><b>{compactTime}</b><small>{localize(timeMode === "live" ? experienceCopy.live : experienceCopy.previewMode, language)}</small></button>
+
+          {ui.popover && <>
+            <div className="map-popover-scrim" onPointerDown={() => dispatch({ type: "set-popover", popover: null })} />
+            <section id="map-popover" className={`map-popover ${ui.popover}`} role="dialog" aria-modal="false" aria-label={localize(ui.popover === "settings" ? experienceCopy.settings : ui.popover === "time" ? experienceCopy.timeAndSky : experienceCopy.controlsHelp, language)}>
+              <header><div><small>MAP CONTROL</small><h3>{localize(ui.popover === "settings" ? experienceCopy.settings : ui.popover === "time" ? experienceCopy.timeAndSky : experienceCopy.controlsHelp, language)}</h3></div><button autoFocus aria-label={localize(experienceCopy.close, language)} onClick={() => dispatch({ type: "set-popover", popover: null })}>×</button></header>
+              {ui.popover === "settings" && <div className="settings-content">
+                <fieldset className="layer-presets"><legend>{localize(experienceCopy.layerPreset, language)}</legend>{(["clean", "transport", "nature"] as const).map((preset) => <button type="button" key={preset} aria-pressed={ui.layerPreset === preset} className={ui.layerPreset === preset ? "active" : ""} onClick={() => dispatch({ type: "apply-layer-preset", preset })}>{localize({ clean: experienceCopy.layerPresetClean, transport: experienceCopy.layerPresetTransport, nature: experienceCopy.layerPresetNature }[preset], language)}</button>)}</fieldset>
+                <LayerToggles layers={ui.layers} language={language} onToggle={(key) => dispatch({ type: "set-layer", key })} />
+                <fieldset className="quality-options"><legend>{localize(experienceCopy.renderingQuality, language)}</legend>{qualityModes.map((mode) => <label key={mode}><input type="radio" name="render-quality" checked={ui.qualityMode === mode} onChange={() => setQualityMode(mode)} /><span>{localize(qualityCopy[mode], language)}</span>{mode === "auto" && <small>· {localize(qualityCopy[quality], language)}</small>}</label>)}</fieldset>
+              </div>}
+              {ui.popover === "time" && <div className="time-popover-content"><CelestialClock timestamp={celestialTimestamp} mode={timeMode} source={synchronizedClock.source} uncertaintyMs={synchronizedClock.uncertaintyMs} state={celestialState} events={celestialEvents} previewMinutes={previewMinutes} language={language} onPreview={beginTimePreview} onPreviewChange={setPreviewMinutes} onPreset={chooseTimePreset} onLive={() => setTimeMode("live")} /><CelestialSkyTrack state={celestialState} language={language} /></div>}
+              {ui.popover === "help" && <div className="controls-help"><p><kbd>1–4</kbd><span>{localize(experienceCopy.viewTabs, language)}</span></p><p><kbd>N</kbd><span>{localize(experienceCopy.focusObjective, language)}</span></p><p><kbd>Esc</kbd><span>{localize(experienceCopy.previousView, language)}</span></p><p><i>↔</i><span>{localize(experienceCopy.helpRotate, language)}</span></p><p><i>⌁</i><span>{localize(experienceCopy.helpZoom, language)}</span></p><p><i>◎</i><span>{localize(experienceCopy.helpSelect, language)}</span></p></div>}
+            </section>
+          </>}
+
           {controlPanel === "explore" && <MissionHud expedition={exploration.activeExpedition} {...exploration.activeProgress} nextObjectiveId={exploration.nextObjectiveId} language={language} />}
           <DiscoveryToast landmarkId={toastLandmarkId} language={language} />
-          <button className="sidebar-toggle" onClick={() => setSidebarCollapsed((value) => !value)} aria-label={localize(sidebarCollapsed ? experienceCopy.expandPanel : experienceCopy.collapsePanel, language)}>{sidebarCollapsed ? "‹" : "›"}</button>
+          <div className="camera-status" role="status" aria-live="polite"><i />{detailedAssetState === "loading" ? localize(experienceCopy.detailedModelLoading, language) : ui.cameraPhase === "guided" ? localize(experienceCopy.cameraGuided, language) : localize(experienceCopy.cameraManual, language)}</div>
+          <nav className="map-action-rail" aria-label={localize(experienceCopy.controlsHelp, language)}>
+            <button disabled={ui.focusHistory.length === 0} onClick={previousView} aria-label={localize(experienceCopy.previousView, language)}><b>↶</b><span>{localize(experienceCopy.previousView, language)}</span></button>
+            <button onClick={resetView} aria-label={localize(experienceCopy.islandHome, language)}><b>⌂</b><span>{localize(experienceCopy.islandHome, language)}</span></button>
+            <button className="panel-action" aria-expanded={!ui.panelCollapsed} onClick={() => dispatch({ type: "set-panel-collapsed", collapsed: !ui.panelCollapsed })} aria-label={localize(experienceCopy.information, language)}><b>▤</b><span>{localize(experienceCopy.information, language)}</span></button>
+            <button aria-expanded={ui.popover === "settings"} onClick={() => dispatch({ type: "set-popover", popover: "settings" })} aria-label={localize(experienceCopy.settings, language)}><b>◫</b><span>{localize(experienceCopy.layers, language)}</span></button>
+            <button aria-expanded={ui.popover === "time"} onClick={() => dispatch({ type: "set-popover", popover: "time" })} aria-label={localize(experienceCopy.timeAndSky, language)}><b>◐</b><span>{localize(experienceCopy.timeAndSky, language)}</span></button>
+            <button aria-expanded={ui.popover === "help"} onClick={() => dispatch({ type: "set-popover", popover: "help" })} aria-label={localize(experienceCopy.controlsHelp, language)}><b>?</b><span>{localize(experienceCopy.controlsHelp, language)}</span></button>
+          </nav>
           <div className="map-scale"><span>0</span><i /><span>{scaleLabel}</span></div>
           <div className="north-marker" aria-label={localize(experienceCopy.north, language)}><span>N</span><b>↑</b></div>
           <div className="stage-note"><span className="stage-pulse" />{localize(experienceCopy.stageNote, language)} · N {language === "zh" ? "前往目标" : "next objective"}</div>
-          <div className="stage-controls">
-            <button className="reset-view" onClick={resetView}>{localize(experienceCopy.resetView, language)}</button>
-            <button className="quality-control" aria-label={localize(experienceCopy.qualityControl, language)} onClick={() => setQualityMode((current) => qualityModes[(qualityModes.indexOf(current) + 1) % qualityModes.length])}>
-              <span>{localize(experienceCopy.quality, language)}</span><b>{localize(qualityCopy[qualityMode], language)}{qualityMode === "auto" ? ` · ${localize(qualityCopy[quality], language)}` : ""}</b>
-            </button>
-          </div>
         </div>
 
-        <aside className="map-sidebar" aria-label={localize(experienceCopy.informationPanel, language)}>
-          <nav className="panel-tabs" aria-label={localize(experienceCopy.panelNavigation, language)}>
-            {([
-              ["overview", experienceCopy.panelOverview],
-              ["transport", experienceCopy.panelTransport],
-              ["landmarks", experienceCopy.panelLandmarks],
-              ["explore", experienceCopy.panelExplore],
-              ["evidence", experienceCopy.panelEvidence],
-            ] as [ControlPanel, typeof experienceCopy.overview][]).map(([panel, label], index) => <button key={panel} className={controlPanel === panel ? "active" : ""} aria-pressed={controlPanel === panel} onClick={() => setControlPanel(panel)}><span>{String(index + 1).padStart(2, "0")}</span>{localize(label, language)}</button>)}
+        <aside ref={sheetRef} className="map-sidebar" data-snap={ui.sheetSnap} aria-label={localize(experienceCopy.informationPanel, language)} aria-hidden={viewportMode !== "mobile" && ui.panelCollapsed} inert={viewportMode !== "mobile" && ui.panelCollapsed}>
+          <button className="mobile-sheet-handle" aria-label={localize(ui.sheetSnap === "peek" ? experienceCopy.expandDetails : experienceCopy.collapseDetails, language)} aria-expanded={ui.sheetSnap !== "peek"} onClick={sheetHandleClick} onPointerDown={sheetPointerDown} onPointerMove={sheetPointerMove} onPointerUp={finishSheetDrag} onPointerCancel={finishSheetDrag} onKeyDown={(event) => { if (event.key === "ArrowUp" || event.key === "ArrowDown") { event.preventDefault(); dispatch({ type: "set-sheet", snap: nextSheetSnap(ui.sheetSnap, event.key === "ArrowUp" ? "up" : "down") }); } }}><i /><span><small>{localize(experienceCopy.selectedTarget, language)}</small><strong>{selectedTargetName}</strong></span><b>{ui.sheetSnap === "peek" ? "⌃" : "⌄"}</b></button>
+          <nav className="panel-tabs" role="tablist" aria-label={localize(experienceCopy.panelNavigation, language)} aria-hidden={viewportMode === "mobile" && ui.sheetSnap === "peek"} inert={viewportMode === "mobile" && ui.sheetSnap === "peek"}>
+            {panelEntries.map(([panel, label], index) => <button id={`panel-tab-${panel}`} role="tab" aria-controls="map-panel-content" aria-selected={controlPanel === panel} tabIndex={controlPanel === panel ? 0 : -1} key={panel} className={controlPanel === panel ? "active" : ""} onClick={() => dispatch({ type: "set-panel", panel })} onKeyDown={(event) => onRovingTabKeyDown(event, panelEntries.map(([entry]) => entry), controlPanel, (next) => dispatch({ type: "set-panel", panel: next }))}><span>{String(index + 1).padStart(2, "0")}</span>{localize(label, language)}</button>)}
           </nav>
 
-          <div className="panel-content">
+          <div id="map-panel-content" className="panel-content" role="tabpanel" aria-labelledby={`panel-tab-${controlPanel}`} aria-hidden={viewportMode === "mobile" && ui.sheetSnap === "peek"} inert={viewportMode === "mobile" && ui.sheetSnap === "peek"}>
             {controlPanel === "overview" && <>
               <div className="sidebar-section island-profile">
                 <span className="sidebar-index">01 / {localize(experienceCopy.regionalContext, language)}</span>
                 <h3>{localize(experienceCopy.regionalOverview, language)}</h3>
                 <p>{localize(experienceCopy.regionalContextBody, language)}</p>
-                <div className="metric-grid">
-                  <div><strong>{mapManifest.officialAreaKm2}</strong><span>km²</span><small>{localize(experienceCopy.area, language)}</small></div>
-                  <div><strong>{mapManifest.officialEmbankmentKm}</strong><span>km</span><small>{localize(experienceCopy.embankment, language)}</small></div>
-                  <div><strong>{mapManifest.counts.buildings}</strong><span>+</span><small>{localize(experienceCopy.buildingFootprints, language)}</small></div>
-                </div>
-                {!exploration.state.briefingSeen && <button className="panel-primary-action" onClick={() => setControlPanel("explore")}><span><small>{localize(experienceCopy.briefingTitle, language)}</small><strong>{localize(experienceCopy.briefingBody, language)}</strong></span><b>→</b></button>}
+                <div className="metric-grid"><div><strong>{mapManifest.officialAreaKm2}</strong><span>km²</span><small>{localize(experienceCopy.area, language)}</small></div><div><strong>{mapManifest.officialEmbankmentKm}</strong><span>km</span><small>{localize(experienceCopy.embankment, language)}</small></div><div><strong>{mapManifest.counts.buildings}</strong><span>+</span><small>{localize(experienceCopy.buildingFootprints, language)}</small></div></div>
+                {!exploration.state.briefingSeen && <button className="panel-primary-action" onClick={() => dispatch({ type: "set-panel", panel: "explore" })}><span><small>{localize(experienceCopy.briefingTitle, language)}</small><strong>{localize(experienceCopy.briefingBody, language)}</strong></span><b>→</b></button>}
               </div>
               <div className="sidebar-section crossing-section">
                 <span className="sidebar-index">02 / {localize(experienceCopy.crossingNetwork, language)}</span>
-                <div className="crossing-list">
-                  {crossings.filter((crossing) => crossing.properties.type === "bridge").map((crossing) => {
-                    const isSelected = crossing.id === selectedCrossingId;
-                    const measure = crossing.properties.officialMainSpanM
-                      ? `${localize(experienceCopy.crossingSpan, language)} ${crossing.properties.officialMainSpanM} m`
-                      : crossing.properties.officialStructureLengthM
-                        ? `${localize(experienceCopy.crossingStructureLength, language)} ${(crossing.properties.officialStructureLengthM / 1000).toFixed(1)} km`
-                        : crossing.properties.officialProjectLengthM
-                          ? `${localize(experienceCopy.crossingProjectLength, language)} ${(crossing.properties.officialProjectLengthM / 1000).toFixed(3)} km`
-                          : `${localize(experienceCopy.crossingGeometryLength, language)} ${(crossing.properties.measuredGeometryLengthM / 1000).toFixed(2)} km`;
-                    return <button key={crossing.id} className={isSelected ? "active" : ""} onClick={() => chooseCrossing(crossing.id)} style={{ "--crossing-color": crossing.properties.color } as React.CSSProperties}><i /><span><strong>{localizeFeatureName(crossing, language)}</strong><small>{crossing.properties.type === "bridge" ? localize(experienceCopy.crossingTypeBridge, language) : localize(experienceCopy.crossingTypeTunnel, language)}{measure ? ` · ${measure}` : ""}</small></span><b>↗</b></button>;
-                  })}
-                </div>
+                <div className="crossing-list">{crossings.filter((crossing) => crossing.properties.type === "bridge").map((crossing) => {
+                  const isSelected = crossing.id === selectedCrossingId;
+                  const measure = crossing.properties.officialMainSpanM ? `${localize(experienceCopy.crossingSpan, language)} ${crossing.properties.officialMainSpanM} m` : crossing.properties.officialStructureLengthM ? `${localize(experienceCopy.crossingStructureLength, language)} ${(crossing.properties.officialStructureLengthM / 1000).toFixed(1)} km` : crossing.properties.officialProjectLengthM ? `${localize(experienceCopy.crossingProjectLength, language)} ${(crossing.properties.officialProjectLengthM / 1000).toFixed(3)} km` : `${localize(experienceCopy.crossingGeometryLength, language)} ${(crossing.properties.measuredGeometryLengthM / 1000).toFixed(2)} km`;
+                  return <button key={crossing.id} className={isSelected ? "active" : ""} onClick={() => chooseCrossing(crossing.id)} style={{ "--crossing-color": crossing.properties.color } as React.CSSProperties}><i /><span><strong>{localizeFeatureName(crossing, language)}</strong><small>{localize(experienceCopy.crossingTypeBridge, language)} · {measure}</small></span><b>↗</b></button>;
+                })}</div>
               </div>
             </>}
 
-            {controlPanel === "transport" && <div className="sidebar-section transport-section">
-              <span className="sidebar-index">02 / {localize(experienceCopy.transportNetwork, language)}</span>
-              <p className="transport-intro">{localize(experienceCopy.transportSummary, language)}</p>
-              <TransportPanel language={language} selectedLineId={selectedTransportLineId} selectedStopId={selectedTransportStopId} onSelectLine={chooseTransportLine} onSelectStop={chooseTransportStop} />
-            </div>}
+            {controlPanel === "transport" && <div className="sidebar-section transport-section"><span className="sidebar-index">02 / {localize(experienceCopy.transportNetwork, language)}</span><p className="transport-intro">{localize(experienceCopy.transportSummary, language)}</p><TransportPanel language={language} selectedLineId={selectedTransportLineId} selectedStopId={selectedTransportStopId} onSelectLine={chooseTransportLine} onSelectStop={chooseTransportStop} /></div>}
 
             {controlPanel === "landmarks" && selected && <div className="sidebar-section selected-landmark" style={{ "--selected-color": selected.accent } as React.CSSProperties}>
               <span className="sidebar-index">03 / {localize(experienceCopy.selectedLandmark, language)}</span>
@@ -427,35 +579,13 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
               <div className="selected-title"><span className={`selected-symbol ${selectedDiscovered ? "discovered" : ""}`}>{selectedDiscovered ? "✓" : String(selected.id).padStart(2, "0")}</span><div><h3>{localize(landmarkCopy[selected.id].name, language)}</h3><span>{categoryLabels[language][selected.category]} · {localize(selectedDiscovered ? experienceCopy.discovered : experienceCopy.undiscovered, language)}</span></div></div>
               <p>{localize(landmarkCopy[selected.id].description, language)}</p>
               <div className="detail-chips"><span>{localize(experienceCopy.bestExperience, language)} · {localize(landmarkCopy[selected.id].season, language)}</span>{selectedAnchor && <span className={selectedAnchor.properties.confidence}>{selectedAnchor.properties.confidence === "triangulated" ? localize(experienceCopy.triangulated, language) : localize(experienceCopy.estimated, language)}</span>}{selectedAnchor && <span>LOD {selectedAnchor.properties.lod}</span>}</div>
-              {selected.id === 2 && <div className="nanjing-eye-model-card">
-                <div className="model-card-heading"><span>{localize(experienceCopy.photoVerifiedModel, language)}</span><b>LOD 2 · {(nanjingEyeLod2.triangles / 1000).toFixed(0)}K</b></div>
-                <div className="bridge-spec-grid">
-                  <span><small>{localize(experienceCopy.bridgeProjectLength, language)}</small><strong>{nanjingEyeSpecification.projectLengthM} m</strong></span>
-                  <span><small>{localize(experienceCopy.bridgeMainSpan, language)}</small><strong>{nanjingEyeSpecification.mainSpanM} m</strong></span>
-                  <span><small>{localize(experienceCopy.bridgeTowerHeight, language)}</small><strong>{nanjingEyeSpecification.towerVerticalHeightM} m</strong></span>
-                  <span><small>{localize(experienceCopy.bridgeStayCables, language)}</small><strong>{nanjingEyeSpecification.stayCableCount}</strong></span>
-                </div>
-                <div className="bridge-evidence-links"><small>{localize(experienceCopy.bridgeEvidenceUpdated, language)} · {nanjingEyeEvidence.version}</small>{nanjingEyeEvidence.sources.filter((source) => ["nanjing-eye-official-project", "nanjing-eye-technical-centre", "nanjing-eye-commons-category"].includes(source.id)).map((source) => <a key={source.id} href={source.url} target="_blank" rel="noreferrer">{source.id === "nanjing-eye-commons-category" ? localize(experienceCopy.bridgeEvidenceSources, language) : source.type === "government" ? (language === "zh" ? "官方资料" : "Official data") : (language === "zh" ? "工程参数" : "Engineering data")} ↗</a>)}</div>
-              </div>}
-              {selectedDiscovered ? <button className="discovery-action is-complete" disabled>✓ {localize(experienceCopy.discoveredLandmark, language)}</button> : view === "landmark" ? <button className="discovery-action" onClick={discoverSelected}>{localize(experienceCopy.discoverLandmark, language)} <span>＋</span></button> : <button className="focus-button" onClick={() => setView("landmark")}>{localize(experienceCopy.focusLandmark, language)} <span>↗</span></button>}
+              {selected.id === 2 && <div className="nanjing-eye-model-card"><div className="model-card-heading"><span>{localize(experienceCopy.photoVerifiedModel, language)}</span><b>LOD 2 · {(nanjingEyeLod2.triangles / 1000).toFixed(0)}K</b></div><div className="bridge-spec-grid"><span><small>{localize(experienceCopy.bridgeProjectLength, language)}</small><strong>{nanjingEyeSpecification.projectLengthM} m</strong></span><span><small>{localize(experienceCopy.bridgeMainSpan, language)}</small><strong>{nanjingEyeSpecification.mainSpanM} m</strong></span><span><small>{localize(experienceCopy.bridgeTowerHeight, language)}</small><strong>{nanjingEyeSpecification.towerVerticalHeightM} m</strong></span><span><small>{localize(experienceCopy.bridgeStayCables, language)}</small><strong>{nanjingEyeSpecification.stayCableCount}</strong></span></div><div className="bridge-evidence-links"><small>{localize(experienceCopy.bridgeEvidenceUpdated, language)} · {nanjingEyeEvidence.version}</small>{nanjingEyeEvidence.sources.filter((source) => ["nanjing-eye-official-project", "nanjing-eye-technical-centre", "nanjing-eye-commons-category"].includes(source.id)).map((source) => <a key={source.id} href={source.url} target="_blank" rel="noreferrer">{source.id === "nanjing-eye-commons-category" ? localize(experienceCopy.bridgeEvidenceSources, language) : source.type === "government" ? (language === "zh" ? "官方资料" : "Official data") : (language === "zh" ? "工程参数" : "Engineering data")} ↗</a>)}</div></div>}
+              {selectedDiscovered ? <button className="discovery-action is-complete" disabled>✓ {localize(experienceCopy.discoveredLandmark, language)}</button> : view === "landmark" ? <button className="discovery-action" onClick={discoverSelected}>{localize(experienceCopy.discoverLandmark, language)} <span>＋</span></button> : <button className="focus-button" onClick={() => chooseLandmark(selected.id)}>{localize(experienceCopy.focusLandmark, language)} <span>↗</span></button>}
             </div>}
 
-            {controlPanel === "explore" && <>
-              <div className="sidebar-section mission-control-panel" style={{ "--mission-color": exploration.activeExpedition.accent } as React.CSSProperties}>
-                <span className="sidebar-index">04 / {localize(experienceCopy.missionControl, language)}</span>
-                {!exploration.state.briefingSeen && <div className="inline-briefing"><h3>{localize(experienceCopy.briefingTitle, language)}</h3><p>{localize(experienceCopy.briefingBody, language)}</p></div>}
-                <div className="mission-title-row"><div><small>{localize(experienceCopy.currentExpedition, language)}</small><h3>{localize(expeditionCopy[exploration.activeExpedition.id].name, language)}</h3></div><b>{exploration.activeProgress.percent}%</b></div>
-                <div className="sidebar-progress"><i style={{ width: `${exploration.activeProgress.percent}%` }} /></div>
-                {missionComplete ? <div className="mission-complete-message"><b>✓ {localize(experienceCopy.missionComplete, language)}</b><p>{localize(experienceCopy.missionCompleteBody, language)}</p></div> : <button className="objective-action" onClick={focusObjective}><span><small>{localize(experienceCopy.nextObjective, language)}</small><strong>{exploration.nextObjectiveId ? localize(landmarkCopy[exploration.nextObjectiveId].name, language) : "—"}</strong></span><b>{localize(experienceCopy.locate, language)} →</b></button>}
-                <div className="world-progress"><span>{localize(experienceCopy.worldProgress, language)}</span><strong>{exploration.state.discoveredLandmarkIds.length}/{allLandmarkIds.length}</strong><i><b style={{ width: `${worldPercent}%` }} /></i></div>
-              </div>
-              <div className="sidebar-section expedition-section"><span className="sidebar-index">05 / {localize(experienceCopy.chooseMission, language)}</span><ExpeditionDeck activeId={exploration.state.activeExpeditionId} completedIds={exploration.state.completedExpeditionIds} discoveredIds={exploration.state.discoveredLandmarkIds} language={language} onStart={startMission} onReset={resetProgress} /></div>
-            </>}
+            {controlPanel === "explore" && <><div className="sidebar-section mission-control-panel" style={{ "--mission-color": exploration.activeExpedition.accent } as React.CSSProperties}><span className="sidebar-index">04 / {localize(experienceCopy.missionControl, language)}</span>{!exploration.state.briefingSeen && <div className="inline-briefing"><h3>{localize(experienceCopy.briefingTitle, language)}</h3><p>{localize(experienceCopy.briefingBody, language)}</p></div>}<div className="mission-title-row"><div><small>{localize(experienceCopy.currentExpedition, language)}</small><h3>{localize(expeditionCopy[exploration.activeExpedition.id].name, language)}</h3></div><b>{exploration.activeProgress.percent}%</b></div><div className="sidebar-progress"><i style={{ width: `${exploration.activeProgress.percent}%` }} /></div>{missionComplete ? <div className="mission-complete-message"><b>✓ {localize(experienceCopy.missionComplete, language)}</b><p>{localize(experienceCopy.missionCompleteBody, language)}</p></div> : <button className="objective-action" onClick={focusObjective}><span><small>{localize(experienceCopy.nextObjective, language)}</small><strong>{exploration.nextObjectiveId ? localize(landmarkCopy[exploration.nextObjectiveId].name, language) : "—"}</strong></span><b>{localize(experienceCopy.locate, language)} →</b></button>}<div className="world-progress"><span>{localize(experienceCopy.worldProgress, language)}</span><strong>{exploration.state.discoveredLandmarkIds.length}/{allLandmarkIds.length}</strong><i><b style={{ width: `${worldPercent}%` }} /></i></div></div><div className="sidebar-section expedition-section"><span className="sidebar-index">05 / {localize(experienceCopy.chooseMission, language)}</span><ExpeditionDeck activeId={exploration.state.activeExpeditionId} completedIds={exploration.state.completedExpeditionIds} discoveredIds={exploration.state.discoveredLandmarkIds} language={language} onStart={startMission} onReset={resetProgress} /></div></>}
 
-            {controlPanel === "evidence" && <div className="sidebar-section evidence-section">
-              <div className="evidence-heading"><span><b>05 / {localize(experienceCopy.evidence, language)}</b><small>{evidenceSources.length + transportEvidenceSources.length + contextEvidenceSources.length} {localize(experienceCopy.sources, language)} · WGS84</small></span></div>
-              <div className="evidence-list is-open">{[...evidenceSources, ...transportEvidenceSources, ...contextEvidenceSources].map((source) => <a key={source.id} href={source.url} target="_blank" rel="noreferrer"><strong>{source.title}</strong><span>{source.type} · {source.date ?? source.imageryDate ?? "—"}</span></a>)}</div>
-            </div>}
+            {controlPanel === "evidence" && <div className="sidebar-section evidence-section"><div className="evidence-heading"><span><b>05 / {localize(experienceCopy.evidence, language)}</b><small>{evidenceSources.length + transportEvidenceSources.length + contextEvidenceSources.length} {localize(experienceCopy.sources, language)} · WGS84</small></span></div><div className="evidence-list is-open">{[...evidenceSources, ...transportEvidenceSources, ...contextEvidenceSources].map((source) => <a key={source.id} href={source.url} target="_blank" rel="noreferrer"><strong>{source.title}</strong><span>{source.type} · {source.date ?? source.imageryDate ?? "—"}</span></a>)}</div></div>}
           </div>
         </aside>
       </div>

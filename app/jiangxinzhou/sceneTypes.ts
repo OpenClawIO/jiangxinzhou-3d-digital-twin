@@ -1,11 +1,10 @@
 import type { Landmark } from "./landmarks";
 import type { Language } from "./locales";
-import type { Point3 } from "./mapGeometry";
+import type { CameraCommand, CameraPhase, LayerVisibility, SceneFocus, SceneQuality } from "./interactionState";
 
-export type ViewMode = "regional" | "overview" | "route" | "landmark";
-export type LayerKey = "water" | "surroundings" | "roads" | "buildings" | "landscape" | "landmarks" | "crossings" | "transport" | "coordinates";
-export type LayerVisibility = Record<LayerKey, boolean>;
-export type SceneQuality = "high" | "balanced" | "efficiency";
+export type { LayerKey, LayerVisibility, SceneQuality, ViewMode } from "./interactionState";
+
+export type ViewportInsets = { top: number; right: number; bottom: number; left: number };
 
 export type JiangxinzhouSceneProps = {
   items: Landmark[];
@@ -15,8 +14,14 @@ export type JiangxinzhouSceneProps = {
   onScaleChange: (meters: number) => void;
   celestialTimestamp: number;
   routeId: string;
-  view: ViewMode;
-  target: Point3;
+  focus: SceneFocus;
+  cameraCommand: CameraCommand;
+  cameraPhase: CameraPhase;
+  reducedMotion: boolean;
+  viewportInsets: ViewportInsets;
+  onCameraPhaseChange: (phase: CameraPhase) => void;
+  onSceneInteractionStart: () => void;
+  onDetailedAssetStateChange: (state: "idle" | "loading" | "ready") => void;
   layers: LayerVisibility;
   language: Language;
   quality: SceneQuality;
