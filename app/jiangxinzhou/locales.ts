@@ -257,8 +257,8 @@ export const experienceCopy = {
     en: "Confidence",
   },
   water: {
-    zh: "江河水系",
-    en: "Waterways",
+    zh: "江河水系 · 江豚动态",
+    en: "Waterways · Porpoise Activity",
   },
   surroundings: {
     zh: "四周岸线",

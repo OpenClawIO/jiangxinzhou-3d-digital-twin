@@ -32,6 +32,7 @@ import {
   type TransitMode,
 } from "./mapGeometry";
 import { nanjingEyeBounds, nanjingEyeLod1, nanjingEyeLod2 } from "./nanjingEye";
+import PorpoiseLayer from "./PorpoiseLayer";
 import RoadLayer from "./RoadLayerView";
 import { prepareScene, type AssetRole, type PreparedScene } from "./render/materials";
 import { RenderEffects, ProceduralEnvironment, ProceduralSky, WaterSurface, celestialPosition } from "./render/RenderEnvironment";
@@ -1196,6 +1197,7 @@ function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, cel
     <CelestialEnvironment state={celestialState} quality={quality} profile={renderProfile} shadowTarget={shadowTarget} shadowEnabled={shadowEnabled} legacy={legacy} />
     {legacy ? <LegacyWater visible={layers.water} daylight={celestialState.daylight} /> : <WaterSurface visible={layers.water} state={celestialState} profile={renderProfile} />}
     <RegionalContext waterVisible={layers.water} surroundingsVisible={layers.surroundings} language={language} daylight={celestialState.daylight} />
+    <PorpoiseLayer visible={layers.water} quality={quality} reducedMotion={reducedMotion} legacy={legacy} />
     <CoordinateGrid visible={layers.coordinates} view={view} />
     <DeferredAssets layers={layers} quality={quality} profile={renderProfile} legacy={legacy} onCoreReady={reportReady} nightFactor={celestialState.night} selectedId={selectedId} view={view} onDetailedAssetStateChange={onDetailedAssetStateChange} />
     <LandscapeZones visible={layers.landscape} />

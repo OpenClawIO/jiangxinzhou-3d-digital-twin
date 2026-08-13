@@ -148,5 +148,36 @@
       "units": "metres",
       "forward": "+X"
     }
+  ],
+  "porpoiseAssets": [
+    {
+      "id": "FinlessPorpoise",
+      "url": "/models/jiangxinzhou-v2/finless-porpoise.glb",
+      "bytes": 47600,
+      "triangles": 5260,
+      "drawCalls": 6,
+      "bounds": {
+        "min": [
+          -1.5985608100891113,
+          -0.29999840321217625,
+          -0.5870712847195158
+        ],
+        "max": [
+          1.0399999134242535,
+          0.33000135198647074,
+          0.5870712847195158
+        ]
+      },
+      "species": "Yangtze finless porpoise",
+      "source": "original Blender geometry; public morphology reference only",
+      "materials": [
+        "Porpoise skin",
+        "Porpoise belly",
+        "Porpoise back ridge",
+        "Porpoise flippers",
+        "Porpoise eye",
+        "Porpoise eye highlight"
+      ]
+    }
   ]
 }

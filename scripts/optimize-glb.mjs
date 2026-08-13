@@ -97,7 +97,7 @@ async function optimizeFile(filePath) {
   return { filePath, temporaryPath, sourceBytes, optimizedBytes, source, optimized, boundsDelta };
 }
 
-async function updateJsonSizes(jsonPath, sizes) {
+async function updateJsonSizes(jsonPath, metricsByFile) {
   let value;
   try {
     value = JSON.parse(await fs.readFile(jsonPath, "utf8"));
@@ -108,8 +108,13 @@ async function updateJsonSizes(jsonPath, sizes) {
   const visit = (entry) => {
     if (!entry || typeof entry !== "object") return;
     if (typeof entry.url === "string") {
-      const size = sizes.get(path.basename(entry.url));
-      if (size !== undefined) entry.bytes = size;
+      const metrics = metricsByFile.get(path.basename(entry.url));
+      if (metrics !== undefined) {
+        entry.bytes = metrics.bytes;
+        if (entry.triangles !== undefined) entry.triangles = metrics.triangles;
+        if (entry.drawCalls !== undefined) entry.drawCalls = metrics.drawCalls;
+        if (entry.bounds !== undefined) entry.bounds = metrics.bounds;
+      }
     }
     for (const child of Object.values(entry)) {
       if (Array.isArray(child)) child.forEach(visit);
@@ -136,9 +141,14 @@ try {
   }
   if (!dryRun) {
     for (const result of pending) await fs.rename(result.temporaryPath, result.filePath);
-    const sizes = new Map(pending.map((result) => [path.basename(result.filePath), result.optimizedBytes]));
-    await updateJsonSizes(path.join(inputDir, "scene-manifest.json"), sizes);
-    await updateJsonSizes(path.join(inputDir, "nanjing-eye-model-report.json"), sizes);
+    const metricsByFile = new Map(pending.map((result) => [path.basename(result.filePath), {
+      bytes: result.optimizedBytes,
+      triangles: result.optimized.triangles,
+      drawCalls: result.optimized.drawCalls,
+      bounds: result.optimized.bounds,
+    }]));
+    await updateJsonSizes(path.join(inputDir, "scene-manifest.json"), metricsByFile);
+    await updateJsonSizes(path.join(inputDir, "nanjing-eye-model-report.json"), metricsByFile);
   }
 } finally {
   await Promise.all(pending.map(({ temporaryPath }) => fs.rm(temporaryPath, { force: true })));
