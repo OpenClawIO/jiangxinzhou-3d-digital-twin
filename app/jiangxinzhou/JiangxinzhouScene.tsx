@@ -100,7 +100,11 @@ function PreparedAssetPrimitive({ prepared, role, tier, url, onReady, nightFacto
       onReady?.();
       return undefined;
     }
-    gl.compileAsync(prepared.scene, camera, rootScene).then(() => {
+    // Three 0.185 can race when several GLBs call compileAsync in parallel:
+    // its readiness poll may observe a material before currentProgram exists.
+    // Compile synchronously for the small, already-loaded asset and keep the
+    // reveal atomic; the main scene remains demand-rendered.
+    Promise.resolve().then(() => gl.compile(prepared.scene, camera, rootScene)).then(() => {
       if (cancelled) return;
       setCompiled(true);
       onReady?.();
@@ -883,6 +887,72 @@ function MarkerLabels({ items, selectedId, onSelect, language, view, objectiveId
   })}</>;
 }
 
+function PlayerMarkerLayer({ players, localPlayerId, selectedPlayerId, onSelectPlayer }: {
+  players: readonly import("./game/types").PlayerState[];
+  localPlayerId?: string;
+  selectedPlayerId?: string;
+  onSelectPlayer?: (playerId: string) => void;
+}) {
+  const { gl, invalidate } = useThree();
+  const meshRef = useRef<THREE.InstancedMesh>(null);
+  const markerGeometry = useMemo(() => new THREE.CylinderGeometry(13, 10, 24, 10), []);
+  const markerMaterial = useMemo(() => new THREE.MeshStandardMaterial({ roughness: 0.58, metalness: 0.12, vertexColors: true }), []);
+  const markerObject = useMemo(() => new THREE.Object3D(), []);
+  const visiblePlayers = useMemo(() => players.slice(0, 32), [players]);
+  const localPlayer = visiblePlayers.find((player) => player.playerId === localPlayerId);
+  const selectedPlayer = visiblePlayers.find((player) => player.playerId === selectedPlayerId);
+
+  useEffect(() => {
+    const mesh = meshRef.current;
+    if (!mesh) return;
+    mesh.count = visiblePlayers.length;
+    visiblePlayers.forEach((player, index) => {
+      markerObject.position.set(player.position[0], 28, player.position[1]);
+      markerObject.rotation.set(0, player.heading, 0);
+      markerObject.updateMatrix();
+      mesh.setMatrixAt(index, markerObject.matrix);
+      mesh.setColorAt(index, new THREE.Color(player.color));
+    });
+    mesh.instanceMatrix.needsUpdate = true;
+    if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+    invalidate();
+  }, [invalidate, markerObject, visiblePlayers]);
+
+  useEffect(() => () => {
+    markerGeometry.dispose();
+    markerMaterial.dispose();
+  }, [markerGeometry, markerMaterial]);
+
+  if (visiblePlayers.length === 0) return null;
+  return <group name="shared-world-player-markers">
+    <instancedMesh
+      ref={meshRef}
+      args={[markerGeometry, markerMaterial, 32]}
+      frustumCulled={false}
+      onPointerOver={(event) => { event.stopPropagation(); gl.domElement.classList.add("is-targeting"); }}
+      onPointerOut={() => gl.domElement.classList.remove("is-targeting")}
+      onClick={(event) => {
+        event.stopPropagation();
+        if (event.delta > 6 || event.instanceId === undefined) return;
+        const player = visiblePlayers[event.instanceId];
+        if (player) onSelectPlayer?.(player.playerId);
+      }}
+    />
+    {localPlayer && <>
+      <mesh position={[localPlayer.position[0], 15, localPlayer.position[1]]} rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[23, 29, 28]} />
+        <meshBasicMaterial color="#ffe07b" transparent opacity={0.9} side={THREE.DoubleSide} depthWrite={false} />
+      </mesh>
+      <Html position={[localPlayer.position[0], 72, localPlayer.position[1]]} center zIndexRange={[3, 0]} style={{ pointerEvents: "none" }}>
+        <div className="player-marker-label is-self"><span>YOU</span><strong>{localPlayer.displayName}</strong></div>
+      </Html>
+    </>}
+    {selectedPlayer && selectedPlayer.playerId !== localPlayerId && <Html position={[selectedPlayer.position[0], 72, selectedPlayer.position[1]]} center zIndexRange={[3, 0]} style={{ pointerEvents: "none" }}>
+      <div className="player-marker-label"><span>EXPLORER</span><strong>{selectedPlayer.displayName}</strong></div>
+    </Html>}
+  </group>;
+}
+
 function SceneControls({ controls, onInteractionStart, onPhaseChange }: { controls: React.RefObject<OrbitControlsImpl | null>; onInteractionStart: () => void; onPhaseChange: (phase: CameraPhase) => void }) {
   const { gl, invalidate, performance } = useThree();
   return <OrbitControls
@@ -1162,7 +1232,7 @@ function CelestialEnvironment({ state, quality, profile, shadowTarget, shadowEna
   </>;
 }
 
-function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, celestialTimestamp, routeId, focus, cameraCommand, cameraPhase, reducedMotion, viewportInsets, onCameraPhaseChange, onSceneInteractionStart, onDetailedAssetStateChange, layers, language, quality, renderMode, renderProfile, renderContextState, renderContextLosses, onPerformanceSample, onRenderTelemetry, onRenderContextStateChange, objectiveId, expeditionLandmarkIds, discoveredLandmarkIds, selectedTransportLineId, selectedTransportStopId, onSelectTransportStop, selectedCrossingId, onSelectCrossing }: JiangxinzhouSceneProps) {
+function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, celestialTimestamp, routeId, focus, cameraCommand, cameraPhase, reducedMotion, viewportInsets, onCameraPhaseChange, onSceneInteractionStart, onDetailedAssetStateChange, layers, language, quality, renderMode, renderProfile, renderContextState, renderContextLosses, onPerformanceSample, onRenderTelemetry, onRenderContextStateChange, objectiveId, expeditionLandmarkIds, discoveredLandmarkIds, selectedTransportLineId, selectedTransportStopId, onSelectTransportStop, selectedCrossingId, onSelectCrossing, gamePlayers = [], localPlayerId, selectedPlayerId, onSelectPlayer }: JiangxinzhouSceneProps) {
   const controls = useRef<OrbitControlsImpl>(null);
   const selectionRef = useRef<THREE.Group>(null);
   const reportedReady = useRef(false);
@@ -1197,6 +1267,7 @@ function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, cel
     <CrossingNetwork visible={layers.crossings && !landmarkFocus} selectedId={selectedCrossingId} onSelect={onSelectCrossing} language={language} legacy={legacy} />
     <RouteNetwork routeId={routeId} visible={view === "route" && !layers.transport} legacy={legacy} animate={ambientActive} />
     <TransportNetwork visible={layers.transport} lineId={selectedTransportLineId} stopId={selectedTransportStopId} onSelectStop={onSelectTransportStop} language={language} profile={renderProfile} legacy={legacy} />
+    {gamePlayers.length > 0 && <PlayerMarkerLayer players={gamePlayers} localPlayerId={localPlayerId} selectedPlayerId={selectedPlayerId} onSelectPlayer={onSelectPlayer} />}
     {layers.landmarks && <ObjectiveBeacon objectiveId={objectiveId} items={items} />}
     {layers.landmarks && <MarkerLabels items={items} selectedId={selectedId} onSelect={onSelect} language={language} view={view} objectiveId={objectiveId} discoveredIds={discoveredLandmarkIds} expeditionIds={expeditionLandmarkIds} selectionRef={selectionRef} />}
     <CameraRig command={cameraCommand} phase={cameraPhase} items={items} controls={controls} quality={quality} reducedMotion={reducedMotion} viewportInsets={viewportInsets} onPhaseChange={onCameraPhaseChange} />

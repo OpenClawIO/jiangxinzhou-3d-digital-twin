@@ -11,7 +11,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test": "npm run map:validate && npm run transport:validate && npm run context:validate && npm run model:validate && npm run exploration:validate && npm run celestial:validate && npm run interaction:validate && npm run render:validate && npm run build",
+    "test": "npm run map:validate && npm run transport:validate && npm run context:validate && npm run model:validate && npm run exploration:validate && npm run celestial:validate && npm run interaction:validate && npm run render:validate && npm run game:validate && npm run build",
     "map:build": "node scripts/build-jiangxinzhou-v2.mjs",
     "map:validate": "node scripts/validate-jiangxinzhou-v2.mjs",
     "transport:build": "node scripts/build-transport-data.mjs",
@@ -22,6 +22,7 @@
     "celestial:validate": "node --experimental-strip-types scripts/validate-celestial.mjs",
     "interaction:validate": "node --experimental-strip-types scripts/validate-interaction.mjs",
     "render:validate": "node --experimental-strip-types scripts/validate-render-runtime.mjs && node --experimental-strip-types scripts/validate-road-render.mjs && node --experimental-strip-types scripts/validate-render-materials.mjs",
+    "game:validate": "node --experimental-strip-types scripts/validate-game-v7.mjs",
     "model:build": "blender -b --python scripts/jiangxinzhou_scene_v2.py -- --data-dir data/jiangxinzhou-v2 --output-dir public/models/jiangxinzhou-v2 && npm run model:eye && npm run model:optimize",
     "model:eye": "blender -b --python scripts/nanjing_eye_model.py -- --data-dir data/jiangxinzhou-v2 --output-dir public/models/jiangxinzhou-v2 --review-dir output/nanjing-eye-review",
     "model:validate": "node scripts/validate-nanjing-eye.mjs",
@@ -31,6 +32,7 @@
     "model:context": "blender -b --python scripts/jiangxinzhou_context_models.py -- --data-dir data/jiangxinzhou-v2 --output-dir public/models/jiangxinzhou-v2"
   },
   "dependencies": {
+    "@supabase/supabase-js": "2.112.3",
     "@react-three/drei": "^10.7.8",
     "@react-three/fiber": "^9.7.0",
     "@react-three/postprocessing": "3.0.5",

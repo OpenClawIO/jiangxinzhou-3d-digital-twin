@@ -459,6 +459,7 @@ export const experienceCopy = {
   beginExpedition: { zh: "开始任务", en: "Start expedition" },
   activeMission: { zh: "进行中", en: "Active" },
   discoverLandmark: { zh: "收录这个发现", en: "Log this discovery" },
+  moveToLandmark: { zh: "沿道路前往目标", en: "Move along roads to target" },
   discoveredLandmark: { zh: "已收录到地标图鉴", en: "Logged in landmark collection" },
   focusObjective: { zh: "前往下一目标", en: "Go to next objective" },
   locate: { zh: "定位", en: "Locate" },

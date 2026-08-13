@@ -2,6 +2,7 @@ import type { Landmark } from "./landmarks";
 import type { Language } from "./locales";
 import type { CameraCommand, CameraPhase, LayerVisibility, SceneFocus, SceneQuality } from "./interactionState";
 import type { RenderContextState, RenderMode, RenderProfile, RenderTelemetry } from "./render/runtime";
+import type { GameMode, PlayerState } from "./game/types";
 
 export type { LayerKey, LayerVisibility, SceneQuality, ViewMode } from "./interactionState";
 
@@ -41,4 +42,9 @@ export type JiangxinzhouSceneProps = {
   onSelectTransportStop: (id: string) => void;
   selectedCrossingId: string;
   onSelectCrossing: (id: string) => void;
+  gameMode?: GameMode;
+  gamePlayers?: readonly PlayerState[];
+  localPlayerId?: string;
+  selectedPlayerId?: string;
+  onSelectPlayer?: (playerId: string) => void;
 };

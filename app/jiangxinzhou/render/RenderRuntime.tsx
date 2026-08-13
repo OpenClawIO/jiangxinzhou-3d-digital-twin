@@ -185,7 +185,10 @@ export function ShaderCompiler({ revision }: { revision: string }) {
   useEffect(() => {
     let cancelled = false;
     const run = () => {
-      gl.compileAsync(scene, camera).then(() => {
+      // Avoid overlapping Three.js compileAsync readiness polls. With several
+      // GLB assets entering Suspense together, Three 0.185 may read an
+      // undefined currentProgram and emit GL_INVALID_VALUE in Chromium.
+      Promise.resolve().then(() => gl.compile(scene, camera)).then(() => {
         if (!cancelled) invalidate();
       }).catch((error) => console.warn("WebGL shader precompile failed", error));
     };
