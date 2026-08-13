@@ -153,23 +153,23 @@
     {
       "id": "FinlessPorpoise",
       "url": "/models/jiangxinzhou-v2/finless-porpoise.glb",
-      "bytes": 47600,
-      "triangles": 5260,
-      "drawCalls": 6,
+      "bytes": 129352,
+      "triangles": 25952,
+      "drawCalls": 7,
       "bounds": {
         "min": [
-          -1.5985608100891113,
-          -0.29999840321217625,
-          -0.5870712847195158
+          -1.4884460145354572,
+          -0.33327034118110604,
+          -0.6604447364807129
         ],
         "max": [
-          1.0399999134242535,
-          0.33000135198647074,
-          0.5870712847195158
+          0.8707541823387146,
+          0.3497766584451151,
+          0.6604447364807129
         ]
       },
       "species": "Yangtze finless porpoise",
-      "source": "original Blender geometry; public morphology reference only",
+      "source": "original Blender continuous-surface geometry; public morphology reference only",
       "materials": [
         "Porpoise skin",
         "Porpoise belly",

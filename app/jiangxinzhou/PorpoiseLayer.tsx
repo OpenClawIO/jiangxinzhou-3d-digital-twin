@@ -32,7 +32,7 @@ type PorpoiseLayerProps = {
 
 type PorpoisePart = {
   geometry: THREE.BufferGeometry;
-  material: THREE.Material;
+  material: THREE.Material | THREE.Material[];
   localMatrix: THREE.Matrix4;
 };
 
@@ -233,7 +233,7 @@ function DetailedPorpoiseLayer({ paths, lengths }: { paths: PorpoisePathMap; len
     const next: PorpoisePart[] = [];
     gltf.scene.traverse((object) => {
       if (!(object instanceof THREE.Mesh)) return;
-      const material = Array.isArray(object.material) ? object.material[0] : object.material;
+      const material = object.material;
       if (!material) return;
       next.push({ geometry: object.geometry, material, localMatrix: object.matrixWorld.clone() });
     });

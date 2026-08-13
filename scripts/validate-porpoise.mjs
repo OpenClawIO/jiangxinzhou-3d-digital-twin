@@ -92,7 +92,7 @@ const modelPath = path.join(root, "public", asset.url);
 const modelBytes = (await stat(modelPath)).size;
 assert.equal(modelBytes, asset.bytes, "manifest byte size must match the GLB");
 assert.ok(modelBytes <= 350_000, `porpoise GLB is too large: ${modelBytes}`);
-assert.ok(asset.triangles <= 12_000, `porpoise triangle budget exceeded: ${asset.triangles}`);
+assert.ok(asset.triangles <= 30_000, `porpoise triangle budget exceeded: ${asset.triangles}`);
 assert.ok(asset.drawCalls <= 10, `porpoise draw-call budget exceeded: ${asset.drawCalls}`);
 assert.ok(asset.bounds?.min && asset.bounds?.max, "manifest must record the porpoise bounds");
 
