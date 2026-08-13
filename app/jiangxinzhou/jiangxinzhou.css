@@ -239,6 +239,23 @@
 .road-name-label { display: block; padding: 2px 5px; border-radius: 4px; color: rgba(18, 65, 65, .8); background: rgba(239, 247, 228, .56); box-shadow: 0 2px 8px rgba(19, 63, 62, .08); backdrop-filter: blur(4px); font: 700 7px/1.2 var(--font-geist-sans), sans-serif; white-space: nowrap; transform: rotate(-8deg); }
 .road-name-label.major,
 .road-name-label.arterial { color: #173f3e; background: rgba(255, 247, 211, .75); font-size: 8px; }
+.road-name-label.v8-road-label { border: 1px solid rgba(26, 73, 66, .16); box-shadow: 0 3px 10px rgba(19, 63, 62, .1); }
+.road-layer-badge { display: block; width: max-content; padding: 4px 7px; border: 1px solid rgba(188, 221, 190, .28); border-radius: 999px; color: rgba(220, 239, 211, .78); background: rgba(18, 55, 54, .45); font: 700 7px var(--font-geist-mono), monospace; letter-spacing: .08em; white-space: nowrap; opacity: .64; }
+.road-sublayer-toggles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; margin: 8px 0 0; padding: 7px; border: 1px solid rgba(50, 96, 87, .14); border-radius: 9px; background: rgba(233, 243, 224, .38); }
+.road-sublayer-toggles legend { padding: 0 4px; color: #6b8170; font: 800 7px var(--font-geist-mono), monospace; letter-spacing: .08em; text-transform: uppercase; }
+.road-sublayer-toggles button { min-height: 28px; padding: 4px 5px; border: 1px solid rgba(54, 91, 82, .15); border-radius: 6px; color: #426b60; background: rgba(255, 255, 247, .5); font-size: 8px; line-height: 1.1; }
+.road-sublayer-toggles button.active { border-color: rgba(39, 118, 91, .4); color: #f3fff1; background: #287a63; box-shadow: 0 3px 9px rgba(29, 100, 75, .16); }
+.road-inspector { position: absolute; z-index: 8; top: 86px; left: 22px; width: min(320px, calc(100% - 44px)); padding: 10px; border: 1px solid rgba(207, 237, 210, .32); border-radius: 12px; color: #e9f6e7; background: rgba(11, 46, 46, .84); box-shadow: 0 12px 32px rgba(1, 20, 25, .2); backdrop-filter: blur(12px); pointer-events: auto; }
+.road-inspector header { display: flex; align-items: start; justify-content: space-between; gap: 10px; }
+.road-inspector header div { display: grid; gap: 3px; }
+.road-inspector header small { color: #9abca7; font: 700 7px var(--font-geist-mono), monospace; letter-spacing: .1em; text-transform: uppercase; }
+.road-inspector header strong { color: #fff7d4; font-size: 14px; }
+.road-inspector header button { width: 28px; height: 28px; border: 1px solid rgba(218, 240, 214, .22); border-radius: 7px; color: #e5f1dc; background: rgba(220, 244, 214, .1); font-size: 18px; line-height: 1; }
+.road-inspector-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 5px; margin-top: 9px; }
+.road-inspector-grid span { display: grid; gap: 3px; min-width: 0; padding: 6px; border-radius: 7px; background: rgba(220, 244, 214, .08); }
+.road-inspector-grid small { color: #8eb1a0; font-size: 6px; }
+.road-inspector-grid b { overflow: hidden; color: #f1f6df; font: 700 9px var(--font-geist-mono), monospace; text-overflow: ellipsis; white-space: nowrap; }
+.road-inspector footer { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 8px; color: #a9c9b3; font: 700 7px var(--font-geist-mono), monospace; }
 .water-label,
 .context-bank-label { display: grid; gap: 2px; width: max-content; padding: 6px 8px; border: 1px solid rgba(223, 247, 237, .28); border-radius: 8px; color: #e8f5e9; background: rgba(19, 70, 78, .68); box-shadow: 0 7px 22px rgba(9, 51, 61, .18); backdrop-filter: blur(6px); text-align: center; }
 .water-label span,
@@ -1203,6 +1220,10 @@ a:focus-visible {
   .v5-interaction .map-scale { right: 8px; bottom: 108px; }
   .v5-interaction .stage-note { display: none; }
   .v5-interaction .mission-hud { top: 102px; left: 60px; width: min(235px, calc(100% - 126px)); }
+  .v5-interaction .road-inspector { top: 108px; left: 8px; width: min(300px, calc(100% - 16px)); padding: 9px; }
+  .v5-interaction .road-inspector-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .v5-interaction .road-layer-badge { display: none; }
+  .v5-interaction .road-sublayer-toggles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .map-popover-scrim { z-index: 19; background: rgba(2, 14, 18, .38); }
   .map-popover { z-index: 20; top: auto; right: 7px; bottom: 7px; left: 7px; width: auto; max-height: min(75dvh, calc(100% - 14px)); border-radius: 16px; backdrop-filter: none; }
   .map-popover.time { width: auto; }

@@ -48,7 +48,8 @@
       "waterBodies": "water-bodies.geojson",
       "contextRoads": "context-roads.geojson",
       "crossings": "crossings.geojson",
-      "contextEvidence": "context-evidence.json"
+      "contextEvidence": "context-evidence.json",
+      "roadLayer": "road-layer/road-manifest.json"
     }
   },
   "island": {

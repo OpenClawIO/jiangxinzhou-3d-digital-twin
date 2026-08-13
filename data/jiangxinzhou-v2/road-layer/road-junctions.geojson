@@ -1,0 +1,9169 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "road-node-1",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.686423,
+          32.014116
+        ]
+      },
+      "properties": {
+        "id": "road-node-1",
+        "nodeId": "road-node-1",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-1-0",
+          "road-1-2"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-2",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.693107,
+          32.011082
+        ]
+      },
+      "properties": {
+        "id": "road-node-2",
+        "nodeId": "road-node-2",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-1-0",
+          "road-4-25",
+          "road-4-28"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-3",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.681955,
+          32.016377
+        ]
+      },
+      "properties": {
+        "id": "road-node-3",
+        "nodeId": "road-node-3",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-1-1",
+          "road-1-4",
+          "local-883782296-0"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-4",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.686133,
+          32.014271
+        ]
+      },
+      "properties": {
+        "id": "road-node-4",
+        "nodeId": "road-node-4",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-1-1",
+          "road-1-3",
+          "local-883782307-0"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-5",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.686324,
+          32.014168
+        ]
+      },
+      "properties": {
+        "id": "road-node-5",
+        "nodeId": "road-node-5",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-1-2",
+          "road-1-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-6",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.679807,
+          32.017464
+        ]
+      },
+      "properties": {
+        "id": "road-node-6",
+        "nodeId": "road-node-6",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-1-4",
+          "road-30-0",
+          "local-759959736-0"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-7",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.691755,
+          32.039893
+        ]
+      },
+      "properties": {
+        "id": "road-node-7",
+        "nodeId": "road-node-7",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-2-0",
+          "road-2-1",
+          "local-883782295-0"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-8",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.720235,
+          32.063418
+        ]
+      },
+      "properties": {
+        "id": "road-node-8",
+        "nodeId": "road-node-8",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-2-0",
+          "road-2-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-9",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.666487,
+          31.987994
+        ]
+      },
+      "properties": {
+        "id": "road-node-9",
+        "nodeId": "road-node-9",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-2-1",
+          "road-2-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-10",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.70472,
+          32.033524
+        ]
+      },
+      "properties": {
+        "id": "road-node-10",
+        "nodeId": "road-node-10",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-2-2",
+          "road-2-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-11",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.696959,
+          32.011438
+        ]
+      },
+      "properties": {
+        "id": "road-node-11",
+        "nodeId": "road-node-11",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-2-2",
+          "road-2-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-12",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.707944,
+          32.031631
+        ]
+      },
+      "properties": {
+        "id": "road-node-12",
+        "nodeId": "road-node-12",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-3-0"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-13",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.702071,
+          32.034805
+        ]
+      },
+      "properties": {
+        "id": "road-node-13",
+        "nodeId": "road-node-13",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-3-0"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-14",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.701942,
+          32.034668
+        ]
+      },
+      "properties": {
+        "id": "road-node-14",
+        "nodeId": "road-node-14",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-3-1"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-15",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.708224,
+          32.031258
+        ]
+      },
+      "properties": {
+        "id": "road-node-15",
+        "nodeId": "road-node-15",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-3-1"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-16",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.69894,
+          32.034532
+        ]
+      },
+      "properties": {
+        "id": "road-node-16",
+        "nodeId": "road-node-16",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-0",
+          "road-4-26"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-17",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.701163,
+          32.037383
+        ]
+      },
+      "properties": {
+        "id": "road-node-17",
+        "nodeId": "road-node-17",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-0",
+          "road-4-27"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-19",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.699211,
+          32.034989
+        ]
+      },
+      "properties": {
+        "id": "road-node-19",
+        "nodeId": "road-node-19",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-1",
+          "local-157046173-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-20",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.697166,
+          32.032164
+        ]
+      },
+      "properties": {
+        "id": "road-node-20",
+        "nodeId": "road-node-20",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-2",
+          "road-4-5"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-21",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.698692,
+          32.034165
+        ]
+      },
+      "properties": {
+        "id": "road-node-21",
+        "nodeId": "road-node-21",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-2",
+          "road-4-26",
+          "local-138390843-0",
+          "local-1084561765-0"
+        ],
+        "armCount": 4,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-22",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.701421,
+          32.037656
+        ]
+      },
+      "properties": {
+        "id": "road-node-22",
+        "nodeId": "road-node-22",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-3",
+          "road-4-27",
+          "local-157046180-0"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-24",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.698499,
+          32.034169
+        ]
+      },
+      "properties": {
+        "id": "road-node-24",
+        "nodeId": "road-node-24",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-4",
+          "local-157046173-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-25",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.697828,
+          32.033318
+        ]
+      },
+      "properties": {
+        "id": "road-node-25",
+        "nodeId": "road-node-25",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-4",
+          "road-4-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-26",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.69403,
+          32.028115
+        ]
+      },
+      "properties": {
+        "id": "road-node-26",
+        "nodeId": "road-node-26",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-5",
+          "road-4-19"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-27",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.693866,
+          32.028234
+        ]
+      },
+      "properties": {
+        "id": "road-node-27",
+        "nodeId": "road-node-27",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-6",
+          "road-4-21"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-28",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.690877,
+          32.006371
+        ]
+      },
+      "properties": {
+        "id": "road-node-28",
+        "nodeId": "road-node-28",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-7",
+          "road-4-24",
+          "road-19-0"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-29",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.679336,
+          31.995659
+        ]
+      },
+      "properties": {
+        "id": "road-node-29",
+        "nodeId": "road-node-29",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-7",
+          "road-4-32"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-30",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.679414,
+          31.995523
+        ]
+      },
+      "properties": {
+        "id": "road-node-30",
+        "nodeId": "road-node-30",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-8",
+          "road-4-30"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-31",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.69104,
+          32.006281
+        ]
+      },
+      "properties": {
+        "id": "road-node-31",
+        "nodeId": "road-node-31",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-8",
+          "road-4-25",
+          "road-19-0"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-33",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.701268,
+          32.037757
+        ]
+      },
+      "properties": {
+        "id": "road-node-33",
+        "nodeId": "road-node-33",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-9",
+          "local-157046181-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-34",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.691163,
+          32.024029
+        ]
+      },
+      "properties": {
+        "id": "road-node-34",
+        "nodeId": "road-node-34",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-10",
+          "road-4-20"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-35",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.691123,
+          32.023628
+        ]
+      },
+      "properties": {
+        "id": "road-node-35",
+        "nodeId": "road-node-35",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-10",
+          "road-4-11"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-36",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.691152,
+          32.023173
+        ]
+      },
+      "properties": {
+        "id": "road-node-36",
+        "nodeId": "road-node-36",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-11",
+          "road-4-18"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-37",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.691314,
+          32.023501
+        ]
+      },
+      "properties": {
+        "id": "road-node-37",
+        "nodeId": "road-node-37",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-12",
+          "road-4-13"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-38",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.693845,
+          32.027878
+        ]
+      },
+      "properties": {
+        "id": "road-node-38",
+        "nodeId": "road-node-38",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-12",
+          "road-4-19"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-39",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.691367,
+          32.023028
+        ]
+      },
+      "properties": {
+        "id": "road-node-39",
+        "nodeId": "road-node-39",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-13",
+          "road-4-16"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-40",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.691283,
+          32.022644
+        ]
+      },
+      "properties": {
+        "id": "road-node-40",
+        "nodeId": "road-node-40",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-14",
+          "road-4-18",
+          "road-15-0",
+          "road-15-1"
+        ],
+        "armCount": 4,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-41",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.692086,
+          32.020399
+        ]
+      },
+      "properties": {
+        "id": "road-node-41",
+        "nodeId": "road-node-41",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-14",
+          "road-4-15"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-42",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.692218,
+          32.020012
+        ]
+      },
+      "properties": {
+        "id": "road-node-42",
+        "nodeId": "road-node-42",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-15",
+          "road-4-22"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-43",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.692212,
+          32.020517
+        ]
+      },
+      "properties": {
+        "id": "road-node-43",
+        "nodeId": "road-node-43",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-16",
+          "road-4-17"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-44",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.692361,
+          32.020125
+        ]
+      },
+      "properties": {
+        "id": "road-node-44",
+        "nodeId": "road-node-44",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-17",
+          "road-4-23"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-45",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.69368,
+          32.028
+        ]
+      },
+      "properties": {
+        "id": "road-node-45",
+        "nodeId": "road-node-45",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-20",
+          "road-4-21"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-46",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.693242,
+          32.014198
+        ]
+      },
+      "properties": {
+        "id": "road-node-46",
+        "nodeId": "road-node-46",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-22",
+          "road-4-24"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-47",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.693206,
+          32.012106
+        ]
+      },
+      "properties": {
+        "id": "road-node-47",
+        "nodeId": "road-node-47",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-23",
+          "road-4-28"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-49",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.679219,
+          31.995352
+        ]
+      },
+      "properties": {
+        "id": "road-node-49",
+        "nodeId": "road-node-49",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-29",
+          "road-4-30"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-50",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.679106,
+          31.99547
+        ]
+      },
+      "properties": {
+        "id": "road-node-50",
+        "nodeId": "road-node-50",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-31",
+          "road-4-32"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-52",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.704583,
+          32.046327
+        ]
+      },
+      "properties": {
+        "id": "road-node-52",
+        "nodeId": "road-node-52",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-0",
+          "road-5-5"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-53",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.699603,
+          32.039519
+        ]
+      },
+      "properties": {
+        "id": "road-node-53",
+        "nodeId": "road-node-53",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-0",
+          "road-5-2"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-54",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.699415,
+          32.039271
+        ]
+      },
+      "properties": {
+        "id": "road-node-54",
+        "nodeId": "road-node-54",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-1",
+          "road-5-2"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-57",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.706117,
+          32.048425
+        ]
+      },
+      "properties": {
+        "id": "road-node-57",
+        "nodeId": "road-node-57",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-3",
+          "road-5-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-58",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.704754,
+          32.046554
+        ]
+      },
+      "properties": {
+        "id": "road-node-58",
+        "nodeId": "road-node-58",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-4",
+          "road-5-5"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-59",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.699672,
+          32.03948
+        ]
+      },
+      "properties": {
+        "id": "road-node-59",
+        "nodeId": "road-node-59",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-6",
+          "road-5-8"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-60",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.704637,
+          32.046283
+        ]
+      },
+      "properties": {
+        "id": "road-node-60",
+        "nodeId": "road-node-60",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-6",
+          "road-5-10"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-62",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.699489,
+          32.039234
+        ]
+      },
+      "properties": {
+        "id": "road-node-62",
+        "nodeId": "road-node-62",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-7",
+          "road-5-8"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-63",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.704817,
+          32.046516
+        ]
+      },
+      "properties": {
+        "id": "road-node-63",
+        "nodeId": "road-node-63",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-9",
+          "road-5-10"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-65",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.693149,
+          32.031043
+        ]
+      },
+      "properties": {
+        "id": "road-node-65",
+        "nodeId": "road-node-65",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-6-0",
+          "road-6-2",
+          "road-7-1",
+          "road-7-2"
+        ],
+        "armCount": 4,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-66",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.695792,
+          32.034357
+        ]
+      },
+      "properties": {
+        "id": "road-node-66",
+        "nodeId": "road-node-66",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-6-0",
+          "road-6-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-67",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.694727,
+          32.024946
+        ]
+      },
+      "properties": {
+        "id": "road-node-67",
+        "nodeId": "road-node-67",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-6-1",
+          "road-6-5",
+          "road-27-0"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-68",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.69122,
+          32.027735
+        ]
+      },
+      "properties": {
+        "id": "road-node-68",
+        "nodeId": "road-node-68",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-6-1",
+          "road-6-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-69",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.691217,
+          32.028408
+        ]
+      },
+      "properties": {
+        "id": "road-node-69",
+        "nodeId": "road-node-69",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-6-2",
+          "road-6-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-71",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.697101,
+          32.02344
+        ]
+      },
+      "properties": {
+        "id": "road-node-71",
+        "nodeId": "road-node-71",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-6-5",
+          "road-6-7",
+          "local-1092620877-0",
+          "road-20-6"
+        ],
+        "armCount": 4,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-73",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.691101,
+          32.028313
+        ]
+      },
+      "properties": {
+        "id": "road-node-73",
+        "nodeId": "road-node-73",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-6-6",
+          "road-6-8"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-74",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.691174,
+          32.027609
+        ]
+      },
+      "properties": {
+        "id": "road-node-74",
+        "nodeId": "road-node-74",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-6-7",
+          "road-6-8"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-75",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.69717,
+          32.028144
+        ]
+      },
+      "properties": {
+        "id": "road-node-75",
+        "nodeId": "road-node-75",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-7-0",
+          "road-27-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-76",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.693585,
+          32.030719
+        ]
+      },
+      "properties": {
+        "id": "road-node-76",
+        "nodeId": "road-node-76",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-7-0",
+          "road-7-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-78",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.693329,
+          32.030913
+        ]
+      },
+      "properties": {
+        "id": "road-node-78",
+        "nodeId": "road-node-78",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-7-2",
+          "road-7-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-79",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.693519,
+          32.030659
+        ]
+      },
+      "properties": {
+        "id": "road-node-79",
+        "nodeId": "road-node-79",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-7-4",
+          "road-7-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-80",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.69718,
+          32.028037
+        ]
+      },
+      "properties": {
+        "id": "road-node-80",
+        "nodeId": "road-node-80",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-7-4",
+          "road-27-2"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-82",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.693265,
+          32.03085
+        ]
+      },
+      "properties": {
+        "id": "road-node-82",
+        "nodeId": "road-node-82",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-7-5",
+          "road-7-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-83",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.703373,
+          32.04728
+        ]
+      },
+      "properties": {
+        "id": "road-node-83",
+        "nodeId": "road-node-83",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-8-0",
+          "road-8-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-84",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.700671,
+          32.043603
+        ]
+      },
+      "properties": {
+        "id": "road-node-84",
+        "nodeId": "road-node-84",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-8-0",
+          "road-8-2",
+          "road-13-2",
+          "road-13-4"
+        ],
+        "armCount": 4,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-85",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.704765,
+          32.049174
+        ]
+      },
+      "properties": {
+        "id": "road-node-85",
+        "nodeId": "road-node-85",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-8-1",
+          "road-8-5",
+          "road-21-0"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-87",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.698196,
+          32.040228
+        ]
+      },
+      "properties": {
+        "id": "road-node-87",
+        "nodeId": "road-node-87",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-8-2",
+          "road-8-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-88",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.698025,
+          32.04
+        ]
+      },
+      "properties": {
+        "id": "road-node-88",
+        "nodeId": "road-node-88",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-8-3",
+          "road-8-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-90",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.703541,
+          32.0475
+        ]
+      },
+      "properties": {
+        "id": "road-node-90",
+        "nodeId": "road-node-90",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-8-5",
+          "road-8-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-91",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.704187,
+          32.045001
+        ]
+      },
+      "properties": {
+        "id": "road-node-91",
+        "nodeId": "road-node-91",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-9-0",
+          "road-9-2"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-92",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.709324,
+          32.041724
+        ]
+      },
+      "properties": {
+        "id": "road-node-92",
+        "nodeId": "road-node-92",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-9-0",
+          "road-20-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-94",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.703982,
+          32.045139
+        ]
+      },
+      "properties": {
+        "id": "road-node-94",
+        "nodeId": "road-node-94",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-9-1",
+          "road-9-2"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-95",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.701474,
+          32.038015
+        ]
+      },
+      "properties": {
+        "id": "road-node-95",
+        "nodeId": "road-node-95",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-10-0",
+          "road-4-9"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-96",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.699317,
+          32.039134
+        ]
+      },
+      "properties": {
+        "id": "road-node-96",
+        "nodeId": "road-node-96",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-10-0",
+          "road-10-2",
+          "road-5-1"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-97",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.697924,
+          32.039847
+        ]
+      },
+      "properties": {
+        "id": "road-node-97",
+        "nodeId": "road-node-97",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-10-1",
+          "road-10-2",
+          "road-8-3"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-98",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.696337,
+          32.040661
+        ]
+      },
+      "properties": {
+        "id": "road-node-98",
+        "nodeId": "road-node-98",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-10-1",
+          "road-10-3",
+          "local-759960751-0"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-99",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.701426,
+          32.037955
+        ]
+      },
+      "properties": {
+        "id": "road-node-99",
+        "nodeId": "road-node-99",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-10-3",
+          "road-4-9"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-100",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.69399,
+          31.999741
+        ]
+      },
+      "properties": {
+        "id": "road-node-100",
+        "nodeId": "road-node-100",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-11-0"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-101",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.699348,
+          31.995421
+        ]
+      },
+      "properties": {
+        "id": "road-node-101",
+        "nodeId": "road-node-101",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-11-0",
+          "road-11-1",
+          "road-11-2"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-102",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.699601,
+          31.995015
+        ]
+      },
+      "properties": {
+        "id": "road-node-102",
+        "nodeId": "road-node-102",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-11-1"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-103",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.699677,
+          31.995113
+        ]
+      },
+      "properties": {
+        "id": "road-node-103",
+        "nodeId": "road-node-103",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-11-2"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-104",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.699883,
+          32.031481
+        ]
+      },
+      "properties": {
+        "id": "road-node-104",
+        "nodeId": "road-node-104",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-12-0",
+          "road-27-1",
+          "road-27-2",
+          "road-27-4"
+        ],
+        "armCount": 4,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-105",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.697784,
+          32.032974
+        ]
+      },
+      "properties": {
+        "id": "road-node-105",
+        "nodeId": "road-node-105",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-12-0",
+          "road-12-3",
+          "road-4-2"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-106",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.695901,
+          32.034282
+        ]
+      },
+      "properties": {
+        "id": "road-node-106",
+        "nodeId": "road-node-106",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-12-1",
+          "road-12-2"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-108",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.696155,
+          32.034104
+        ]
+      },
+      "properties": {
+        "id": "road-node-108",
+        "nodeId": "road-node-108",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-12-2",
+          "road-12-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-109",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.705908,
+          32.040866
+        ]
+      },
+      "properties": {
+        "id": "road-node-109",
+        "nodeId": "road-node-109",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-0",
+          "road-13-14"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-110",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.702532,
+          32.042639
+        ]
+      },
+      "properties": {
+        "id": "road-node-110",
+        "nodeId": "road-node-110",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-0",
+          "road-13-5"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-111",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.699119,
+          32.044415
+        ]
+      },
+      "properties": {
+        "id": "road-node-111",
+        "nodeId": "road-node-111",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-1",
+          "road-13-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-112",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.697544,
+          32.045267
+        ]
+      },
+      "properties": {
+        "id": "road-node-112",
+        "nodeId": "road-node-112",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-1",
+          "road-30-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-113",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.699379,
+          32.044275
+        ]
+      },
+      "properties": {
+        "id": "road-node-113",
+        "nodeId": "road-node-113",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-2",
+          "road-13-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-114",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.702294,
+          32.042768
+        ]
+      },
+      "properties": {
+        "id": "road-node-114",
+        "nodeId": "road-node-114",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-4",
+          "road-13-5"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-115",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.702473,
+          32.042563
+        ]
+      },
+      "properties": {
+        "id": "road-node-115",
+        "nodeId": "road-node-115",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-6",
+          "road-13-10"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-116",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.70587,
+          32.040804
+        ]
+      },
+      "properties": {
+        "id": "road-node-116",
+        "nodeId": "road-node-116",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-6",
+          "road-13-12"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-117",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.697489,
+          32.045208
+        ]
+      },
+      "properties": {
+        "id": "road-node-117",
+        "nodeId": "road-node-117",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-7",
+          "road-30-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-118",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.69908,
+          32.044365
+        ]
+      },
+      "properties": {
+        "id": "road-node-118",
+        "nodeId": "road-node-118",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-7",
+          "road-13-8"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-119",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.699343,
+          32.044218
+        ]
+      },
+      "properties": {
+        "id": "road-node-119",
+        "nodeId": "road-node-119",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-8",
+          "road-13-9"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-120",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.702246,
+          32.042688
+        ]
+      },
+      "properties": {
+        "id": "road-node-120",
+        "nodeId": "road-node-120",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-9",
+          "road-13-10"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-121",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.706041,
+          32.040715
+        ]
+      },
+      "properties": {
+        "id": "road-node-121",
+        "nodeId": "road-node-121",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-11",
+          "road-13-12"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-122",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.708143,
+          32.039603
+        ]
+      },
+      "properties": {
+        "id": "road-node-122",
+        "nodeId": "road-node-122",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-11",
+          "road-20-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-123",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.708179,
+          32.039666
+        ]
+      },
+      "properties": {
+        "id": "road-node-123",
+        "nodeId": "road-node-123",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-13",
+          "road-20-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-124",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.706071,
+          32.040779
+        ]
+      },
+      "properties": {
+        "id": "road-node-124",
+        "nodeId": "road-node-124",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-13",
+          "road-13-14"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-125",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.709928,
+          32.046414
+        ]
+      },
+      "properties": {
+        "id": "road-node-125",
+        "nodeId": "road-node-125",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-14-0",
+          "road-14-1",
+          "road-21-0"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-126",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.703987,
+          32.036678
+        ]
+      },
+      "properties": {
+        "id": "road-node-126",
+        "nodeId": "road-node-126",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-14-0",
+          "local-1092630250-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-128",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.687573,
+          32.025092
+        ]
+      },
+      "properties": {
+        "id": "road-node-128",
+        "nodeId": "road-node-128",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-15-0",
+          "road-15-2",
+          "road-30-2"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-129",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.691474,
+          32.022562
+        ]
+      },
+      "properties": {
+        "id": "road-node-129",
+        "nodeId": "road-node-129",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-15-1",
+          "road-27-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-130",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.69151,
+          32.022463
+        ]
+      },
+      "properties": {
+        "id": "road-node-130",
+        "nodeId": "road-node-130",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-15-2",
+          "road-27-3",
+          "road-4-16"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-131",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.641868,
+          32.019244
+        ]
+      },
+      "properties": {
+        "id": "road-node-131",
+        "nodeId": "road-node-131",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-0"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-132",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.68262,
+          32.002087
+        ]
+      },
+      "properties": {
+        "id": "road-node-132",
+        "nodeId": "road-node-132",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-0",
+          "local-1061061152-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-133",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.682665,
+          32.002226
+        ]
+      },
+      "properties": {
+        "id": "road-node-133",
+        "nodeId": "road-node-133",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-1",
+          "local-1061061151-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-134",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.641877,
+          32.019468
+        ]
+      },
+      "properties": {
+        "id": "road-node-134",
+        "nodeId": "road-node-134",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-1"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-135",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.686412,
+          32.010884
+        ]
+      },
+      "properties": {
+        "id": "road-node-135",
+        "nodeId": "road-node-135",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-17-0",
+          "road-17-2"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-136",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.692996,
+          32.01764
+        ]
+      },
+      "properties": {
+        "id": "road-node-136",
+        "nodeId": "road-node-136",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-17-0",
+          "road-4-22"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-137",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.679816,
+          31.999138
+        ]
+      },
+      "properties": {
+        "id": "road-node-137",
+        "nodeId": "road-node-137",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-17-1",
+          "road-17-7"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-138",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.679333,
+          32.003102
+        ]
+      },
+      "properties": {
+        "id": "road-node-138",
+        "nodeId": "road-node-138",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-17-1",
+          "road-17-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-139",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.686213,
+          32.010687
+        ]
+      },
+      "properties": {
+        "id": "road-node-139",
+        "nodeId": "road-node-139",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-17-2",
+          "road-17-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-140",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.681246,
+          31.997287
+        ]
+      },
+      "properties": {
+        "id": "road-node-140",
+        "nodeId": "road-node-140",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-17-3",
+          "road-17-5",
+          "road-17-6",
+          "road-4-7"
+        ],
+        "armCount": 4,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-141",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.683544,
+          31.994499
+        ]
+      },
+      "properties": {
+        "id": "road-node-141",
+        "nodeId": "road-node-141",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-17-3",
+          "road-20-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-143",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.67997,
+          31.998923
+        ]
+      },
+      "properties": {
+        "id": "road-node-143",
+        "nodeId": "road-node-143",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-17-6",
+          "road-17-7"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-144",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.691279,
+          32.0032
+        ]
+      },
+      "properties": {
+        "id": "road-node-144",
+        "nodeId": "road-node-144",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-18-0",
+          "road-18-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-145",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.686652,
+          32.006289
+        ]
+      },
+      "properties": {
+        "id": "road-node-145",
+        "nodeId": "road-node-145",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-18-0",
+          "road-18-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-146",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.682055,
+          32.008834
+        ]
+      },
+      "properties": {
+        "id": "road-node-146",
+        "nodeId": "road-node-146",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-18-1",
+          "road-18-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-147",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.678812,
+          32.01027
+        ]
+      },
+      "properties": {
+        "id": "road-node-147",
+        "nodeId": "road-node-147",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-18-1",
+          "road-18-8"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-148",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.696125,
+          31.999793
+        ]
+      },
+      "properties": {
+        "id": "road-node-148",
+        "nodeId": "road-node-148",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-18-2",
+          "road-20-0",
+          "road-20-3"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-149",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.693162,
+          32.00189
+        ]
+      },
+      "properties": {
+        "id": "road-node-149",
+        "nodeId": "road-node-149",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-18-2",
+          "road-18-9"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-150",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.69146,
+          32.003073
+        ]
+      },
+      "properties": {
+        "id": "road-node-150",
+        "nodeId": "road-node-150",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-18-3",
+          "road-18-9"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-151",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.682405,
+          32.008644
+        ]
+      },
+      "properties": {
+        "id": "road-node-151",
+        "nodeId": "road-node-151",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-18-4",
+          "road-18-5"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-152",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.686434,
+          32.006409
+        ]
+      },
+      "properties": {
+        "id": "road-node-152",
+        "nodeId": "road-node-152",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-18-5",
+          "road-18-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-153",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.678534,
+          32.010394
+        ]
+      },
+      "properties": {
+        "id": "road-node-153",
+        "nodeId": "road-node-153",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-18-7",
+          "road-18-8"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-155",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.683556,
+          32.010188
+        ]
+      },
+      "properties": {
+        "id": "road-node-155",
+        "nodeId": "road-node-155",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-19-0",
+          "road-19-2"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-156",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.692795,
+          32.005378
+        ]
+      },
+      "properties": {
+        "id": "road-node-156",
+        "nodeId": "road-node-156",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-19-0",
+          "road-19-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-157",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.678444,
+          32.012447
+        ]
+      },
+      "properties": {
+        "id": "road-node-157",
+        "nodeId": "road-node-157",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-19-1",
+          "local-795362441-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-158",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.683197,
+          32.010368
+        ]
+      },
+      "properties": {
+        "id": "road-node-158",
+        "nodeId": "road-node-158",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-19-1",
+          "road-19-2"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-159",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.693171,
+          32.005184
+        ]
+      },
+      "properties": {
+        "id": "road-node-159",
+        "nodeId": "road-node-159",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-19-3",
+          "road-19-5"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-160",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.696424,
+          32.003502
+        ]
+      },
+      "properties": {
+        "id": "road-node-160",
+        "nodeId": "road-node-160",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-19-3",
+          "road-20-3",
+          "road-20-12"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-161",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.693082,
+          32.00523
+        ]
+      },
+      "properties": {
+        "id": "road-node-161",
+        "nodeId": "road-node-161",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-19-4",
+          "road-19-5"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-162",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.676824,
+          31.991961
+        ]
+      },
+      "properties": {
+        "id": "road-node-162",
+        "nodeId": "road-node-162",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-0",
+          "road-20-10"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-163",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.69032,
+          32.014901
+        ]
+      },
+      "properties": {
+        "id": "road-node-163",
+        "nodeId": "road-node-163",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-1",
+          "road-17-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-164",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.692618,
+          32.014541
+        ]
+      },
+      "properties": {
+        "id": "road-node-164",
+        "nodeId": "road-node-164",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-1",
+          "road-20-5"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-165",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.692897,
+          32.01451
+        ]
+      },
+      "properties": {
+        "id": "road-node-165",
+        "nodeId": "road-node-165",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-2",
+          "road-20-5"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-166",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.696194,
+          32.010221
+        ]
+      },
+      "properties": {
+        "id": "road-node-166",
+        "nodeId": "road-node-166",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-2",
+          "road-20-11"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-167",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.717297,
+          32.056346
+        ]
+      },
+      "properties": {
+        "id": "road-node-167",
+        "nodeId": "road-node-167",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-4",
+          "road-35-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-168",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.70368,
+          32.032771
+        ]
+      },
+      "properties": {
+        "id": "road-node-168",
+        "nodeId": "road-node-168",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-4",
+          "local-1092780905-0",
+          "road-20-6"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-169",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.69563,
+          32.020528
+        ]
+      },
+      "properties": {
+        "id": "road-node-169",
+        "nodeId": "road-node-169",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-6",
+          "road-20-9"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-170",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.716071,
+          32.053856
+        ]
+      },
+      "properties": {
+        "id": "road-node-170",
+        "nodeId": "road-node-170",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-6",
+          "road-20-7"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-171",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.717371,
+          32.056321
+        ]
+      },
+      "properties": {
+        "id": "road-node-171",
+        "nodeId": "road-node-171",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-7",
+          "road-35-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-172",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.693167,
+          32.017847
+        ]
+      },
+      "properties": {
+        "id": "road-node-172",
+        "nodeId": "road-node-172",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-8",
+          "road-4-23"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-173",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.695434,
+          32.020265
+        ]
+      },
+      "properties": {
+        "id": "road-node-173",
+        "nodeId": "road-node-173",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-8",
+          "road-20-9"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-175",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.696309,
+          32.005883
+        ]
+      },
+      "properties": {
+        "id": "road-node-175",
+        "nodeId": "road-node-175",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-11",
+          "road-20-12",
+          "road-32-0"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-176",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.711494,
+          32.04562
+        ]
+      },
+      "properties": {
+        "id": "road-node-176",
+        "nodeId": "road-node-176",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-21-0",
+          "road-20-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-178",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.71054,
+          32.043911
+        ]
+      },
+      "properties": {
+        "id": "road-node-178",
+        "nodeId": "road-node-178",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-22-0",
+          "road-20-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-180",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.701512,
+          32.041359
+        ]
+      },
+      "properties": {
+        "id": "road-node-180",
+        "nodeId": "road-node-180",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-23-0",
+          "road-23-2"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-182",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.701282,
+          32.041504
+        ]
+      },
+      "properties": {
+        "id": "road-node-182",
+        "nodeId": "road-node-182",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-23-1",
+          "road-23-2"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-185",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.694715,
+          32.032575
+        ]
+      },
+      "properties": {
+        "id": "road-node-185",
+        "nodeId": "road-node-185",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-25-0",
+          "road-25-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-186",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.698527,
+          32.029833
+        ]
+      },
+      "properties": {
+        "id": "road-node-186",
+        "nodeId": "road-node-186",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-25-0",
+          "local-1092780897-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-187",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.694498,
+          32.032734
+        ]
+      },
+      "properties": {
+        "id": "road-node-187",
+        "nodeId": "road-node-187",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-25-1",
+          "road-25-2",
+          "road-6-0"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-188",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.692502,
+          32.034141
+        ]
+      },
+      "properties": {
+        "id": "road-node-188",
+        "nodeId": "road-node-188",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-25-1",
+          "road-24-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-189",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.694671,
+          32.032607
+        ]
+      },
+      "properties": {
+        "id": "road-node-189",
+        "nodeId": "road-node-189",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-25-2",
+          "road-25-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-190",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.681448,
+          32.011141
+        ]
+      },
+      "properties": {
+        "id": "road-node-190",
+        "nodeId": "road-node-190",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-26-0",
+          "road-19-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-191",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.680493,
+          32.009536
+        ]
+      },
+      "properties": {
+        "id": "road-node-191",
+        "nodeId": "road-node-191",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-26-0",
+          "local-1084561753-0",
+          "road-18-1"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-193",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.701741,
+          32.033869
+        ]
+      },
+      "properties": {
+        "id": "road-node-193",
+        "nodeId": "road-node-193",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-27-4",
+          "local-1092780905-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-194",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.710556,
+          32.047386
+        ]
+      },
+      "properties": {
+        "id": "road-node-194",
+        "nodeId": "road-node-194",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-28-0",
+          "road-14-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-196",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.706775,
+          32.049369
+        ]
+      },
+      "properties": {
+        "id": "road-node-196",
+        "nodeId": "road-node-196",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-28-1",
+          "road-28-4",
+          "road-5-3"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-198",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.708738,
+          32.048321
+        ]
+      },
+      "properties": {
+        "id": "road-node-198",
+        "nodeId": "road-node-198",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-28-2",
+          "road-4-9"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-199",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.707273,
+          32.049108
+        ]
+      },
+      "properties": {
+        "id": "road-node-199",
+        "nodeId": "road-node-199",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-28-2",
+          "road-28-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-200",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.707023,
+          32.049239
+        ]
+      },
+      "properties": {
+        "id": "road-node-200",
+        "nodeId": "road-node-200",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-28-3",
+          "road-28-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-201",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.717741,
+          32.060729
+        ]
+      },
+      "properties": {
+        "id": "road-node-201",
+        "nodeId": "road-node-201",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-29-0",
+          "local-759961909-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-202",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.715809,
+          32.057837
+        ]
+      },
+      "properties": {
+        "id": "road-node-202",
+        "nodeId": "road-node-202",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-29-0",
+          "road-35-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-205",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.682029,
+          32.020202
+        ]
+      },
+      "properties": {
+        "id": "road-node-205",
+        "nodeId": "road-node-205",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-30-0",
+          "road-30-2"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-208",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.712841,
+          32.060447
+        ]
+      },
+      "properties": {
+        "id": "road-node-208",
+        "nodeId": "road-node-208",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-30-3",
+          "road-35-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-209",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.697564,
+          32.045167
+        ]
+      },
+      "properties": {
+        "id": "road-node-209",
+        "nodeId": "road-node-209",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-30-4",
+          "road-13-7"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-211",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.705968,
+          32.035735
+        ]
+      },
+      "properties": {
+        "id": "road-node-211",
+        "nodeId": "road-node-211",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-31-0",
+          "road-20-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-212",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.704018,
+          32.036718
+        ]
+      },
+      "properties": {
+        "id": "road-node-212",
+        "nodeId": "road-node-212",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-31-0",
+          "road-14-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-213",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.694112,
+          32.007026
+        ]
+      },
+      "properties": {
+        "id": "road-node-213",
+        "nodeId": "road-node-213",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-32-0",
+          "local-1289020926-0",
+          "road-33-0"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-215",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.691564,
+          32.002895
+        ]
+      },
+      "properties": {
+        "id": "road-node-215",
+        "nodeId": "road-node-215",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-33-0",
+          "local-1093069046-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-216",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.694933,
+          32.014233
+        ]
+      },
+      "properties": {
+        "id": "road-node-216",
+        "nodeId": "road-node-216",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-33-1",
+          "road-20-2"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-222",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.712737,
+          32.060343
+        ]
+      },
+      "properties": {
+        "id": "road-node-222",
+        "nodeId": "road-node-222",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-35-0",
+          "road-30-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-224",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.701643,
+          32.034851
+        ]
+      },
+      "properties": {
+        "id": "road-node-224",
+        "nodeId": "road-node-224",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-96674404-0",
+          "local-138390843-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-225",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.690688,
+          32.011973
+        ]
+      },
+      "properties": {
+        "id": "road-node-225",
+        "nodeId": "road-node-225",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-137693212-0",
+          "road-1-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-228",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.672359,
+          31.995841
+        ]
+      },
+      "properties": {
+        "id": "road-node-228",
+        "nodeId": "road-node-228",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-137693216-0",
+          "local-138390145-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-229",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.699592,
+          32.036494
+        ]
+      },
+      "properties": {
+        "id": "road-node-229",
+        "nodeId": "road-node-229",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-137978977-0",
+          "local-157046172-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-234",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.679265,
+          31.992158
+        ]
+      },
+      "properties": {
+        "id": "road-node-234",
+        "nodeId": "road-node-234",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-138390142-0",
+          "road-2-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-235",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.675799,
+          31.992386
+        ]
+      },
+      "properties": {
+        "id": "road-node-235",
+        "nodeId": "road-node-235",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-138390145-0",
+          "local-1525886594-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-239",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.704201,
+          32.033275
+        ]
+      },
+      "properties": {
+        "id": "road-node-239",
+        "nodeId": "road-node-239",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-138390841-0",
+          "road-20-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-242",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.701852,
+          32.034947
+        ]
+      },
+      "properties": {
+        "id": "road-node-242",
+        "nodeId": "road-node-242",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-157046172-0",
+          "local-157046180-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-253",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.704433,
+          32.033563
+        ]
+      },
+      "properties": {
+        "id": "road-node-253",
+        "nodeId": "road-node-253",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-656709505-0",
+          "road-20-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-271",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.693004,
+          32.001905
+        ]
+      },
+      "properties": {
+        "id": "road-node-271",
+        "nodeId": "road-node-271",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-883774223-0",
+          "local-1093069046-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-274",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.696056,
+          32.045658
+        ]
+      },
+      "properties": {
+        "id": "road-node-274",
+        "nodeId": "road-node-274",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-883782295-0",
+          "road-2-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-276",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.676865,
+          32.014839
+        ]
+      },
+      "properties": {
+        "id": "road-node-276",
+        "nodeId": "road-node-276",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-883782300-0",
+          "road-2-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-280",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.684939,
+          32.001711
+        ]
+      },
+      "properties": {
+        "id": "road-node-280",
+        "nodeId": "road-node-280",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-948337469-0",
+          "local-948337472-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-281",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.684634,
+          32.001156
+        ]
+      },
+      "properties": {
+        "id": "road-node-281",
+        "nodeId": "road-node-281",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-948337470-0",
+          "local-948337471-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-285",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.686242,
+          32.001393
+        ]
+      },
+      "properties": {
+        "id": "road-node-285",
+        "nodeId": "road-node-285",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-948337473-0",
+          "road-4-8"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-288",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.685586,
+          32.000726
+        ]
+      },
+      "properties": {
+        "id": "road-node-288",
+        "nodeId": "road-node-288",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-948337474-0",
+          "road-4-8"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-289",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.686072,
+          32.001221
+        ]
+      },
+      "properties": {
+        "id": "road-node-289",
+        "nodeId": "road-node-289",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-948337475-0",
+          "road-4-8"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-290",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.682749,
+          32.002367
+        ]
+      },
+      "properties": {
+        "id": "road-node-290",
+        "nodeId": "road-node-290",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-948337475-0",
+          "local-948337476-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-292",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.682544,
+          32.001975
+        ]
+      },
+      "properties": {
+        "id": "road-node-292",
+        "nodeId": "road-node-292",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-948337477-0",
+          "local-948337478-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-307",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.714793,
+          32.050157
+        ]
+      },
+      "properties": {
+        "id": "road-node-307",
+        "nodeId": "road-node-307",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-1092620878-0",
+          "road-2-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-312",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.706707,
+          32.037024
+        ]
+      },
+      "properties": {
+        "id": "road-node-312",
+        "nodeId": "road-node-312",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-1092630251-0",
+          "road-20-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-314",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.702417,
+          32.039389
+        ]
+      },
+      "properties": {
+        "id": "road-node-314",
+        "nodeId": "road-node-314",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-1092630252-0",
+          "road-4-9"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-315",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.702541,
+          32.039267
+        ]
+      },
+      "properties": {
+        "id": "road-node-315",
+        "nodeId": "road-node-315",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-1092630253-0",
+          "road-4-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-318",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.698607,
+          32.034057
+        ]
+      },
+      "properties": {
+        "id": "road-node-318",
+        "nodeId": "road-node-318",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-1092780904-0",
+          "road-4-2"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-329",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.696072,
+          31.99972
+        ]
+      },
+      "properties": {
+        "id": "road-node-329",
+        "nodeId": "road-node-329",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-1093069046-0",
+          "road-20-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-330",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.676397,
+          32.01124
+        ]
+      },
+      "properties": {
+        "id": "road-node-330",
+        "nodeId": "road-node-330",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-1097168758-0",
+          "road-30-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-335",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.697767,
+          32.002099
+        ]
+      },
+      "properties": {
+        "id": "road-node-335",
+        "nodeId": "road-node-335",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-1350651994-0",
+          "road-2-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-338",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.673448,
+          32.005538
+        ]
+      },
+      "properties": {
+        "id": "road-node-338",
+        "nodeId": "road-node-338",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-1525886581-0",
+          "road-30-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-339",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.673283,
+          32.005192
+        ]
+      },
+      "properties": {
+        "id": "road-node-339",
+        "nodeId": "road-node-339",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-1525886583-0",
+          "road-30-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-343",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6884366,
+          32.0129615
+        ]
+      },
+      "properties": {
+        "id": "road-node-343",
+        "nodeId": "road-node-343",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-1-0",
+          "road-17-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-346",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6929043,
+          32.0111567
+        ]
+      },
+      "properties": {
+        "id": "road-node-346",
+        "nodeId": "road-node-346",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-1-0",
+          "road-4-24"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-372",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6722962,
+          32.0055939
+        ]
+      },
+      "properties": {
+        "id": "road-node-372",
+        "nodeId": "road-node-372",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-2-1",
+          "road-16-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-373",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6723815,
+          32.0057571
+        ]
+      },
+      "properties": {
+        "id": "road-node-373",
+        "nodeId": "road-node-373",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-2-1",
+          "road-16-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-387",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7046321,
+          32.0334209
+        ]
+      },
+      "properties": {
+        "id": "road-node-387",
+        "nodeId": "road-node-387",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-2-2",
+          "road-3-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-388",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.704508,
+          32.0332751
+        ]
+      },
+      "properties": {
+        "id": "road-node-388",
+        "nodeId": "road-node-388",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-2-2",
+          "road-3-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-413",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6960677,
+          31.9992626
+        ]
+      },
+      "properties": {
+        "id": "road-node-413",
+        "nodeId": "road-node-413",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-2-4",
+          "road-11-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-429",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7048966,
+          32.033278
+        ]
+      },
+      "properties": {
+        "id": "road-node-429",
+        "nodeId": "road-node-429",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-3-0",
+          "local-1084561761-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-430",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7044056,
+          32.0335433
+        ]
+      },
+      "properties": {
+        "id": "road-node-430",
+        "nodeId": "road-node-430",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-3-0",
+          "road-20-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-431",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7043195,
+          32.0335898
+        ]
+      },
+      "properties": {
+        "id": "road-node-431",
+        "nodeId": "road-node-431",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-3-0",
+          "road-20-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-432",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.704203,
+          32.0334407
+        ]
+      },
+      "properties": {
+        "id": "road-node-432",
+        "nodeId": "road-node-432",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-3-1",
+          "road-20-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-433",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7042733,
+          32.0334025
+        ]
+      },
+      "properties": {
+        "id": "road-node-433",
+        "nodeId": "road-node-433",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-3-1",
+          "road-20-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-434",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7047401,
+          32.0331491
+        ]
+      },
+      "properties": {
+        "id": "road-node-434",
+        "nodeId": "road-node-434",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-3-1",
+          "local-1084561761-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-435",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.700087,
+          32.036003
+        ]
+      },
+      "properties": {
+        "id": "road-node-435",
+        "nodeId": "road-node-435",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-0",
+          "local-96674404-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-436",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7001643,
+          32.0361022
+        ]
+      },
+      "properties": {
+        "id": "road-node-436",
+        "nodeId": "road-node-436",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-0",
+          "local-157046172-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-437",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7000927,
+          32.0361512
+        ]
+      },
+      "properties": {
+        "id": "road-node-437",
+        "nodeId": "road-node-437",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-1",
+          "local-157046172-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-438",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7000186,
+          32.0360536
+        ]
+      },
+      "properties": {
+        "id": "road-node-438",
+        "nodeId": "road-node-438",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-1",
+          "local-96674404-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-440",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7031702,
+          32.040347
+        ]
+      },
+      "properties": {
+        "id": "road-node-440",
+        "nodeId": "road-node-440",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-3",
+          "road-23-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-441",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7041426,
+          32.0416985
+        ]
+      },
+      "properties": {
+        "id": "road-node-441",
+        "nodeId": "road-node-441",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-3",
+          "road-13-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-442",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7041921,
+          32.0417671
+        ]
+      },
+      "properties": {
+        "id": "road-node-442",
+        "nodeId": "road-node-442",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-3",
+          "road-13-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-443",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7057892,
+          32.0439789
+        ]
+      },
+      "properties": {
+        "id": "road-node-443",
+        "nodeId": "road-node-443",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-3",
+          "road-9-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-444",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.707042,
+          32.0457139
+        ]
+      },
+      "properties": {
+        "id": "road-node-444",
+        "nodeId": "road-node-444",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-3",
+          "road-22-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-445",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.708222,
+          32.0473481
+        ]
+      },
+      "properties": {
+        "id": "road-node-445",
+        "nodeId": "road-node-445",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-3",
+          "road-21-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-447",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7156885,
+          32.0579546
+        ]
+      },
+      "properties": {
+        "id": "road-node-447",
+        "nodeId": "road-node-447",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-3",
+          "road-35-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-448",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.695115,
+          32.0295159
+        ]
+      },
+      "properties": {
+        "id": "road-node-448",
+        "nodeId": "road-node-448",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-5",
+          "road-7-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-449",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6951668,
+          32.0295828
+        ]
+      },
+      "properties": {
+        "id": "road-node-449",
+        "nodeId": "road-node-449",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-5",
+          "road-7-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-450",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6964935,
+          32.0312957
+        ]
+      },
+      "properties": {
+        "id": "road-node-450",
+        "nodeId": "road-node-450",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-5",
+          "road-25-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-451",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6976385,
+          32.0330749
+        ]
+      },
+      "properties": {
+        "id": "road-node-451",
+        "nodeId": "road-node-451",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-6",
+          "road-12-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-452",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6963388,
+          32.031407
+        ]
+      },
+      "properties": {
+        "id": "road-node-452",
+        "nodeId": "road-node-452",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-6",
+          "road-25-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-453",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6950067,
+          32.0296978
+        ]
+      },
+      "properties": {
+        "id": "road-node-453",
+        "nodeId": "road-node-453",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-6",
+          "road-7-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-454",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6949546,
+          32.0296308
+        ]
+      },
+      "properties": {
+        "id": "road-node-454",
+        "nodeId": "road-node-454",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-6",
+          "road-7-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-455",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6891842,
+          32.0046543
+        ]
+      },
+      "properties": {
+        "id": "road-node-455",
+        "nodeId": "road-node-455",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-7",
+          "road-18-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-456",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6891289,
+          32.0045982
+        ]
+      },
+      "properties": {
+        "id": "road-node-456",
+        "nodeId": "road-node-456",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-7",
+          "local-1093069044-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-457",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6860324,
+          32.0014579
+        ]
+      },
+      "properties": {
+        "id": "road-node-457",
+        "nodeId": "road-node-457",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-7",
+          "local-948337473-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-458",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6859457,
+          32.00137
+        ]
+      },
+      "properties": {
+        "id": "road-node-458",
+        "nodeId": "road-node-458",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-7",
+          "local-948337469-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-459",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6858681,
+          32.0012913
+        ]
+      },
+      "properties": {
+        "id": "road-node-459",
+        "nodeId": "road-node-459",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-7",
+          "local-948337475-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-460",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6855527,
+          32.0009715
+        ]
+      },
+      "properties": {
+        "id": "road-node-460",
+        "nodeId": "road-node-460",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-7",
+          "local-948337477-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-461",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6854871,
+          32.0009049
+        ]
+      },
+      "properties": {
+        "id": "road-node-461",
+        "nodeId": "road-node-461",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-7",
+          "local-948337470-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-462",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6853853,
+          32.0008017
+        ]
+      },
+      "properties": {
+        "id": "road-node-462",
+        "nodeId": "road-node-462",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-7",
+          "local-948337474-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-464",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6813573,
+          31.997152
+        ]
+      },
+      "properties": {
+        "id": "road-node-464",
+        "nodeId": "road-node-464",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-8",
+          "road-17-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-465",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6814169,
+          31.997202
+        ]
+      },
+      "properties": {
+        "id": "road-node-465",
+        "nodeId": "road-node-465",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-8",
+          "road-17-5"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-467",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6856993,
+          32.0008425
+        ]
+      },
+      "properties": {
+        "id": "road-node-467",
+        "nodeId": "road-node-467",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-8",
+          "local-948337470-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-468",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6861496,
+          32.001301
+        ]
+      },
+      "properties": {
+        "id": "road-node-468",
+        "nodeId": "road-node-468",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-8",
+          "local-948337469-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-469",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6892825,
+          32.0044913
+        ]
+      },
+      "properties": {
+        "id": "road-node-469",
+        "nodeId": "road-node-469",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-8",
+          "local-1093069044-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-470",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6893378,
+          32.0045476
+        ]
+      },
+      "properties": {
+        "id": "road-node-470",
+        "nodeId": "road-node-470",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-8",
+          "road-18-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-471",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7155553,
+          32.0580624
+        ]
+      },
+      "properties": {
+        "id": "road-node-471",
+        "nodeId": "road-node-471",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-9",
+          "road-35-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-473",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7080836,
+          32.0474212
+        ]
+      },
+      "properties": {
+        "id": "road-node-473",
+        "nodeId": "road-node-473",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-9",
+          "road-21-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-474",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7069018,
+          32.0457862
+        ]
+      },
+      "properties": {
+        "id": "road-node-474",
+        "nodeId": "road-node-474",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-9",
+          "road-22-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-475",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7056566,
+          32.0440635
+        ]
+      },
+      "properties": {
+        "id": "road-node-475",
+        "nodeId": "road-node-475",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-9",
+          "road-9-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-476",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7040505,
+          32.0418415
+        ]
+      },
+      "properties": {
+        "id": "road-node-476",
+        "nodeId": "road-node-476",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-9",
+          "road-13-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-477",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7040004,
+          32.0417721
+        ]
+      },
+      "properties": {
+        "id": "road-node-477",
+        "nodeId": "road-node-477",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-9",
+          "road-13-6"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-479",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7030331,
+          32.0404307
+        ]
+      },
+      "properties": {
+        "id": "road-node-479",
+        "nodeId": "road-node-479",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-9",
+          "road-23-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-483",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6926107,
+          32.0262727
+        ]
+      },
+      "properties": {
+        "id": "road-node-483",
+        "nodeId": "road-node-483",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-12",
+          "road-6-7"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-484",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6926624,
+          32.0263399
+        ]
+      },
+      "properties": {
+        "id": "road-node-484",
+        "nodeId": "road-node-484",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-12",
+          "road-6-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-485",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6913121,
+          32.0225627
+        ]
+      },
+      "properties": {
+        "id": "road-node-485",
+        "nodeId": "road-node-485",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-14",
+          "road-15-2"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-486",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6915253,
+          32.0225575
+        ]
+      },
+      "properties": {
+        "id": "road-node-486",
+        "nodeId": "road-node-486",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-16",
+          "road-27-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-487",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6924924,
+          32.0264547
+        ]
+      },
+      "properties": {
+        "id": "road-node-487",
+        "nodeId": "road-node-487",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-20",
+          "road-6-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-488",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6924395,
+          32.0263858
+        ]
+      },
+      "properties": {
+        "id": "road-node-488",
+        "nodeId": "road-node-488",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-20",
+          "road-6-7"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-493",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6932562,
+          32.0144608
+        ]
+      },
+      "properties": {
+        "id": "road-node-493",
+        "nodeId": "road-node-493",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-22",
+          "road-20-2"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-494",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6934348,
+          32.0144363
+        ]
+      },
+      "properties": {
+        "id": "road-node-494",
+        "nodeId": "road-node-494",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-23",
+          "road-20-2"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-500",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6923979,
+          32.0079299
+        ]
+      },
+      "properties": {
+        "id": "road-node-500",
+        "nodeId": "road-node-500",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-4-25",
+          "local-1289020926-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-503",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7037972,
+          32.0452528
+        ]
+      },
+      "properties": {
+        "id": "road-node-503",
+        "nodeId": "road-node-503",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-0",
+          "road-9-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-504",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7020656,
+          32.0428855
+        ]
+      },
+      "properties": {
+        "id": "road-node-504",
+        "nodeId": "road-node-504",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-0",
+          "road-13-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-505",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7020115,
+          32.0428116
+        ]
+      },
+      "properties": {
+        "id": "road-node-505",
+        "nodeId": "road-node-505",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-0",
+          "road-13-9"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-506",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.706135,
+          32.0484504
+        ]
+      },
+      "properties": {
+        "id": "road-node-506",
+        "nodeId": "road-node-506",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-3",
+          "road-21-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-507",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7003835,
+          32.0404549
+        ]
+      },
+      "properties": {
+        "id": "road-node-507",
+        "nodeId": "road-node-507",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-6",
+          "local-1092630252-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-508",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7011882,
+          32.0415574
+        ]
+      },
+      "properties": {
+        "id": "road-node-508",
+        "nodeId": "road-node-508",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-6",
+          "road-23-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-509",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7020779,
+          32.0427766
+        ]
+      },
+      "properties": {
+        "id": "road-node-509",
+        "nodeId": "road-node-509",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-6",
+          "road-13-9"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-510",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7021324,
+          32.0428512
+        ]
+      },
+      "properties": {
+        "id": "road-node-510",
+        "nodeId": "road-node-510",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-6",
+          "road-13-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-511",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7038579,
+          32.0452154
+        ]
+      },
+      "properties": {
+        "id": "road-node-511",
+        "nodeId": "road-node-511",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-6",
+          "road-9-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-512",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6993866,
+          32.0390979
+        ]
+      },
+      "properties": {
+        "id": "road-node-512",
+        "nodeId": "road-node-512",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-7",
+          "road-10-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-513",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7062019,
+          32.0484151
+        ]
+      },
+      "properties": {
+        "id": "road-node-513",
+        "nodeId": "road-node-513",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-9",
+          "road-21-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-514",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7068636,
+          32.0493226
+        ]
+      },
+      "properties": {
+        "id": "road-node-514",
+        "nodeId": "road-node-514",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-5-9",
+          "road-28-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-518",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6930943,
+          32.0309731
+        ]
+      },
+      "properties": {
+        "id": "road-node-518",
+        "nodeId": "road-node-518",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-6-2",
+          "road-7-5"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-519",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6947925,
+          32.0249045
+        ]
+      },
+      "properties": {
+        "id": "road-node-519",
+        "nodeId": "road-node-519",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-6-5",
+          "road-27-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-520",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6957172,
+          32.0344086
+        ]
+      },
+      "properties": {
+        "id": "road-node-520",
+        "nodeId": "road-node-520",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-6-6",
+          "road-12-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-521",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6944264,
+          32.0327845
+        ]
+      },
+      "properties": {
+        "id": "road-node-521",
+        "nodeId": "road-node-521",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-6-6",
+          "road-25-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-522",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6930808,
+          32.0310915
+        ]
+      },
+      "properties": {
+        "id": "road-node-522",
+        "nodeId": "road-node-522",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-6-6",
+          "road-7-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-523",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6930259,
+          32.0310224
+        ]
+      },
+      "properties": {
+        "id": "road-node-523",
+        "nodeId": "road-node-523",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-6-6",
+          "road-7-5"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-527",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6946899,
+          32.0248983
+        ]
+      },
+      "properties": {
+        "id": "road-node-527",
+        "nodeId": "road-node-527",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-6-7",
+          "road-27-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-528",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6947547,
+          32.0248554
+        ]
+      },
+      "properties": {
+        "id": "road-node-528",
+        "nodeId": "road-node-528",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-6-7",
+          "road-27-3"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-530",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7024795,
+          32.046064
+        ]
+      },
+      "properties": {
+        "id": "road-node-530",
+        "nodeId": "road-node-530",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-8-0",
+          "road-9-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-531",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7006261,
+          32.0435418
+        ]
+      },
+      "properties": {
+        "id": "road-node-531",
+        "nodeId": "road-node-531",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-8-2",
+          "road-13-9"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-532",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7076001,
+          32.0428237
+        ]
+      },
+      "properties": {
+        "id": "road-node-532",
+        "nodeId": "road-node-532",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-9-0",
+          "road-14-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-533",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7092428,
+          32.0417758
+        ]
+      },
+      "properties": {
+        "id": "road-node-533",
+        "nodeId": "road-node-533",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-9-0",
+          "road-20-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-535",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.694177,
+          32.000014
+        ]
+      },
+      "properties": {
+        "id": "road-node-535",
+        "nodeId": "road-node-535",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-11-0"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-536",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.694368,
+          32.000133
+        ]
+      },
+      "properties": {
+        "id": "road-node-536",
+        "nodeId": "road-node-536",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-11-0"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-537",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6945417,
+          32.0001393
+        ]
+      },
+      "properties": {
+        "id": "road-node-537",
+        "nodeId": "road-node-537",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-11-0",
+          "local-883774195-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-538",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.694807,
+          32.000149
+        ]
+      },
+      "properties": {
+        "id": "road-node-538",
+        "nodeId": "road-node-538",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-11-0"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-539",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.695519,
+          31.999754
+        ]
+      },
+      "properties": {
+        "id": "road-node-539",
+        "nodeId": "road-node-539",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-11-0"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-540",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6958256,
+          31.9995164
+        ]
+      },
+      "properties": {
+        "id": "road-node-540",
+        "nodeId": "road-node-540",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-11-0",
+          "road-20-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-541",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.695919,
+          31.999444
+        ]
+      },
+      "properties": {
+        "id": "road-node-541",
+        "nodeId": "road-node-541",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-11-0"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-542",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6964386,
+          31.9988101
+        ]
+      },
+      "properties": {
+        "id": "road-node-542",
+        "nodeId": "road-node-542",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-11-0",
+          "local-883774237-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-543",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.697569,
+          31.997431
+        ]
+      },
+      "properties": {
+        "id": "road-node-543",
+        "nodeId": "road-node-543",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-11-0"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-544",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6976203,
+          32.0452257
+        ]
+      },
+      "properties": {
+        "id": "road-node-544",
+        "nodeId": "road-node-544",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-1",
+          "road-30-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-545",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7061891,
+          32.0406367
+        ]
+      },
+      "properties": {
+        "id": "road-node-545",
+        "nodeId": "road-node-545",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-11",
+          "road-14-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-546",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7080646,
+          32.0396445
+        ]
+      },
+      "properties": {
+        "id": "road-node-546",
+        "nodeId": "road-node-546",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-11",
+          "road-20-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-547",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7080996,
+          32.0397079
+        ]
+      },
+      "properties": {
+        "id": "road-node-547",
+        "nodeId": "road-node-547",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-13",
+          "road-20-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-548",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7062225,
+          32.040699
+        ]
+      },
+      "properties": {
+        "id": "road-node-548",
+        "nodeId": "road-node-548",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-13-13",
+          "road-14-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-549",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7088649,
+          32.0447744
+        ]
+      },
+      "properties": {
+        "id": "road-node-549",
+        "nodeId": "road-node-549",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-14-0",
+          "road-22-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-551",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7053755,
+          32.0390011
+        ]
+      },
+      "properties": {
+        "id": "road-node-551",
+        "nodeId": "road-node-551",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-14-0",
+          "road-23-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-554",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.644859,
+          32.016936
+        ]
+      },
+      "properties": {
+        "id": "road-node-554",
+        "nodeId": "road-node-554",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-0"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-555",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.647103,
+          32.015472
+        ]
+      },
+      "properties": {
+        "id": "road-node-555",
+        "nodeId": "road-node-555",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-0"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-556",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.650075,
+          32.013808
+        ]
+      },
+      "properties": {
+        "id": "road-node-556",
+        "nodeId": "road-node-556",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-0"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-557",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.653431,
+          32.01226
+        ]
+      },
+      "properties": {
+        "id": "road-node-557",
+        "nodeId": "road-node-557",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-0"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-558",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.657465,
+          32.01072
+        ]
+      },
+      "properties": {
+        "id": "road-node-558",
+        "nodeId": "road-node-558",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-0"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-559",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.663444,
+          32.008601
+        ]
+      },
+      "properties": {
+        "id": "road-node-559",
+        "nodeId": "road-node-559",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-0"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-560",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.673318,
+          32.0052469
+        ]
+      },
+      "properties": {
+        "id": "road-node-560",
+        "nodeId": "road-node-560",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-0",
+          "road-30-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-561",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6781882,
+          32.0035925
+        ]
+      },
+      "properties": {
+        "id": "road-node-561",
+        "nodeId": "road-node-561",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-0",
+          "local-137693216-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-562",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6793749,
+          32.0031893
+        ]
+      },
+      "properties": {
+        "id": "road-node-562",
+        "nodeId": "road-node-562",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-0",
+          "road-17-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-563",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6811097,
+          32.0027601
+        ]
+      },
+      "properties": {
+        "id": "road-node-563",
+        "nodeId": "road-node-563",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-1",
+          "local-948337476-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-564",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6794435,
+          32.0033322
+        ]
+      },
+      "properties": {
+        "id": "road-node-564",
+        "nodeId": "road-node-564",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-1",
+          "road-17-4"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-565",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6782903,
+          32.0037282
+        ]
+      },
+      "properties": {
+        "id": "road-node-565",
+        "nodeId": "road-node-565",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-1",
+          "local-137693216-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-566",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.673391,
+          32.0054104
+        ]
+      },
+      "properties": {
+        "id": "road-node-566",
+        "nodeId": "road-node-566",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-1",
+          "road-30-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-567",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.659029,
+          32.010342
+        ]
+      },
+      "properties": {
+        "id": "road-node-567",
+        "nodeId": "road-node-567",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-1"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-568",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.65592,
+          32.011446
+        ]
+      },
+      "properties": {
+        "id": "road-node-568",
+        "nodeId": "road-node-568",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-1"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-569",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.652262,
+          32.012898
+        ]
+      },
+      "properties": {
+        "id": "road-node-569",
+        "nodeId": "road-node-569",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-1"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-570",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.649968,
+          32.013994
+        ]
+      },
+      "properties": {
+        "id": "road-node-570",
+        "nodeId": "road-node-570",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-1"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-571",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.646331,
+          32.016098
+        ]
+      },
+      "properties": {
+        "id": "road-node-571",
+        "nodeId": "road-node-571",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-1"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-572",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.644629,
+          32.017291
+        ]
+      },
+      "properties": {
+        "id": "road-node-572",
+        "nodeId": "road-node-572",
+        "kind": "bridge-entry",
+        "connectedRoadIds": [
+          "road-16-1"
+        ],
+        "armCount": 1,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-576",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6793292,
+          32.0030865
+        ]
+      },
+      "properties": {
+        "id": "road-node-576",
+        "nodeId": "road-node-576",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-17-1",
+          "local-948337474-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-577",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6795134,
+          32.003478
+        ]
+      },
+      "properties": {
+        "id": "road-node-577",
+        "nodeId": "road-node-577",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-17-4",
+          "local-948337473-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-580",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6835205,
+          32.0079365
+        ]
+      },
+      "properties": {
+        "id": "road-node-580",
+        "nodeId": "road-node-580",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-17-4",
+          "local-1093069044-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-581",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6835768,
+          32.007994
+        ]
+      },
+      "properties": {
+        "id": "road-node-581",
+        "nodeId": "road-node-581",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-17-4",
+          "road-18-5"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-582",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6849925,
+          32.0094402
+        ]
+      },
+      "properties": {
+        "id": "road-node-582",
+        "nodeId": "road-node-582",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-17-4",
+          "road-19-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-585",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6821082,
+          32.0088051
+        ]
+      },
+      "properties": {
+        "id": "road-node-585",
+        "nodeId": "road-node-585",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-18-4",
+          "local-137693216-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-586",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6764583,
+          32.0113193
+        ]
+      },
+      "properties": {
+        "id": "road-node-586",
+        "nodeId": "road-node-586",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-18-7",
+          "road-30-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-587",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6916132,
+          32.0029665
+        ]
+      },
+      "properties": {
+        "id": "road-node-587",
+        "nodeId": "road-node-587",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-18-9",
+          "road-33-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-588",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6832598,
+          32.0103365
+        ]
+      },
+      "properties": {
+        "id": "road-node-588",
+        "nodeId": "road-node-588",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-19-2",
+          "local-137693216-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-589",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6949091,
+          32.0042853
+        ]
+      },
+      "properties": {
+        "id": "road-node-589",
+        "nodeId": "road-node-589",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-19-3",
+          "local-1289020928-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-590",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6931472,
+          32.0051963
+        ]
+      },
+      "properties": {
+        "id": "road-node-590",
+        "nodeId": "road-node-590",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-19-5",
+          "road-33-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-593",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6787234,
+          31.9927345
+        ]
+      },
+      "properties": {
+        "id": "road-node-593",
+        "nodeId": "road-node-593",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-0",
+          "local-138390142-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-600",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7113963,
+          32.0456716
+        ]
+      },
+      "properties": {
+        "id": "road-node-600",
+        "nodeId": "road-node-600",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-4",
+          "road-21-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-601",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.710449,
+          32.0439579
+        ]
+      },
+      "properties": {
+        "id": "road-node-601",
+        "nodeId": "road-node-601",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-4",
+          "road-22-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-602",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7071203,
+          32.0379363
+        ]
+      },
+      "properties": {
+        "id": "road-node-602",
+        "nodeId": "road-node-602",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-4",
+          "road-23-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-603",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7066362,
+          32.0370606
+        ]
+      },
+      "properties": {
+        "id": "road-node-603",
+        "nodeId": "road-node-603",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-4",
+          "local-1092630251-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-605",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7059107,
+          32.0357639
+        ]
+      },
+      "properties": {
+        "id": "road-node-605",
+        "nodeId": "road-node-605",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-4",
+          "road-31-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-606",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7058728,
+          32.035705
+        ]
+      },
+      "properties": {
+        "id": "road-node-606",
+        "nodeId": "road-node-606",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-4",
+          "road-20-6",
+          "local-1092630250-0"
+        ],
+        "armCount": 3,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "triangulated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-608",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7043381,
+          32.0336137
+        ]
+      },
+      "properties": {
+        "id": "road-node-608",
+        "nodeId": "road-node-608",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-4",
+          "local-656709505-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-609",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7041113,
+          32.0333233
+        ]
+      },
+      "properties": {
+        "id": "road-node-609",
+        "nodeId": "road-node-609",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-20-4",
+          "local-138390841-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-628",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6985373,
+          32.0298258
+        ]
+      },
+      "properties": {
+        "id": "road-node-628",
+        "nodeId": "road-node-628",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-27-1",
+          "local-1092780897-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-629",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6985674,
+          32.0298047
+        ]
+      },
+      "properties": {
+        "id": "road-node-629",
+        "nodeId": "road-node-629",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-27-2",
+          "local-1092780897-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-632",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6938069,
+          32.0236259
+        ]
+      },
+      "properties": {
+        "id": "road-node-632",
+        "nodeId": "road-node-632",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-27-3",
+          "local-656704323-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-633",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7159028,
+          32.0579774
+        ]
+      },
+      "properties": {
+        "id": "road-node-633",
+        "nodeId": "road-node-633",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-29-0",
+          "road-35-1"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-649",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7128065,
+          32.0602868
+        ]
+      },
+      "properties": {
+        "id": "road-node-649",
+        "nodeId": "road-node-649",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-30-4",
+          "road-35-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-652",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6947376,
+          32.0125506
+        ]
+      },
+      "properties": {
+        "id": "road-node-652",
+        "nodeId": "road-node-652",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "road-33-1",
+          "local-1093069040-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-658",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6994958,
+          32.0356086
+        ]
+      },
+      "properties": {
+        "id": "road-node-658",
+        "nodeId": "road-node-658",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-138390840-0",
+          "local-138390842-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-659",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7004482,
+          32.0368469
+        ]
+      },
+      "properties": {
+        "id": "road-node-659",
+        "nodeId": "road-node-659",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-138390842-0",
+          "local-157046181-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-673",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7006795,
+          32.0359154
+        ]
+      },
+      "properties": {
+        "id": "road-node-673",
+        "nodeId": "road-node-673",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-157046180-0",
+          "local-656709505-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-680",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6921165,
+          31.99851
+        ]
+      },
+      "properties": {
+        "id": "road-node-680",
+        "nodeId": "road-node-680",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-445725618-0",
+          "local-883774222-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-690",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6939459,
+          32.0005605
+        ]
+      },
+      "properties": {
+        "id": "road-node-690",
+        "nodeId": "road-node-690",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-883774195-0",
+          "local-883774197-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-701",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6926681,
+          32.0016475
+        ]
+      },
+      "properties": {
+        "id": "road-node-701",
+        "nodeId": "road-node-701",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-883774197-0",
+          "local-883774223-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-749",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6824714,
+          32.0019011
+        ]
+      },
+      "properties": {
+        "id": "road-node-749",
+        "nodeId": "road-node-749",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-948337471-0",
+          "local-948337474-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-750",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6831763,
+          32.002343
+        ]
+      },
+      "properties": {
+        "id": "road-node-750",
+        "nodeId": "road-node-750",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-948337472-0",
+          "local-948337473-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road-node-752",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6804535,
+          32.0094694
+        ]
+      },
+      "properties": {
+        "id": "road-node-752",
+        "nodeId": "road-node-752",
+        "kind": "junction",
+        "connectedRoadIds": [
+          "local-1084561753-0",
+          "local-1093069043-0"
+        ],
+        "armCount": 2,
+        "sourceRefs": [
+          "osm"
+        ],
+        "confidence": "estimated"
+      }
+    }
+  ]
+}

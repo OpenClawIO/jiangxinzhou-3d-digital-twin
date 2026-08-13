@@ -1,0 +1,55 @@
+{
+  "version": "2026-08-13-road-v8",
+  "title": {
+    "zh": "江心洲独立道路基础设施层",
+    "en": "Jiangxinzhou Independent Road Infrastructure Layer"
+  },
+  "snapshot": "2026-08-13",
+  "canonicalCrs": "EPSG:4326",
+  "projection": {
+    "method": "WGS84-local-equirectangular",
+    "metersPerDegreeLongitude": 94456.78797114191,
+    "metersPerDegreeLatitude": 110887.42962189173
+  },
+  "sourcePolicy": "Amap and Baidu are offline reference sources. Provider tiles, photos, API keys and undocumented payloads are not redistributed.",
+  "counts": {
+    "corridors": 263,
+    "junctions": 366,
+    "facilities": 1009,
+    "graphNodes": 769,
+    "graphEdges": 919,
+    "namedRoads": 35
+  },
+  "metrics": {
+    "corridorCount": 263,
+    "edgeCount": 919,
+    "nodeCount": 769,
+    "junctionCount": 366,
+    "connectedComponents": 15,
+    "componentSizes": [
+      700,
+      23,
+      9,
+      8,
+      5,
+      4,
+      3,
+      3,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      1
+    ],
+    "totalCenterlineLengthM": 133733.26
+  },
+  "layers": {
+    "corridors": "road-corridors.geojson",
+    "junctions": "road-junctions.geojson",
+    "facilities": "road-facilities.geojson",
+    "graph": "road-network.graph.json",
+    "evidence": "road-evidence.json"
+  }
+}

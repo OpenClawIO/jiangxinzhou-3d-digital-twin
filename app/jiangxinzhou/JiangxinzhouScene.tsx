@@ -32,6 +32,7 @@ import {
   type TransitMode,
 } from "./mapGeometry";
 import { nanjingEyeBounds, nanjingEyeLod1, nanjingEyeLod2 } from "./nanjingEye";
+import RoadLayer from "./RoadLayerView";
 import { prepareScene, type AssetRole, type PreparedScene } from "./render/materials";
 import { RenderEffects, ProceduralEnvironment, ProceduralSky, WaterSurface, celestialPosition } from "./render/RenderEnvironment";
 import { FrameBudgetScheduler, RendererLifecycle, RenderTelemetryProbe, ShaderCompiler } from "./render/RenderRuntime";
@@ -415,32 +416,6 @@ function SegmentLayer({ groups, opacity = 1 }: { groups: Partial<Record<RoadClas
   ))}</group>;
 }
 
-function roadPaths(features = mapRoads, height = 7.5, widthScale = 1) {
-  const groups: Partial<Record<RoadClass, RibbonPath[]>> = {};
-  for (const road of features) {
-    const paths = groups[road.properties.class] ?? [];
-    paths.push({ points: projectPolyline(road.geometry.coordinates, height), widthM: road.properties.widthM * widthScale });
-    groups[road.properties.class] = paths;
-  }
-  return groups;
-}
-
-const roadSurfaceColor: Record<RoadClass, string> = {
-  major: "#c0a55e",
-  arterial: "#bcae83",
-  collector: "#aaa58f",
-  local: "#929990",
-  greenway: "#3d8d78",
-};
-
-function PhysicalRoadRibbon({ roadClass, paths }: { roadClass: RoadClass; paths: RibbonPath[] }) {
-  const surfacePaths = useMemo(() => paths.map((path) => ({ ...path, points: path.points.map(([x, y, z]) => [x, y + 0.24, z] as Point3), widthM: path.widthM * 0.88 })), [paths]);
-  return <group>
-    <RibbonMesh paths={paths} color={roadClass === "greenway" ? "#214f49" : "#425156"} opacity={0.98} />
-    <RibbonMesh paths={surfacePaths} color={roadSurfaceColor[roadClass]} opacity={roadClass === "local" ? 0.9 : 0.98} renderOrder={3} />
-  </group>;
-}
-
 function roadSegments(features = mapRoads, height = 7.5) {
   const groups: Partial<Record<RoadClass, number[]>> = {};
   for (const road of features) {
@@ -452,14 +427,10 @@ function roadSegments(features = mapRoads, height = 7.5) {
   return Object.fromEntries(Object.entries(groups).map(([key, values]) => [key, new Float32Array(values)])) as Partial<Record<RoadClass, Float32Array>>;
 }
 
-function RoadNetwork({ visible, legacy }: { visible: boolean; legacy: boolean }) {
-  const lineGroups = useMemo(() => roadSegments(), []);
-  const ribbonGroups = useMemo(() => roadPaths(mapRoads, 9.5), []);
+function LegacyRoadNetwork({ visible }: { visible: boolean }) {
+  const groups = useMemo(() => roadSegments(mapRoads, 8.2), []);
   if (!visible) return null;
-  if (legacy) return <SegmentLayer groups={lineGroups} />;
-  return <group>{(Object.entries(ribbonGroups) as [RoadClass, RibbonPath[]][]).map(([roadClass, paths]) => (
-    <PhysicalRoadRibbon key={roadClass} roadClass={roadClass} paths={paths} />
-  ))}</group>;
+  return <SegmentLayer groups={groups} />;
 }
 
 function ContextRoadNetwork({ visible, legacy }: { visible: boolean; legacy: boolean }) {
@@ -470,39 +441,6 @@ function ContextRoadNetwork({ visible, legacy }: { visible: boolean; legacy: boo
   const paths = useMemo<RibbonPath[]>(() => contextRoads.map((road) => ({ points: projectPolyline(road.geometry.coordinates, 7.8), widthM: road.properties.widthM })), []);
   if (!visible) return null;
   return legacy ? <WideColorLine positions={positions} color="#c8b879" width={2.6} opacity={0.68} /> : <RibbonMesh paths={paths} color="#756d54" opacity={0.7} />;
-}
-
-function RoadNameLabels({ visible, language }: { visible: boolean; language: Language }) {
-  const { camera, invalidate } = useThree();
-  const [detailTier, setDetailTier] = useState(0);
-  const lastTier = useRef(-1);
-  const labels = useMemo(() => {
-    const byName = new Map<string, (typeof mapRoads)[number]>();
-    for (const road of mapRoads) {
-      const name = localizeFeatureName(road, language);
-      if (name === "—") continue;
-      const current = byName.get(name);
-      if (!current || road.geometry.coordinates.length > current.geometry.coordinates.length) byName.set(name, road);
-    }
-    return [...byName.entries()].map(([name, road]) => {
-      const midpoint = road.geometry.coordinates[Math.floor(road.geometry.coordinates.length / 2)];
-      return { name, roadClass: road.properties.class, position: projectPoint(midpoint, 11) };
-    });
-  }, [language]);
-  useFrame(() => {
-    const tier = camera.position.y < 3_800 ? 2 : camera.position.y < 7_500 ? 1 : 0;
-    if (tier !== lastTier.current) {
-      lastTier.current = tier;
-      startTransition(() => setDetailTier(tier));
-      invalidate();
-    }
-  });
-  if (!visible) return null;
-  return <>{labels.filter((label) => detailTier === 2 || (detailTier === 1 && label.roadClass !== "local") || (detailTier === 0 && ["major", "arterial"].includes(label.roadClass))).map((label) => (
-    <Html key={`${label.name}-${label.position[0]}`} position={label.position} center zIndexRange={[1, 0]} style={{ pointerEvents: "none" }}>
-      <span className={`road-name-label ${label.roadClass}`}>{label.name}</span>
-    </Html>
-  ))}</>;
 }
 
 function RouteNetwork({ routeId, visible, legacy, animate }: { routeId: string; visible: boolean; legacy: boolean; animate: boolean }) {
@@ -1232,7 +1170,7 @@ function CelestialEnvironment({ state, quality, profile, shadowTarget, shadowEna
   </>;
 }
 
-function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, celestialTimestamp, routeId, focus, cameraCommand, cameraPhase, reducedMotion, viewportInsets, onCameraPhaseChange, onSceneInteractionStart, onDetailedAssetStateChange, layers, language, quality, renderMode, renderProfile, renderContextState, renderContextLosses, onPerformanceSample, onRenderTelemetry, onRenderContextStateChange, objectiveId, expeditionLandmarkIds, discoveredLandmarkIds, selectedTransportLineId, selectedTransportStopId, onSelectTransportStop, selectedCrossingId, onSelectCrossing, gamePlayers = [], localPlayerId, selectedPlayerId, onSelectPlayer }: JiangxinzhouSceneProps) {
+function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, celestialTimestamp, routeId, focus, cameraCommand, cameraPhase, reducedMotion, viewportInsets, onCameraPhaseChange, onSceneInteractionStart, onDetailedAssetStateChange, layers, roadSublayers, selectedRoadId, onSelectRoad, language, quality, renderMode, renderProfile, renderContextState, renderContextLosses, onPerformanceSample, onRenderTelemetry, onRenderContextStateChange, objectiveId, expeditionLandmarkIds, discoveredLandmarkIds, selectedTransportLineId, selectedTransportStopId, onSelectTransportStop, selectedCrossingId, onSelectCrossing, gamePlayers = [], localPlayerId, selectedPlayerId, onSelectPlayer }: JiangxinzhouSceneProps) {
   const controls = useRef<OrbitControlsImpl>(null);
   const selectionRef = useRef<THREE.Group>(null);
   const reportedReady = useRef(false);
@@ -1262,8 +1200,7 @@ function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, cel
     <DeferredAssets layers={layers} quality={quality} profile={renderProfile} legacy={legacy} onCoreReady={reportReady} nightFactor={celestialState.night} selectedId={selectedId} view={view} onDetailedAssetStateChange={onDetailedAssetStateChange} />
     <LandscapeZones visible={layers.landscape} />
     <ContextRoadNetwork visible={layers.surroundings} legacy={legacy} />
-    <RoadNetwork visible={layers.roads && !landmarkFocus} legacy={legacy} />
-    <RoadNameLabels visible={layers.roads && !landmarkFocus && view !== "regional"} language={language} />
+    {legacy ? <LegacyRoadNetwork visible={layers.roads} /> : <RoadLayer visible={layers.roads} sublayers={roadSublayers} selectedRoadId={selectedRoadId} language={language} quality={quality} onSelectRoad={onSelectRoad} />}
     <CrossingNetwork visible={layers.crossings && !landmarkFocus} selectedId={selectedCrossingId} onSelect={onSelectCrossing} language={language} legacy={legacy} />
     <RouteNetwork routeId={routeId} visible={view === "route" && !layers.transport} legacy={legacy} animate={ambientActive} />
     <TransportNetwork visible={layers.transport} lineId={selectedTransportLineId} stopId={selectedTransportStopId} onSelectStop={onSelectTransportStop} language={language} profile={renderProfile} legacy={legacy} />

@@ -116,3 +116,4 @@ export type GameGateway = {
 
 export type GameTargetResolver = (targetId: string) => [number, number] | undefined;
 export type LandmarkTargetResolver = (landmarkId: number) => [number, number] | undefined;
+export type GamePathResolver = (from: [number, number], to: [number, number]) => [number, number][] | undefined;

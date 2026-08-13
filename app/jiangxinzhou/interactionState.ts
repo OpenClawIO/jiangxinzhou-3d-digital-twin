@@ -1,6 +1,8 @@
 export type ViewMode = "regional" | "overview" | "route" | "landmark";
 export type LayerKey = "water" | "surroundings" | "roads" | "buildings" | "landscape" | "landmarks" | "crossings" | "transport" | "coordinates";
 export type LayerVisibility = Record<LayerKey, boolean>;
+export type RoadSublayerKey = "pavement" | "curbs" | "walkways" | "greenways" | "markings" | "junctions" | "bridges" | "labels" | "trafficOverlay";
+export type RoadSublayerVisibility = Record<RoadSublayerKey, boolean>;
 export type SceneQuality = "high" | "balanced" | "efficiency";
 export type QualityMode = "auto" | SceneQuality;
 export type ControlPanel = "overview" | "transport" | "landmarks" | "explore" | "evidence";
@@ -42,6 +44,7 @@ export type InteractionState = {
   sheetSnap: MobileSheetSnap;
   panelCollapsed: boolean;
   layers: LayerVisibility;
+  roadSublayers: RoadSublayerVisibility;
   layerPreset: LayerPreset;
   qualityMode: QualityMode;
   selectedLandmarkId: number;
@@ -59,6 +62,7 @@ export type InteractionAction =
   | { type: "set-sheet"; snap: MobileSheetSnap }
   | { type: "set-panel-collapsed"; collapsed: boolean }
   | { type: "set-layer"; key: LayerKey; visible?: boolean }
+  | { type: "set-road-sublayer"; key: RoadSublayerKey; visible?: boolean }
   | { type: "apply-layer-preset"; preset: Exclude<LayerPreset, "custom"> }
   | { type: "set-quality"; quality: QualityMode }
   | { type: "set-camera-phase"; phase: CameraPhase }
@@ -74,6 +78,18 @@ export const defaultLayers: LayerVisibility = {
   crossings: true,
   transport: false,
   coordinates: false,
+};
+
+export const defaultRoadSublayers: RoadSublayerVisibility = {
+  pavement: true,
+  curbs: true,
+  walkways: true,
+  greenways: true,
+  markings: true,
+  junctions: true,
+  bridges: true,
+  labels: true,
+  trafficOverlay: false,
 };
 
 export const layerPresets: Record<Exclude<LayerPreset, "custom">, LayerVisibility> = {
@@ -144,6 +160,7 @@ export function createInitialInteractionState(defaults: { landmarkId: number; li
     sheetSnap: "peek",
     panelCollapsed: false,
     layers: { ...defaultLayers },
+    roadSublayers: { ...defaultRoadSublayers },
     layerPreset: "clean",
     qualityMode: "auto",
     selectedLandmarkId: defaults.landmarkId,
@@ -172,6 +189,10 @@ export function interactionReducer(state: InteractionState, action: InteractionA
     ...state,
     layers: { ...state.layers, [action.key]: action.visible ?? !state.layers[action.key], coordinates: false },
     layerPreset: "custom",
+  };
+  if (action.type === "set-road-sublayer") return {
+    ...state,
+    roadSublayers: { ...state.roadSublayers, [action.key]: action.visible ?? !state.roadSublayers[action.key] },
   };
   if (action.type === "apply-layer-preset") return { ...state, layers: { ...layerPresets[action.preset] }, layerPreset: action.preset };
   if (action.type === "set-quality") return { ...state, qualityMode: action.quality };

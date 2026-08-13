@@ -188,6 +188,74 @@ export const experienceCopy = {
     zh: "道路",
     en: "Roads",
   },
+  roadInfrastructure: {
+    zh: "道路基础设施层",
+    en: "Road infrastructure layer",
+  },
+  roadPavement: {
+    zh: "实体路面",
+    en: "Pavement",
+  },
+  roadCurbs: {
+    zh: "路缘",
+    en: "Curbs",
+  },
+  roadWalkways: {
+    zh: "人行步道",
+    en: "Walkways",
+  },
+  roadGreenways: {
+    zh: "绿道",
+    en: "Greenways",
+  },
+  roadMarkings: {
+    zh: "道路标线",
+    en: "Markings",
+  },
+  roadJunctions: {
+    zh: "路口节点",
+    en: "Junctions",
+  },
+  roadBridges: {
+    zh: "桥面道路",
+    en: "Bridge decks",
+  },
+  roadLabelsLayer: {
+    zh: "道路名称",
+    en: "Road labels",
+  },
+  roadTraffic: {
+    zh: "交通/施工覆盖",
+    en: "Traffic / works overlay",
+  },
+  roadInspector: {
+    zh: "道路信息",
+    en: "Road information",
+  },
+  roadClass: {
+    zh: "道路等级",
+    en: "Road class",
+  },
+  roadWidth: {
+    zh: "估算宽度",
+    en: "Estimated width",
+  },
+  roadLength: {
+    zh: "模型长度",
+    en: "Model length",
+  },
+  roadStatus: {
+    zh: "状态",
+    en: "Status",
+  },
+  roadSourceAgreement: {
+    zh: "来源核验",
+    en: "Source agreement",
+  },
+  roadConfidence: {
+    zh: "可信度",
+    en: "Confidence",
+  },
   water: {
     zh: "江河水系",
     en: "Waterways",

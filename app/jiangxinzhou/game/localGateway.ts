@@ -1,12 +1,13 @@
 import { loadProfile, saveProfile } from "./storage.ts";
 import { buildWorldSnapshot, LOCAL_ROOM_CAPACITY, moveTowards, simulationTick, teamObjectivesForSnapshot } from "./worldSimulation.ts";
-import type { CommandAck, GameGateway, GameMode, GameTargetResolver, LandmarkTargetResolver, PlayerCommand, PlayerProfile, PlayerState, WorldEvent, WorldSnapshot } from "./types.ts";
+import type { CommandAck, GameGateway, GameMode, GamePathResolver, GameTargetResolver, LandmarkTargetResolver, PlayerCommand, PlayerProfile, PlayerState, WorldEvent, WorldSnapshot } from "./types.ts";
 
 type LocalGatewayOptions = {
   mode: GameMode;
   roomId?: string;
   resolveTarget: GameTargetResolver;
   resolveLandmark: LandmarkTargetResolver;
+  resolvePath?: GamePathResolver;
   lineIds?: readonly string[];
 };
 
@@ -35,6 +36,8 @@ export function createLocalGameGateway(options: LocalGatewayOptions): GameGatewa
   let tickTimer: number | undefined;
   let channel: BroadcastChannel | undefined;
   let lastAcceptedSeq = 0;
+  let movementPath: [number, number][] = [];
+  let movementPathIndex = 0;
   let objectives = teamObjectivesForSnapshot();
   const remotePlayers = new Map<string, PlayerState>();
   let currentSnapshot: WorldSnapshot | undefined;
@@ -91,10 +94,25 @@ export function createLocalGameGateway(options: LocalGatewayOptions): GameGatewa
 
   const tick = () => {
     if (!joined || !localPlayer) return;
-    const target = localPlayer.targetId ? options.resolveTarget(localPlayer.targetId) : undefined;
-    if (target && localPlayer.status === "moving") {
-      const moved = moveTowards(localPlayer.position, target, PLAYER_SPEED_MPS);
-      localPlayer = { ...localPlayer, position: moved.position, heading: moved.heading, status: moved.arrived ? "observing" : "moving", lastAcceptedTick: simulationTick(Date.now()) };
+    if (localPlayer.targetId && localPlayer.status === "moving" && movementPath.length > 1) {
+      let position = localPlayer.position;
+      let remaining = PLAYER_SPEED_MPS;
+      let heading = localPlayer.heading;
+      while (remaining > 0 && movementPathIndex < movementPath.length) {
+        const next = movementPath[movementPathIndex];
+        const segmentDistance = Math.hypot(next[0] - position[0], next[1] - position[1]);
+        const moved = moveTowards(position, next, remaining);
+        position = moved.position;
+        heading = moved.heading;
+        if (!moved.arrived) {
+          remaining = 0;
+        } else {
+          movementPathIndex += 1;
+          remaining = Math.max(0, remaining - segmentDistance);
+        }
+      }
+      const arrived = movementPathIndex >= movementPath.length;
+      localPlayer = { ...localPlayer, position, heading, status: arrived ? "observing" : "moving", lastAcceptedTick: simulationTick(Date.now()) };
       post({ type: "presence", roomId, player: clonePlayer(localPlayer) });
     }
     const snapshot = createSnapshot();
@@ -136,13 +154,18 @@ export function createLocalGameGateway(options: LocalGatewayOptions): GameGatewa
       if (command.seq <= lastAcceptedSeq) return { seq: command.seq, accepted: false, tick: tickValue, reason: "duplicate", snapshot: currentSnapshot };
       lastAcceptedSeq = command.seq;
       if (command.kind === "move-to") {
-        if (!options.resolveTarget(command.targetId)) return { seq: command.seq, accepted: false, tick: tickValue, reason: "unknown-target", snapshot: currentSnapshot };
+        const target = options.resolveTarget(command.targetId);
+        if (!target) return { seq: command.seq, accepted: false, tick: tickValue, reason: "unknown-target", snapshot: currentSnapshot };
+        movementPath = options.resolvePath?.(localPlayer.position, target) ?? [localPlayer.position, target];
+        movementPathIndex = movementPath.length > 1 ? 1 : 0;
         localPlayer = { ...localPlayer, targetId: command.targetId, routeId: command.routeId, status: "moving", lastAcceptedTick: tickValue };
         post({ type: "presence", roomId, player: clonePlayer(localPlayer) });
         const snapshot = createSnapshot();
         return { seq: command.seq, accepted: true, tick: tickValue, snapshot };
       }
       if (command.kind === "cancel-move") {
+        movementPath = [];
+        movementPathIndex = 0;
         localPlayer = { ...localPlayer, targetId: undefined, status: "idle", lastAcceptedTick: tickValue };
         post({ type: "presence", roomId, player: clonePlayer(localPlayer) });
         return { seq: command.seq, accepted: true, tick: tickValue, snapshot: createSnapshot() };
@@ -153,6 +176,8 @@ export function createLocalGameGateway(options: LocalGatewayOptions): GameGatewa
         const distance = Math.hypot(position[0] - localPlayer.position[0], position[1] - localPlayer.position[1]);
         if (distance > OBSERVATION_RADIUS_M) return { seq: command.seq, accepted: false, tick: tickValue, reason: "too-far", snapshot: currentSnapshot };
         localPlayer = { ...localPlayer, status: "observing", targetId: `landmark:${command.landmarkId}`, lastAcceptedTick: tickValue };
+        movementPath = [];
+        movementPathIndex = 0;
         const objective = objectives.find((item) => item.id === "team-landmark-scan");
         if (objective && !objective.completed) {
           objective.progress = Math.min(objective.targetCount, objective.progress + 1);

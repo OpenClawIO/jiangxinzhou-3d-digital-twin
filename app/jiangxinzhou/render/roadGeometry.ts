@@ -29,28 +29,30 @@ export function buildRibbonGeometry(paths: RibbonPath[], options: { miterLimit?:
   const positions: number[] = [];
   const normals: number[] = [];
   const uvs: number[] = [];
+  const pathIndices: number[] = [];
   const indices: number[] = [];
   const miterLimit = options.miterLimit ?? 2;
   const capSegments = Math.max(6, options.capSegments ?? 10);
 
-  const pushVertex = (point: THREE.Vector3, u: number, distance: number) => {
+  const pushVertex = (point: THREE.Vector3, u: number, distance: number, pathIndex: number) => {
     positions.push(point.x, point.y, point.z);
     normals.push(0, 1, 0);
     uvs.push(u, distance);
+    pathIndices.push(pathIndex);
     return positions.length / 3 - 1;
   };
 
-  const pushRoundCap = (center: THREE.Vector3, radius: number, distance: number) => {
-    const centerIndex = pushVertex(center, 0.5, distance);
+  const pushRoundCap = (center: THREE.Vector3, radius: number, distance: number, pathIndex: number) => {
+    const centerIndex = pushVertex(center, 0.5, distance, pathIndex);
     const firstRing = positions.length / 3;
     for (let index = 0; index <= capSegments; index += 1) {
       const angle = index / capSegments * Math.PI * 2;
-      pushVertex(new THREE.Vector3(center.x + Math.cos(angle) * radius, center.y, center.z + Math.sin(angle) * radius), 0.5, distance);
+      pushVertex(new THREE.Vector3(center.x + Math.cos(angle) * radius, center.y, center.z + Math.sin(angle) * radius), 0.5, distance, pathIndex);
     }
     for (let index = 0; index < capSegments; index += 1) indices.push(centerIndex, firstRing + index + 1, firstRing + index);
   };
 
-  for (const path of paths) {
+  for (const [pathIndex, path] of paths.entries()) {
     const points = compactPath(path.points);
     if (points.length < 2 || !Number.isFinite(path.widthM) || path.widthM <= 0) continue;
     const halfWidth = path.widthM / 2;
@@ -68,8 +70,8 @@ export function buildRibbonGeometry(paths: RibbonPath[], options: { miterLimit?:
       const denominator = Math.max(0.25, Math.abs(miter.dot(nextNormal)));
       const miterLength = Math.min(halfWidth * miterLimit, halfWidth / denominator);
       const offset = miter.multiplyScalar(miterLength);
-      pushVertex(points[index].clone().add(offset), 0, cumulative[index]);
-      pushVertex(points[index].clone().sub(offset), 1, cumulative[index]);
+      pushVertex(points[index].clone().add(offset), 0, cumulative[index], pathIndex);
+      pushVertex(points[index].clone().sub(offset), 1, cumulative[index], pathIndex);
     }
     for (let index = 0; index < points.length - 1; index += 1) {
       const left = firstVertex + index * 2;
@@ -78,14 +80,15 @@ export function buildRibbonGeometry(paths: RibbonPath[], options: { miterLimit?:
       const nextRight = left + 3;
       indices.push(left, nextLeft, right, right, nextLeft, nextRight);
     }
-    pushRoundCap(points[0], halfWidth, 0);
-    pushRoundCap(points.at(-1)!, halfWidth, cumulative.at(-1)!);
+    pushRoundCap(points[0], halfWidth, 0, pathIndex);
+    pushRoundCap(points.at(-1)!, halfWidth, cumulative.at(-1)!, pathIndex);
   }
 
   const geometry = new THREE.BufferGeometry();
   geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
   geometry.setAttribute("normal", new THREE.Float32BufferAttribute(normals, 3));
   geometry.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
+  geometry.setAttribute("pathIndex", new THREE.Uint16BufferAttribute(pathIndices, 1));
   geometry.setIndex(indices);
   geometry.computeBoundingBox();
   geometry.computeBoundingSphere();

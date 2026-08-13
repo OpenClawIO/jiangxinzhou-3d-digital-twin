@@ -1,0 +1,60 @@
+{
+  "version": "2026-08-13-road-v8",
+  "generatedAt": "2026-08-13T08:16:45.970Z",
+  "canonicalCrs": "EPSG:4326",
+  "sourceIds": [
+    "osm",
+    "amap",
+    "baidu-coordinate",
+    "baidu-route-reference",
+    "baidu-direction",
+    "nanjing-official"
+  ],
+  "agreementCounts": {
+    "amap-confirmed": 188,
+    "osm-derived": 75
+  },
+  "namedRoads": [
+    "民安路",
+    "江堤路",
+    "夹江大桥",
+    "中新大道",
+    "思泽路",
+    "红星街",
+    "揽江街",
+    "亚鹏路",
+    "星影街",
+    "宏俊街",
+    "南京眼步行桥",
+    "志坚街",
+    "绿水街",
+    "科技路",
+    "永定街",
+    "南京江心洲长江大桥",
+    "梅子洲路",
+    "龙恩街",
+    "文泰街",
+    "环岛东路",
+    "文武街",
+    "星月街",
+    "星洲街",
+    "贤达路",
+    "星岛街",
+    "和韵路",
+    "贤坤路",
+    "洲宁街",
+    "葡园路",
+    "环岛西路",
+    "宏俊路",
+    "文萃街",
+    "熙怡路",
+    "林荫路",
+    "桃园街"
+  ],
+  "limitations": [
+    "Amap and Baidu provider payloads are not embedded in the browser bundle.",
+    "No Amap or Baidu client key is stored in this repository; the current layer retains OSM geometry and records provider documentation/public route references.",
+    "Road geometry is a visitor-scale reconstruction, not cadastral or survey-grade data."
+  ],
+  "nextLicensedRefresh": "Append dated Amap and Baidu route snapshots to road-evidence.json and promote only matching roads to dual-confirmed."
+}

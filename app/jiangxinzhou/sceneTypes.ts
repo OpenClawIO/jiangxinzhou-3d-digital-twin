@@ -1,6 +1,6 @@
 import type { Landmark } from "./landmarks";
 import type { Language } from "./locales";
-import type { CameraCommand, CameraPhase, LayerVisibility, SceneFocus, SceneQuality } from "./interactionState";
+import type { CameraCommand, CameraPhase, LayerVisibility, RoadSublayerVisibility, SceneFocus, SceneQuality } from "./interactionState";
 import type { RenderContextState, RenderMode, RenderProfile, RenderTelemetry } from "./render/runtime";
 import type { GameMode, PlayerState } from "./game/types";
 
@@ -25,6 +25,9 @@ export type JiangxinzhouSceneProps = {
   onSceneInteractionStart: () => void;
   onDetailedAssetStateChange: (state: "idle" | "loading" | "ready") => void;
   layers: LayerVisibility;
+  roadSublayers: RoadSublayerVisibility;
+  selectedRoadId?: string;
+  onSelectRoad?: (roadId: string) => void;
   language: Language;
   quality: SceneQuality;
   renderMode: RenderMode;

@@ -1,0 +1,132 @@
+{
+  "version": "2026-08-13-road-v8",
+  "generatedAt": "2026-08-13T08:16:45.911Z",
+  "canonicalCrs": "EPSG:4326",
+  "coordinatePolicy": {
+    "storage": "WGS84 / EPSG:4326",
+    "amapInput": "GCJ-02; convert before comparing or storing",
+    "baiduInput": "BD-09LL or GCJ-02 depending on endpoint; convert before comparing or storing",
+    "conversion": "Offline source records retain original CRS; runtime never mixes provider coordinates."
+  },
+  "sourcePolicy": "Amap and Baidu are offline reference sources. Provider tiles, photos, API keys and undocumented payloads are not redistributed.",
+  "sources": [
+    {
+      "id": "osm",
+      "title": "OpenStreetMap Jiangxinzhou road centerlines",
+      "type": "open-data",
+      "date": "2026-08-11",
+      "url": "https://www.openstreetmap.org/relation/11630502",
+      "license": "ODbL",
+      "verifies": [
+        "road centerline seed",
+        "junction vertices",
+        "island road network"
+      ]
+    },
+    {
+      "id": "amap",
+      "title": "高德地图路线规划与道路名称参考",
+      "type": "map-route-reference",
+      "date": "2026-08-13-accessed",
+      "url": "https://lbs.amap.com/api/web-service/guide/routes",
+      "verifies": [
+        "road names",
+        "route segment names",
+        "multi-modal route behavior"
+      ],
+      "redistribution": "reference-only",
+      "notes": "Amap route outputs are time-sensitive; this build stores reconciled geometry rather than provider payloads."
+    },
+    {
+      "id": "baidu-coordinate",
+      "title": "百度地图坐标系与坐标转换文档",
+      "type": "coordinate-reference",
+      "date": "2026-08-13-accessed",
+      "url": "https://lbs.baidu.com/docs/android?title=androidsdk%2Fguide%2Ftool%2Fcoordinate",
+      "verifies": [
+        "BD-09/GCJ-02/WGS84 conversion policy"
+      ],
+      "redistribution": "reference-only"
+    },
+    {
+      "id": "baidu-route-reference",
+      "title": "百度地图公开路线规划参考",
+      "type": "public-route-reference",
+      "date": "2026-08-13-accessed",
+      "url": "https://map.baidu.com/mobile/webapp/drive/list",
+      "verifies": [
+        "regional approach-road naming",
+        "route-step naming format"
+      ],
+      "redistribution": "reference-only",
+      "notes": "Public route result is used as a contextual cross-check; it is not treated as complete island geometry."
+    },
+    {
+      "id": "baidu-direction",
+      "title": "百度地图驾车/骑行路线 API 文档",
+      "type": "map-route-reference",
+      "date": "2026-08-13-accessed",
+      "url": "https://lbsyun.baidu.com/docs/webapi?title=directionv2%2Fwebservice-direction%2Fdirve",
+      "verifies": [
+        "road names in route steps",
+        "waypoint route validation"
+      ],
+      "redistribution": "reference-only",
+      "notes": "No client-side AK is embedded. A future licensed rebuild can append API snapshots without changing the schema."
+    },
+    {
+      "id": "nanjing-official",
+      "title": "南京市江心洲生态文旅资料",
+      "type": "government",
+      "date": "2025-12-03",
+      "url": "https://www.nanjing.gov.cn/xxgkn/jytabljggk/2025njytabl/shizxta/202512/t20251203_5704828.html",
+      "verifies": [
+        "22.5 km embankment road",
+        "island-scale road context"
+      ]
+    }
+  ],
+  "reconciliation": {
+    "namedRoadCount": 35,
+    "namedRoads": [
+      "民安路",
+      "江堤路",
+      "夹江大桥",
+      "中新大道",
+      "思泽路",
+      "红星街",
+      "揽江街",
+      "亚鹏路",
+      "星影街",
+      "宏俊街",
+      "南京眼步行桥",
+      "志坚街",
+      "绿水街",
+      "科技路",
+      "永定街",
+      "南京江心洲长江大桥",
+      "梅子洲路",
+      "龙恩街",
+      "文泰街",
+      "环岛东路",
+      "文武街",
+      "星月街",
+      "星洲街",
+      "贤达路",
+      "星岛街",
+      "和韵路",
+      "贤坤路",
+      "洲宁街",
+      "葡园路",
+      "环岛西路",
+      "宏俊路",
+      "文萃街",
+      "熙怡路",
+      "林荫路",
+      "桃园街"
+    ],
+    "amapGeometryQuery": "not embedded; source names and route semantics recorded from offline review",
+    "baiduGeometryQuery": "not embedded without licensed AK; public route and official conversion docs recorded",
+    "sourceAgreementPolicy": "dual-confirmed is reserved for a future build with both provider route snapshots; current named geometry is amap-confirmed + OSM-derived and Baidu is contextual reference."
+  }
+}

@@ -31,6 +31,8 @@ import {
   type LayerKey,
   type LayerVisibility,
   type QualityMode,
+  type RoadSublayerKey,
+  type RoadSublayerVisibility,
   type SceneFocus,
 } from "./interactionState";
 import { landmarks as defaultLandmarks, routes, type Landmark } from "./landmarks";
@@ -44,6 +46,7 @@ import {
   type Language,
 } from "./locales";
 import { contextEvidenceSources, crossings, evidenceSources, findAnchor, localizeFeatureName, mapManifest, projectPoint, transportEvidenceSources, transportLines, transportStops } from "./mapGeometry";
+import { findRoadCorridor, roadName } from "./roadLayer";
 import { nanjingEyeEvidence, nanjingEyeLod2, nanjingEyeSpecification } from "./nanjingEye";
 import {
   contextRecoveryPolicy,
@@ -101,7 +104,7 @@ function LanguageToggle({ language, onChange }: { language: Language; onChange: 
   ))}</div>;
 }
 
-function LayerToggles({ layers, language, onToggle }: { layers: LayerVisibility; language: Language; onToggle: (key: LayerKey) => void }) {
+function LayerToggles({ layers, roadSublayers, language, onToggle, onToggleRoad }: { layers: LayerVisibility; roadSublayers: RoadSublayerVisibility; language: Language; onToggle: (key: LayerKey) => void; onToggleRoad: (key: RoadSublayerKey) => void }) {
   const labels: Record<Exclude<LayerKey, "coordinates">, typeof experienceCopy.roads> = {
     water: experienceCopy.water,
     surroundings: experienceCopy.surroundings,
@@ -112,9 +115,21 @@ function LayerToggles({ layers, language, onToggle }: { layers: LayerVisibility;
     crossings: experienceCopy.crossingLayer,
     transport: experienceCopy.transportLayer,
   };
-  return <div className="layer-toggles" role="group" aria-label={localize(experienceCopy.layers, language)}>{(Object.keys(labels) as (keyof typeof labels)[]).map((key) => (
-    <button key={key} className={layers[key] ? "active" : ""} aria-pressed={layers[key]} onClick={() => onToggle(key)}>{localize(labels[key], language)}</button>
-  ))}</div>;
+  const roadLabels: Record<RoadSublayerKey, typeof experienceCopy.roads> = {
+    pavement: experienceCopy.roadPavement,
+    curbs: experienceCopy.roadCurbs,
+    walkways: experienceCopy.roadWalkways,
+    greenways: experienceCopy.roadGreenways,
+    markings: experienceCopy.roadMarkings,
+    junctions: experienceCopy.roadJunctions,
+    bridges: experienceCopy.roadBridges,
+    labels: experienceCopy.roadLabelsLayer,
+    trafficOverlay: experienceCopy.roadTraffic,
+  };
+  return <div className="layer-toggles" role="group" aria-label={localize(experienceCopy.layers, language)}>
+    {(Object.keys(labels) as (keyof typeof labels)[]).map((key) => <button key={key} className={layers[key] ? "active" : ""} aria-pressed={layers[key]} onClick={() => onToggle(key)}>{localize(labels[key], language)}</button>)}
+    {layers.roads && <fieldset className="road-sublayer-toggles"><legend>{localize(experienceCopy.roadInfrastructure, language)}</legend>{(Object.keys(roadLabels) as RoadSublayerKey[]).map((key) => <button type="button" key={key} className={roadSublayers[key] ? "active" : ""} aria-pressed={roadSublayers[key]} onClick={() => onToggleRoad(key)}>{localize(roadLabels[key], language)}</button>)}</fieldset>}
+  </div>;
 }
 
 function CelestialClock({ timestamp, mode, source, uncertaintyMs, state, events, previewMinutes, language, onPreview, onPreviewChange, onPreset, onLive }: {
@@ -221,6 +236,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   const [roomId, setRoomId] = useState<string>();
   const [identityOpen, setIdentityOpen] = useState(false);
   const [selectedPlayerId, setSelectedPlayerId] = useState<string>();
+  const [selectedRoadId, setSelectedRoadId] = useState<string>();
   const sheetRef = useRef<HTMLElement>(null);
   const sheetDrag = useRef<{ startY: number; startTranslate: number; lastY: number; lastTime: number; moved: boolean } | undefined>(undefined);
   const suppressSheetClick = useRef(false);
@@ -326,6 +342,12 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   const controlPanel = ui.panel;
   const view = viewModeFromFocus(ui.focus);
   const selected = items.find((item) => item.id === selectedId) ?? items[0];
+  const selectedRoad = findRoadCorridor(selectedRoadId);
+  const selectedRoadLengthM = useMemo(() => {
+    if (!selectedRoad) return 0;
+    const points = selectedRoad.geometry.coordinates.map((coordinate) => projectPoint(coordinate));
+    return Math.round(points.slice(1).reduce((total, point, index) => total + Math.hypot(point[0] - points[index][0], point[2] - points[index][2]), 0));
+  }, [selectedRoad]);
   const selectedAnchor = selected ? findAnchor(selected.anchorId) : undefined;
   const routeId = ui.focus.kind === "route" ? ui.focus.routeId : exploration.activeExpedition.routeId ?? routes[0].id;
   const selectedDiscovered = exploration.state.discoveredLandmarkIds.includes(selectedId) || game.collection.some((entry) => entry.landmarkId === selectedId);
@@ -381,6 +403,10 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   const chooseTransportLine = useCallback((id: string) => navigateFocus({ kind: "transport", lineId: id }), [navigateFocus]);
   const chooseTransportStop = useCallback((id: string) => navigateFocus({ kind: "transport", lineId: selectedTransportLineId, stopId: id }), [navigateFocus, selectedTransportLineId]);
   const chooseCrossing = useCallback((id: string) => navigateFocus({ kind: "regional", crossingId: id }), [navigateFocus]);
+  const chooseRoad = useCallback((id: string) => {
+    setSelectedRoadId(id);
+    dispatch({ type: "set-panel", panel: "overview" });
+  }, []);
   const resetView = useCallback(() => navigateFocus({ kind: "island" }, "reset"), [navigateFocus]);
   const enterSharedRoom = useCallback(() => {
     const generatedRoom = roomId || `jx-${Math.random().toString(36).slice(2, 8)}`;
@@ -619,6 +645,9 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
               onSceneInteractionStart={handleSceneInteractionStart}
               onDetailedAssetStateChange={setDetailedAssetState}
               layers={ui.layers}
+              roadSublayers={ui.roadSublayers}
+              selectedRoadId={selectedRoadId}
+              onSelectRoad={chooseRoad}
               language={language}
               quality={quality}
               renderMode={renderMode}
@@ -645,6 +674,11 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
           </SceneErrorBoundary> : sceneFallback}
           {!sceneReady && webglSupported !== false && <div className="scene-loading-overlay" role="status" aria-live="polite"><span className="loading-orbit" /><b>{localize(experienceCopy.loadingScene, language)}</b><small>{localize(experienceCopy.loadingSceneDetail, language)}</small></div>}
           <GameHud language={language} mode={gameMode} status={game.status} playerCount={game.players.length} capacity={game.room?.capacity ?? 32} player={game.localPlayer} collectionCount={game.collection.length} xp={game.xp} onOpenIdentity={() => setIdentityOpen(true)} onJoinRoom={enterSharedRoom} onLeaveRoom={leaveSharedRoom} />
+          {selectedRoad && <aside className="road-inspector" aria-label={localize(experienceCopy.roadInspector, language)}>
+            <header><div><small>{localize(experienceCopy.roadInfrastructure, language)}</small><strong>{roadName(selectedRoad, language)}</strong></div><button type="button" aria-label={localize(experienceCopy.close, language)} onClick={() => setSelectedRoadId(undefined)}>×</button></header>
+            <div className="road-inspector-grid"><span><small>{localize(experienceCopy.roadClass, language)}</small><b>{selectedRoad.properties.class}</b></span><span><small>{localize(experienceCopy.roadWidth, language)}</small><b>{selectedRoad.properties.widthM} m</b></span><span><small>{localize(experienceCopy.roadLength, language)}</small><b>{selectedRoadLengthM.toLocaleString()} m</b></span><span><small>{localize(experienceCopy.roadStatus, language)}</small><b>{selectedRoad.properties.status}</b></span></div>
+            <footer><span>{localize(experienceCopy.roadSourceAgreement, language)} · {selectedRoad.properties.sourceAgreement}</span><span>{localize(experienceCopy.roadConfidence, language)} · {selectedRoad.properties.confidence}</span></footer>
+          </aside>}
           <WorldEventBanner language={language} event={game.lastEvent} now={liveTimestamp} />
           <ReconnectBanner language={language} status={game.status} onReconnect={game.reconnect} />
           <NearbyInteractionPrompt language={language} landmark={view === "landmark" ? selected : undefined} localPlayer={game.localPlayer} isNearby={selectedIsNearby} isCompleted={selectedDiscovered} onMove={() => { if (selected) void game.moveTo(targetIdForLandmark(selected.id), routeId); }} onObserve={observeSelected} />
@@ -665,7 +699,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
               <header><div><small>MAP CONTROL</small><h3>{localize(ui.popover === "settings" ? experienceCopy.settings : ui.popover === "time" ? experienceCopy.timeAndSky : experienceCopy.controlsHelp, language)}</h3></div><button autoFocus aria-label={localize(experienceCopy.close, language)} onClick={() => dispatch({ type: "set-popover", popover: null })}>×</button></header>
               {ui.popover === "settings" && <div className="settings-content">
                 <fieldset className="layer-presets"><legend>{localize(experienceCopy.layerPreset, language)}</legend>{(["clean", "transport", "nature"] as const).map((preset) => <button type="button" key={preset} aria-pressed={ui.layerPreset === preset} className={ui.layerPreset === preset ? "active" : ""} onClick={() => dispatch({ type: "apply-layer-preset", preset })}>{localize({ clean: experienceCopy.layerPresetClean, transport: experienceCopy.layerPresetTransport, nature: experienceCopy.layerPresetNature }[preset], language)}</button>)}</fieldset>
-                <LayerToggles layers={ui.layers} language={language} onToggle={(key) => dispatch({ type: "set-layer", key })} />
+                <LayerToggles layers={ui.layers} roadSublayers={ui.roadSublayers} language={language} onToggle={(key) => dispatch({ type: "set-layer", key })} onToggleRoad={(key) => dispatch({ type: "set-road-sublayer", key })} />
                 <fieldset className="quality-options"><legend>{localize(experienceCopy.renderingQuality, language)}</legend>{qualityModes.map((mode) => <label key={mode}><input type="radio" name="render-quality" checked={ui.qualityMode === mode} onChange={() => setQualityMode(mode)} /><span>{localize(qualityCopy[mode], language)}</span>{mode === "auto" && <small>· {localize(qualityCopy[quality], language)}</small>}</label>)}</fieldset>
               </div>}
               {ui.popover === "time" && <div className="time-popover-content"><CelestialClock timestamp={celestialTimestamp} mode={timeMode} source={synchronizedClock.source} uncertaintyMs={synchronizedClock.uncertaintyMs} state={celestialState} events={celestialEvents} previewMinutes={previewMinutes} language={language} onPreview={beginTimePreview} onPreviewChange={setPreviewMinutes} onPreset={chooseTimePreset} onLive={() => setTimeMode("live")} /><CelestialSkyTrack state={celestialState} language={language} /></div>}

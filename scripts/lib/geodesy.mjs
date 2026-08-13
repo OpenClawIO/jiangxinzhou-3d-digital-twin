@@ -4,6 +4,71 @@ export const WGS84_B = (1 - WGS84_F) * WGS84_A;
 export const WGS84_E2 = WGS84_F * (2 - WGS84_F);
 
 const radians = (degrees) => (degrees * Math.PI) / 180;
+const X_PI = (Math.PI * 3000) / 180;
+
+const outOfChina = ([longitude, latitude]) => longitude < 72.004 || longitude > 137.8347 || latitude < 0.8293 || latitude > 55.8271;
+const transformLatitude = (x, y) => {
+  let value = -100 + 2 * x + 3 * y + 0.2 * y * y + 0.1 * x * y + 0.2 * Math.sqrt(Math.abs(x));
+  value += ((20 * Math.sin(6 * x * Math.PI) + 20 * Math.sin(2 * x * Math.PI)) * 2) / 3;
+  value += ((20 * Math.sin(y * Math.PI) + 40 * Math.sin((y / 3) * Math.PI)) * 2) / 3;
+  value += ((160 * Math.sin((y / 12) * Math.PI) + 320 * Math.sin((y * Math.PI) / 30)) * 2) / 3;
+  return value;
+};
+const transformLongitude = (x, y) => {
+  let value = 300 + x + 2 * y + 0.1 * x * x + 0.1 * x * y + 0.1 * Math.sqrt(Math.abs(x));
+  value += ((20 * Math.sin(6 * x * Math.PI) + 20 * Math.sin(2 * x * Math.PI)) * 2) / 3;
+  value += ((20 * Math.sin(x * Math.PI) + 40 * Math.sin((x / 3) * Math.PI)) * 2) / 3;
+  value += ((150 * Math.sin((x / 12) * Math.PI) + 300 * Math.sin((x / 30) * Math.PI)) * 2) / 3;
+  return value;
+};
+
+/** Convert WGS84 longitude/latitude to mainland China GCJ-02. */
+export function wgs84ToGcj02(coordinate) {
+  if (outOfChina(coordinate)) return [...coordinate];
+  const [longitude, latitude] = coordinate;
+  const a = 6_378_245;
+  const ee = 0.006693421622965943;
+  const dLat = transformLatitude(longitude - 105, latitude - 35);
+  const dLng = transformLongitude(longitude - 105, latitude - 35);
+  const radLat = radians(latitude);
+  const magic = 1 - ee * Math.sin(radLat) ** 2;
+  const sqrtMagic = Math.sqrt(magic);
+  const longitudeOffset = (dLng * 180) / (a / sqrtMagic * Math.cos(radLat) * Math.PI);
+  const latitudeOffset = (dLat * 180) / (((a * (1 - ee)) / (magic * sqrtMagic)) * Math.PI);
+  return [
+    longitude + longitudeOffset,
+    latitude + latitudeOffset,
+  ];
+}
+
+/** Convert GCJ-02 longitude/latitude to WGS84 by the standard inverse approximation. */
+export function gcj02ToWgs84(coordinate) {
+  if (outOfChina(coordinate)) return [...coordinate];
+  const transformed = wgs84ToGcj02(coordinate);
+  return [coordinate[0] * 2 - transformed[0], coordinate[1] * 2 - transformed[1]];
+}
+
+/** Convert Baidu BD-09 longitude/latitude to GCJ-02. */
+export function bd09ToGcj02([longitude, latitude]) {
+  const x = longitude - 0.0065;
+  const y = latitude - 0.006;
+  const z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * X_PI);
+  const theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * X_PI);
+  return [z * Math.cos(theta), z * Math.sin(theta)];
+}
+
+/** Convert Baidu BD-09 longitude/latitude directly to canonical WGS84. */
+export function bd09ToWgs84(coordinate) {
+  return gcj02ToWgs84(bd09ToGcj02(coordinate));
+}
+
+/** Convert WGS84 longitude/latitude directly to Baidu BD-09 for offline source comparison. */
+export function wgs84ToBd09(coordinate) {
+  const [longitude, latitude] = wgs84ToGcj02(coordinate);
+  const z = Math.sqrt(longitude * longitude + latitude * latitude) + 0.00002 * Math.sin(latitude * X_PI);
+  const theta = Math.atan2(latitude, longitude) + 0.000003 * Math.cos(longitude * X_PI);
+  return [z * Math.cos(theta) + 0.0065, z * Math.sin(theta) + 0.006];
+}
 
 /** Local equirectangular scale derived from the WGS84 ellipsoid at a latitude. */
 export function metersPerDegreeAt(latitude) {
