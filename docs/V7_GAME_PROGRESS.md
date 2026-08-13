@@ -23,8 +23,14 @@
 - `npm run build` 通过。
 - Playwright：桌面首屏、身份编辑、共享房间 URL、地标移动/观察/图鉴、390×844 移动端均已检查；刷新后无 WebGL runtime error，保留 1 条 Three.js 内部 `THREE.Clock` deprecation warning。
 
+## 已发布
+
+- GitHub 分支：`codex/game-v7-shared-world`，提交 `03afebb69cb4885254c121b5ffeeb268d07d8375`。
+- Vercel 正式站点：[jiangxinzhou-3d-digital-twin.vercel.app](https://jiangxinzhou-3d-digital-twin.vercel.app/jiangxinzhou)。
+- Preview 构建已通过远端 `npm run build`；正式域名 smoke check 返回页面标题和 `/jiangxinzhou` 路由。
+
 ## 待外部配置后启用
 
 - Supabase 项目 URL、publishable key、匿名登录开关、SQL migration 和 worker 部署尚未写入当前环境；因此线上默认仍是本地网关，不能把本地 Broadcast 演示误称为跨设备多人服务。
 - 需要配置 `NEXT_PUBLIC_GAME_COMMAND_URL` 指向 `services/jiangxinzhou-sim-worker`，再进行两浏览器/32 客户端压力验证。
-- Vercel/GitHub 发布属于下一步交付动作，需在构建和预览回归后执行。
+- 当前正式站点默认使用 LocalGameGateway，确保没有实时服务时仍可进入地图；共享房间在同源浏览器标签页之间使用 BroadcastChannel 演示。
