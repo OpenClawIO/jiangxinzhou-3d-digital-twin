@@ -3,6 +3,7 @@ import type { Language } from "./locales";
 import type { CameraCommand, CameraPhase, LayerVisibility, RoadSublayerVisibility, SceneFocus, SceneQuality } from "./interactionState";
 import type { RenderContextState, RenderMode, RenderProfile, RenderTelemetry } from "./render/runtime";
 import type { GameMode, PlayerState } from "./game/types";
+import type { TransitRealtimeSnapshot } from "./transit/realtime";
 
 export type { LayerKey, LayerVisibility, SceneQuality, ViewMode } from "./interactionState";
 
@@ -42,6 +43,7 @@ export type JiangxinzhouSceneProps = {
   discoveredLandmarkIds: readonly number[];
   selectedTransportLineId: string;
   selectedTransportStopId?: string;
+  transitSnapshot?: TransitRealtimeSnapshot;
   onSelectTransportStop: (id: string) => void;
   selectedCrossingId: string;
   onSelectCrossing: (id: string) => void;

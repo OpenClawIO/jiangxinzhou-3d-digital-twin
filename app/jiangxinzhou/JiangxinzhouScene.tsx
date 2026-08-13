@@ -40,6 +40,7 @@ import { FrameBudgetScheduler, RendererLifecycle, RenderTelemetryProbe, ShaderCo
 import { buildRibbonGeometry, type RibbonPath } from "./render/roadGeometry";
 import type { RenderProfile } from "./render/runtime";
 import type { JiangxinzhouSceneProps, LayerVisibility, SceneQuality, ViewMode, ViewportInsets } from "./sceneTypes";
+import type { TransitRealtimeSnapshot, TransitVehicleRealtime } from "./transit/realtime";
 
 const modelUrls = {
   terrain: "/models/jiangxinzhou-v2/terrain.glb",
@@ -464,7 +465,7 @@ const vehicleUrls: Record<string, string> = {
 
 const modeHeight: Record<TransitMode, number> = { bus: 15, metro: 18, shuttle: 15, tourism: 15, ferry: 4, cycle: 13 };
 
-function MovingTransportVehicle({ modelKey, points, color, label, profile }: { modelKey: string; points: Point3[]; color: string; label: string; profile: RenderProfile }) {
+function MovingTransportVehicle({ modelKey, points, color, label, profile, realtimeVehicle }: { modelKey: string; points: Point3[]; color: string; label: string; profile: RenderProfile; realtimeVehicle?: TransitVehicleRealtime }) {
   const url = vehicleUrls[modelKey];
   const gltf = useGLTF(url);
   const ref = useRef<THREE.Group>(null);
@@ -476,11 +477,26 @@ function MovingTransportVehicle({ modelKey, points, color, label, profile }: { m
   }, [gltf.scene]);
   const start = useMemo(() => curve.getPointAt(0.23), [curve]);
   const lastTick = useRef(0);
+  const progressRef = useRef(realtimeVehicle?.progress ?? 0.23);
+  const targetProgressRef = useRef(realtimeVehicle?.progress ?? 0.23);
+  const realtimeProgress = realtimeVehicle?.progress;
+  useEffect(() => {
+    if (realtimeProgress !== undefined) targetProgressRef.current = realtimeProgress;
+  }, [realtimeProgress]);
   useFrame((state) => {
     if (!ref.current || profile.trafficFps === 0) return;
     if (state.clock.elapsedTime - lastTick.current < 1 / profile.trafficFps) return;
+    const frameDelta = state.clock.elapsedTime - lastTick.current;
     lastTick.current = state.clock.elapsedTime;
-    const progress = (state.clock.elapsedTime * 0.018 + 0.23) % 1;
+    if (realtimeVehicle) {
+      const current = progressRef.current;
+      const target = targetProgressRef.current;
+      const delta = ((target - current + 1.5) % 1) - 0.5;
+      progressRef.current = (current + delta * Math.min(1, frameDelta * 4) + 0.0018) % 1;
+    } else {
+      progressRef.current = (state.clock.elapsedTime * 0.018 + 0.23) % 1;
+    }
+    const progress = progressRef.current;
     const position = curve.getPointAt(progress);
     const tangent = curve.getTangentAt(progress);
     ref.current.position.copy(position);
@@ -492,7 +508,7 @@ function MovingTransportVehicle({ modelKey, points, color, label, profile }: { m
   </group>;
 }
 
-function TransportNetwork({ visible, lineId, stopId, onSelectStop, language, profile, legacy }: {
+function TransportNetwork({ visible, lineId, stopId, onSelectStop, language, profile, legacy, transitSnapshot }: {
   visible: boolean;
   lineId: string;
   stopId?: string;
@@ -500,6 +516,7 @@ function TransportNetwork({ visible, lineId, stopId, onSelectStop, language, pro
   language: Language;
   profile: RenderProfile;
   legacy: boolean;
+  transitSnapshot?: TransitRealtimeSnapshot;
 }) {
   const { gl, size } = useThree();
   const selectedLine = transportLines.find((line) => line.id === lineId) ?? transportLines[0];
@@ -509,6 +526,7 @@ function TransportNetwork({ visible, lineId, stopId, onSelectStop, language, pro
     return { line, points, positions: lineSegments(points), ribbon: [{ points, widthM: 4 }] as RibbonPath[] };
   }), []);
   const selectedGeometry = lines.find(({ line }) => line.id === selectedLine.id);
+  const selectedRealtimeVehicle = transitSnapshot?.vehicles.find((vehicle) => vehicle.lineId === selectedLine.id);
   const selectedRibbon = useMemo<RibbonPath[]>(() => selectedGeometry ? [{ points: selectedGeometry.points, widthM: 12 }] : [], [selectedGeometry]);
   if (!visible) return null;
   return <group>
@@ -528,7 +546,7 @@ function TransportNetwork({ visible, lineId, stopId, onSelectStop, language, pro
         {important && <Html position={[0, 28, 0]} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}><div className={`transport-stop-label ${selected ? "active" : ""}`} style={{ "--stop-color": selectedLine.properties.color } as React.CSSProperties}><span>{String(index + 1).padStart(2, "0")}</span><strong>{localizeFeatureName(stop, language)}</strong></div></Html>}
       </group>;
     })}
-    {selectedGeometry && selectedLine.properties.modelKey && <OptionalAssetBoundary name={`transport-${selectedLine.properties.modelKey}`}><Suspense fallback={null}><MovingTransportVehicle modelKey={selectedLine.properties.modelKey} points={selectedGeometry.points} color={selectedLine.properties.color} label={`${transportModeLabels[language][selectedLine.properties.mode]} · ${selectedLine.properties.ref}`} profile={profile} /></Suspense></OptionalAssetBoundary>}
+    {selectedGeometry && selectedLine.properties.modelKey && (!transitSnapshot || selectedRealtimeVehicle) && <OptionalAssetBoundary name={`transport-${selectedLine.properties.modelKey}`}><Suspense fallback={null}><MovingTransportVehicle modelKey={selectedLine.properties.modelKey} points={selectedGeometry.points} color={selectedLine.properties.color} label={`${transportModeLabels[language][selectedLine.properties.mode]} · ${selectedLine.properties.ref}`} profile={profile} realtimeVehicle={selectedRealtimeVehicle} /></Suspense></OptionalAssetBoundary>}
     <Html position={selectedGeometry?.points[Math.floor((selectedGeometry?.points.length ?? 1) / 2)] ?? mapBounds.center} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}>
       <div className="transport-line-label" style={{ "--line-color": selectedLine.properties.color } as React.CSSProperties}><b>{selectedLine.properties.ref}</b><span>{localizeFeatureName(selectedLine, language)}</span><small>{localize(experienceCopy.transportVehicleScale, language)}</small></div>
     </Html>
@@ -1171,7 +1189,7 @@ function CelestialEnvironment({ state, quality, profile, shadowTarget, shadowEna
   </>;
 }
 
-function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, celestialTimestamp, routeId, focus, cameraCommand, cameraPhase, reducedMotion, viewportInsets, onCameraPhaseChange, onSceneInteractionStart, onDetailedAssetStateChange, layers, roadSublayers, selectedRoadId, onSelectRoad, language, quality, renderMode, renderProfile, renderContextState, renderContextLosses, onPerformanceSample, onRenderTelemetry, onRenderContextStateChange, objectiveId, expeditionLandmarkIds, discoveredLandmarkIds, selectedTransportLineId, selectedTransportStopId, onSelectTransportStop, selectedCrossingId, onSelectCrossing, gamePlayers = [], localPlayerId, selectedPlayerId, onSelectPlayer }: JiangxinzhouSceneProps) {
+function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, celestialTimestamp, routeId, focus, cameraCommand, cameraPhase, reducedMotion, viewportInsets, onCameraPhaseChange, onSceneInteractionStart, onDetailedAssetStateChange, layers, roadSublayers, selectedRoadId, onSelectRoad, language, quality, renderMode, renderProfile, renderContextState, renderContextLosses, onPerformanceSample, onRenderTelemetry, onRenderContextStateChange, objectiveId, expeditionLandmarkIds, discoveredLandmarkIds, selectedTransportLineId, selectedTransportStopId, transitSnapshot, onSelectTransportStop, selectedCrossingId, onSelectCrossing, gamePlayers = [], localPlayerId, selectedPlayerId, onSelectPlayer }: JiangxinzhouSceneProps) {
   const controls = useRef<OrbitControlsImpl>(null);
   const selectionRef = useRef<THREE.Group>(null);
   const reportedReady = useRef(false);
@@ -1205,7 +1223,7 @@ function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, cel
     {legacy ? <LegacyRoadNetwork visible={layers.roads} /> : <RoadLayer visible={layers.roads} sublayers={roadSublayers} selectedRoadId={selectedRoadId} language={language} quality={quality} onSelectRoad={onSelectRoad} />}
     <CrossingNetwork visible={layers.crossings && !landmarkFocus} selectedId={selectedCrossingId} onSelect={onSelectCrossing} language={language} legacy={legacy} />
     <RouteNetwork routeId={routeId} visible={view === "route" && !layers.transport} legacy={legacy} animate={ambientActive} />
-    <TransportNetwork visible={layers.transport} lineId={selectedTransportLineId} stopId={selectedTransportStopId} onSelectStop={onSelectTransportStop} language={language} profile={renderProfile} legacy={legacy} />
+    <TransportNetwork visible={layers.transport} lineId={selectedTransportLineId} stopId={selectedTransportStopId} onSelectStop={onSelectTransportStop} language={language} profile={renderProfile} legacy={legacy} transitSnapshot={transitSnapshot} />
     {gamePlayers.length > 0 && <PlayerMarkerLayer players={gamePlayers} localPlayerId={localPlayerId} selectedPlayerId={selectedPlayerId} onSelectPlayer={onSelectPlayer} />}
     {layers.landmarks && <ObjectiveBeacon objectiveId={objectiveId} items={items} />}
     {layers.landmarks && <MarkerLabels items={items} selectedId={selectedId} onSelect={onSelect} language={language} view={view} objectiveId={objectiveId} discoveredIds={discoveredLandmarkIds} expeditionIds={expeditionLandmarkIds} selectionRef={selectionRef} />}

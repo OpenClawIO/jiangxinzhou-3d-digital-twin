@@ -69,6 +69,7 @@ import { parseGameMode, parseRoomId } from "./game/gateway";
 import { targetIdForLandmark } from "./game/worldCatalog";
 import { useGameSession } from "./game/useGameSession";
 import type { GameMode } from "./game/types";
+import { useTransitRealtime } from "./useTransitRealtime";
 
 const JiangxinzhouScene = dynamic<JiangxinzhouSceneProps>(() => import("./JiangxinzhouScene"), {
   ssr: false,
@@ -243,6 +244,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
   const synchronizedClock = useSynchronizedClock();
   const exploration = useExplorationProgress();
   const game = useGameSession({ mode: gameMode, roomId });
+  const transitRealtime = useTransitRealtime({ enabled: ui.layers.transport || ui.panel === "transport" });
   const recordExplorationLandmark = exploration.discoverLandmark;
   const clearCompletedLandmark = game.clearCompletedLandmark;
   const completedLandmarkId = game.lastCompletedLandmarkId;
@@ -662,6 +664,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
               discoveredLandmarkIds={exploration.state.discoveredLandmarkIds}
               selectedTransportLineId={selectedTransportLineId}
               selectedTransportStopId={selectedTransportStopId}
+              transitSnapshot={transitRealtime.snapshot}
               onSelectTransportStop={chooseTransportStop}
               selectedCrossingId={selectedCrossingId}
               onSelectCrossing={chooseCrossing}
@@ -748,7 +751,7 @@ export default function JiangxinzhouExperience({ landmarks: items = defaultLandm
               </div>
             </>}
 
-            {controlPanel === "transport" && <div className="sidebar-section transport-section"><span className="sidebar-index">02 / {localize(experienceCopy.transportNetwork, language)}</span><p className="transport-intro">{localize(experienceCopy.transportSummary, language)}</p><TransportPanel language={language} selectedLineId={selectedTransportLineId} selectedStopId={selectedTransportStopId} onSelectLine={chooseTransportLine} onSelectStop={chooseTransportStop} /></div>}
+            {controlPanel === "transport" && <div className="sidebar-section transport-section"><span className="sidebar-index">02 / {localize(experienceCopy.transportNetwork, language)}</span><p className="transport-intro">{localize(experienceCopy.transportSummary, language)}</p><TransportPanel language={language} selectedLineId={selectedTransportLineId} selectedStopId={selectedTransportStopId} onSelectLine={chooseTransportLine} onSelectStop={chooseTransportStop} realtime={transitRealtime} /></div>}
 
             {controlPanel === "landmarks" && selected && <div className="sidebar-section selected-landmark" style={{ "--selected-color": selected.accent } as React.CSSProperties}>
               <span className="sidebar-index">03 / {localize(experienceCopy.selectedLandmark, language)}</span>

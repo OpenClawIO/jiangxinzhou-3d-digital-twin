@@ -306,6 +306,24 @@
 .metric-grid small { display: block; margin-top: 5px; overflow: hidden; color: #66827d; font-size: 7px; white-space: nowrap; text-overflow: ellipsis; }
 .selected-landmark { background: linear-gradient(145deg, color-mix(in srgb, var(--selected-color) 12%, transparent), transparent 70%); }
 .transport-section { background: linear-gradient(145deg, color-mix(in srgb, var(--transit-color, #66b7a7) 8%, transparent), transparent 72%); }
+.transit-feed-card { display: grid; grid-template-columns: 1fr 30px; align-items: center; gap: 8px; margin-top: 10px; padding: 8px 9px; border: 1px solid rgba(111, 199, 170, .24); border-radius: 9px; color: #a9c9bd; background: rgba(92, 176, 145, .08); }
+.transit-feed-card > div { display: grid; gap: 2px; }
+.transit-feed-card small { color: #78a99a; font: 700 6px var(--font-geist-mono), monospace; letter-spacing: .1em; text-transform: uppercase; }
+.transit-feed-card strong { color: #d1e5d8; font-size: 9px; }
+.transit-feed-card span { color: #6e9389; font-size: 6px; }
+.transit-feed-card button { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid rgba(149, 208, 184, .2); border-radius: 50%; color: #9ed5bf; background: rgba(255, 255, 255, .04); font-size: 16px; cursor: pointer; }
+.transit-feed-card.is-loading { opacity: .72; }
+.transit-feed-card.is-fallback { border-color: rgba(225, 175, 91, .35); background: rgba(225, 175, 91, .08); }
+.transit-status { display: inline-block; margin-top: 4px; width: max-content; padding: 3px 5px; border-radius: 999px; color: #b9e6d1; background: rgba(77, 177, 137, .14); font-size: 6px; font-style: normal; }
+.transit-status.status-delayed { color: #f4d38b; background: rgba(225, 175, 91, .14); }
+.transit-status.status-suspended { color: #f4a49c; background: rgba(219, 93, 82, .14); }
+.transit-status.status-not-running { color: #91a9a3; background: rgba(145, 169, 163, .12); }
+.transit-arrival-card { display: grid; gap: 5px; margin-top: 10px; padding: 8px 9px; border: 1px solid rgba(142, 183, 170, .12); border-radius: 9px; background: rgba(255, 255, 255, .025); }
+.transit-arrival-heading { display: flex; align-items: center; justify-content: space-between; color: #93b5aa; font-size: 7px; }
+.transit-arrival-heading span { color: #638078; font: 700 6px var(--font-geist-mono), monospace; }
+.transit-arrival-card button { display: flex; justify-content: space-between; align-items: center; min-height: 29px; padding: 4px 5px; border: 0; border-top: 1px solid rgba(142, 183, 170, .08); color: #9bb8ae; background: transparent; font: inherit; text-align: left; cursor: pointer; }
+.transit-arrival-card button strong { color: var(--transit-color, #76c7ac); font: 800 8px var(--font-geist-mono), monospace; }
+.transit-arrival-card p { margin: 2px 0; color: #66817a; font-size: 7px; }
 .crossing-section { background: linear-gradient(145deg, rgba(114, 174, 173, .08), transparent 72%); }
 .crossing-list { display: grid; gap: 5px; margin-top: 10px; }
 .crossing-list button { display: grid; grid-template-columns: 4px 1fr auto; align-items: center; gap: 8px; width: 100%; padding: 8px; border: 1px solid transparent; border-radius: 8px; color: #78948e; background: rgba(255, 255, 255, .02); font: inherit; text-align: left; cursor: pointer; }

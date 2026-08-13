@@ -45,10 +45,13 @@ npm run dev
 
 - 线路选择器按公交、地铁、接驳、观光、轮渡和骑行分组；切换后同步更新线路颜色、站序、运营信息及 3D 交通工具。
 - 点击任意站点可平滑聚焦；道路名称按相机缩放级别逐步显示，避免全岛鸟瞰时标签重叠。
+- V10 已加入模拟实时交通层：交通图层开启后显示线路状态、车辆数量、预计到站和数据更新时间；当前数据由本地确定性模拟器生成，后续可通过服务端 provider 替换为授权实时数据。
 - 高德坐标先由 GCJ-02 转换到 WGS84；没有公开精确坐标的站点按官方站序吸附到已核验道路走廊，并明确标为“导览估算站点”。
 - 当前运营层不包含规划中的地铁 13、17 号线与预留线路；临时调整与班次以运营方当日公告为准。
 
 交通数据生成：`npm run transport:build`。数据与模型清单位于 `data/jiangxinzhou-v2/transit-*.geojson`、`transport-evidence.json` 和 `public/models/jiangxinzhou-v2/scene-manifest.json`。
+
+模拟交通实时层校验：`npm run transit:validate`。V10 默认使用 `TRANSIT_REALTIME_MODE=simulated`，无需 API Key；未来接入授权运营方数据时，服务端 provider 可读取 `TRANSIT_REALTIME_URL`、`TRANSIT_REALTIME_TOKEN` 和 `TRANSIT_REALTIME_FORMAT`，浏览器仍只访问 `/api/transit/realtime`。
 
 ## 主要来源
 
