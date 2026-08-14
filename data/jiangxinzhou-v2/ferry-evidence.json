@@ -61,15 +61,15 @@
     },
     {
       "id": "ferry-map-crosscheck-2026",
-      "title": "Amap / Baidu / OSM offline coordinate cross-check",
-      "url": "https://www.amap.com/",
-      "publisher": "Amap, Baidu Maps and OpenStreetMap",
+      "title": "OSM ferry route and public-map POI cross-check",
+      "url": "https://www.openstreetmap.org/way/137693220",
+      "publisher": "OpenStreetMap contributors; Amap and Baidu public place results",
       "date": "2026-08-14",
       "views": ["terminal-poi", "shoreline", "water-corridor"],
-      "verifies": ["endpoint-presence", "waterway-context"],
+      "verifies": ["osm-way-137693220", "direct-water-connection", "qigan-poi-presence", "mianhuadi-transit-context"],
       "license": "No tiles or map SDK content redistributed",
       "confidence": "triangulated",
-      "notes": "Endpoint geometry remains in conflict with the official approximately 0.8km route-length statement; the discrepancy is surfaced in the product metadata."
+      "notes": "OSM way 137693220 supplies the WGS84 water-route endpoints and measures about 260m. Amap confirms the Qigan ferry/bus destination and Baidu public transit results confirm Mianhuadi as a route destination. No cited official source publishes a separate ferry-route length."
     }
   ]
 }

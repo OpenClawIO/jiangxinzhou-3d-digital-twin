@@ -36,8 +36,9 @@ assert.equal(terminals.type, "FeatureCollection");
 assert.equal(terminals.crs.properties.name, "EPSG:4326");
 assert.deepEqual(terminals.features.map((feature) => feature.id), ["qigan-pier", "mianhuadi-pier"]);
 assert.equal(terminals.route.id, "ferry-qigan");
-assert.equal(terminals.route.lengthStatus, "conflict");
-assert.equal(terminals.route.officialLengthM, 800);
+assert.equal(terminals.route.lengthStatus, "mapped");
+assert.equal(terminals.route.osmWayId, 137693220);
+assert.equal("officialLengthM" in terminals.route, false, "unsupported official route length must not return");
 assert.ok(terminals.route.measuredGeometryLengthM >= 240 && terminals.route.measuredGeometryLengthM <= 300);
 assert.ok(polylineLengthM(terminals.route.coordinates) > 0);
 assert.ok(geodesicDistanceM(terminals.features[0].geometry.coordinates, terminals.features[1].geometry.coordinates) < 500);
@@ -51,21 +52,42 @@ for (const feature of terminals.features) {
   assert.ok(feature.properties.modelLod2.endsWith(".glb"));
 }
 
-assert.deepEqual(schedule.operatingWindow, { start: "07:00", end: "18:00" });
+assert.deepEqual(schedule.publishedWindow, { start: "07:00", end: "18:00" });
+assert.deepEqual(schedule.serviceBoundary, {
+  firstDeparture: "07:00",
+  lastMianhuadiDeparture: "18:00",
+  finalReturnDeparture: "18:10",
+  serviceEnd: "18:15",
+});
 assert.equal(schedule.crossingDurationMin, 5);
 assert.equal(schedule.departures.qigan.length + schedule.departures.mianhuadi.length, 18);
 assert.ok(schedule.departures.qigan.every((value) => /^\d{2}:\d{2}$/.test(value)));
 assert.ok(schedule.departures.mianhuadi.every((value) => /^\d{2}:\d{2}$/.test(value)));
 assert.equal(schedule.sourceStatus, "published");
-const atNine = Date.UTC(2026, 7, 13, 1, 0, 0); // 09:00 Asia/Shanghai
+const nanjingTime = (hours, minutes, seconds = 0) => Date.UTC(2026, 7, 13, hours - 8, minutes, seconds);
+const atNine = nanjingTime(9, 0);
 assert.equal(ferryServiceState(atNine), "running");
 assert.equal(ferryCruiseAt(atNine).state, "crossing-to-qigan");
-assert.equal(ferryCruiseAt(Date.UTC(2026, 7, 13, 19, 0, 0)).state, "moored-qigan");
-assert.equal(ferryServiceState(Date.UTC(2026, 7, 12, 18, 0, 0)), "not-running");
+assert.equal(ferryCruiseAt(nanjingTime(6, 59)).state, "moored-mianhuadi");
+assert.equal(ferryServiceState(nanjingTime(6, 59)), "not-running");
+assert.equal(ferryCruiseAt(nanjingTime(7, 0)).state, "crossing-to-qigan");
+assert.equal(ferryCruiseAt(nanjingTime(7, 5)).state, "moored-qigan");
+assert.equal(ferryCruiseAt(nanjingTime(7, 10)).state, "crossing-to-mianhuadi");
+assert.equal(ferryCruiseAt(nanjingTime(7, 15)).state, "moored-mianhuadi");
+assert.equal(ferryCruiseAt(nanjingTime(9, 5)).state, "moored-qigan");
+assert.equal(ferryCruiseAt(nanjingTime(9, 15)).state, "moored-mianhuadi");
+assert.equal(ferryCruiseAt(nanjingTime(18, 5)).state, "moored-qigan");
+assert.equal(ferryServiceState(nanjingTime(18, 5)), "running");
+assert.equal(nextFerryDeparture(nanjingTime(18, 6))?.departure, "18:10");
+assert.equal(ferryCruiseAt(nanjingTime(18, 10)).state, "crossing-to-mianhuadi");
+assert.equal(ferryCruiseAt(nanjingTime(18, 15)).state, "moored-mianhuadi");
+assert.equal(ferryServiceState(nanjingTime(18, 15)), "not-running");
+assert.equal(ferryCruiseAt(nanjingTime(21, 0)).state, "moored-mianhuadi");
 assert.equal(nextFerryDeparture(atNine, "qigan-pier")?.departure, "09:10");
 assert.ok(evidence.sources.length >= 5);
 assert.ok(evidence.sources.some((source) => source.id === "ferry-official-2024"));
 assert.ok(evidence.sources.some((source) => source.id === "ferry-map-crosscheck-2026"));
+assert.doesNotMatch(JSON.stringify(evidence), /0\.8\s*(?:km|公里)/i, "unsupported 0.8km claim must not return");
 
 // Coordinate conversion smoke checks prevent accidental mixed CRS data in future updates.
 const gcj = gcj02ToWgs84([118.7, 32.01]);
@@ -110,4 +132,4 @@ assert.match(source, /ferryCruiseAt/);
 assert.match(source, /nextFerryDeparture/);
 assert.match(source, /Asia\/Shanghai/);
 
-console.log(`Validated ferry layer: 2 terminals, 18 reference departures, ${terminals.route.measuredGeometryLengthM}m mapped geometry vs ${terminals.route.officialLengthM}m official reference, 5 GLB assets.`);
+console.log(`Validated corrected ferry layer: 2 terminals, 18 reference departures, ${terminals.route.measuredGeometryLengthM}m OSM-mapped geometry, final return 18:10, 5 GLB assets.`);

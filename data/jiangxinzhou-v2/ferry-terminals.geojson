@@ -26,7 +26,7 @@
       "properties": {
         "id": "mianhuadi-pier",
         "name": { "zh": "棉花堤渡口", "en": "Mianhuadi Ferry Pier" },
-        "bank": "south-bank",
+        "bank": "mainland-east-bank",
         "role": "mainland-terminal",
         "modelLod1": "/models/jiangxinzhou-v2/ferry-mianhuadi-pier-lod1.glb",
         "modelLod2": "/models/jiangxinzhou-v2/ferry-mianhuadi-pier-lod2.glb",
@@ -44,11 +44,11 @@
       [118.6999968, 32.0087366]
     ],
     "measuredGeometryLengthM": 260,
-    "officialLengthM": 800,
-    "lengthStatus": "conflict",
+    "lengthStatus": "mapped",
     "geometryKind": "direct-water-connection",
-    "sourceAgreement": "conflict",
+    "sourceAgreement": "osm-route-and-public-poi",
     "confidence": "triangulated",
-    "note": "Current map/endpoint geometry measures about 260m while official route materials report about 0.8km. Preserve both values until an authorized high-resolution water route is available; do not stretch geometry artificially."
+    "osmWayId": 137693220,
+    "note": "The mapped water connection follows OpenStreetMap way 137693220 and measures about 260m. The cited government and tourism sources do not publish an official ferry-route length."
   }
 }

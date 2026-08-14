@@ -39,7 +39,7 @@ export function TransportPanel({ language, selectedLineId, selectedStopId, onSel
   const ageSeconds = Math.round(snapshotAgeMs(snapshot, now) / 1000);
   const feedLabel = snapshot.mode === "simulated" ? experienceCopy.transportSimulated : snapshot.mode === "stale" ? experienceCopy.transportDataStale : experienceCopy.transportLive;
   const ferryState = selectedLine.id === "ferry-qigan" ? ferryCruiseAt(now) : undefined;
-  const ferryOrigin = selectedStopId === "mianhuadi-pier" ? "mianhuadi-pier" : "qigan-pier";
+  const ferryOrigin = selectedStopId === "mianhuadi-pier" || selectedStopId === "qigan-pier" ? selectedStopId : undefined;
   const ferryNext = selectedLine.id === "ferry-qigan" ? nextFerryDeparture(now, ferryOrigin) : undefined;
   const ferryStatusLabel = ferryState?.state.startsWith("crossing")
     ? localize(experienceCopy.ferryRunning, language)
@@ -84,10 +84,10 @@ export function TransportPanel({ language, selectedLineId, selectedStopId, onSel
     {selectedLine.id === "ferry-qigan" && <div className="ferry-schedule-card">
       <div className="ferry-schedule-heading"><b>{localize(experienceCopy.ferrySchedule, language)}</b><span>{ferryStatusLabel}</span></div>
       <div className="ferry-schedule-row"><span>{localize(experienceCopy.ferryNextDeparture, language)}</span><strong>{ferryNext?.departure ?? "—"}</strong></div>
-      <div className="ferry-schedule-row"><span>{localize(experienceCopy.ferryCrossingTime, language)}</span><strong>{ferryRoute.officialLengthM >= 800 ? "5 min" : "—"}</strong></div>
-      <div className="ferry-schedule-row"><span>{localize(experienceCopy.transportOfficialLength, language)}</span><strong>{formatLength(ferryRoute.officialLengthM)}</strong></div>
+      <div className="ferry-schedule-row"><span>{localize(experienceCopy.ferryCrossingTime, language)}</span><strong>5 min</strong></div>
+      <div className="ferry-schedule-row"><span>{localize(experienceCopy.ferryRouteLength, language)}</span><strong>{formatLength(ferryRoute.measuredGeometryLengthM)}</strong></div>
+      <div className="ferry-schedule-row"><span>{localize(experienceCopy.ferryFinalReturn, language)}</span><strong>18:10</strong></div>
       <small>{localize(experienceCopy.ferrySimulatedNotice, language)}</small>
-      {ferryRoute.lengthStatus === "conflict" && <small className="ferry-evidence-warning">{localize(experienceCopy.ferryEvidenceConflict, language)}</small>}
     </div>}
     <div className="transit-arrival-card">
       <div className="transit-arrival-heading"><b>{localize(experienceCopy.transportNextArrivals, language)}</b><span>{lineRealtime?.vehicleCount ?? 0} {localize(experienceCopy.transportVehicles, language)}</span></div>
