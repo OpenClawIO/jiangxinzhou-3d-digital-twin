@@ -21,4 +21,4 @@
 - [x] 接入渡口 Three.js 图层与交通面板班次卡。
 - [x] 运行 Blender、Meshopt 和模型验证。
 - [x] 运行 lint、测试、生产构建。
-- [ ] Vercel Preview 视觉回归；正式环境保持不变。
+- [x] Vercel Preview 资源核验；本地桌面/移动端视觉回归通过，正式环境保持不变。
