@@ -33,6 +33,7 @@ import {
 } from "./mapGeometry";
 import { nanjingEyeBounds, nanjingEyeLod1, nanjingEyeLod2 } from "./nanjingEye";
 import PorpoiseLayer from "./PorpoiseLayer";
+import PetLayer from "./PetLayer";
 import RoadLayer from "./RoadLayerView";
 import { prepareScene, type AssetRole, type PreparedScene } from "./render/materials";
 import { RenderEffects, ProceduralEnvironment, ProceduralSky, WaterSurface, celestialPosition } from "./render/RenderEnvironment";
@@ -1206,7 +1207,7 @@ function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, cel
   const shadowTarget = useMemo(() => targetForFocus(focus, items), [focus, items]);
   const shadowEnabled = !legacy && renderProfile.shadowMapSize > 0 && landmarkFocus;
   const rendererReady = renderContextState === "ready";
-  const ambientActive = rendererReady && !reducedMotion && !legacy && renderProfile.ambientFps > 0 && (layers.water || (layers.landscape && landmarkFocus) || (view === "route" && !layers.transport));
+  const ambientActive = rendererReady && !reducedMotion && !legacy && renderProfile.ambientFps > 0 && (layers.water || layers.landscape || (view === "route" && !layers.transport));
   const trafficActive = rendererReady && !reducedMotion && layers.transport && renderProfile.trafficFps > 0;
   const closeFocus = landmarkFocus || (focus.kind === "transport" && Boolean(focus.stopId));
   const compileRevision = `${renderProfile.tier}:${view}:${selectedId}:${layers.buildings}:${layers.landmarks}:${layers.landscape}:${Math.floor(celestialTick / 600_000)}`;
@@ -1216,6 +1217,7 @@ function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, cel
     {legacy ? <LegacyWater visible={layers.water} daylight={celestialState.daylight} /> : <WaterSurface visible={layers.water} state={celestialState} profile={renderProfile} />}
     <RegionalContext waterVisible={layers.water} surroundingsVisible={layers.surroundings} language={language} daylight={celestialState.daylight} />
     <PorpoiseLayer visible={layers.water} quality={quality} reducedMotion={reducedMotion} legacy={legacy} />
+    <PetLayer visible={layers.landscape} quality={quality} reducedMotion={reducedMotion} legacy={legacy} />
     <CoordinateGrid visible={layers.coordinates} view={view} />
     <DeferredAssets layers={layers} quality={quality} profile={renderProfile} legacy={legacy} onCoreReady={reportReady} nightFactor={celestialState.night} selectedId={selectedId} view={view} onDetailedAssetStateChange={onDetailedAssetStateChange} />
     <LandscapeZones visible={layers.landscape} />

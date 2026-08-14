@@ -179,5 +179,29 @@
         "Porpoise eye highlight"
       ]
     }
+  ],
+  "petAssets": [
+    {
+      "id": "JiangxinzhouCompanionPets",
+      "url": "/models/jiangxinzhou-v2/jiangxinzhou-pets.glb",
+      "bytes": 84688,
+      "triangles": 6076,
+      "drawCalls": 21,
+      "bounds": {
+        "min": [
+          -0.8179880380630493,
+          -0.32000275548779505,
+          -1.3500000536441803
+        ],
+        "max": [
+          0.9100000262260437,
+          0.3200028920458547,
+          0.02499185781070401
+        ]
+      },
+      "species": ["dog", "cat", "rabbit", "egret"],
+      "nodes": ["PetDog", "PetCat", "PetRabbit", "PetEgret"],
+      "source": "original Blender low-poly geometry"
+    }
   ]
 }

@@ -11,7 +11,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test": "npm run map:validate && npm run transport:validate && npm run transit:validate && npm run context:validate && npm run road:validate && npm run model:validate && npm run porpoise:validate && npm run exploration:validate && npm run celestial:validate && npm run interaction:validate && npm run render:validate && npm run game:validate && npm run build",
+    "test": "npm run map:validate && npm run transport:validate && npm run transit:validate && npm run context:validate && npm run road:validate && npm run model:validate && npm run porpoise:validate && npm run pets:validate && npm run exploration:validate && npm run celestial:validate && npm run interaction:validate && npm run render:validate && npm run game:validate && npm run build",
     "map:build": "node scripts/build-jiangxinzhou-v2.mjs",
     "map:validate": "node scripts/validate-jiangxinzhou-v2.mjs",
     "transport:build": "node scripts/build-transport-data.mjs",
@@ -34,7 +34,9 @@
     "model:transport": "blender -b --python scripts/jiangxinzhou_transport_models.py -- --output-dir public/models/jiangxinzhou-v2",
     "model:context": "blender -b --python scripts/jiangxinzhou_context_models.py -- --data-dir data/jiangxinzhou-v2 --output-dir public/models/jiangxinzhou-v2",
     "model:porpoise": "blender -b --python scripts/jiangxinzhou_porpoise_model.py -- --output-dir public/models/jiangxinzhou-v2 && node scripts/optimize-glb.mjs --file finless-porpoise.glb",
-    "porpoise:validate": "node --experimental-strip-types scripts/validate-porpoise.mjs"
+    "porpoise:validate": "node --experimental-strip-types scripts/validate-porpoise.mjs",
+    "model:pets": "blender -b --python scripts/jiangxinzhou_pet_models.py -- --output-dir public/models/jiangxinzhou-v2 && node scripts/optimize-glb.mjs --file jiangxinzhou-pets.glb",
+    "pets:validate": "node --experimental-strip-types scripts/validate-pets.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.112.3",
