@@ -144,7 +144,7 @@
     {
       "id": "passenger-ferry",
       "url": "/models/jiangxinzhou-v2/transport-passenger-ferry.glb",
-      "bytes": 38992,
+      "bytes": 36352,
       "units": "metres",
       "forward": "+X"
     }
@@ -199,9 +199,86 @@
           0.02499185781070401
         ]
       },
-      "species": ["dog", "cat", "rabbit", "egret"],
-      "nodes": ["PetDog", "PetCat", "PetRabbit", "PetEgret"],
+      "species": [
+        "dog",
+        "cat",
+        "rabbit",
+        "egret"
+      ],
+      "nodes": [
+        "PetDog",
+        "PetCat",
+        "PetRabbit",
+        "PetEgret"
+      ],
       "source": "original Blender low-poly geometry"
+    }
+  ],
+  "ferryAssets": [
+    {
+      "id": "qigan-pier-lod1",
+      "url": "/models/jiangxinzhou-v2/ferry-qigan-pier-lod1.glb",
+      "units": "metres",
+      "forward": "+X",
+      "lod": 1,
+      "evidenceRefs": [
+        "ferry-official-2024",
+        "ferry-media-2024",
+        "ferry-map-crosscheck-2026"
+      ],
+      "bytes": 28992
+    },
+    {
+      "id": "qigan-pier-lod2",
+      "url": "/models/jiangxinzhou-v2/ferry-qigan-pier-lod2.glb",
+      "units": "metres",
+      "forward": "+X",
+      "lod": 2,
+      "evidenceRefs": [
+        "ferry-official-2024",
+        "ferry-media-2024",
+        "ferry-map-crosscheck-2026"
+      ],
+      "bytes": 40364
+    },
+    {
+      "id": "mianhuadi-pier-lod1",
+      "url": "/models/jiangxinzhou-v2/ferry-mianhuadi-pier-lod1.glb",
+      "units": "metres",
+      "forward": "+X",
+      "lod": 1,
+      "evidenceRefs": [
+        "ferry-official-2024",
+        "ferry-media-2024",
+        "ferry-map-crosscheck-2026"
+      ],
+      "bytes": 29040
+    },
+    {
+      "id": "mianhuadi-pier-lod2",
+      "url": "/models/jiangxinzhou-v2/ferry-mianhuadi-pier-lod2.glb",
+      "units": "metres",
+      "forward": "+X",
+      "lod": 2,
+      "evidenceRefs": [
+        "ferry-official-2024",
+        "ferry-media-2024",
+        "ferry-map-crosscheck-2026"
+      ],
+      "bytes": 40392
+    },
+    {
+      "id": "zhongshan-106",
+      "url": "/models/jiangxinzhou-v2/transport-passenger-ferry.glb",
+      "units": "metres",
+      "forward": "+X",
+      "lod": 1,
+      "evidenceRefs": [
+        "ferry-official-2024",
+        "ferry-media-2024",
+        "ferry-map-crosscheck-2026"
+      ],
+      "bytes": 36352
     }
   ]
 }

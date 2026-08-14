@@ -7,6 +7,8 @@ import * as THREE from "three";
 import { type OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { calculateCelestialState, celestialDirection, type CelestialState } from "./celestial";
 import { viewModeFromFocus, type CameraCommand, type CameraPhase, type SceneFocus } from "./interactionState";
+import FerryTerminalLayer from "./FerryTerminalLayer";
+import { ferryRoutePoints } from "./ferry";
 import { routes, type Landmark } from "./landmarks";
 import { experienceCopy, landmarkCopy, localize, transportModeLabels, type Language } from "./locales";
 import {
@@ -493,7 +495,8 @@ function MovingTransportVehicle({ modelKey, points, color, label, profile, realt
       const current = progressRef.current;
       const target = targetProgressRef.current;
       const delta = ((target - current + 1.5) % 1) - 0.5;
-      progressRef.current = (current + delta * Math.min(1, frameDelta * 4) + 0.0018) % 1;
+      const cruiseStep = modelKey === "passenger-ferry" ? 0 : 0.0018;
+      progressRef.current = (current + delta * Math.min(1, frameDelta * 4) + cruiseStep) % 1;
     } else {
       progressRef.current = (state.clock.elapsedTime * 0.018 + 0.23) % 1;
     }
@@ -503,7 +506,8 @@ function MovingTransportVehicle({ modelKey, points, color, label, profile, realt
     ref.current.position.copy(position);
     ref.current.rotation.y = -Math.atan2(tangent.z, tangent.x);
   });
-  return <group ref={ref} position={start} scale={modelKey === "metro-line10" ? 3 : 4}>
+  const displayScale = modelKey === "metro-line10" ? 3 : modelKey === "passenger-ferry" ? 1.15 : 4;
+  return <group ref={ref} position={start} scale={displayScale}>
     <primitive object={scene} dispose={null} />
     <Html position={[0, 7, 0]} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}><span className="transport-vehicle-label" style={{ "--vehicle-color": color } as React.CSSProperties}>{label}</span></Html>
   </group>;
@@ -523,7 +527,8 @@ function TransportNetwork({ visible, lineId, stopId, onSelectStop, language, pro
   const selectedLine = transportLines.find((line) => line.id === lineId) ?? transportLines[0];
   const stops = stopsForTransportLine(selectedLine.id);
   const lines = useMemo(() => transportLines.map((line) => {
-    const points = projectPolyline(line.geometry.coordinates, modeHeight[line.properties.mode]);
+    const coordinates = line.id === "ferry-qigan" ? ferryRoutePoints : line.geometry.coordinates;
+    const points = projectPolyline(coordinates, modeHeight[line.properties.mode]);
     return { line, points, positions: lineSegments(points), ribbon: [{ points, widthM: 4 }] as RibbonPath[] };
   }), []);
   const selectedGeometry = lines.find(({ line }) => line.id === selectedLine.id);
@@ -1225,6 +1230,7 @@ function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, cel
     {legacy ? <LegacyRoadNetwork visible={layers.roads} /> : <RoadLayer visible={layers.roads} sublayers={roadSublayers} selectedRoadId={selectedRoadId} language={language} quality={quality} onSelectRoad={onSelectRoad} />}
     <CrossingNetwork visible={layers.crossings && !landmarkFocus} selectedId={selectedCrossingId} onSelect={onSelectCrossing} language={language} legacy={legacy} />
     <RouteNetwork routeId={routeId} visible={view === "route" && !layers.transport} legacy={legacy} animate={ambientActive} />
+    <FerryTerminalLayer visible={layers.transport} selectedStopId={selectedTransportStopId} selectedLineId={selectedTransportLineId} language={language} legacy={legacy} detailed={closeFocus} onSelectStop={onSelectTransportStop} />
     <TransportNetwork visible={layers.transport} lineId={selectedTransportLineId} stopId={selectedTransportStopId} onSelectStop={onSelectTransportStop} language={language} profile={renderProfile} legacy={legacy} transitSnapshot={transitSnapshot} />
     {gamePlayers.length > 0 && <PlayerMarkerLayer players={gamePlayers} localPlayerId={localPlayerId} selectedPlayerId={selectedPlayerId} onSelectPlayer={onSelectPlayer} />}
     {layers.landmarks && <ObjectiveBeacon objectiveId={objectiveId} items={items} />}

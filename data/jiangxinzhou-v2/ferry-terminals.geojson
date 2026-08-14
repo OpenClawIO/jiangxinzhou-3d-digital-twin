@@ -1,0 +1,54 @@
+{
+  "type": "FeatureCollection",
+  "name": "jiangxinzhou-ferry-terminals-v12",
+  "crs": { "type": "name", "properties": { "name": "EPSG:4326" } },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "qigan-pier",
+      "geometry": { "type": "Point", "coordinates": [118.6975913, 32.009866] },
+      "properties": {
+        "id": "qigan-pier",
+        "name": { "zh": "旗杆渡口", "en": "Qigan Ferry Pier" },
+        "bank": "jiangxinzhou",
+        "role": "island-terminal",
+        "modelLod1": "/models/jiangxinzhou-v2/ferry-qigan-pier-lod1.glb",
+        "modelLod2": "/models/jiangxinzhou-v2/ferry-qigan-pier-lod2.glb",
+        "confidence": "triangulated",
+        "sourceCrs": "EPSG:4326",
+        "sourceRefs": ["ferry-official-2024", "ferry-media-2024", "ferry-map-crosscheck-2026"]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "mianhuadi-pier",
+      "geometry": { "type": "Point", "coordinates": [118.6999968, 32.0087366] },
+      "properties": {
+        "id": "mianhuadi-pier",
+        "name": { "zh": "棉花堤渡口", "en": "Mianhuadi Ferry Pier" },
+        "bank": "south-bank",
+        "role": "mainland-terminal",
+        "modelLod1": "/models/jiangxinzhou-v2/ferry-mianhuadi-pier-lod1.glb",
+        "modelLod2": "/models/jiangxinzhou-v2/ferry-mianhuadi-pier-lod2.glb",
+        "confidence": "triangulated",
+        "sourceCrs": "EPSG:4326",
+        "sourceRefs": ["ferry-official-2024", "ferry-media-2024", "ferry-map-crosscheck-2026"]
+      }
+    }
+  ],
+  "route": {
+    "id": "ferry-qigan",
+    "coordinates": [
+      [118.6975913, 32.009866],
+      [118.6987921, 32.0093063],
+      [118.6999968, 32.0087366]
+    ],
+    "measuredGeometryLengthM": 260,
+    "officialLengthM": 800,
+    "lengthStatus": "conflict",
+    "geometryKind": "direct-water-connection",
+    "sourceAgreement": "conflict",
+    "confidence": "triangulated",
+    "note": "Current map/endpoint geometry measures about 260m while official route materials report about 0.8km. Preserve both values until an authorized high-resolution water route is available; do not stretch geometry artificially."
+  }
+}

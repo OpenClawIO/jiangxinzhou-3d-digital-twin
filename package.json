@@ -11,7 +11,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test": "npm run map:validate && npm run transport:validate && npm run transit:validate && npm run context:validate && npm run road:validate && npm run model:validate && npm run porpoise:validate && npm run pets:validate && npm run exploration:validate && npm run celestial:validate && npm run interaction:validate && npm run render:validate && npm run game:validate && npm run build",
+    "test": "npm run map:validate && npm run transport:validate && npm run ferry:validate && npm run transit:validate && npm run context:validate && npm run road:validate && npm run model:validate && npm run porpoise:validate && npm run pets:validate && npm run exploration:validate && npm run celestial:validate && npm run interaction:validate && npm run render:validate && npm run game:validate && npm run build",
     "map:build": "node scripts/build-jiangxinzhou-v2.mjs",
     "map:validate": "node scripts/validate-jiangxinzhou-v2.mjs",
     "transport:build": "node scripts/build-transport-data.mjs",
@@ -36,7 +36,9 @@
     "model:porpoise": "blender -b --python scripts/jiangxinzhou_porpoise_model.py -- --output-dir public/models/jiangxinzhou-v2 && node scripts/optimize-glb.mjs --file finless-porpoise.glb",
     "porpoise:validate": "node --experimental-strip-types scripts/validate-porpoise.mjs",
     "model:pets": "blender -b --python scripts/jiangxinzhou_pet_models.py -- --output-dir public/models/jiangxinzhou-v2 && node scripts/optimize-glb.mjs --file jiangxinzhou-pets.glb",
-    "pets:validate": "node --experimental-strip-types scripts/validate-pets.mjs"
+    "pets:validate": "node --experimental-strip-types scripts/validate-pets.mjs",
+    "model:ferry": "blender -b --python scripts/jiangxinzhou_ferry_models.py -- --output-dir public/models/jiangxinzhou-v2 && node scripts/optimize-glb.mjs --file ferry-qigan-pier-lod1.glb && node scripts/optimize-glb.mjs --file ferry-qigan-pier-lod2.glb && node scripts/optimize-glb.mjs --file ferry-mianhuadi-pier-lod1.glb && node scripts/optimize-glb.mjs --file ferry-mianhuadi-pier-lod2.glb && node scripts/optimize-glb.mjs --file transport-passenger-ferry.glb",
+    "ferry:validate": "node --experimental-strip-types scripts/validate-ferry.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.112.3",

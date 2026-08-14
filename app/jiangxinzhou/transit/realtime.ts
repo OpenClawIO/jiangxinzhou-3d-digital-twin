@@ -1,4 +1,5 @@
 import type { GeoPoint, TransitMode } from "../mapGeometry.ts";
+import { ferryCruiseAt, ferryServiceState, nextFerryDeparture } from "../ferry.ts";
 
 export type TransitFeedMode = "simulated" | "live" | "stale";
 export type TransitOperationalStatus = "running" | "delayed" | "suspended" | "not-running";
@@ -99,7 +100,7 @@ function secondsOfDay(timestamp: number): number {
 function serviceActive(mode: TransitMode, timestamp: number): boolean {
   const hour = secondsOfDay(timestamp) / 3600;
   if (mode === "metro") return hour >= 5.9 && hour < 23.95;
-  if (mode === "ferry") return hour >= 7 && hour < 19.5;
+  if (mode === "ferry") return ferryServiceState(timestamp) === "running";
   if (mode === "cycle") return true;
   if (mode === "tourism") return hour >= 8 && hour < 18.5;
   if (mode === "shuttle") return hour >= 7 && hour < 21;
@@ -126,10 +127,11 @@ function statusForLine(lineId: string, mode: TransitMode, timestamp: number): Tr
   return delay >= 420 ? "suspended" : delay > 0 ? "delayed" : "running";
 }
 
-function activeVehicleCount(mode: TransitMode, status: TransitOperationalStatus): number {
+function activeVehicleCount(mode: TransitMode, status: TransitOperationalStatus, timestamp: number): number {
   if (status === "not-running" || status === "suspended") return 0;
   if (mode === "metro") return 2;
   if (mode === "bus" || mode === "shuttle") return 2;
+  if (mode === "ferry") return ferryCruiseAt(timestamp).state.startsWith("crossing") ? 1 : 0;
   return 1;
 }
 
@@ -148,12 +150,14 @@ export function simulateTransitRealtime(
     const mode = feature.properties.mode;
     const status = statusForLine(lineId, mode, timestamp);
     const delaySec = delayForLine(lineId, timestamp);
-    const phase = phaseForLine(lineId, index, timestamp);
-    const vehicleCount = activeVehicleCount(mode, status);
+    const phase = mode === "ferry" ? ferryCruiseAt(timestamp).progress : phaseForLine(lineId, index, timestamp);
+    const vehicleCount = activeVehicleCount(mode, status, timestamp);
     lines[lineId] = { lineId, status, delaySec, phase, vehicleCount, updatedAt: timestamp };
 
     for (let vehicleIndex = 0; vehicleIndex < vehicleCount; vehicleIndex += 1) {
-      const progress = (phase + vehicleIndex / Math.max(1, vehicleCount) + transitUnit(`vehicle:${lineId}:${vehicleIndex}`) * 0.08) % 1;
+      const progress = mode === "ferry"
+        ? phase
+        : (phase + vehicleIndex / Math.max(1, vehicleCount) + transitUnit(`vehicle:${lineId}:${vehicleIndex}`) * 0.08) % 1;
       vehicles.push({
         vehicleId: `sim-${lineId}-${vehicleIndex + 1}`,
         lineId,
@@ -172,7 +176,10 @@ export function simulateTransitRealtime(
       .filter(Boolean);
     stops.slice(0, 4).forEach((stop, stopIndex) => {
       if (!stop) return;
-      const baseMinutes = 2 + ((stopIndex * 3 + Math.floor(phase * 10)) % 9);
+      const ferryDeparture = mode === "ferry"
+        ? nextFerryDeparture(timestamp, stop.id === "qigan-pier" ? "qigan-pier" : "mianhuadi-pier")
+        : null;
+      const baseMinutes = ferryDeparture ? Math.max(0, Math.round((ferryDeparture.timestamp - timestamp) / MINUTE_MS)) : 2 + ((stopIndex * 3 + Math.floor(phase * 10)) % 9);
       arrivals.push({
         id: `sim-arrival-${lineId}-${stop.id}`,
         lineId,

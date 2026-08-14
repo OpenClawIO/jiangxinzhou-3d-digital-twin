@@ -1,0 +1,75 @@
+{
+  "version": "12.0.0",
+  "snapshot": "2026-08-14",
+  "canonicalCrs": "EPSG:4326",
+  "redistributionPolicy": "Photos are reference-only. The application distributes original geometry and materials, not third-party photographs, map tiles, logos, or commercial map SDK content.",
+  "sources": [
+    {
+      "id": "ferry-official-2024",
+      "title": "坐上轮渡，欣赏滨江美景！",
+      "url": "https://news.jstv.com/a/20240511/1715400462376.shtml",
+      "publisher": "南京文旅 / 荔枝新闻",
+      "date": "2024-05-11",
+      "views": ["qigan-entrance", "mianhuadi-gate", "boarding-channel", "boat-exterior", "boat-interior"],
+      "verifies": ["route-restored", "07:00-18:00-window", "18-sailings", "zhongshan-106", "human-vehicle-separation", "five-minute-crossing"],
+      "license": "Copyrighted editorial photos; reference-only",
+      "confidence": "verified"
+    },
+    {
+      "id": "ferry-media-2024",
+      "title": "现代都市为何对轮渡恋恋不舍",
+      "url": "https://www.sohu.com/a/784014604_121455647",
+      "publisher": "新华日报 / 江苏省交通运输厅转载",
+      "date": "2024-06-06",
+      "views": ["jiangxinzhou-ferry", "qigan-pier", "sunset-water-view"],
+      "verifies": ["ferry-route-context", "qigan-terminal-appearance", "service-relaunch"],
+      "license": "Copyrighted editorial photos; reference-only",
+      "confidence": "triangulated"
+    },
+    {
+      "id": "ferry-schedule-secondary-2026",
+      "title": "南京市轮渡时间表2026",
+      "url": "https://m.maigoo.com/news/657281.html",
+      "publisher": "MaiGoo / public schedule aggregation",
+      "date": "2026-07",
+      "views": ["timetable"],
+      "verifies": ["reported-directional-departures"],
+      "license": "Schedule reference; same-day notice takes precedence",
+      "confidence": "triangulated"
+    },
+    {
+      "id": "ferry-government-service",
+      "title": "对市政协十五届二次会议第0665号提案的答复",
+      "url": "https://www.nanjing.gov.cn/xxgkn/jytabljggk/2024njytabl/shizxta/202411/t20241120_5014174.html",
+      "publisher": "南京市人民政府",
+      "date": "2024-11-20",
+      "views": ["route-status", "connected-greenways"],
+      "verifies": ["route-restored", "public-free-ferry"],
+      "license": "Public government information",
+      "confidence": "verified"
+    },
+    {
+      "id": "ferry-water-level-rule",
+      "title": "南京市人民政府关于长江南京段客汽渡航线停航封渡水位的通告",
+      "url": "https://www.nanjing.gov.cn/zzb/zfxxgk/fdzdgknr/szfjbgtwj/201909/t20190929_1667632.html",
+      "publisher": "南京市人民政府",
+      "date": "2019-09-27",
+      "views": ["operational-suspension-rule"],
+      "verifies": ["water-level-suspension"],
+      "license": "Public government information",
+      "confidence": "verified"
+    },
+    {
+      "id": "ferry-map-crosscheck-2026",
+      "title": "Amap / Baidu / OSM offline coordinate cross-check",
+      "url": "https://www.amap.com/",
+      "publisher": "Amap, Baidu Maps and OpenStreetMap",
+      "date": "2026-08-14",
+      "views": ["terminal-poi", "shoreline", "water-corridor"],
+      "verifies": ["endpoint-presence", "waterway-context"],
+      "license": "No tiles or map SDK content redistributed",
+      "confidence": "triangulated",
+      "notes": "Endpoint geometry remains in conflict with the official approximately 0.8km route-length statement; the discrepancy is surfaced in the product metadata."
+    }
+  ]
+}
