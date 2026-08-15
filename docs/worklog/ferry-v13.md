@@ -13,7 +13,7 @@ Branch: `codex/ferry-piers-v12`
 - [x] Each asset has LOD1/LOD2 and multi-angle Blender review renders.
 - [x] Three.js loads V13 URLs, frames each asset from bounds, and keeps the vessel visible when moored.
 - [x] Model/data validation, full test suite, desktop/mobile layout regression pass.
-- [ ] GitHub push and Vercel deployment pass.
+- [x] GitHub push and Vercel production deployment pass.
 
 ## Evidence status
 
@@ -34,7 +34,14 @@ Branch: `codex/ferry-piers-v12`
 - [x] Integrated corrected placements and V13 cache-busted assets in Three.js.
 - [x] Ferry validation, lint, production build, and 1440px browser smoke test pass.
 - [x] Ran the complete project test suite and 390×844 mobile layout regression.
-- [ ] Push and deploy.
+- [x] Pushed commit `4897aac` to `codex/ferry-piers-v12`.
+- [x] Verified preview deployment and promoted production deployment `dpl_xHMpXFWNg8eHHAd8Fy4XtqQtiDbP`.
+
+## Release
+
+- Production: https://jiangxinzhou-3d-digital-twin.vercel.app
+- Ferry deep link: https://jiangxinzhou-3d-digital-twin.vercel.app/jiangxinzhou?view=route&line=ferry-qigan&stop=qigan-pier&lang=zh
+- GitHub commit: https://github.com/OpenClawIO/jiangxinzhou-3d-digital-twin/commit/4897aac
 
 ## Notes
 
