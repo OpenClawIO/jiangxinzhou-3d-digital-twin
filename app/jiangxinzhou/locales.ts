@@ -597,6 +597,7 @@ export const experienceCopy = {
   transportCrossChecked: { zh: "多源核验站点", en: "Cross-checked stop" },
   transportEstimated: { zh: "导览估算站点", en: "Estimated guide stop" },
   ferrySchedule: { zh: "轮渡班次", en: "Ferry schedule" },
+  ferryLayer: { zh: "渡口与靠泊船", en: "Ferry terminals & vessel" },
   ferryNextDeparture: { zh: "下一班发船", en: "Next departure" },
   ferryCrossingTime: { zh: "单程约5分钟", en: "About 5 min crossing" },
   ferryRouteLength: { zh: "地图航线长度", en: "Mapped route length" },

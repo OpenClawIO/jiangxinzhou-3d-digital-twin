@@ -1000,8 +1000,8 @@
       "properties": {
         "id": "qigan-pier",
         "name": {
-          "zh": "旗杆渡口",
-          "en": "Qigan Ferry Pier"
+          "zh": "旗杆码头（旗杆渡口）",
+          "en": "Qigan Ferry Terminal"
         },
         "kind": "ferry",
         "confidence": "triangulated",

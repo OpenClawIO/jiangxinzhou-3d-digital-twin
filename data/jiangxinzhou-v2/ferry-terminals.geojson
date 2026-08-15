@@ -1,6 +1,6 @@
 {
   "type": "FeatureCollection",
-  "name": "jiangxinzhou-ferry-terminals-v12",
+  "name": "jiangxinzhou-ferry-terminals-v12.1",
   "crs": { "type": "name", "properties": { "name": "EPSG:4326" } },
   "features": [
     {
@@ -9,11 +9,18 @@
       "geometry": { "type": "Point", "coordinates": [118.6975913, 32.009866] },
       "properties": {
         "id": "qigan-pier",
-        "name": { "zh": "旗杆渡口", "en": "Qigan Ferry Pier" },
+        "name": { "zh": "旗杆码头（旗杆渡口）", "en": "Qigan Ferry Terminal" },
         "bank": "jiangxinzhou",
         "role": "island-terminal",
         "modelLod1": "/models/jiangxinzhou-v2/ferry-qigan-pier-lod1.glb",
         "modelLod2": "/models/jiangxinzhou-v2/ferry-qigan-pier-lod2.glb",
+        "placement": {
+          "waterAnchor": [118.6975913, 32.009866],
+          "landEntranceAnchor": [118.697381, 32.009977],
+          "headingDeg": -29,
+          "berthOffsetM": [12.2, 6.8],
+          "cameraBoundsM": [72, 34, 30]
+        },
         "confidence": "triangulated",
         "sourceCrs": "EPSG:4326",
         "sourceRefs": ["ferry-official-2024", "ferry-media-2024", "ferry-map-crosscheck-2026"]
@@ -30,6 +37,13 @@
         "role": "mainland-terminal",
         "modelLod1": "/models/jiangxinzhou-v2/ferry-mianhuadi-pier-lod1.glb",
         "modelLod2": "/models/jiangxinzhou-v2/ferry-mianhuadi-pier-lod2.glb",
+        "placement": {
+          "waterAnchor": [118.6999968, 32.0087366],
+          "landEntranceAnchor": [118.700228, 32.008621],
+          "headingDeg": 151,
+          "berthOffsetM": [-12.2, -6.8],
+          "cameraBoundsM": [78, 38, 32]
+        },
         "confidence": "triangulated",
         "sourceCrs": "EPSG:4326",
         "sourceRefs": ["ferry-official-2024", "ferry-media-2024", "ferry-map-crosscheck-2026"]

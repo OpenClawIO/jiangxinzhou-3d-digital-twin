@@ -1,5 +1,5 @@
 export type ViewMode = "regional" | "overview" | "route" | "landmark";
-export type LayerKey = "water" | "surroundings" | "roads" | "buildings" | "landscape" | "landmarks" | "crossings" | "transport" | "coordinates";
+export type LayerKey = "water" | "surroundings" | "roads" | "buildings" | "landscape" | "landmarks" | "crossings" | "ferries" | "transport" | "coordinates";
 export type LayerVisibility = Record<LayerKey, boolean>;
 export type RoadSublayerKey = "pavement" | "curbs" | "walkways" | "greenways" | "markings" | "junctions" | "bridges" | "labels" | "trafficOverlay";
 export type RoadSublayerVisibility = Record<RoadSublayerKey, boolean>;
@@ -79,6 +79,7 @@ export const defaultLayers: LayerVisibility = {
   landscape: true,
   landmarks: true,
   crossings: true,
+  ferries: true,
   transport: false,
   coordinates: false,
 };

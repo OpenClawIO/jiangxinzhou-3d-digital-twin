@@ -50,7 +50,15 @@ for (const feature of terminals.features) {
   assert.equal(feature.properties.sourceCrs, "EPSG:4326");
   assert.ok(feature.properties.modelLod1.endsWith(".glb"));
   assert.ok(feature.properties.modelLod2.endsWith(".glb"));
+  const placement = feature.properties.placement;
+  assert.deepEqual(placement.waterAnchor, feature.geometry.coordinates, `${feature.id}: water anchor must match route terminal`);
+  assert.ok(placement.landEntranceAnchor.every(Number.isFinite), `${feature.id}: missing land entrance anchor`);
+  assert.ok(Number.isFinite(placement.headingDeg), `${feature.id}: missing model heading`);
+  assert.equal(placement.berthOffsetM.length, 2, `${feature.id}: missing berth offset`);
+  assert.ok(Math.hypot(...placement.berthOffsetM) >= 8 && Math.hypot(...placement.berthOffsetM) <= 20, `${feature.id}: berth must sit just off the terminal`);
+  assert.ok(placement.cameraBoundsM.every((value) => value > 0), `${feature.id}: invalid camera bounds`);
 }
+assert.notDeepEqual(terminals.features[0].properties.placement.landEntranceAnchor, terminals.features[1].properties.placement.landEntranceAnchor);
 
 assert.deepEqual(schedule.publishedWindow, { start: "07:00", end: "18:00" });
 assert.deepEqual(schedule.serviceBoundary, {
@@ -103,7 +111,8 @@ for (const filename of [
   "ferry-qigan-pier-lod2.glb",
   "ferry-mianhuadi-pier-lod1.glb",
   "ferry-mianhuadi-pier-lod2.glb",
-  "transport-passenger-ferry.glb",
+  "transport-passenger-ferry-lod1.glb",
+  "transport-passenger-ferry-lod2.glb",
 ]) {
   const info = await stat(path.join(modelDir, filename));
   assert.ok(info.size > 1_000 && info.size < 2_000_000, `${filename}: unexpected asset size`);
@@ -117,19 +126,31 @@ for (const filename of [
   assert.ok(bounds.min.every(Number.isFinite) && bounds.max.every(Number.isFinite), `${filename}: invalid bounds`);
   assert.ok(document.getRoot().listMeshes().length > 0, `${filename}: no mesh data`);
 }
-assert.equal(ferryAssets.length, 5, "manifest should expose four terminal assets and one boat asset");
-assert.ok(ferryAssets.some((asset) => asset.id === "zhongshan-106"));
-assert.ok(ferryAssets.filter((asset) => asset.lod === 2).length === 2);
-const ferryDocument = await io.read(path.join(modelDir, "transport-passenger-ferry.glb"));
+assert.equal(ferryAssets.length, 6, "manifest should expose four terminal assets and two vessel LODs");
+assert.ok(ferryAssets.some((asset) => asset.id === "zhongshan-106-lod1"));
+assert.ok(ferryAssets.some((asset) => asset.id === "zhongshan-106-lod2"));
+assert.equal(ferryAssets.filter((asset) => asset.lod === 2).length, 3);
+const ferryDocument = await io.read(path.join(modelDir, "transport-passenger-ferry-lod2.glb"));
 const ferryNodes = new Set(ferryDocument.getRoot().listNodes().map((node) => node.getName()));
-assert.ok(ferryNodes.has("Zhongshan106"), "boat GLB must retain Zhongshan106 semantic root");
+const hasNode = (nodes, name) => [...nodes].some((node) => node === name || node.startsWith(`${name}.`));
+assert.ok(hasNode(ferryNodes, "Zhongshan106"), "boat GLB must retain Zhongshan106 semantic root");
 for (const nodeName of ["Ferry hull", "Open passenger cabin", "Passenger deck rail", "Navigation light"]) {
-  assert.ok(ferryNodes.has(nodeName), `boat GLB must retain ${nodeName}`);
+  assert.ok(hasNode(ferryNodes, nodeName), `boat GLB must retain ${nodeName}`);
 }
+const qiganDocument = await io.read(path.join(modelDir, "ferry-qigan-pier-lod2.glb"));
+const mianhuadiDocument = await io.read(path.join(modelDir, "ferry-mianhuadi-pier-lod2.glb"));
+const qiganNodes = new Set(qiganDocument.getRoot().listNodes().map((node) => node.getName()));
+const mianhuadiNodes = new Set(mianhuadiDocument.getRoot().listNodes().map((node) => node.getName()));
+assert.ok(hasNode(qiganNodes, "QiganTerminal") && hasNode(qiganNodes, "Qigan entrance lintel"), "Qigan must use its distinct entrance model");
+assert.ok(hasNode(mianhuadiNodes, "MianhuadiTerminal") && hasNode(mianhuadiNodes, "Mianhuadi gatehouse"), "Mianhuadi must use its distinct gatehouse model");
 
 const source = await readFile(path.join(root, "app/jiangxinzhou/ferry.ts"), "utf8");
 assert.match(source, /ferryCruiseAt/);
 assert.match(source, /nextFerryDeparture/);
 assert.match(source, /Asia\/Shanghai/);
+assert.match(source, /ferryBerthPoint/);
 
-console.log(`Validated corrected ferry layer: 2 terminals, 18 reference departures, ${terminals.route.measuredGeometryLengthM}m OSM-mapped geometry, final return 18:10, 5 GLB assets.`);
+const interactionSource = await readFile(path.join(root, "app/jiangxinzhou/interactionState.ts"), "utf8");
+assert.match(interactionSource, /ferries:\s*true/, "ferry infrastructure must be visible on first entry");
+
+console.log(`Validated corrected ferry layer: 2 placed terminals, persistent vessel, 18 reference departures, ${terminals.route.measuredGeometryLengthM}m mapped geometry and 6 LOD assets.`);

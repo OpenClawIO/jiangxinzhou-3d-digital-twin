@@ -6,12 +6,18 @@ const dataDir = path.join(root, "data/jiangxinzhou-v2");
 const outputFile = path.join(root, "app/jiangxinzhou/ferryData.generated.ts");
 const readJson = async (filename) => JSON.parse(await readFile(path.join(dataDir, filename), "utf8"));
 
-const [terminals, schedule] = await Promise.all([
+const [terminals, schedule, runtime] = await Promise.all([
   readJson("ferry-terminals.geojson"),
   readJson("ferry-schedule.json"),
+  readJson("runtime.json"),
 ]);
 
 const payload = {
+  projection: {
+    origin: runtime.manifest.origin,
+    metersPerDegreeLongitude: runtime.manifest.projection.metersPerDegreeLongitude,
+    metersPerDegreeLatitude: runtime.manifest.projection.metersPerDegreeLatitude,
+  },
   terminals: terminals.features.map((feature) => ({
     id: feature.id,
     name: feature.properties.name,
@@ -19,6 +25,7 @@ const payload = {
     bank: feature.properties.bank,
     modelLod1: feature.properties.modelLod1,
     modelLod2: feature.properties.modelLod2,
+    placement: feature.properties.placement,
     confidence: feature.properties.confidence,
   })),
   route: terminals.route,

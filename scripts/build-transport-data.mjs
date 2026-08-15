@@ -73,7 +73,7 @@ const stopDefinitions = [
   ["huijin-east", "汇锦国际东", "Huijin International East", [118.6796, 31.9978], "bus", "estimated"],
   ["bridge-east", "江心洲大桥东", "Jiangxinzhou Bridge East", [118.6742, 31.9987], "terminal", "estimated"],
   ["jiangxinzhou-south", "江心洲南", "Jiangxinzhou South", [118.6718, 31.9953], "terminal", "estimated"],
-  ["qigan-pier", "旗杆渡口", "Qigan Ferry Pier", [118.6975913, 32.009866], "ferry", "triangulated"],
+  ["qigan-pier", "旗杆码头（旗杆渡口）", "Qigan Ferry Terminal", [118.6975913, 32.009866], "ferry", "triangulated"],
   ["mianhuadi-pier", "棉花堤渡口", "Mianhuadi Ferry Pier", [118.6999968, 32.0087366], "ferry", "triangulated"],
   ["porpoise-center-stop", "江豚科教中心", "Finless Porpoise Center", [118.7114518, 32.0469491], "tourism", "estimated"],
   ["xiaokenting-stop", "小垦丁灯塔", "Xiaokenting Lighthouse", [118.7075, 32.0524], "tourism", "estimated"],

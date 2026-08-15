@@ -114,6 +114,7 @@ function LayerToggles({ layers, roadSublayers, language, onToggle, onToggleRoad 
     landscape: experienceCopy.landscape,
     landmarks: experienceCopy.landmarkLayer,
     crossings: experienceCopy.crossingLayer,
+    ferries: experienceCopy.ferryLayer,
     transport: experienceCopy.transportLayer,
   };
   const roadLabels: Record<RoadSublayerKey, typeof experienceCopy.roads> = {

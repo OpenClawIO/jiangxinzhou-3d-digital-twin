@@ -34,6 +34,19 @@ export type FerryTerminalProfile = {
   bank: string;
   modelLod1: string;
   modelLod2: string;
+  placement: FerryTerminalPlacement;
+  confidence: "verified" | "triangulated" | "estimated";
+};
+
+export type FerryTerminalPlacement = {
+  terminalId: FerryTerminalId;
+  waterAnchor: GeoPoint;
+  landEntranceAnchor: GeoPoint;
+  headingDeg: number;
+  /** Local scene metres: east, south. */
+  berthOffsetM: [number, number];
+  /** Width, depth and height used for close camera framing. */
+  cameraBoundsM: [number, number, number];
   confidence: "verified" | "triangulated" | "estimated";
 };
 
@@ -82,8 +95,28 @@ export const ferryTerminals: FerryTerminalProfile[] = ferryDataGenerated.termina
   bank: terminal.bank,
   modelLod1: terminal.modelLod1,
   modelLod2: terminal.modelLod2,
+  placement: {
+    terminalId: terminal.id,
+    waterAnchor: [...terminal.placement.waterAnchor] as GeoPoint,
+    landEntranceAnchor: [...terminal.placement.landEntranceAnchor] as GeoPoint,
+    headingDeg: terminal.placement.headingDeg,
+    berthOffsetM: [...terminal.placement.berthOffsetM] as [number, number],
+    cameraBoundsM: [...terminal.placement.cameraBoundsM] as [number, number, number],
+    confidence: terminal.confidence,
+  },
   confidence: terminal.confidence,
 }));
+
+export const ferryTerminalById = Object.fromEntries(ferryTerminals.map((terminal) => [terminal.id, terminal])) as Record<FerryTerminalId, FerryTerminalProfile>;
+
+export function ferryBerthPoint(terminalId: FerryTerminalId, height = 3.4): [number, number, number] {
+  const terminal = ferryTerminalById[terminalId];
+  const [longitude, latitude] = terminal.placement.waterAnchor;
+  const [originLongitude, originLatitude] = ferryDataGenerated.projection.origin;
+  const east = (longitude - originLongitude) * ferryDataGenerated.projection.metersPerDegreeLongitude;
+  const south = -(latitude - originLatitude) * ferryDataGenerated.projection.metersPerDegreeLatitude;
+  return [east + terminal.placement.berthOffsetM[0], height, south + terminal.placement.berthOffsetM[1]];
+}
 
 const MINUTE_MS = 60_000;
 const DAY_MS = 24 * 60 * MINUTE_MS;

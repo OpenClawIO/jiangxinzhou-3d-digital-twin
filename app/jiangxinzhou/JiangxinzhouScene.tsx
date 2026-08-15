@@ -8,7 +8,7 @@ import { type OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { calculateCelestialState, celestialDirection, type CelestialState } from "./celestial";
 import { viewModeFromFocus, type CameraCommand, type CameraPhase, type SceneFocus } from "./interactionState";
 import FerryTerminalLayer from "./FerryTerminalLayer";
-import { ferryRoutePoints } from "./ferry";
+import { ferryCruiseAt, ferryRoutePoints, ferryTerminalById, type FerryTerminalId } from "./ferry";
 import { routes, type Landmark } from "./landmarks";
 import { experienceCopy, landmarkCopy, localize, transportModeLabels, type Language } from "./locales";
 import {
@@ -542,7 +542,7 @@ function TransportNetwork({ visible, lineId, stopId, onSelectStop, language, pro
     {selectedGeometry && (legacy
       ? <WideColorLine positions={selectedGeometry.positions} color={selectedLine.properties.color} width={5.2} opacity={0.96} />
       : <RibbonMesh paths={selectedRibbon} color={selectedLine.properties.color} opacity={0.94} renderOrder={4} flow animate={profile.trafficFps > 0} />)}
-    {stops.map((stop, index) => {
+    {selectedLine.properties.mode !== "ferry" && stops.map((stop, index) => {
       const selected = stop.id === stopId;
       const important = selected || (size.width >= 760 && (["metro", "ferry", "terminal", "interchange", "portal"].includes(stop.properties.kind) || index === 0 || index === stops.length - 1));
       return <group key={`${selectedLine.id}-${stop.id}-${index}`} position={projectPoint(stop.geometry.coordinates, modeHeight[selectedLine.properties.mode] + 2)} onPointerOver={(event) => { event.stopPropagation(); gl.domElement.classList.add("is-targeting"); }} onPointerOut={() => { gl.domElement.classList.remove("is-targeting"); }} onClick={(event) => { event.stopPropagation(); if (event.delta <= 6) onSelectStop(stop.id); }}>
@@ -552,7 +552,7 @@ function TransportNetwork({ visible, lineId, stopId, onSelectStop, language, pro
         {important && <Html position={[0, 28, 0]} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}><div className={`transport-stop-label ${selected ? "active" : ""}`} style={{ "--stop-color": selectedLine.properties.color } as React.CSSProperties}><span>{String(index + 1).padStart(2, "0")}</span><strong>{localizeFeatureName(stop, language)}</strong></div></Html>}
       </group>;
     })}
-    {selectedGeometry && selectedLine.properties.modelKey && (!transitSnapshot || selectedRealtimeVehicle) && <OptionalAssetBoundary name={`transport-${selectedLine.properties.modelKey}`}><Suspense fallback={null}><MovingTransportVehicle modelKey={selectedLine.properties.modelKey} points={selectedGeometry.points} color={selectedLine.properties.color} label={`${transportModeLabels[language][selectedLine.properties.mode]} · ${selectedLine.properties.ref}`} profile={profile} realtimeVehicle={selectedRealtimeVehicle} /></Suspense></OptionalAssetBoundary>}
+    {selectedGeometry && selectedLine.id !== "ferry-qigan" && selectedLine.properties.modelKey && (!transitSnapshot || selectedRealtimeVehicle) && <OptionalAssetBoundary name={`transport-${selectedLine.properties.modelKey}`}><Suspense fallback={null}><MovingTransportVehicle modelKey={selectedLine.properties.modelKey} points={selectedGeometry.points} color={selectedLine.properties.color} label={`${transportModeLabels[language][selectedLine.properties.mode]} · ${selectedLine.properties.ref}`} profile={profile} realtimeVehicle={selectedRealtimeVehicle} /></Suspense></OptionalAssetBoundary>}
     <Html position={selectedGeometry?.points[Math.floor((selectedGeometry?.points.length ?? 1) / 2)] ?? mapBounds.center} center zIndexRange={[2, 0]} style={{ pointerEvents: "none" }}>
       <div className="transport-line-label" style={{ "--line-color": selectedLine.properties.color } as React.CSSProperties}><b>{selectedLine.properties.ref}</b><span>{localizeFeatureName(selectedLine, language)}</span><small>{localize(experienceCopy.transportVehicleScale, language)}</small></div>
     </Html>
@@ -700,7 +700,16 @@ function CameraRig({ command, phase, items, controls, quality, reducedMotion, vi
       cameraGoal.copy(center).addScaledVector(viewDirection, landmarkDistance).add(new THREE.Vector3(0, landmarkDistance * 0.2, 0));
       targetGoal.copy(center).add(new THREE.Vector3(0, -radius * 0.08, 0));
     } else {
-      if (command.focus.kind === "regional" && command.focus.crossingId) {
+      if (command.focus.kind === "transport" && command.focus.lineId === "ferry-qigan" && command.focus.stopId) {
+        const terminal = ferryTerminalById[command.focus.stopId as FerryTerminalId];
+        const bounds = terminal?.placement.cameraBoundsM ?? [72, 34, 30];
+        const heading = THREE.MathUtils.degToRad(terminal?.placement.headingDeg ?? -29);
+        const axis = new THREE.Vector3(Math.cos(heading), 0, -Math.sin(heading));
+        const side = new THREE.Vector3(-axis.z, 0, axis.x);
+        const fit = Math.max(bounds[0], bounds[1] * 1.8) * (framingSize.width < 720 ? 1.55 : 1.28) * Math.min(1.4, safeScale);
+        cameraGoal.copy(targetGoal).addScaledVector(axis, -fit * 0.52).addScaledVector(side, fit * 0.8).add(new THREE.Vector3(0, Math.max(48, bounds[2] * 2.1), 0));
+        targetGoal.y = 4;
+      } else if (command.focus.kind === "regional" && command.focus.crossingId) {
         const crossingId = command.focus.crossingId;
         const crossing = crossings.find((item) => item.id === crossingId);
         const points = crossing ? projectPolyline(crossing.geometry.coordinates) : [];
@@ -1212,10 +1221,11 @@ function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, cel
   const shadowTarget = useMemo(() => targetForFocus(focus, items), [focus, items]);
   const shadowEnabled = !legacy && renderProfile.shadowMapSize > 0 && landmarkFocus;
   const rendererReady = renderContextState === "ready";
+  const ferryMoving = ferryCruiseAt(celestialTimestamp).state.startsWith("crossing");
   const ambientActive = rendererReady && !reducedMotion && !legacy && renderProfile.ambientFps > 0 && (layers.water || layers.landscape || (view === "route" && !layers.transport));
-  const trafficActive = rendererReady && !reducedMotion && layers.transport && renderProfile.trafficFps > 0;
+  const trafficActive = rendererReady && !reducedMotion && renderProfile.trafficFps > 0 && (layers.transport || layers.ferries && ferryMoving);
   const closeFocus = landmarkFocus || (focus.kind === "transport" && Boolean(focus.stopId));
-  const compileRevision = `${renderProfile.tier}:${view}:${selectedId}:${layers.buildings}:${layers.landmarks}:${layers.landscape}:${Math.floor(celestialTick / 600_000)}`;
+  const compileRevision = `${renderProfile.tier}:${view}:${selectedId}:${layers.buildings}:${layers.landmarks}:${layers.landscape}:${layers.ferries}:${Math.floor(celestialTick / 600_000)}`;
 
   return <>
     <CelestialEnvironment state={celestialState} quality={quality} profile={renderProfile} shadowTarget={shadowTarget} shadowEnabled={shadowEnabled} legacy={legacy} />
@@ -1230,7 +1240,7 @@ function SceneContent({ items, selectedId, onSelect, onReady, onScaleChange, cel
     {legacy ? <LegacyRoadNetwork visible={layers.roads} /> : <RoadLayer visible={layers.roads} sublayers={roadSublayers} selectedRoadId={selectedRoadId} language={language} quality={quality} onSelectRoad={onSelectRoad} />}
     <CrossingNetwork visible={layers.crossings && !landmarkFocus} selectedId={selectedCrossingId} onSelect={onSelectCrossing} language={language} legacy={legacy} />
     <RouteNetwork routeId={routeId} visible={view === "route" && !layers.transport} legacy={legacy} animate={ambientActive} />
-    <FerryTerminalLayer visible={layers.transport} selectedStopId={selectedTransportStopId} selectedLineId={selectedTransportLineId} language={language} legacy={legacy} detailed={closeFocus} onSelectStop={onSelectTransportStop} />
+    <FerryTerminalLayer visible={layers.ferries} selectedStopId={selectedTransportStopId} selectedLineId={selectedTransportLineId} language={language} legacy={legacy} detailed={closeFocus} timestamp={celestialTimestamp} animate={trafficActive && ferryMoving} onSelectStop={onSelectTransportStop} />
     <TransportNetwork visible={layers.transport} lineId={selectedTransportLineId} stopId={selectedTransportStopId} onSelectStop={onSelectTransportStop} language={language} profile={renderProfile} legacy={legacy} transitSnapshot={transitSnapshot} />
     {gamePlayers.length > 0 && <PlayerMarkerLayer players={gamePlayers} localPlayerId={localPlayerId} selectedPlayerId={selectedPlayerId} onSelectPlayer={onSelectPlayer} />}
     {layers.landmarks && <ObjectiveBeacon objectiveId={objectiveId} items={items} />}
