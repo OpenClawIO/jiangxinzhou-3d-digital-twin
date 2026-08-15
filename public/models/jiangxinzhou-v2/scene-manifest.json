@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-15",
+  "version": "2026-08-15-v13",
   "origin": [
     118.6982074,
     32.0354297
@@ -216,88 +216,90 @@
   ],
   "ferryAssets": [
     {
-      "id": "qigan-pier-lod1",
-      "url": "/models/jiangxinzhou-v2/ferry-qigan-pier-lod1.glb",
+      "id": "qigan-pier-v13-lod1",
+      "url": "/models/jiangxinzhou-v2/ferry-qigan-pier-v13-lod1.glb",
       "units": "metres",
       "forward": "+X",
       "lod": 1,
       "assetKind": "terminal",
+      "evidenceLevel": "triangulated",
       "evidenceRefs": [
-        "ferry-official-2024",
-        "ferry-media-2024",
-        "ferry-map-crosscheck-2026"
+        "ferry-official-image-set-2024",
+        "ferry-osm-qigan-building",
+        "ferry-position-audit-v13"
       ],
-      "bytes": 45172
+      "bytes": 68736
     },
     {
-      "id": "qigan-pier-lod2",
-      "url": "/models/jiangxinzhou-v2/ferry-qigan-pier-lod2.glb",
+      "id": "qigan-pier-v13-lod2",
+      "url": "/models/jiangxinzhou-v2/ferry-qigan-pier-v13-lod2.glb",
       "units": "metres",
       "forward": "+X",
       "lod": 2,
       "assetKind": "terminal",
+      "evidenceLevel": "triangulated",
       "evidenceRefs": [
-        "ferry-official-2024",
-        "ferry-media-2024",
-        "ferry-map-crosscheck-2026"
+        "ferry-official-image-set-2024",
+        "ferry-osm-qigan-building",
+        "ferry-position-audit-v13"
       ],
-      "bytes": 63648
+      "bytes": 104104
     },
     {
-      "id": "mianhuadi-pier-lod1",
-      "url": "/models/jiangxinzhou-v2/ferry-mianhuadi-pier-lod1.glb",
+      "id": "mianhuadi-pier-v13-lod1",
+      "url": "/models/jiangxinzhou-v2/ferry-mianhuadi-pier-v13-lod1.glb",
       "units": "metres",
       "forward": "+X",
       "lod": 1,
       "assetKind": "terminal",
+      "evidenceLevel": "estimated",
       "evidenceRefs": [
         "ferry-official-2024",
-        "ferry-media-2024",
-        "ferry-map-crosscheck-2026"
+        "ferry-position-audit-v13"
       ],
-      "bytes": 48092
+      "bytes": 55628
     },
     {
-      "id": "mianhuadi-pier-lod2",
-      "url": "/models/jiangxinzhou-v2/ferry-mianhuadi-pier-lod2.glb",
+      "id": "mianhuadi-pier-v13-lod2",
+      "url": "/models/jiangxinzhou-v2/ferry-mianhuadi-pier-v13-lod2.glb",
       "units": "metres",
       "forward": "+X",
       "lod": 2,
       "assetKind": "terminal",
+      "evidenceLevel": "estimated",
       "evidenceRefs": [
         "ferry-official-2024",
-        "ferry-media-2024",
-        "ferry-map-crosscheck-2026"
+        "ferry-position-audit-v13"
       ],
-      "bytes": 66688
+      "bytes": 75424
     },
     {
-      "id": "zhongshan-106-lod1",
-      "url": "/models/jiangxinzhou-v2/transport-passenger-ferry-lod1.glb",
+      "id": "zhongshan-106-v13-lod1",
+      "url": "/models/jiangxinzhou-v2/transport-zhongshan-106-v13-lod1.glb",
       "units": "metres",
       "forward": "+X",
       "lod": 1,
       "assetKind": "vessel",
+      "evidenceLevel": "triangulated",
       "evidenceRefs": [
-        "ferry-official-2024",
-        "ferry-media-2024",
-        "ferry-map-crosscheck-2026"
+        "ferry-official-image-set-2024",
+        "ferry-public-video-2024"
       ],
-      "bytes": 43640
+      "bytes": 53176
     },
     {
-      "id": "zhongshan-106-lod2",
-      "url": "/models/jiangxinzhou-v2/transport-passenger-ferry-lod2.glb",
+      "id": "zhongshan-106-v13-lod2",
+      "url": "/models/jiangxinzhou-v2/transport-zhongshan-106-v13-lod2.glb",
       "units": "metres",
       "forward": "+X",
       "lod": 2,
       "assetKind": "vessel",
+      "evidenceLevel": "triangulated",
       "evidenceRefs": [
-        "ferry-official-2024",
-        "ferry-media-2024",
-        "ferry-map-crosscheck-2026"
+        "ferry-official-image-set-2024",
+        "ferry-public-video-2024"
       ],
-      "bytes": 74712
+      "bytes": 85804
     }
   ]
 }

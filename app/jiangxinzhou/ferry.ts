@@ -42,11 +42,13 @@ export type FerryTerminalPlacement = {
   terminalId: FerryTerminalId;
   waterAnchor: GeoPoint;
   landEntranceAnchor: GeoPoint;
+  structureAnchor: GeoPoint;
   headingDeg: number;
   /** Local scene metres: east, south. */
   berthOffsetM: [number, number];
   /** Width, depth and height used for close camera framing. */
   cameraBoundsM: [number, number, number];
+  sourceAgreement: string;
   confidence: "verified" | "triangulated" | "estimated";
 };
 
@@ -99,9 +101,11 @@ export const ferryTerminals: FerryTerminalProfile[] = ferryDataGenerated.termina
     terminalId: terminal.id,
     waterAnchor: [...terminal.placement.waterAnchor] as GeoPoint,
     landEntranceAnchor: [...terminal.placement.landEntranceAnchor] as GeoPoint,
+    structureAnchor: [...terminal.placement.structureAnchor] as GeoPoint,
     headingDeg: terminal.placement.headingDeg,
     berthOffsetM: [...terminal.placement.berthOffsetM] as [number, number],
     cameraBoundsM: [...terminal.placement.cameraBoundsM] as [number, number, number],
+    sourceAgreement: terminal.placement.sourceAgreement,
     confidence: terminal.confidence,
   },
   confidence: terminal.confidence,

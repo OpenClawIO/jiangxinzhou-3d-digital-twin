@@ -1,0 +1,71 @@
+{
+  "version": "13.0.0",
+  "snapshot": "2026-08-15",
+  "canonicalCrs": "EPSG:4326",
+  "coordinatePolicy": "Only WGS84 coordinates are stored in production data. GCJ-02 and BD-09 coordinates below are derived comparison coordinates, not observations returned by the providers.",
+  "routeEvidence": {
+    "osmWayId": 137693220,
+    "url": "https://www.openstreetmap.org/way/137693220",
+    "lengthM": 260,
+    "status": "triangulated",
+    "notes": "The two OSM ferry-route endpoints coincide with the accepted water-side anchors. The route is a direct water connection and does not cross land."
+  },
+  "terminals": [
+    {
+      "terminalId": "qigan-pier",
+      "accepted": {
+        "waterAnchor": [118.6975913, 32.009866],
+        "landEntranceAnchor": [118.6969909, 32.0098559],
+        "structureAnchor": [118.69705785, 32.0098559],
+        "headingDeg": 0,
+        "berthOffsetM": [16, 0],
+        "confidence": "triangulated"
+      },
+      "osmStructure": {
+        "wayId": 1350651991,
+        "nameZh": "旗杆渡口",
+        "bounds": [118.6969909, 32.009721, 118.6971248, 32.0099908],
+        "centroid": [118.69705785, 32.0098559],
+        "waterAnchorToCentroidM": 50.4
+      },
+      "providerComparison": {
+        "expectedGcj02FromAcceptedWgs84": [118.7027548613, 32.0077913797],
+        "expectedBd09FromAcceptedWgs84": [118.7092001204, 32.0139180819],
+        "durableExactPoiObservation": false,
+        "notes": "Public Amap/Baidu web search did not expose a durable exact terminal POI without interactive verification. These converted values are for future licensed-API comparison only."
+      },
+      "decision": "Move the land-side model origin west to the named OSM building footprint and rotate the terminal axis eastward toward the ferry-route endpoint. The previous land anchor was too close to the water and produced an incorrect -29 degree heading. Offset the vessel centre 16 metres into the channel so its stern meets, but does not intersect, the ramp."
+    },
+    {
+      "terminalId": "mianhuadi-pier",
+      "accepted": {
+        "waterAnchor": [118.6999968, 32.0087366],
+        "landEntranceAnchor": [118.700228, 32.008621],
+        "structureAnchor": [118.700228, 32.008621],
+        "headingDeg": 151,
+        "berthOffsetM": [-14, -7.8],
+        "confidence": "estimated"
+      },
+      "nearbyProviderEvidence": {
+        "amapPlaceId": "B0FFHGNPVW",
+        "nameZh": "上新河地区丛葬地纪念碑",
+        "rawGcj02": [118.70576, 32.008268],
+        "convertedWgs84": [118.7005814616, 32.0103293572],
+        "distanceToWaterAnchorM": 185,
+        "scope": "neighborhood-only"
+      },
+      "providerComparison": {
+        "expectedGcj02FromAcceptedWgs84": [118.7051648788, 32.0066661847],
+        "expectedBd09FromAcceptedWgs84": [118.7116218116, 32.0127502536],
+        "durableExactPoiObservation": false,
+        "notes": "The water anchor is fixed by the mapped ferry route. The land entrance and facility footprint remain estimated because no durable exact Amap/Baidu POI or distributable building footprint was obtained."
+      },
+      "decision": "Keep the verified water-route endpoint and the east-bank approach direction, but mark the land-side facility geometry as estimated. The berth center is offset about 16 metres into the channel so the vessel stern meets the ramp without intersecting it. Do not invent a landmark roof or claim survey-grade placement."
+    }
+  ],
+  "rejectedClaims": [
+    "Amap and Baidu exact terminal coordinates are dual-confirmed",
+    "The route is 800 metres long",
+    "Mianhuadi terminal has a red pitched-roof gatehouse"
+  ]
+}

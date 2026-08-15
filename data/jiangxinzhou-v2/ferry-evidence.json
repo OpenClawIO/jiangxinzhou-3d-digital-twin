@@ -1,6 +1,6 @@
 {
-  "version": "12.0.0",
-  "snapshot": "2026-08-14",
+  "version": "13.0.0",
+  "snapshot": "2026-08-15",
   "canonicalCrs": "EPSG:4326",
   "redistributionPolicy": "Photos are reference-only. The application distributes original geometry and materials, not third-party photographs, map tiles, logos, or commercial map SDK content.",
   "sources": [
@@ -14,6 +14,68 @@
       "verifies": ["route-restored", "07:00-18:00-window", "18-sailings", "zhongshan-106", "human-vehicle-separation", "five-minute-crossing"],
       "license": "Copyrighted editorial photos; reference-only",
       "confidence": "verified"
+    },
+    {
+      "id": "ferry-official-image-set-2024",
+      "title": "南京文旅轮渡图组（建模参考）",
+      "url": "https://news.jstv.com/a/20240511/1715400462376.shtml",
+      "publisher": "南京文旅 / 荔枝新闻",
+      "date": "2024-05-11",
+      "views": ["zhongshan-106-broadside", "zhongshan-106-boarding-lanes", "qigan-front-entrance", "published-timetable"],
+      "imageUrls": [
+        "https://static.jstv.com/gather/hl_dp/20240511/62/9371764196939384502.jpg",
+        "https://static.jstv.com/gather/hl_dp/20240511/47/4608547477788166147.jpg",
+        "https://static.jstv.com/gather/hl_dp/20240511/75/6146367333357123627.jpg",
+        "https://static.jstv.com/gather/hl_dp/20240511/85/17392825744745392033.jpg"
+      ],
+      "verifies": ["qigan-cream-masonry-arched-gate", "zhongshan-106-open-single-deck", "dark-hull", "white-superstructure", "orange-red-safety-band", "separate-passenger-and-vehicle-lanes"],
+      "license": "Copyrighted editorial photos; downloaded only to an untracked local reference cache and not redistributed",
+      "confidence": "verified"
+    },
+    {
+      "id": "ferry-osm-qigan-building",
+      "title": "旗杆渡口 named building footprint",
+      "url": "https://www.openstreetmap.org/way/1350651991",
+      "publisher": "OpenStreetMap contributors",
+      "date": "2026-08-15-accessed",
+      "views": ["building-footprint", "shoreline-offset"],
+      "verifies": ["qigan-land-structure-position", "qigan-water-to-building-distance"],
+      "license": "ODbL source geometry; attribution retained",
+      "confidence": "triangulated"
+    },
+    {
+      "id": "ferry-position-audit-v13",
+      "title": "Ferry terminal coordinate and placement audit",
+      "url": "local:data/jiangxinzhou-v2/ferry-position-audit.json",
+      "publisher": "Project evidence ledger",
+      "date": "2026-08-15",
+      "views": ["water-anchor", "land-anchor", "structure-anchor", "heading", "provider-comparison"],
+      "verifies": ["accepted-v13-placement", "coordinate-provenance", "unresolved-provider-limitations"],
+      "license": "Project data",
+      "confidence": "triangulated"
+    },
+    {
+      "id": "ferry-xhs-public-access-audit",
+      "title": "小红书公开检索可访问性审计",
+      "url": "https://www.xiaohongshu.com/search_result?keyword=%E6%A3%89%E8%8A%B1%E5%A0%A4%E6%B8%A1%E5%8F%A3&type=51",
+      "publisher": "小红书公开网页",
+      "date": "2026-08-15-accessed",
+      "views": [],
+      "verifies": ["login-wall-present"],
+      "license": "No content copied; login controls were not bypassed",
+      "confidence": "verified",
+      "notes": "The public page required login to view results. No Xiaohongshu image was used for modelling; official and media sources were used instead."
+    },
+    {
+      "id": "ferry-public-video-2024",
+      "title": "旗杆—棉花堤轮渡公开视频视角",
+      "url": "https://www.bilibili.com/video/BV1Ls421w7f6/",
+      "publisher": "Bilibili public video",
+      "date": "2024",
+      "views": ["crossing", "approach", "terminal-context"],
+      "verifies": ["route-context", "vessel-proportions"],
+      "license": "Reference-only; no frames redistributed",
+      "confidence": "triangulated"
     },
     {
       "id": "ferry-media-2024",

@@ -20,27 +20,32 @@ export const ferryDataGenerated = {
         32.009866
       ],
       "bank": "jiangxinzhou",
-      "modelLod1": "/models/jiangxinzhou-v2/ferry-qigan-pier-lod1.glb",
-      "modelLod2": "/models/jiangxinzhou-v2/ferry-qigan-pier-lod2.glb",
+      "modelLod1": "/models/jiangxinzhou-v2/ferry-qigan-pier-v13-lod1.glb",
+      "modelLod2": "/models/jiangxinzhou-v2/ferry-qigan-pier-v13-lod2.glb",
       "placement": {
         "waterAnchor": [
           118.6975913,
           32.009866
         ],
         "landEntranceAnchor": [
-          118.697381,
-          32.009977
+          118.6969909,
+          32.0098559
         ],
-        "headingDeg": -29,
+        "structureAnchor": [
+          118.69705785,
+          32.0098559
+        ],
+        "headingDeg": 0,
         "berthOffsetM": [
-          12.2,
-          6.8
+          16,
+          0
         ],
         "cameraBoundsM": [
-          72,
-          34,
-          30
-        ]
+          92,
+          44,
+          34
+        ],
+        "sourceAgreement": "osm-route-plus-named-building-plus-official-photo"
       },
       "confidence": "triangulated"
     },
@@ -55,8 +60,8 @@ export const ferryDataGenerated = {
         32.0087366
       ],
       "bank": "mainland-east-bank",
-      "modelLod1": "/models/jiangxinzhou-v2/ferry-mianhuadi-pier-lod1.glb",
-      "modelLod2": "/models/jiangxinzhou-v2/ferry-mianhuadi-pier-lod2.glb",
+      "modelLod1": "/models/jiangxinzhou-v2/ferry-mianhuadi-pier-v13-lod1.glb",
+      "modelLod2": "/models/jiangxinzhou-v2/ferry-mianhuadi-pier-v13-lod2.glb",
       "placement": {
         "waterAnchor": [
           118.6999968,
@@ -66,18 +71,23 @@ export const ferryDataGenerated = {
           118.700228,
           32.008621
         ],
+        "structureAnchor": [
+          118.700228,
+          32.008621
+        ],
         "headingDeg": 151,
         "berthOffsetM": [
-          -12.2,
-          -6.8
+          -14,
+          -7.8
         ],
         "cameraBoundsM": [
-          78,
-          38,
+          82,
+          42,
           32
-        ]
+        ],
+        "sourceAgreement": "osm-route-plus-official-route-context"
       },
-      "confidence": "triangulated"
+      "confidence": "estimated"
     }
   ],
   "route": {

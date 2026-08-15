@@ -18,8 +18,8 @@ import {
 import type { Language } from "./locales";
 import { projectPoint, projectPolyline } from "./mapGeometry";
 
-const FERRY_LOD1 = "/models/jiangxinzhou-v2/transport-passenger-ferry-lod1.glb";
-const FERRY_LOD2 = "/models/jiangxinzhou-v2/transport-passenger-ferry-lod2.glb";
+const FERRY_LOD1 = "/models/jiangxinzhou-v2/transport-zhongshan-106-v13-lod1.glb";
+const FERRY_LOD2 = "/models/jiangxinzhou-v2/transport-zhongshan-106-v13-lod2.glb";
 
 type Props = {
   visible: boolean;
@@ -42,9 +42,9 @@ class FerryAssetBoundary extends Component<{ fallback: ReactNode; children: Reac
 
 function ProceduralTerminal({ detailed }: { detailed: boolean }) {
   return <group>
-    <mesh position={[0, 0.55, 0]}><boxGeometry args={[42, 0.9, 9]} /><meshStandardMaterial color="#667575" roughness={0.86} /></mesh>
-    <mesh position={[13, 0.94, 0]}><boxGeometry args={[12, 0.22, 7]} /><meshStandardMaterial color="#27383c" roughness={0.82} /></mesh>
-    <mesh position={[-10, 4.1, 0]}><boxGeometry args={[15, 0.24, 6.4]} /><meshStandardMaterial color="#e1e6df" roughness={0.55} /></mesh>
+    <mesh position={[-20, 0.55, 0]}><boxGeometry args={[48, 0.9, 9]} /><meshStandardMaterial color="#6b706c" roughness={0.9} /></mesh>
+    <mesh position={[1, 0.72, 0]}><boxGeometry args={[8, 0.5, 7]} /><meshStandardMaterial color="#4d5552" roughness={0.86} /></mesh>
+    <mesh position={[-44, 3.3, 0]}><boxGeometry args={[1.2, 6.3, 15]} /><meshStandardMaterial color="#b8b19c" roughness={0.82} /></mesh>
     {detailed && <>
       <mesh position={[-18, 2.1, 0]}><boxGeometry args={[0.22, 2.4, 4.6]} /><meshStandardMaterial color="#606d6d" metalness={0.5} roughness={0.38} /></mesh>
       <mesh position={[14, 1.2, 3.7]}><boxGeometry args={[10, 0.55, 0.22]} /><meshStandardMaterial color="#efb72b" roughness={0.6} /></mesh>
@@ -96,10 +96,11 @@ function FerryTerminal({ terminal, detailed, language, selected, onSelectStop }:
 
 function ProceduralFerry() {
   return <group>
-    <mesh position={[0, 1.1, 0]}><boxGeometry args={[18, 2.2, 4.8]} /><meshStandardMaterial color="#176688" roughness={0.45} metalness={0.12} /></mesh>
-    <mesh position={[-0.5, 2.8, 0]}><boxGeometry args={[10.5, 2.3, 3.8]} /><meshStandardMaterial color="#e7eeea" roughness={0.52} /></mesh>
-    <mesh position={[0, 1.7, 2.42]}><boxGeometry args={[15, 0.22, 0.14]} /><meshStandardMaterial color="#d32e28" /></mesh>
-    <mesh position={[0, 1.7, -2.42]}><boxGeometry args={[15, 0.22, 0.14]} /><meshStandardMaterial color="#d32e28" /></mesh>
+    <mesh position={[0, 1.05, 0]}><boxGeometry args={[20, 2.0, 5.4]} /><meshStandardMaterial color="#10191a" roughness={0.45} metalness={0.16} /></mesh>
+    <mesh position={[-3, 4.2, 0]}><boxGeometry args={[11.5, 0.25, 4.8]} /><meshStandardMaterial color="#e1e0d5" roughness={0.56} /></mesh>
+    <mesh position={[5, 3.0, 0]}><boxGeometry args={[3.2, 2.5, 3.6]} /><meshStandardMaterial color="#e1e0d5" roughness={0.56} /></mesh>
+    <mesh position={[0, 1.65, 2.72]}><boxGeometry args={[18, 0.36, 0.14]} /><meshStandardMaterial color="#ef4b18" /></mesh>
+    <mesh position={[0, 1.65, -2.72]}><boxGeometry args={[18, 0.36, 0.14]} /><meshStandardMaterial color="#ef4b18" /></mesh>
   </group>;
 }
 
