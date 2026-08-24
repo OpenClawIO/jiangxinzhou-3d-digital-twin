@@ -72,17 +72,22 @@ function patchBuildingMaterial(material: THREE.MeshStandardMaterial, uniforms: M
   material.needsUpdate = true;
 }
 
-function patchTerrainMaterial(material: THREE.MeshStandardMaterial) {
+function patchTerrainMaterial(material: THREE.MeshStandardMaterial, uniforms: MaterialRuntimeUniforms) {
   material.roughness = 0.94;
   material.onBeforeCompile = (shader) => {
+    shader.uniforms.uJxzNightFactor = uniforms.nightFactor;
     addWorldVaryings(shader);
-    shader.fragmentShader = shader.fragmentShader.replace("#include <opaque_fragment>", `#include <opaque_fragment>
+    shader.fragmentShader = shader.fragmentShader.replace("#include <common>", `#include <common>
+      uniform float uJxzNightFactor;
+    `).replace("#include <opaque_fragment>", `#include <opaque_fragment>
       float jxzShore = smoothstep(-1.0, 8.0, vJxzWorldPosition.y);
       float jxzTerrainSlope = 0.9 + 0.1 * max(vJxzWorldNormal.y, 0.0);
+      vec3 jxzNightTint = vec3(0.72, 0.84, 0.9);
       gl_FragColor.rgb *= mix(0.87, 1.0, jxzShore) * jxzTerrainSlope;
+      gl_FragColor.rgb = mix(gl_FragColor.rgb, gl_FragColor.rgb * jxzNightTint + vec3(0.012, 0.028, 0.034), uJxzNightFactor * 0.52);
     `);
   };
-  material.customProgramCacheKey = () => "jxz-terrain-v6";
+  material.customProgramCacheKey = () => "jxz-terrain-v14";
   material.needsUpdate = true;
 }
 
@@ -162,7 +167,7 @@ export function prepareScene(source: THREE.Group, options: { role: AssetRole; ti
       materialClones.set(sourceMaterial, clone);
       if (clone instanceof THREE.MeshStandardMaterial) {
         if (options.role === "buildings" && options.tier !== "efficiency") patchBuildingMaterial(clone, uniforms);
-        else if (options.role === "terrain") patchTerrainMaterial(clone);
+        else if (options.role === "terrain") patchTerrainMaterial(clone, uniforms);
         else if (options.role === "vegetation" && options.tier !== "efficiency" && VEGETATION_MATERIAL.test(clone.name)) patchVegetationMaterial(clone, uniforms);
         if ((options.nightLighting || options.role === "nanjing-eye") && options.role !== "buildings") tuneNightMaterial(clone, uniforms);
       }

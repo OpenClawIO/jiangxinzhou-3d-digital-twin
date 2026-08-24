@@ -717,8 +717,8 @@ function CameraRig({ command, phase, items, controls, quality, reducedMotion, vi
         const dimensions = bounds?.getSize(new THREE.Vector3()) ?? new THREE.Vector3(420, 0, 420);
         const fit = Math.max(360, Math.hypot(dimensions.x, dimensions.z) * 0.72) * Math.min(1.5, safeScale);
         cameraGoal.set(target[0] + fit * 0.36, Math.max(260, fit * 0.72), target[2] + fit * 0.52);
-      } else if (view === "regional") cameraGoal.set(regionalBounds.center[0] + regionalSpan * 0.06, regionalSpan * (framingQuality === "efficiency" ? 2.6 : 1.85) * Math.min(1.35, safeScale), regionalBounds.center[2] + regionalSpan * 0.2);
-      else if (view === "overview") cameraGoal.set(mapBounds.center[0] + span * 0.06, span * (framingQuality === "efficiency" ? 2.65 : 1.75) * Math.min(1.35, safeScale), mapBounds.center[2] + span * 0.22);
+      } else if (view === "regional") cameraGoal.set(regionalBounds.center[0] + regionalSpan * 0.06, regionalSpan * (framingQuality === "efficiency" ? 2.25 : 1.45) * Math.min(1.35, safeScale), regionalBounds.center[2] + regionalSpan * 0.42);
+      else if (view === "overview") cameraGoal.set(mapBounds.center[0] + span * 0.06, span * (framingQuality === "efficiency" ? 2.05 : 1.3) * Math.min(1.35, safeScale), mapBounds.center[2] + span * 0.45);
       else if (view === "route" && Math.hypot(target[0] - mapBounds.center[0], target[2] - mapBounds.center[2]) > 20) cameraGoal.set(target[0] + 240, Math.max(220, target[1] + 210) * Math.min(1.35, safeScale), target[2] + 290);
       else if (view === "route") cameraGoal.set(mapBounds.center[0] + span * 0.12, span * (framingQuality === "efficiency" ? 1.42 : 1.12) * Math.min(1.35, safeScale), mapBounds.center[2] + span * 0.3);
       else cameraGoal.set(target[0] + 180, Math.max(165, target[1] + 160) * Math.min(1.35, safeScale), target[2] + 220);
@@ -1196,6 +1196,8 @@ function CelestialEnvironment({ state, quality, profile, shadowTarget, shadowEna
     <fog attach="fog" args={[fogColor, 18_000, 48_000]} />
     {!legacy && <><ProceduralSky state={state} /><ProceduralEnvironment state={state} profile={profile} /></>}
     <hemisphereLight intensity={legacy ? 0.16 + state.twilight * 0.52 + state.daylight * 0.92 : 0.12 + state.twilight * 0.38 + state.daylight * 0.58} color={blendColor("#7183a5", "#f5f6e9", state.daylight)} groundColor={blendColor("#07151f", "#315f63", state.daylight)} />
+    <ambientLight intensity={legacy ? 0.08 : 0.1 + state.night * 0.14 + state.twilight * 0.08} color={blendColor("#55769a", "#f1f4e6", state.daylight)} />
+    <pointLight position={[regionalBounds.center[0], 760, regionalBounds.center[2]]} intensity={state.night * 0.72 + state.horizonGlow * 0.18} distance={8_500} decay={1.65} color="#7898ba" />
     <FocusSunLight state={state} profile={profile} target={shadowTarget} enabled={shadowEnabled} />
     <directionalLight position={moonPosition} intensity={moonStrength} color="#9ebae8" />
     <CelestialDisc kind="sun" state={state} position={sunPosition} />

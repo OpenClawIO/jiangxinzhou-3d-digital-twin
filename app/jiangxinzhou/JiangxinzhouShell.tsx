@@ -30,7 +30,7 @@ export default function JiangxinzhouShell({ landmarks }: { landmarks: Landmark[]
 
   return (
     <>
-      <header className="jiangxinzhou-seo-copy">
+      <header className="jiangxinzhou-seo-copy v14-seo-copy">
         <div><p className="jiangxinzhou-eyebrow">NANJING · JIANGXINZHOU / 3D TIME-SPACE</p><h1>{pageCopy.title[language]}</h1></div>
         <p>{pageCopy.intro[language]}</p>
       </header>

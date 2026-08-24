@@ -110,7 +110,9 @@ export function detectRenderCapabilities(): RenderCapabilities {
       timerQuery: Boolean(gl.getExtension("EXT_disjoint_timer_query_webgl2")),
       parallelCompile: Boolean(gl.getExtension("KHR_parallel_shader_compile")),
     };
-    gl.getExtension("WEBGL_lose_context")?.loseContext();
+    // Do not call WEBGL_lose_context here. This probe runs after the real
+    // canvas is mounted; on Chromium it can invalidate the shared GPU
+    // context during a refresh even though the temporary canvas is separate.
     return capabilities;
   } catch {
     return { webgl2: false, maxTextureSize: 0, maxSamples: 0, timerQuery: false, parallelCompile: false };
